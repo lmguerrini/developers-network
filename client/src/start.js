@@ -9,7 +9,7 @@ let elem;
 if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
-    elem = <p>Home Page!</p>;
+    elem = <h1>Home Page!</h1>;
 }
 
 //ReactDOM.render(<HelloWorld />, document.querySelector("main"));
@@ -18,8 +18,9 @@ if (location.pathname === "/welcome") {
 ReactDOM.render(elem, document.querySelector("main"));
 
 /* 
-start.js => render Welcome component (Registrtion is its child)
+start.js => render Welcome component 
+Welcome => render Registration, Login & ResetPassword (which are siblings and Welcome's children) components
 
 start.js => render HelloWorld component
-HelloWorld => Greetee & Counter (which are siblings) components
+HelloWorld => render Greetee & Counter (which are siblings) components
 */

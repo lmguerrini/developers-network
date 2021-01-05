@@ -1,5 +1,6 @@
 import { Component } from "react";
-import axios from "axios"; // because it's not available globally like in Vue!
+import axios from "./axios"; // because it's not available globally like in Vue!
+import { Link } from "react-router-dom";
 
 // ["pseudo code"]:
 // 1. render 4 input fields, button, and an error message if there is one
@@ -14,9 +15,9 @@ import axios from "axios"; // because it's not available globally like in Vue!
 // but specific errors are more difficult and is good as code exercise and is a common coding challange
 // generic or specific = "form validation"
 
-export default class Counter extends Component {
-    constructor(props) {
-        super(props);
+export default class Registration extends Component {
+    constructor() {
+        super();
         this.state = {
             first: "",
             last: "",
@@ -67,7 +68,7 @@ export default class Counter extends Component {
     }
 
     handleClick() {
-        //console.log("handleClick working!");
+        //console.log("Registration/ handleClick working!");
         //console.log("this: ", this);
         //console.log("this.state: ", this.state);
 
@@ -97,7 +98,7 @@ export default class Counter extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 <h1>Registration</h1>
                 <div className="registrationError">
                     {this.state.error && (
@@ -119,22 +120,26 @@ export default class Counter extends Component {
                     type="text"
                 />
                 <input
-                    onChange={(e) => this.handleChange(e)}
-                    /* onChange={this.handleChange} */
+                    /* onChange={(e) => this.handleChange(e)} */
+                    onChange={this.handleChange}
                     name="email"
                     placeholder="Email"
-                    type="text"
+                    type="email"
                 />
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
                     onChange={this.handleChange}
                     name="password"
                     placeholder="Password"
-                    type="text"
+                    type="password"
                 />
                 {/* <button onClick={() => this.handleClick()}>Register</button> */}
                 <button onClick={this.handleClick}>Register</button>
-            </div>
+                <p>
+                    Already a member?{" "}
+                    <Link to="/login">Log in!</Link>
+                </p>
+            </>
         );
     }
 }
