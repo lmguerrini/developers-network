@@ -18,4 +18,27 @@ module.exports.getUserInfo = (email) => {
     return db.query(q, [email]);
 };
 
+// resetpsw
+module.exports.checkUserByEmail = (email) => {
+    const q = `SELECT id, email, password FROM users WHERE email = ($1)`;
+    return db.query(q, [email]);
+};
 
+module.exports.addSecretCodeEmail = (email, code) => {
+    const q = `INSERT INTO reset_codes (email, code)
+    VALUES ($1 , $2) RETURNING *`;
+    const params = [email, code];
+    return db.query(q, params);
+};
+
+module.exports.getCodeByEmail = () => {
+    const q = `SELECT * FROM reset_codes WHERE CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'`;
+    return db.query(q);
+};
+
+module.exports.updatePassword = (password, email) => {
+    const q = `UPDATE users
+    SET password = ($1) WHERE email = ($2) RETURNING *`;
+    const params = [password, email];
+    return db.query(q, params);
+};

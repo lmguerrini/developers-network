@@ -76,7 +76,7 @@ export default class Registration extends Component {
         axios
             .post("/registration", this.state)
             .then(({ data }) => {
-                console.log("data: ", data);
+                //console.log("data: ", data);
                 // 2. process the response
                 // --- error: render error message
                 // (2.1) put something in state that indicates there's an error

@@ -7,7 +7,7 @@ import ResetPassword from "./resetpsw";
 export default function Welcome() {
     return (
         <div>
-            <h1>Welcome to my Social Network!</h1>
+            <h1>Welcome to The Social Network!</h1>
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Registration} />

@@ -10,7 +10,7 @@ export default class ResetPassword extends Component {
             email: "",
             password: "",
             error: false,
-            component: 3,
+            component: 1,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleResetPassword = this.handleResetPassword.bind(this);
@@ -27,7 +27,7 @@ export default class ResetPassword extends Component {
     handleResetPassword() {
         //console.log("ResetPassword/ handleResetPassword working!");;
         axios
-            .post("/reset-password", this.state)
+            .post("/reset/password", this.state)
             .then(({ data }) => {
                 //console.log("ResetPassword-data: ", data);
                 if (data.error) {
@@ -49,7 +49,7 @@ export default class ResetPassword extends Component {
     handleVerifyPassword() {
         //console.log("ResetPassword/ handleVerifyPassword working!");;
         axios
-            .post("/verify-password", this.state)
+            .post("/reset/password/verify", this.state)
             .then(({ data }) => {
                 //console.log("ResetPassword-data: ", data);
                 if (data.error) {
@@ -106,7 +106,7 @@ export default class ResetPassword extends Component {
                     {this.state.component === 2 && (
                         <>
                             <h4>
-                                Please enter the code you received by email:
+                                Please enter the code you received by email.
                             </h4>
                             <input
                                 /* onChange={(e) => this.handleChange(e)} */
@@ -135,8 +135,8 @@ export default class ResetPassword extends Component {
                         <>
                             <h4>Success!</h4>
                             <p>
-                                You can now{" "}
-                                <Link to="/login">log in</Link> with your new password.
+                                You can now <Link to="/login">log in</Link> with
+                                your new password.
                             </p>
                         </>
                     )}
