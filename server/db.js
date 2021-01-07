@@ -42,3 +42,16 @@ module.exports.updatePassword = (password, email) => {
     const params = [password, email];
     return db.query(q, params);
 };
+
+// upload profilePic
+module.exports.getUserProfile = (id) => {
+    const q = `SELECT first, last, email, profile_pic FROM users WHERE id = ($1)`;
+    return db.query(q, [id]);
+};
+
+module.exports.updateProfilePic = (id, url) => {
+    const q = `UPDATE users
+    SET profile_pic = ($1) WHERE id = ($2)`;
+    const params = [id, url];
+    return db.query(q, params);
+};

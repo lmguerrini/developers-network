@@ -30,15 +30,10 @@ export default class ResetPassword extends Component {
             .post("/reset/password", this.state)
             .then(({ data }) => {
                 //console.log("ResetPassword-data: ", data);
-                if (data.error) {
-                    this.setState({
-                        error: true,
-                    });
-                } else {
-                    this.setState({
-                        component: data.component,
-                    });
-                }
+                this.setState({
+                    error: data.error, // t/f
+                    component: data.component, // 1/2
+                });
             })
             .catch((err) => {
                 console.error("err axios POST/reset-password catch: ", err);
@@ -51,16 +46,11 @@ export default class ResetPassword extends Component {
         axios
             .post("/reset/password/verify", this.state)
             .then(({ data }) => {
-                //console.log("ResetPassword-data: ", data);
-                if (data.error) {
-                    this.setState({
-                        error: true,
-                    });
-                } else {
-                    this.setState({
-                        component: data.component,
-                    });
-                }
+                console.log("ResetPassword-data: ", data);
+                this.setState({
+                    error: data.error, // t/f
+                    component: data.component, // 2/3
+                });
             })
             .catch((err) => {
                 console.error("err axios POST/verify-password catch: ", err);

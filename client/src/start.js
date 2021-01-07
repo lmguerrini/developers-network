@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
 
-// this tells React to read the URL, and based on what's there
-// render the appropriate view
+// this tells React to read the URL, and based on what's there render the appropriate view
 let elem;
 if (location.pathname === "/welcome") {
     elem = <Welcome />;

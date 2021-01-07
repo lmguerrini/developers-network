@@ -8,6 +8,36 @@ const { hash, compare } = require("./bc");
 const csurf = require("csurf");
 const ses = require("./ses");
 const cryptoRandomString = require("crypto-random-string"); // => generates the "secretCode"(=random string)
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const s3 = require("./s3");
+const { s3Url } = require("./config.json");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+        //callback(null, "/uploads");
+    },
+    filename: function (req, file, callback) {
+        // unique id (24) generated
+        uidSafe(24)
+            .then(function (uid) {
+                callback(null, uid + path.extname(file.originalname));
+                //callback(null, `${uid} ${path.extname(file.originalname)}`);
+            })
+            .catch((err) => {
+                callback("err (index.js) catch diskStorage/filename: ", err);
+            });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        // limit to prevent DOS attack
+        fileSize: 2097152, //2MB
+    },
+});
 
 app.use(compression());
 
@@ -141,6 +171,7 @@ The Social Network Services Team
                             "Code to reset your password"
                         );
                         res.json({
+                            error: false,
                             component: 2,
                         });
                     })
@@ -170,11 +201,11 @@ The Social Network Services Team
 app.post("/reset/password/verify", (req, res) => {
     //console.log("post(/reset/password/verify req.body: ", req.body);
     const { code } = req.body;
-    //console.log("codeEntered: ", code);
+    //console.log("code entered: ", code);
     db.getCodeByEmail(code)
         .then(({ rows }) => {
             //console.log("rows: ", rows);
-            //console.log("code entered: ", rows.slice(-1)[0].code);
+            //console.log("code sent by email: ", rows.slice(-1)[0].code);
             const codeEntered = code;
             const codeSentByEmail = rows.slice(-1)[0].code;
             if (codeSentByEmail === codeEntered) {
@@ -232,6 +263,44 @@ app.post("/reset/password/verify", (req, res) => {
 /*
  ************************* < APP > *************************
  */
+app.get("/user", (req, res) => {
+    console.log("get/profile id: ", req.session.userId);
+    const id = req.session.userId;
+    db.getUserProfile(id)
+        .then(({ rows }) => {
+            console.log("rows[0]: ", rows[0]);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error(
+                "error in post/upload db.updateProfilePic catch: ",
+                err
+            );
+            //res.json({ error: true });
+        });
+});
+
+app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
+    console.log("post/upload id: ", req.session.userId);
+    const id = req.session.userId;
+    // we can construct the URL needed to be able to see our image
+    const url = `${s3Url}${req.file.filename}`;
+    if (req.file) {
+        db.updateProfilePic(id, url)
+            .then(() => {
+                res.json({ success: true, error: false, profile_pic: url });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in post/upload db.updateProfilePic catch: ",
+                    err
+                );
+                //res.json({ error: true });
+            });
+    } else {
+        res.json({ error: true });
+    }
+});
 
 // NB: always at the end, after the other routes!
 app.get("*", function (req, res) {

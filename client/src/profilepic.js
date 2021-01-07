@@ -9,14 +9,32 @@
     );
 } */
 
-// destructuring it, it's just a personal preference/choice 
-export default function ProfilePic({first, last}) {
-    console.log("props in ProfilePic: ", first, last);
+// destructuring it, it's just a personal preference/choice
+export default function ProfilePic({ first, last, profile_pic, toggleUploader }) {
+    //console.log("props in ProfilePic: ", first, last, profile_pic, toggleUploader);
     return (
         <>
             <h1>
-                Profile Picture: {first} {last}
+                {/* Profile Picture: {first} {last} */}
+                {/* Profile Picture */}
             </h1>
+            {profile_pic ? (
+                <img
+                    className="profile_pic"
+                    src="{profile_pic}"
+                    alt="{`${first} ${last}`}"
+                    onClick={toggleUploader}
+                />
+            ) : (
+                <img
+                    className="profile_pic"
+                    src="/img/defaultProfilePic.png"
+                    alt="default profile_pic"
+                    onClick={toggleUploader}
+                />
+            )}
         </>
     );
 }
+
+// ProfilePic=> its job is to display the profile pic
