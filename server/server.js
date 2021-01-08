@@ -241,7 +241,7 @@ app.post("/reset/password/verify", (req, res) => {
                         res.json({ error: true });
                     });
             } else {
-                console.log("post(/reset/password/verify ELSE");
+                console.log("POST(/reset/password/verify ELSE");
                 res.json({
                     error: true,
                     component: 2,
@@ -264,16 +264,15 @@ app.post("/reset/password/verify", (req, res) => {
  ************************* < APP > *************************
  */
 app.get("/user", (req, res) => {
-    console.log("get/profile id: ", req.session.userId);
     const id = req.session.userId;
     db.getUserProfile(id)
         .then(({ rows }) => {
-            console.log("rows[0]: ", rows[0]);
+            //console.log("rows[0]: ", rows[0]);
             res.json(rows);
         })
         .catch((err) => {
             console.error(
-                "error in post/upload db.updateProfilePic catch: ",
+                "error in POST/upload db.updateProfilePic catch: ",
                 err
             );
             //res.json({ error: true });
@@ -281,18 +280,17 @@ app.get("/user", (req, res) => {
 });
 
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
-    console.log("post/upload id: ", req.session.userId);
     const id = req.session.userId;
     // we can construct the URL needed to be able to see our image
     const url = `${s3Url}${req.file.filename}`;
     if (req.file) {
         db.updateProfilePic(id, url)
             .then(() => {
-                res.json({ success: true, error: false, profile_pic: url });
+                res.json({ error: false, profile_pic: url });
             })
             .catch((err) => {
                 console.error(
-                    "error in post/upload db.updateProfilePic catch: ",
+                    "error in POST/upload db.updateProfilePic catch: ",
                     err
                 );
                 //res.json({ error: true });
@@ -300,6 +298,22 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     } else {
         res.json({ error: true });
     }
+});
+
+app.post("/edit/bio", (req, res) => {
+    //console.log("post(/edit/bio req.body:", req.body)
+    const id = req.session.userId;
+    const { draftBio } = req.body;
+
+    db.updateBio(id, draftBio)
+        .then(() => {
+            //console.log("post(/edit/bio rows[0].bio:", rows[0].bio); 
+            res.json({ error: false, bio: draftBio });
+        })
+        .catch((err) => {
+            console.error("error in POST/edit/bio db.updateBio catch: ", err);
+            //res.json({ error: true });
+        });
 });
 
 // NB: always at the end, after the other routes!

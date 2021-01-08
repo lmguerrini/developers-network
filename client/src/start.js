@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
 
-// this tells React to read the URL, and based on what's there render the appropriate view
 let elem;
+// location.pathname tells React to read the URL, and based on what's there render the appropriate view
 if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
@@ -17,21 +17,21 @@ if (location.pathname === "/welcome") {
 ReactDOM.render(elem, document.querySelector("main"));
 
 /* 
-start.js => render Welcome component 
-Welcome => render Registration, Login & ResetPassword (which are siblings and Welcome's children) components
-
 *** React structure ***
 
 * start.js *
-    * Welcome (parent)
-        - Registration (child)
-        - Login (child)
-        - ResetPassword (child)
-            - component: 1 (enter email address)
-            - component: 2 (enter code received by email)
-            - component: 3 (success!)
-
-    * App (parent)
-        - ProfilPic (child)
-        - Uploader (child)
+    {Logged out}
+        * Welcome (parent)
+            - Registration (child)
+            - Login (child)
+            - ResetPassword (child)
+                - component: 1 (enter email address)
+                - component: 2 (enter code received by email)
+                - component: 3 (success!)
+    {Logged in}
+        * App (parent)
+            - Profile (child)
+                - ProfilPic
+                - BioEditor
+            - Uploader (child)
 */

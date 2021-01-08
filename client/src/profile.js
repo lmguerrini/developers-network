@@ -1,4 +1,10 @@
 import ProfilePic from "./profilepic";
+import BioEditor from "./bioeditor";
+
+/* 
+NB: The Profile component will be responsible for laying out the content we want to show: 
+    the user's name, profile picture, and bio.
+*/
 
 /* export default function ProfilePic(props) {
     console.log("Profile props: ", props);
@@ -12,16 +18,48 @@ import ProfilePic from "./profilepic";
     );
 } */
 
-export default function ProfilePic({ first, last, profile_pic }) {
-    console.log("Profile props: ", first, last, profile_pic);
+// destructuring it, it's just a personal preference
+export default function Profile({
+    first,
+    last,
+    profile_pic,
+    bio,
+    editBio,
+    toggleModalUploader,
+}) {
+    /* console.log(
+        "Profile {props}: ",
+        first,
+        last,
+        profile_pic,
+        bio,
+        editBio,
+        toggleModalUploader
+    ); */
     return (
         <>
-            <h1>User Profile Component</h1>
-            <h3>
-                Hello my name is {first} {last}
-            </h3>
-            <ProfilePic profile_pic="https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fd7%2F68%2Fdd%2Fd768dd77a468d0fb8e84c382cf69cd09.jpg&imgrefurl=https%3A%2F%2Fhu.pinterest.com%2Fpin%2F518336238346131124%2F&tbnid=zVtQSNZXi87BiM&vet=12ahUKEwjagMSLwonuAhVKiRoKHeGhBvsQMygQegUIARDKAQ..i&docid=x2hTP5AHBb4A7M&w=381&h=500&itg=1&q=cool%20ducky%20picture&client=safari&ved=2ahUKEwjagMSLwonuAhVKiRoKHeGhBvsQMygQegUIARDKAQ" />
-            <BioEditor />
+            {/* <h1>User Profile Component(P)</h1> */}
+            <div className="profileContainer">
+                <div>
+                    {/* <h1>Profile=-ProfilePic</h1> */}
+                    <div className="profile_picBigContainer">
+                        <ProfilePic
+                            toggleModalUploader={toggleModalUploader}
+                            profile_pic={profile_pic}
+                            /* <img className="profile_picBig" src={profile_pic} /> */
+                        />
+                    </div>
+                </div>
+                <div>
+                    {/* <h1>Profile=-BioEditor</h1> */}
+                    <div className="bioEditor">
+                        <h3>
+                            Welcome back {first} {last}!
+                        </h3>
+                        <BioEditor bio={bio} editBio={editBio} />
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

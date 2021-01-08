@@ -45,13 +45,21 @@ module.exports.updatePassword = (password, email) => {
 
 // upload profilePic
 module.exports.getUserProfile = (id) => {
-    const q = `SELECT first, last, email, profile_pic FROM users WHERE id = ($1)`;
+    const q = `SELECT * FROM users WHERE id = ($1)`;
     return db.query(q, [id]);
 };
 
 module.exports.updateProfilePic = (id, url) => {
     const q = `UPDATE users
-    SET profile_pic = ($1) WHERE id = ($2)`;
+    SET profile_pic = ($2) WHERE id = ($1)`;
     const params = [id, url];
+    return db.query(q, params);
+};
+
+// edit bio
+module.exports.updateBio = (id, bio) => {
+    const q = `UPDATE users
+    SET bio = ($2) WHERE id = ($1) RETURNING id, bio`;
+    const params = [id, bio];
     return db.query(q, params);
 };

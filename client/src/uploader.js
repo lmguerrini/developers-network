@@ -1,5 +1,5 @@
 import { Component } from "react";
-import axios from "axios";
+import axios from "./axios";
 
 // Uploader needs to be a class component so that it can have state
 export default class Uploader extends Component {
@@ -14,7 +14,7 @@ export default class Uploader extends Component {
     }
 
     /*
-    Uploader three functions:
+    Uploader 3 functions:
     1. store the image the user selected in its own state
     2. send the file to the server
     3. let App know that there's a new profile picture, and that App needs to update its own state
@@ -26,46 +26,32 @@ export default class Uploader extends Component {
         // setImage is called in Uploader but it runs in App!
         // component is called by:
         //this.props.setImage("I'm an argument being ");
-        //console.log("Uploader(handleClick this.state.image: ", this.state.image);
         e.preventDefault();
         var formData = new FormData();
         formData.append("image", this.state.image); // file itself
-        //if (this.state.image) {
-        axios
-            .post("/upload", formData)
-            .then(({ data }) => {
-                console.log("data: ", data);
-                if (data.error) {
-                    this.setState({ error: true });
-                } else {
-                    this.props.setImage(data[0].url);
-                    //this.props.setImage(data.profile_pic);
-                }
-                
-            })
-            .catch(function (error) {
-                console.log(
-                    "error in axios Uploader/handleClick/ catch: ",
-                    error
-                );
-                //this.setState({ error: true });
-            });
-        //}
+        if (this.state.image) {
+            axios
+                .post("/upload", formData)
+                .then(({ data }) => {
+                    //console.log("data: ", data);
+                    console.log("data: ", data.profile_pic);
+                    if (data.error) {
+                        this.setState({ error: true });
+                    } else {
+                        this.props.setImage(data.profile_pic);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(
+                        "error in axios Uploader/handleClick/ catch: ",
+                        error
+                    );
+                    //this.setState({ error: true });
+                });
+        }
     }
 
     handleChange(e) {
-        console.log(
-            "this.state in Uploader/ handleChange this.state: ",
-            this.state
-        );
-        console.log(
-            "this.state in Uploader/ handleChange e.target: ",
-            e.target
-        );
-        console.log(
-            "this.state in Uploader/ handleChange e.target.files[0]: ",
-            e.target.files[0]
-        );
         this.setState(
             {
                 //[e.target.name]: e.target.value,
@@ -89,6 +75,7 @@ export default class Uploader extends Component {
                         <span>Ops, something went wrong!</span>
                     )}
                 </div>
+                <h4>Here you can upload your profile picture:</h4>
                 <input
                     name="image"
                     id="image"

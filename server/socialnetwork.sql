@@ -14,6 +14,7 @@ CREATE TABLE users(
 -- SELECT * FROM users;
 -- SELECT * FROM users WHERE id  = 1;
 -- DELETE FROM users WHERE id  = 1;
+-- UPDATE users SET profile_pic = null WHERE id  = 1;
 -- DELETE * FROM users;
 
 CREATE TABLE reset_codes(
