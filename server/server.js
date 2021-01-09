@@ -263,7 +263,8 @@ app.post("/reset/password/verify", (req, res) => {
 /*
  ************************* < APP > *************************
  */
-app.get("/user", (req, res) => {
+app.get("/user/info", (req, res) => {
+    //console.log("id: ", req.session.userId);
     const id = req.session.userId;
     db.getUserProfile(id)
         .then(({ rows }) => {
@@ -307,12 +308,37 @@ app.post("/edit/bio", (req, res) => {
 
     db.updateBio(id, draftBio)
         .then(() => {
-            //console.log("post(/edit/bio rows[0].bio:", rows[0].bio); 
+            //console.log("post(/edit/bio rows[0].bio:", rows[0].bio);
             res.json({ error: false, bio: draftBio });
         })
         .catch((err) => {
             console.error("error in POST/edit/bio db.updateBio catch: ", err);
             //res.json({ error: true });
+        });
+});
+
+app.get("/other-user/info/:id", (req, res) => {
+    //console.log("params.id: ", req.params.id);
+    console.log("body: ", req.body);
+    const id = req.session.userId;
+    const requestedId = req.params.id;
+    console.log("id: ", id);
+    console.log("requestedId: ", requestedId);
+    if (requestedId == id) {
+        console.log("same id requested");
+        res.json({ requestedInvalidId: true });
+    }
+    db.getOtherUserInfo(requestedId)
+        .then(({ rows }) => {
+            console.log("differemt id requested");
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/upload db.getOtherUserInfo catch: ",
+                err
+            );
+            res.json({ error: true });
         });
 });
 

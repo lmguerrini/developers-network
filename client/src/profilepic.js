@@ -1,5 +1,6 @@
 //import React from 'react'; // since vers.17 we don't need to import it anymore
 
+// Profile receives all it's data as props from the App component
 /* export default function ProfilePic(props) {
     console.log("props in ProfilePic: ", props);
     return (

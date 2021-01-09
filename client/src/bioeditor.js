@@ -70,7 +70,7 @@ export default class BioEditor extends Component {
                 {this.state.bioEditorIsVisible
                     ? this.state.bioEditorIsVisible && (
                         <div>
-                            <h6>[editMode: true]</h6>
+                            {/* <h6>[editMode]</h6> */}
                             <textarea
                                 name="draftBio"
                                 rows="5"
@@ -86,7 +86,7 @@ export default class BioEditor extends Component {
                     )
                     : !this.state.bioEditorIsVisible && (
                         <div>
-                            <h6>[editMode: false]</h6>
+                            {/* <h6>[displayMode]</h6> */}
                             {<p>{this.props.bio}</p>}
                             <button onClick={this.toggleTextarea}>
                                 {!this.props.bio ? "Add bio" : "Edit"}
