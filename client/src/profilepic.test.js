@@ -8,6 +8,9 @@ import { render, fireEvent } from "@testing-library/react";
 
 test("When no url is passed, /default.jpg is used as src", () => {
     // container = document (our entry point into the DOM)
+    /* The render method returns an object with a container property 
+    whose value is an element containing the rendered DOM tree 
+    of your component */
     const { container } = render(<ProfilePic />);
     //console.log("container: ", container);
     /*  console.log(
@@ -136,7 +139,7 @@ test("map calls function correctly", () => {
     },
 ]; */
 
-test("onClick prop runs when the ims is clicked", () => {
+test("onClick prop runs when the img is clicked", () => {
     const mockToggleModalUploader = jest.fn(); // fn empty cause we just wanna know if it runs
     const { container } = render(
         <ProfilePic onClick={mockToggleModalUploader} />
