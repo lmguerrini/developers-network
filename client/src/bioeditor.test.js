@@ -41,16 +41,8 @@ test(`Clicking either the "Add" or "Edit" button causes a textarea and a "Save" 
 });
 
 test(`Clicking the "Save" button causes an ajax request. 
-      The request should not actually happen during your test`, () => {
+      The request should not actually happen during your test`, async () => {
     const mockEditBio = jest.fn();
-
-    axios.post.mockResolvedValue({
-        // .mockResolvedValue() => from Jest
-        // it should return an object since we've ({data})
-        data: {
-            bio: "some bio",
-        },
-    });
 
     const { container } = render(
         <BioEditor
@@ -60,44 +52,60 @@ test(`Clicking the "Save" button causes an ajax request.
             onClick={mockEditBio}
         />
     ); // 0 // "Edit"
-    //console.log("container: ", container.innerHTML);
     console.log(
         "container BEFORE event: ",
         container.querySelector("button").innerHTML
-    ); // Edit 
+    ); // Edit
+
+    axios.post.mockResolvedValue({
+        // .mockResolvedValue() => from Jest
+        // it should return an object since we've ({data})
+        data: {
+            bio: "some bio",
+        },
+    });
+
+    //console.log("container: ", container.innerHTML);
+
     /* console.log(
         'container.querySelector("button").children.length BEFORE event: ',
         container.querySelector("button").children.length
-    ); */ /*  */
+    ); */
+
     fireEvent.click(container.querySelector("button")); // "Save"
+
     console.log(
         "container AFTER event: ",
         container.querySelector("button").innerHTML
-    );  // Save
-    /* console.log(
+    ); // Save
+    console.log(
         'container.querySelector("button").children.length AFTER event: ',
         container.querySelector("button").children.length
-    ); */
+    );
 
     expect(container.querySelector("button").innerHTML).toBe("Save");
     //await waitFor(() => expect(container.querySelector("button").innerHTML).toBe("Save"));
-    /* console.log(
+    console.log(
         "mockEditBio.mock.calls.length: ",
         mockEditBio.mock.calls.length
-    ); */
+    );
 
     fireEvent.click(container.querySelector("button"));
 
-    /* console.log(
+    console.log(
         'container.querySelector("button").children.length AFTER event: ',
         container.querySelector("button").children.length
-    ); */  // 0
-    /* console.log(
+    ); // 0
+    console.log(
         "mockEditBio.mock.calls.length: ",
         mockEditBio.mock.calls.length
+    ); // 0 // 0
+
+    /* await waitFor(() =>
+        expect(container.querySelector("button").children.length).toBe(1)
+    ); */ 
+    /* await waitFor(
+        () => expect(mockEditBio.mock.calls.length).toBe(1)
     ); */ // 0
-
-
-
-    //await waitFor(() => expect(container.querySelector("button").children.length).toBe(1)); // 0
+    //expect(container.querySelector("button").children.length).toBe(1); // 0
 });
