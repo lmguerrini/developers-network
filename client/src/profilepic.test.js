@@ -173,5 +173,5 @@ test("onClick prop runs when the img is clicked", () => {
 
     // confirm the click handler was triggered just once
     expect(mockToggleModalUploader.mock.calls.length).toBe(1); // cause should run only once
-    // NB: doesn't work, event didn't fire for some reason..
+   
 });

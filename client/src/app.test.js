@@ -2,12 +2,13 @@
 
 // import React from "react";
 import App from "./app";
-import { render, waitForElement } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
+// NB: waitForElement: deprecated, use waitFor instead!
 import axios from "./axios";
 
 // what's the test we should run for async functions?
 
-// (1st step) => mock axios 
+// (1st step) => mock axios
 jest.mock("./axios"); // => create a fake axios's version
 // but we need also to return fake data (axio's response):
 axios.get.mockResolvedValue({
@@ -25,16 +26,27 @@ axios.get.mockResolvedValue({
 // (2st step) => import waitForElement
 // this tell test to wait for the <div> to appear in DOM
 
-test("app eventually renders the div", () => {
+test("app eventually renders the div", async () => {
     const { container } = render(<App />);
 
-    console.log("container.innerHTML BEFORE await: ", container.innerHTML); 
-    // if in App we've an aync componentDidMount() we should have an empty container.innerHTML console.log
-
+    /* console.log(
+        "container.innerHTML BEFORE await: ",
+        container.querySelector("div").innerHTML
+    ); */
+    // if in App we've an aync componentDidMount() we should have an empty/diff
+    // container.querySelector("div").innerHTML); console.log
+    //expect(container.querySelector("div").children.length).toBe(0); // 1
     // NB: 'await' is only allowed within async functions
-    await waitForElement (() => container.querySelector("div"));
+    await waitFor(() => container.querySelector("div"));
 
-    console.log("container.innerHTML AFTER await: ", container.innerHTML);
+    /* console.log(
+        "container.innerHTML AFTER await: ",
+        container.querySelector("div").innerHTML
+    ); */
+    /* console.log(
+        'container.querySelector("div").children.length AFTER await: ',
+        container.querySelector("div").children.length
+    ); */
 
     // checking something has been rendered in the DOM
     // but there're of course other ways to check it
