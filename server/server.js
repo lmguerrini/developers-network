@@ -332,18 +332,18 @@ app.post("/edit/bio", (req, res) => {
 
 app.get("/other-user/info/:id", (req, res) => {
     //console.log("params.id: ", req.params.id);
-    console.log("body: ", req.body);
+    //console.log("body: ", req.body);
     const id = req.session.userId;
     const requestedId = req.params.id;
-    console.log("id: ", id);
-    console.log("requestedId: ", requestedId);
+    //console.log("id: ", id);
+    //console.log("requestedId: ", requestedId);
     if (requestedId == id) {
-        console.log("same id requested");
+        //console.log("same id requested");
         res.json({ requestedInvalidId: true });
     }
     db.getOtherUserInfo(requestedId)
         .then(({ rows }) => {
-            console.log("differemt id requested");
+            //console.log("differemt id requested");
             res.json(rows);
         })
         .catch((err) => {
@@ -352,6 +352,33 @@ app.get("/other-user/info/:id", (req, res) => {
                 err
             );
             res.json({ error: true });
+        });
+});
+
+app.get("/users/latest", (req, res) => {
+    db.getLatestUsers()
+        .then(({ rows }) => {
+            //console.log("rows: ", rows);
+            //console.log("rows[0]: ", rows[0]);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error("error in GET/upload db.getLatestUsers catch: ", err);
+            //res.json({ error: true });
+        });
+});
+
+app.get("/users/search/:query", (req, res) => {
+    const searchedUser = req.params.query;
+    //console.log("searched User: ", searchedUser);
+    db.getUsersPatternMatching(searchedUser)
+        .then(({ rows }) => {
+            //console.log("rows: ", rows);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error("error in GET/upload db.getLatestUsers catch: ", err);
+            //res.json({ error: true });
         });
 });
 

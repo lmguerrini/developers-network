@@ -23,6 +23,7 @@ export default function ProfilePic({ first, last, profile_pic, toggleModalUpload
             <div>
                 {profile_pic ? (
                     <img
+                        /* className="profile_picBig" */
                         className="profile_pic"
                         src={profile_pic}
                         alt={`${first} ${last}`}

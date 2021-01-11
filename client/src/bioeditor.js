@@ -39,6 +39,7 @@ export default class BioEditor extends Component {
         axios
             .post("/edit/bio", this.state)
             .then(({ data }) => {
+                //console.log("data: ", data);
                 if (data.error) {
                     this.setState({ error: true });
                 } else {
@@ -47,10 +48,7 @@ export default class BioEditor extends Component {
                 }
             })
             .catch(function (error) {
-                console.log(
-                    "error in axios Uploader/handleClick/ catch: ",
-                    error
-                );
+                console.log("error in axios BioEditor/editBio/ catch: ", error);
                 this.setState({ error: true });
             });
     }
@@ -78,7 +76,7 @@ export default class BioEditor extends Component {
                                 defaultValue={this.props.bio}
                                 onChange={this.handleChange}
                             />
-                            <button onClick={this.editBio}>Save</button>
+                            <button id="saveBtn" onClick={this.editBio}>Save</button>
                             <button onClick={this.toggleTextarea}>
                                 Back
                             </button>

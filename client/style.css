@@ -50,6 +50,16 @@ header {
     justify-content: space-evenly;
     margin: 20px;
 }
+
+/* .profile-bioeditorContainer {
+    -background-color: red;
+} */
+
+/* .profile_picBigContainer {
+    background-color: green;
+    width: 300px;
+} */
+
 .profile_picBigContainer {
     text-align: center;
     width: 250px;
@@ -61,6 +71,15 @@ header {
     padding: 10px 20px 20px 20px;
     background-color: rgba(252, 118, 0, 0.253);
 }
+
+/* ----section(FindPeople)---- */
+/* .findPeopleContainer {
+    display: flex;
+    -background-color: red;
+    justify-content: space-between;
+   
+} */
+
 /* ----section(Uploader)---- */
 .modalUploader {
     width: 300px;

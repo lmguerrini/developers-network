@@ -18,11 +18,11 @@ export default class OtherProfile extends Component {
     }
 
     componentDidMount() {
-        console.log("OtherProfile/componentDidMount mounted!");
+        /* console.log("OtherProfile/componentDidMount mounted!");
         console.log(
             "OtherProfile/componentDidMount this.props.match.params.id: ",
             this.props.match.params.id
-        );
+        ); */
 
         //we should make a request to our server to get the other user's data
         // if we are viewing our own profile, we should make sure to send the user back to the "/" route
@@ -36,11 +36,11 @@ export default class OtherProfile extends Component {
         axios
             .get(`/other-user/info/${this.props.match.params.id}`)
             .then(({ data }) => {
-                console.log("OtherProfile componentDidMount data: ", data[0]);
+                /* console.log("OtherProfile componentDidMount data: ", data[0]);
                 console.log(
                     "data.requestedInvalidId: ",
                     data[0].requestedInvalidId
-                );
+                ); */
                 if (!data.error || !data.requestedInvalidId) {
                     this.setState(
                         {

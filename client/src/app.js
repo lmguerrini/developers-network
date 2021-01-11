@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import Profile from "./profile";
 import { BrowserRouter, Route } from "react-router-dom";
 import OtherProfile from "./otherprofile";
+import FindPeople from "./findpeople";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -136,34 +137,52 @@ export default class App extends Component {
                         render={() => (
                             <section>
                                 {/* <h1>[SECTION -Profile]</h1> */}
-                                <Profile
-                                    id={this.state.id}
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    profile_pic={this.state.profile_pic}
-                                    toggleModalUploader={
-                                        this.toggleModalUploader
-                                    }
-                                    bio={this.state.bio}
-                                    editBio={this.editBio}
-                                />
+                                <div className="profile-bioeditorContainer">
+                                    <Profile
+                                        id={this.state.id}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        profile_pic={this.state.profile_pic}
+                                        toggleModalUploader={
+                                            this.toggleModalUploader
+                                        }
+                                        bio={this.state.bio}
+                                        editBio={this.editBio}
+                                    />
+                                </div>
                             </section>
                         )}
                     />
                     {/* <Route path="/user/:id" compmonent={OtherProfile} /> 
                     render for bonus feature, to visit other profile, see
                     their friends and visit them  */}
-                    <Route
-                        path="/user/:id"
-                        /* path="/other-user/info/:id" */
-                        render={(props) => (
-                            <OtherProfile
-                                match={props.match}
+                    <section>
+                        <Route
+                            path="/user/:id"
+                            /* path="/other-user/info/:id" */
+                            render={(props) => (
+                                <OtherProfile
+                                    match={props.match}
+                                    key={props.match.url}
+                                    history={props.history}
+                                />
+                            )}
+                        />
+                    </section>
+
+                    <section>
+                        <Route
+                            path="/users"
+                            render={() => (
+                                <FindPeople
+                                /* match={props.match}
                                 key={props.match.url}
-                                history={props.history}
-                            />
-                        )}
-                    />
+                                history={props.history} */
+                                />
+                            )}
+                        />
+                    </section>
+
                     <section>
                         {/* <h1>[SECTION -Uploader]</h1> */}
                         {this.state.uploaderIsVisible && (

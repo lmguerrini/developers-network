@@ -69,3 +69,18 @@ module.exports.getOtherUserInfo = (id) => {
     const q = `SELECT * FROM users WHERE id = ($1)`;
     return db.query(q, [id]);
 };
+
+// find people
+module.exports.getLatestUsers = () => {
+    const q = `SELECT id, first, last, email, profile_pic, bio, created_at FROM users 
+    ORDER BY created_at DESC LIMIT 3`;
+    return db.query(q);
+};
+
+module.exports.getUsersPatternMatching = (val) => {
+    const q = `SELECT id, first, last, email, profile_pic, bio, created_at FROM users 
+    WHERE first ILIKE $1 OR last ILIKE $1 LIMIT 4`;
+    const params = [val + "%"];
+    return db.query(q, params);
+}; // LIMIT 4
+
