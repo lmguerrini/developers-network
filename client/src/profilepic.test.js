@@ -2,6 +2,8 @@
 
 // import React from "react";
 import ProfilePic from "./profilepic";
+//import App from "./app";
+//import Profile from "./profile";
 import { render, fireEvent } from "@testing-library/react";
 
 // npm test => to run the test
@@ -142,23 +144,32 @@ test("map calls function correctly", () => {
 test("onClick prop runs when the img is clicked", () => {
     const mockToggleModalUploader = jest.fn(); // fn empty cause we just wanna know if it runs
     const { container } = render(
-        <ProfilePic onClick={mockToggleModalUploader} />
+        <ProfilePic toggleModalUploader={mockToggleModalUploader} />
     );
 
-    console.log(
+    /* console.log(
         'container.querySelector("img") BEFORE event: ',
         container.querySelector("img")
-    );
+    ); */
+    /* console.log(
+        'container.querySelector("img").onClick BEFORE event: ',
+        container.querySelector("img").onClick
+    ); */
 
     // but how to fire an event in a test (in this case click on an img)?
     // for this we imported {fireEvent}, so that we can:
     fireEvent.click(container.querySelector("img"));
+    //fireEvent.click(container.getElementsByClassName("profile_pic"));
     // all code after this= after the img has been clicked
 
-    console.log(
+    /* console.log(
         'container.querySelector("img") AFTER event: ',
         container.querySelector("img")
-    );
+    ); */
+    /* console.log(
+        'container.querySelector("img").onClick AFTER event: ',
+        container.querySelector("img").onClick
+    ); */
 
     // confirm the click handler was triggered just once
     expect(mockToggleModalUploader.mock.calls.length).toBe(1); // cause should run only once
