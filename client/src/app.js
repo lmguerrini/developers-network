@@ -28,16 +28,16 @@ export default class App extends Component {
     }
 
     // componentDidMount = Vue's "mounted" function
-    componentDidMount() {
-        //console.log("App/componentDidMount/component App mounted!");
+    /* componentDidMount() {
+        console.log("App/componentDidMount/component App mounted!");
         // use axios to make a request to the server
         // the server will have to retrieve information about the user
         // once we get a response from axios, store that data in the state of App
         axios
             .get("/user/info")
             .then(({ data }) => {
-                //console.log("App componentDidMount data[0]: ", data.[0]);
-                //console.log("App componentDidMount ...data: ", ...data);
+                console.log("App componentDidMount data[0]: ", data[0]);
+                console.log("App componentDidMount ...data: ", ...data);
                 this.setState(
                     {
                         // ...data
@@ -53,9 +53,9 @@ export default class App extends Component {
                         //console.table("App data[0]: ", data[0]);
                     }
                 );
-                /* this.setState({ ...data }, () => {
-                    console.table("App this.state: ", this.state);
-                }); */
+                // this.setState({ ...data }, () => {
+                //     console.table("App this.state: ", this.state);
+                // });
             })
             .catch((err) => {
                 console.error(
@@ -64,10 +64,18 @@ export default class App extends Component {
                 );
                 this.setState({ error: true });
             });
+    } */
+
+    // asyn fn
+    async componentDidMount() {
+        //console.log("async App/componentDidMount mounted!");
+        const { data } = await axios.get("/user/info");
+        //console.log("data: ", data);
+        this.setState({ ...data });
     }
 
     toggleModalUploader() {
-        //console.log("toggleModalUploader is running!");
+        console.log("toggleModalUploader is running!");
         /* if (!this.state.uploaderIsVisible) {
             this.setState({
                 uploaderIsVisible: true,
@@ -83,6 +91,7 @@ export default class App extends Component {
     }
 
     setImage(newProfilePic) {
+        console.log("setImage worked!");
         // I can call setImage from every App's children
         // but setImage will only update the state of App
         // regardless of which component it's called from
@@ -93,6 +102,7 @@ export default class App extends Component {
     }
 
     editBio(newBio) {
+        console.log("editBio worked!");
         this.setState({
             bio: newBio, // update bio w/ new newBio
         });
