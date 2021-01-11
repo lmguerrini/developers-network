@@ -263,7 +263,7 @@ app.post("/reset/password/verify", (req, res) => {
 /*
  ************************* < APP > *************************
  */
-app.get("/user/info", (req, res) => {
+/* app.get("/user/info", (req, res) => {
     //console.log("id: ", req.session.userId);
     const id = req.session.userId;
     db.getUserProfile(id)
@@ -273,11 +273,24 @@ app.get("/user/info", (req, res) => {
         })
         .catch((err) => {
             console.error(
-                "error in POST/upload db.updateProfilePic catch: ",
+                "error in GET/upload db.getUserProfile catch: ",
                 err
             );
             //res.json({ error: true });
         });
+}); */
+
+// asyn fn
+app.get("/user/info", async (req, res) => {
+    try {
+        const id = req.session.userId;
+        let result = await db.getUserProfile(id);
+        //console.log("result: ", result.rows[0]);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error("error in GET/upload db.getUserProfile catch: ", err);
+        res.json({ error: true });
+    }
 });
 
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
