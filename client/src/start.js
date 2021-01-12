@@ -33,5 +33,10 @@ ReactDOM.render(elem, document.querySelector("main"));
             - Profile (child)
                 - ProfilPic
                 - BioEditor
+            - OtherProfile (child)
+                - ProfilPic
+                - FriendButton
+            - FindPeople (child)
             - Uploader (child)
+            
 */
