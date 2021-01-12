@@ -6,17 +6,89 @@ body {
     background-color: ghostwhite;
 }
 
-header {
-    -background-color: red;
-    display: flex;
-    justify-content: space-between;
-    height: 150px;
-    border-bottom: 1px solid rgb(53, 53, 53);
-}
-
 /* 
 **************** WELCOME **************** 
 */
+.headerWelcome {
+    -background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -height: 150px;
+    border-bottom: 1px solid rgb(53, 53, 53);
+}
+
+.headerWelcome > h1 {
+    margin-top: 20px;
+    -background-color: greenyellow;
+}
+
+.theSocialNetworkLogoBig {
+    -width: 100px;
+    height: 300px;
+    margin: 50px 0 50px 20px;
+    -align-self: flex-start;
+    -display: block;
+}
+
+.sectionWelcome {
+    -background-color: red;
+    margin-top: 30px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    -border-bottom: 1px solid rgb(53, 53, 53);
+}
+
+.sectionWelcome > #registerBtn {
+    -color: red;
+    width: 150px;
+}
+
+.loginBtnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.loginBtnContainer > button {
+    width: 150px;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+.loginBtnContainer > p {
+    align-self: center;
+}
+
+.sectionResetPsw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.resetPswComponents {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    align-items: center;
+}
+
+.resetPswComponents > input {
+    width: 250px;
+}
+
+.resetPswComponents > button {
+    width: 150px;
+}
+
 .registrationError {
     color: orangered;
 }
@@ -25,12 +97,47 @@ header {
 ****************** APP ****************** 
 */
 /* ----header---- */
+.headerApp {
+    -background-color: red;
+    display: flex;
+    justify-content: space-between;
+    height: 150px;
+    border-bottom: 1px solid rgb(53, 53, 53);
+}
 .theSocialNetworkLogo {
     -width: 100px;
     height: 60px;
     margin: 50px 0 50px 20px;
 }
 
+/* ----nav---- */
+.navApp {
+    background-color: rgba(26, 255, 0, 0.425);
+    display: flex;
+    justify-content: space-evenly;
+    -height: 30px;
+    border-bottom: 1px solid rgb(53, 53, 53);
+}
+
+.navApp > h4 {
+    margin: 20px;
+    padding: 5px;
+    text-decoration: none;
+    border: 1px solid rgb(53, 53, 53);
+    background-color: rgb(255, 234, 0);
+}
+
+.navApp > h4:hover {
+    text-decoration: underline;
+}
+
+/* ----section(Profile)---- */
+.profileContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px;
+}
+/* ----section(Profile(ProfilePic)---- */
 .profile_pic {
     width: 100px;
     height: 100px;
@@ -44,12 +151,8 @@ header {
 .profile_pic:hover {
     cursor: pointer;
 }
-/* ----section(Profile(ProfilePic & BioEditor))---- */
-.profileContainer {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 20px;
-}
+
+/* ----section(Profile(BioEditor)---- */
 
 /* .profile-bioeditorContainer {
     -background-color: red;
@@ -70,6 +173,22 @@ header {
 .bioEditor {
     padding: 10px 20px 20px 20px;
     background-color: rgba(252, 118, 0, 0.253);
+}
+
+/* ----section(OtherProfile)---- */
+.sectionProfileFriendbutton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -background-color: hotpink;
+}
+
+/* ----section(OtherProfile(FriendButton)---- */
+.friendButton {
+    -align-self: center;
+    width: 180px;
+    -margin-top: 10px;
+    color: red;
 }
 
 /* ----section(FindPeople)---- */
