@@ -7,13 +7,21 @@ import ResetPassword from "./resetpsw";
 export default function Welcome() {
     return (
         <div>
-            <h1>Welcome to The Social Network!</h1>
+            <header className="headerWelcome">
+                {/* <h1>Welcome -L-</h1> */}
+                <h1>Welcome to {/* The Social Network! */}</h1>
+                <img
+                    className="theSocialNetworkLogoBig"
+                    src="/img/theSocialNetworkLogo.png"
+                    alt="header-App Logo"
+                />
+            </header>
             <HashRouter>
-                <div>
+                <section className="sectionWelcome">
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />
                     <Route path="/reset-password" component={ResetPassword} />
-                </div>
+                </section>
             </HashRouter>
         </div>
     );

@@ -76,7 +76,7 @@ export default class BioEditor extends Component {
                                 defaultValue={this.props.bio}
                                 onChange={this.handleChange}
                             />
-                            <button id="saveBtn" onClick={this.editBio}>Save</button>
+                            <button onClick={this.editBio}>Save</button>
                             <button onClick={this.toggleTextarea}>
                                 Back
                             </button>

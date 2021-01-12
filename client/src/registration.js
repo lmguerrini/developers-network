@@ -134,10 +134,11 @@ export default class Registration extends Component {
                     type="password"
                 />
                 {/* <button onClick={() => this.handleClick()}>Register</button> */}
-                <button onClick={this.handleClick}>Register</button>
+                <button id="registerBtn" onClick={this.handleClick}>
+                    Register
+                </button>
                 <p>
-                    Already a member?{" "}
-                    <Link to="/login">Log in!</Link>
+                    Already a member? ☞ <Link to="/login">Log in!</Link> 
                 </p>
             </>
         );

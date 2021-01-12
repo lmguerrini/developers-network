@@ -61,76 +61,78 @@ export default class ResetPassword extends Component {
     render() {
         return (
             <>
-                <h1>Reset Password</h1>
-                <div className="registrationError">
-                    {this.state.error && (
-                        <span>Ops, something went wrong!</span>
-                    )}
-                </div>
-                <div>
-                    {this.state.component === 1 && (
-                        <>
-                            <h4>
-                                Please enter the email address with which you
-                                registered
-                            </h4>
-                            <input
-                                /* onChange={(e) => this.handleChange(e)} */
-                                onChange={this.handleChange}
-                                name="email"
-                                placeholder="Email"
-                                type="email"
-                            />
-                            {/* <button onClick={() => this.handleClick()}>Submit</button> */}
-                            <button onClick={this.handleResetPassword}>
-                                Submit
-                            </button>
-                            <p>
-                                Remember your password?{" "}
-                                <Link to="/login">Log in!</Link>
-                            </p>
-                        </>
-                    )}
-                </div>
-                <div>
-                    {this.state.component === 2 && (
-                        <>
-                            <h4>
-                                Please enter the code you received by email.
-                            </h4>
-                            <input
-                                /* onChange={(e) => this.handleChange(e)} */
-                                onChange={this.handleChange}
-                                name="code"
-                                placeholder="Code"
-                                type="text"
-                            />
-                            <h4>Please enter a new password:</h4>
-                            <input
-                                /* onChange={(e) => this.handleChange(e)} */
-                                onChange={this.handleChange}
-                                name="password"
-                                placeholder="New Password"
-                                type="password"
-                            />
-                            {/* <button onClick={() => this.handleResetPassword()}>Submit</button> */}
-                            <button onClick={this.handleVerifyPassword}>
-                                Submit
-                            </button>
-                        </>
-                    )}
-                </div>
-                <div>
-                    {this.state.component === 3 && (
-                        <>
-                            <h4>Success!</h4>
-                            <p>
-                                You can now <Link to="/login">log in</Link> with
-                                your new password.
-                            </p>
-                        </>
-                    )}
-                </div>
+                <section className="sectionResetPsw">
+                    <h2>Reset Password</h2>
+                    <div className="registrationError">
+                        {this.state.error && (
+                            <span>Ops, something went wrong!</span>
+                        )}
+                    </div>
+                    <div>
+                        {this.state.component === 1 && (
+                            <div className="resetPswComponents">
+                                <h4>
+                                    Please enter the email address with which
+                                    you registered
+                                </h4>
+                                <input
+                                    /* onChange={(e) => this.handleChange(e)} */
+                                    onChange={this.handleChange}
+                                    name="email"
+                                    placeholder="Email"
+                                    type="email"
+                                />
+                                {/* <button onClick={() => this.handleClick()}>Submit</button> */}
+                                <button onClick={this.handleResetPassword}>
+                                    Submit
+                                </button>
+                                <p>
+                                    Remember your password?{" "}
+                                    <Link to="/login">Log in!</Link>
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        {this.state.component === 2 && (
+                            <div className="resetPswComponents">
+                                <h4>
+                                    Please enter the code you received by email.
+                                </h4>
+                                <input
+                                    /* onChange={(e) => this.handleChange(e)} */
+                                    onChange={this.handleChange}
+                                    name="code"
+                                    placeholder="Code"
+                                    type="text"
+                                />
+                                <h4>Please enter a new password:</h4>
+                                <input
+                                    /* onChange={(e) => this.handleChange(e)} */
+                                    onChange={this.handleChange}
+                                    name="password"
+                                    placeholder="New Password"
+                                    type="password"
+                                />
+                                {/* <button onClick={() => this.handleResetPassword()}>Submit</button> */}
+                                <button onClick={this.handleVerifyPassword}>
+                                    Submit
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        {this.state.component === 3 && (
+                            <div className="resetPswComponents">
+                                <h3>Success!</h3>
+                                <p>
+                                    You can now <Link to="/login">log in</Link>{" "}
+                                    with your new password.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </section>
             </>
         );
     }
