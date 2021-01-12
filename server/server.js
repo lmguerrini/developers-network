@@ -378,8 +378,110 @@ app.get("/users/search/:query", (req, res) => {
         })
         .catch((err) => {
             console.error("error in GET/upload db.getLatestUsers catch: ", err);
-            //res.json({ error: true });
+            res.json({ error: true });
         });
+});
+
+app.get("/friendship/status/:id", (req, res) => {
+    //console.log("req.params: ", req.params);
+    const { id: recipientId } = req.params;
+    const senderId = req.session.userId;
+    let senderUser = false;
+    db.getFriendshipStatus(senderId, recipientId)
+        .then(({ rows }) => {
+            //console.log("rows: ", rows);
+            //console.log("rows.length: ", rows.length);
+            if (!rows.length > 0) {
+                res.json({ friendship: false });
+            } else if (rows[0].accepted) {
+                console.log("rows[0].accepted: ", rows[0].accepted);
+                res.json({ friendship: true });
+            } else if (!rows[0].accepted) {
+                if (senderId == rows[0].sender_id) {
+                    //console.log("sender == rows[0].sender_id");
+                    senderUser = true;
+                }
+                res.json({ senderUser: senderUser, friendshipRequest: true });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in GET/friendship/rows/:id db.getFriendshipStatus catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/friendship/action", (req, res) => {
+    //console.log("POST(/friendship/action req.body:", req.body);
+    const senderId = req.session.userId;
+    const { action, recipientId } = req.body;
+    const BUTTON_TEXT = {
+        SEND_REQUEST: "Add Friend",
+        ACCEPT_REQUEST: "Accept Friend Request",
+        REFUSE_REQUEST: "Cancel Friend Request",
+        UNFRIEND: "Unfriend",
+    };
+    if (action == BUTTON_TEXT.SEND_REQUEST) {
+        db.sendFriendshipRequest(senderId, recipientId)
+            .then(() => {
+                //console.log("POST(/friendship/action", BUTTON_TEXT.REFUSE_REQUEST);
+                res.json({ buttonValue: BUTTON_TEXT.REFUSE_REQUEST });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST(/friendship/action db.sendFriendshipRequest catch: ",
+                    err
+                );
+                res.json({ error: true });
+            });
+    } else if (action == BUTTON_TEXT.ACCEPT_REQUEST) {
+        db.acceptFriendshipRequest(senderId, recipientId)
+            .then(() => {
+                //console.log("POST(/friendship/action", BUTTON_TEXT.UNFRIEND);
+                res.json({ buttonValue: BUTTON_TEXT.UNFRIEND });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST(/friendship/action db.acceptFriendshipRequest catch: ",
+                    err
+                );
+                res.json({ error: true });
+            });
+    } else if (action == BUTTON_TEXT.REFUSE_REQUEST) {
+        db.refuseFriendshipRequest(senderId, recipientId)
+            .then(() => {
+                /* console.log(
+                    "POST(/friendship/action",
+                    BUTTON_TEXT.SEND_REQUEST
+                ); */
+                res.json({ buttonValue: BUTTON_TEXT.SEND_REQUEST });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST(/friendship/action db.refuseFriendshipRequest catch: ",
+                    err
+                );
+                res.json({ error: true });
+            });
+    } else if (action == BUTTON_TEXT.UNFRIEND) {
+        db.deleteFriendship(senderId, recipientId)
+            .then(() => {
+                /* console.log(
+                    "POST(/friendship/action",
+                    BUTTON_TEXT.SEND_REQUEST
+                ); */
+                res.json({ buttonValue: BUTTON_TEXT.SEND_REQUEST });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST(/friendship/action db.deleteFriendship catch: ",
+                    err
+                );
+                res.json({ error: true });
+            });
+    }
 });
 
 // NB: always at the end, after the other routes!
