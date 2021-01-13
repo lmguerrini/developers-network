@@ -6,6 +6,8 @@ import Profile from "./profile";
 import { BrowserRouter, Route } from "react-router-dom";
 import OtherProfile from "./otherprofile";
 import FindPeople from "./findpeople";
+import { Link } from "react-router-dom";
+import Logout from "./logout";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -114,7 +116,7 @@ export default class App extends Component {
         return (
             <>
                 <BrowserRouter>
-                    <header>
+                    <header className="headerApp">
                         {/* <h1>App -L-</h1> */}
                         <img
                             className="theSocialNetworkLogo"
@@ -131,6 +133,17 @@ export default class App extends Component {
                             />
                         }
                     </header>
+                    <nav className="navApp">
+                        <h4>
+                            <Link to="/">Profile</Link>
+                        </h4>
+                        <h4>
+                            <Link to="/users">Find People</Link>
+                        </h4>
+                        <h4>
+                            <Link to="">Log Out</Link>
+                        </h4>
+                    </nav>
                     <Route
                         exact
                         path="/"
@@ -156,44 +169,45 @@ export default class App extends Component {
                     {/* <Route path="/user/:id" compmonent={OtherProfile} /> 
                     render for bonus feature, to visit other profile, see
                     their friends and visit them  */}
-                    <section>
-                        <Route
-                            path="/user/:id"
-                            /* path="/other-user/info/:id" */
-                            render={(props) => (
+                    <Route
+                        path="/user/:id"
+                        /* path="/other-user/info/:id" */
+                        render={(props) => (
+                            <section>
                                 <OtherProfile
                                     match={props.match}
                                     key={props.match.url}
                                     history={props.history}
                                 />
-                            )}
-                        />
-                    </section>
+                            </section>
+                        )}
+                    />
 
-                    <section>
-                        <Route
-                            path="/users"
-                            render={() => (
+                    <Route
+                        path="/users"
+                        render={() => (
+                            <section>
                                 <FindPeople
+
                                 /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */
                                 />
-                            )}
-                        />
-                    </section>
+                            </section>
+                        )}
+                    />
 
-                    <section>
-                        {/* <h1>[SECTION -Uploader]</h1> */}
-                        {this.state.uploaderIsVisible && (
+                    {/* <h1>[SECTION -Uploader]</h1> */}
+                    {this.state.uploaderIsVisible && (
+                        <section>
                             <div className="modalUploader">
                                 <Uploader
                                     setImage={this.setImage}
                                     /* toggleModalUploader={this.toggleModalUploader} */
                                 />
                             </div>
-                        )}
-                    </section>
+                        </section>
+                    )}
                 </BrowserRouter>
             </>
         );

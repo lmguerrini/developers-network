@@ -1,8 +1,7 @@
 import { Component } from "react";
 import axios from "./axios";
-//import Profile from "./profile";
 import ProfilePic from "./profilepic";
-//import BioEditor from "./bioeditor";
+import FriendButton from "./friendbutton";
 
 export default class OtherProfile extends Component {
     constructor(props) {
@@ -61,7 +60,7 @@ export default class OtherProfile extends Component {
                     console.table("OtherProfile this.state: ", this.state);
                 }); */
                 } else {
-                    console.log("this.props.history.push(" / ")");
+                    //console.log("this.props.history.push(" / ")");
                     this.props.history.push("/");
                 }
             })
@@ -87,7 +86,7 @@ export default class OtherProfile extends Component {
                 </h2> */}
 
                 <div className="profileContainer">
-                    <div>
+                    <section className="sectionProfileFriendbutton">
                         {/* <h1>Profile=-ProfilePic</h1> */}
                         <div className="profile_picBigContainer">
                             <ProfilePic
@@ -96,8 +95,11 @@ export default class OtherProfile extends Component {
                                 /* <img className="profile_picBig" src={profile_pic} /> */
                             />
                         </div>
-                    </div>
-                    <div>
+                        <div>
+                            <FriendButton id={this.state.id} />
+                        </div>
+                    </section>
+                    <section>
                         {/* <h1>Profile=-BioEditor</h1> */}
                         <div className="bioEditor">
                             <h3>
@@ -106,7 +108,7 @@ export default class OtherProfile extends Component {
                             </h3>
                             {this.state.bio}
                         </div>
-                    </div>
+                    </section>
                 </div>
             </>
         );

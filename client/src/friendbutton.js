@@ -22,6 +22,7 @@ export default function FriendButton({ id }) {
             const { data } = await axios.get(
                 `/friendship/status/${recipientId}`
             );
+            console.log("dataa: ", data);
             if (recipientId && !abort) {
                 //console.log("data from GET /friendship/status/${recipientId}: ", data);
                 if (data.friendshipRequest) {
@@ -69,7 +70,7 @@ export default function FriendButton({ id }) {
                     "err axios POST/FriendButton/handleClick catch: ",
                     err
                 );
-                this.setState({ error: true });
+                return setError(true);
             });
     };
 

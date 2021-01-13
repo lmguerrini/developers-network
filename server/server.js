@@ -364,7 +364,7 @@ app.get("/users/latest", (req, res) => {
         })
         .catch((err) => {
             console.error("error in GET/upload db.getLatestUsers catch: ", err);
-            //res.json({ error: true });
+            res.json({ error: true });
         });
 });
 
