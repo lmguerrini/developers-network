@@ -158,16 +158,20 @@ body {
     -background-color: red;
 } */
 
-/* .profile_picBigContainer {
-    background-color: green;
-    width: 300px;
-} */
-
 .profile_picBigContainer {
     text-align: center;
-    width: 250px;
+    -width: 250px;
     -height: 200px;
     background-color: rgba(242, 255, 0, 0.288);
+}
+
+.profile_picBigContainer img {
+    height: auto;
+    width: 500px;
+    -object-fit: scale-down;
+    -object-fit: contain;
+    border-radius: 0;
+    border: 0;
 }
 
 .bioEditor {
@@ -190,14 +194,6 @@ body {
     -margin-top: 10px;
     color: red;
 }
-
-/* ----section(FindPeople)---- */
-/* .findPeopleContainer {
-    display: flex;
-    -background-color: red;
-    justify-content: space-between;
-   
-} */
 
 /* ----section(Uploader)---- */
 .modalUploader {
