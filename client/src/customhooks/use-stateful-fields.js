@@ -1,4 +1,4 @@
-/* custom hooks for Login and Registration components */
+/* custom hooks for refactoring Login and Registration components */
 import { useState } from "react";
 
 export default function useStatefulFields() {
