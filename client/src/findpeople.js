@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export default function FindPeople() {
     const [query, setQuery] = useState("");
     const [users, setUsers] = useState([]);
+    const [error, setError] = useState(false);
 
     // componentDidMount (class) => useEffect (fn)
     useEffect(() => {
@@ -16,12 +17,15 @@ export default function FindPeople() {
             if (!query && !abort) {
                 //console.log("IF");
                 //console.log("data from GET users/latest: ", data);
-                setUsers(data);
-            }
-            if (query && !abort) {
+                return setUsers(data);
+            } else if (query && !abort) {
                 const { data } = await axios.get(`/users/search/${query}`);
                 //console.log("data from GET users/search: ", data);
-                setUsers(data);
+                if (data.error) {
+                    return setError(true);
+                } else {
+                    return setUsers(data);
+                }
             }
         })();
 
@@ -80,13 +84,15 @@ export default function FindPeople() {
                         <div key={index}>
                             <Link to={"/user/" + users.id}>
                                 {users.profile_pic ? (
-                                    <img
-                                        /* className="profile_picBig" */
-                                        className="profile_pic"
-                                        src={users.profile_pic}
-                                        alt={`${users.first} ${users.last}`}
-                                        /* onClick={users.toggleModalUploader} */
-                                    />
+                                    <div /* className="profile_picBig" */>
+                                        <img
+                                            /* className="profile_picBig" */
+                                            /* className="profile_pic" */
+                                            src={users.profile_pic}
+                                            alt={`${users.first} ${users.last}`}
+                                            /* onClick={users.toggleModalUploader} */
+                                        />
+                                    </div>
                                 ) : (
                                     <img
                                         className="profile_pic"
@@ -106,6 +112,9 @@ export default function FindPeople() {
                         <span>Nothing found, try again!</span>
                     </div>
                 )}
+                <div className="registrationError">
+                    {error && <span>Ops, something went wrong!</span>}
+                </div>
             </div>
         </>
     );
