@@ -1,13 +1,14 @@
 import { Component } from "react";
 import axios from "./axios";
-import ProfilePic from "./profilepic";
-import Uploader from "./uploader";
-import Profile from "./profile";
 import { BrowserRouter, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ProfilePic from "./profilepic";
+import Profile from "./profile";
 import OtherProfile from "./otherprofile";
 import FindPeople from "./findpeople";
-import { Link } from "react-router-dom";
-import Logout from "./logout";
+import Friends from "./friends";
+import Uploader from "./uploader";
+//import Logout from "./logout";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -135,7 +136,10 @@ export default class App extends Component {
                     </header>
                     <nav className="navApp">
                         <h4>
-                            <Link to="/">Profile</Link>
+                            <Link to="/">Home</Link>
+                        </h4>
+                        <h4>
+                            <Link to="/friends">Friends</Link>
                         </h4>
                         <h4>
                             <Link to="/users">Find People</Link>
@@ -188,7 +192,18 @@ export default class App extends Component {
                         render={() => (
                             <section>
                                 <FindPeople
-
+                                /* match={props.match}
+                                key={props.match.url}
+                                history={props.history} */
+                                />
+                            </section>
+                        )}
+                    />
+                    <Route
+                        path="/friends"
+                        render={() => (
+                            <section>
+                                <Friends
                                 /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */

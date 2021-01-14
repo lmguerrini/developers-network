@@ -1,17 +1,11 @@
-import { useState, useEffect } from "react";
 import axios from "./axios";
+import { useState, useEffect } from "react";
+import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
 
 export default function FriendButton({ id }) {
     const [buttonText, setButtonText] = useState("");
     const [error, setError] = useState(false);
     const recipientId = Number(id);
-
-    const BUTTON_TEXT = {
-        SEND_REQUEST: "Add Friend",
-        ACCEPT_REQUEST: "Accept Friend Request",
-        REFUSE_REQUEST: "Cancel Friend Request",
-        UNFRIEND: "Unfriend",
-    };
 
     // componentDidMount (class) => useEffect (fn)
     useEffect(() => {

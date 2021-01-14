@@ -12,6 +12,8 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const s3 = require("./s3");
 const { s3Url } = require("./config.json");
+//const { BUTTON_TEXT }= require ("../../shared-datas/button-friendships-text");
+//import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -482,6 +484,22 @@ app.post("/friendship/action", (req, res) => {
                 res.json({ error: true });
             });
     }
+});
+
+app.get("/friends-wannabes", function (req, res) {
+    const id = req.session.userId;
+    db.getFriendsWannabes(id)
+        .then(({ rows }) => {
+            //console.log("rows: ", rows);
+            res.json({ rows });
+        })
+        .catch((err) => {
+            console.error(
+                "error in GET/friends-wannabes db.getFriendsWannabes catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
 });
 
 // NB: always at the end, after the other routes!

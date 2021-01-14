@@ -195,6 +195,16 @@ body {
     color: red;
 }
 
+/* ----section(Friends)---- */
+.wannabesContainer {
+    background-color: red;
+    -display: flex;
+    -flex-direction: column;
+    -width: 500px;
+    z-index: -1;
+}
+
+
 /* ----section(Uploader)---- */
 .modalUploader {
     width: 300px;

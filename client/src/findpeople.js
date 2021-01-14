@@ -87,7 +87,7 @@ export default function FindPeople() {
                                     <div /* className="profile_picBig" */>
                                         <img
                                             /* className="profile_picBig" */
-                                            /* className="profile_pic" */
+                                            className="profile_pic"
                                             src={users.profile_pic}
                                             alt={`${users.first} ${users.last}`}
                                             /* onClick={users.toggleModalUploader} */
