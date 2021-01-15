@@ -39,7 +39,7 @@ export default function FindPeople() {
 
     console.log("Hooks component rendered");
     return (
-        <>
+        <section>
             <h2>Find People</h2>
             <div className="findPeopleContainer">
                 {!query && <h4>Checkout who just joined!</h4>}
@@ -116,7 +116,7 @@ export default function FindPeople() {
                     {error && <span>Ops, something went wrong!</span>}
                 </div>
             </div>
-        </>
+        </section>
     );
 }
 

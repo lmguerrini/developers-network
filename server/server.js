@@ -1,5 +1,17 @@
 const express = require("express");
 const app = express();
+/* const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+// no err message(?)
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        req &&
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+ */
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
@@ -12,8 +24,9 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const s3 = require("./s3");
 const { s3Url } = require("./config.json");
-//const { BUTTON_TEXT }= require ("../../shared-datas/button-friendships-text");
-//import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
+const { BUTTON_TEXT } = require("../shared-datas/button-friendships-text");
+//console.log("BUTTON_TEXT: ", BUTTON_TEXT);
+
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -419,12 +432,8 @@ app.post("/friendship/action", (req, res) => {
     //console.log("POST(/friendship/action req.body:", req.body);
     const senderId = req.session.userId;
     const { action, recipientId } = req.body;
-    const BUTTON_TEXT = {
-        SEND_REQUEST: "Add Friend",
-        ACCEPT_REQUEST: "Accept Friend Request",
-        REFUSE_REQUEST: "Cancel Friend Request",
-        UNFRIEND: "Unfriend",
-    };
+    //console.log("ACTION: ", action);
+    //console.log("req.body: ", req.body);
     if (action == BUTTON_TEXT.SEND_REQUEST) {
         db.sendFriendshipRequest(senderId, recipientId)
             .then(() => {
@@ -515,3 +524,54 @@ app.get("*", function (req, res) {
 app.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening..");
 });
+
+/* 
+//**************** socket.io ****************
+// NB: this will work only when we connect to socket.io
+io.on("connection", (socket) => {
+    // "connection" = event; "socket" = callback (obj - connection client/server)
+    console.log(`Socket with id: ${socket.id} has connected!`);
+
+    io && socket && (...)
+
+    // data for socket.on("hello") on the client-side
+    // sends a message to its own socket
+    socket.emit("hello", {
+        cohort: "Jasmine",
+    });
+
+    // sends a message to ALLL connected users
+    io.emit("hello", {
+        cohort: "Jasmine",
+    });
+
+    // sends a message to all sockets EXCEPT your own
+    socket.broadcast.emit("hello", {
+        cohort: "Jasmine",
+    });
+
+    // sends a message to a specific socket (think private messaging)
+    io.sockets.sockets.get(socket.id).emit("hello", {
+        cohort: "Jasmine",
+    });
+
+    // sends a message to every socket except 1
+    io.sockets.sockets.get(socket.id).broadcast.emit("hello", {
+        cohort: "Jasmine",
+    });
+
+    // we use 'on' to listen for incoming events / messages
+    socket.on("another cool message", (data) => {
+        console.log("data from cool msg: ", data);
+    });
+
+    socket.on("helloWorld clicked", (data) => {
+        console.log(data);
+    });
+
+    // "disconnect" inside "connect", otherwise it won't know if someone is connected
+    socket.on("disconnect", () => {
+        console.log(`Socket with id: ${socket.id} just disconnected!`);
+    });
+});
+ */

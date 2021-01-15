@@ -1,4 +1,6 @@
-export const BUTTON_TEXT = {
+// "export const BUTTON_TEXT = {...}"" won't work with node (server-side)
+
+exports.BUTTON_TEXT = {
     SEND_REQUEST: "Add Friend",
     ACCEPT_REQUEST: "Accept Friend Request",
     REFUSE_REQUEST: "Cancel Friend Request",
@@ -9,10 +11,10 @@ export const BUTTON_TEXT = {
 ********** Shared "BUTTON_TEXT" list **********
 
 * server-side:
-_ server.js (POST("/friendship/action"))
+    _ server.js (POST("/friendship/action"))
 
 * client-side:
-_ actions.js
-_ friends.js
-_ friendbutton.js (useEffect[logic])
+    _ actions.js
+    _ friends.js
+    _ friendbutton.js (useEffect[logic])
 */

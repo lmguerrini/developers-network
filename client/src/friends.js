@@ -9,6 +9,7 @@ import {
 } from "./actions";
 
 export default function Friends() {
+    console.log("Friends component mounted!");
     const dispatch = useDispatch();
 
     const wannabes = useSelector(
@@ -23,9 +24,24 @@ export default function Friends() {
             state.friendsWannabesList.filter((user) => user.accepted == true)
     );
 
-    useEffect(() => {
+    /* useEffect(() => {
         dispatch(getFriendsWannabesList());
+    }, []); */
+    useEffect(() => {
+        let abort;
+        (async () => {
+            if (!abort) {
+                dispatch(getFriendsWannabesList());
+            }
+        })();
+        return () => {
+            // NB: this runs before every next re-render
+            abort = true;
+        };
     }, []);
+
+    console.log("wannabes B/A: ", wannabes);
+    console.log("friends B/A: ", friends);
 
     if ((!friends || !friends.length) && (!wannabes || !wannabes.length)) {
         return null;
@@ -34,8 +50,8 @@ export default function Friends() {
     return (
         <section>
             {/* <h1>FRIENDS COMPONENT</h1> */}
-            
-            {!friends ? (
+
+            {!friends.length != 0 ? (
                 <h1>It seems you don&#39;t have any friends yet, but..</h1>
             ) : (
                 friends &&

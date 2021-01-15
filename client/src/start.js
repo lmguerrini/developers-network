@@ -53,6 +53,41 @@ ReactDOM.render(elem, document.querySelector("main"));
                 - ProfilPic
                 - FriendButton
             - FindPeople (child)
+            - Friends (child)
             - Uploader (child)
             
 */
+
+/* 
+//**************** socket.io ****************
+import { io } from "socket.io-client";
+
+const socket = io.connect();
+socket.on("hello", (data) => {
+    console.log("data: ", data);
+});
+// no err message(?)
+socket &&
+    socket.on("hello", (data) => {
+        console.log("data: ", data);
+    });
+
+socket.emit("another cool message", ["andrea", "david", "oli"]);
+
+ReactDOM.render(<HelloWolrd />, document.querySelector("main"));
+
+function HelloWolrd() {
+    return (
+        <div
+            onClick={() => {
+                socket.emit(
+                    "helloWolrd clicked",
+                    "hello jasmine - helloWorld was clicked!"
+                );
+            }}
+        >
+            Hello, World!
+        </div>
+    );
+}
+ */

@@ -8,22 +8,32 @@ export function reducer(state = {}, action) {
         };
     }
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
+        console.log("ACCEPT-reducer");
         state = {
             ...state,
             friendsWannabesList: state.friendsWannabesList.map((user) => {
-                user.id == action.acceptUserId &&
+                console.log("user.id: ", user.id);
+                console.log("action.acceptUserId: ", action.acceptUserId);
+                /* user.id == action.acceptUserId &&
                     (user = {
                         ...user,
                         accepted: true,
-                    });
-                return user;
+                    }); */
+                if (user.id == action.acceptUserId) {
+                    user.accepted = true;
+                    return user;
+                } else {
+                    return user;
+                }
             }),
         };
     }
     if (action.type == "DELETE_FRIEND") {
+        console.log("DELETE-reducer");
         state = {
             ...state,
             friendsWannabesList: state.friendsWannabesList.filter((user) => {
+                /* console.log("action.acceptUserId: ", action.acceptUserId); */
                 return user.id != action.unfriendUserId;
             }),
         };
