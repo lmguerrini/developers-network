@@ -5,12 +5,6 @@ const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
-// no err message(?)
-const io = require("socket.io")(server, {
-    allowRequest: (req, callback) =>
-        req &&
-        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
-});
  */
 const compression = require("compression");
 const path = require("path");
@@ -25,8 +19,6 @@ const uidSafe = require("uid-safe");
 const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 const { BUTTON_TEXT } = require("../shared-datas/button-friendships-text");
-//console.log("BUTTON_TEXT: ", BUTTON_TEXT);
-
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -94,68 +86,138 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/registration", (req, res) => {
-    const { password } = req.body;
-    hash(password)
-        .then((hash) => {
-            const { first, last, email } = req.body;
-            db.addUser(first, last, email.toLowerCase(), hash)
-                .then(({ rows }) => {
-                    //console.log("rows: ", rows);
-                    req.session.userId = rows[0].id;
-                    //console.log("req.session.userId: ", req.session.userId);
-                    res.json({ error: false });
-                })
-                .catch((err) => {
-                    console.error("error in db.addUser catch: ", err);
-                    res.json({ error: true });
-                });
-        })
-        .catch((err) => {
-            console.error("error in hash POST /registration: ", err);
-            res.json({ error: true });
+    const { first, last, email, password } = req.body;
+
+    if (first == "" && last && email && password) {
+        console.log("First field empty!");
+        res.json({
+            success: false,
+            error: "!(first)",
         });
+    } else if (last == "" && first && email && password) {
+        console.log("First field empty!");
+        res.json({
+            success: false,
+            error: "!(last)",
+        });
+    } else if (email == "" && first && last && password) {
+        console.log("First field empty!");
+        res.json({
+            success: false,
+            error: "!(email)",
+        });
+    } else if (password == "" && first && last && email) {
+        console.log("First field empty!");
+        res.json({
+            success: false,
+            error: "!(password)",
+        });
+    } else if (first && last && email && password) {
+        hash(password)
+            .then((hash) => {
+                db.addUser(first, last, email, hash)
+                    .then(({ rows }) => {
+                        req.session.userId = rows[0].id;
+                        //res.json({ error: false });
+                        res.json({ success: true });
+                    })
+                    .catch((err) => {
+                        //console.log("err.constrain: ", err.constraint);
+                        if (err.constraint == "users_email_check") {
+                            console.log("Please enter a valid email!");
+                            res.json({
+                                success: false,
+                                error: err.constraint,
+                            });
+                        } else if (err.constraint == "users_email_key") {
+                            console.log(
+                                "error in db.addUser catch: ",
+                                err.constraint
+                            );
+                            res.json({
+                                success: false,
+                                error: err.constraint,
+                            });
+                        } else {
+                            console.error("error in db.addUser catch: ", err);
+                            //res.json({ error: true });
+                            res.json({ success: false });
+                        }
+                    });
+            })
+            .catch((err) => {
+                console.error("error in hash POST /registration: ", err);
+                //res.json({ error: true });
+                res.json({ success: false });
+            });
+    } else {
+        console.log("!(first && last && email && password)");
+        res.json({
+            success: false,
+            error: "!(first && last && email && password)",
+        });
+    }
 });
 
 app.post("/login", (req, res) => {
-    const { email } = req.body;
-    db.getUserInfo(email)
-        .then(({ rows }) => {
-            if (rows.length > 0) {
-                const { password } = req.body;
-                compare(password, rows[0].password)
-                    .then((result) => {
-                        if (result) {
-                            req.session.userId = rows[0].id;
+    const { email, password } = req.body;
+    if (email) {
+        db.getUserInfo(email)
+            .then(({ rows }) => {
+                if (rows.length > 0) {
+                    compare(password, rows[0].password)
+                        .then((result) => {
+                            console.log("result: ", result);
+                            if (result) {
+                                req.session.userId = rows[0].id;
+                                res.json({
+                                    success: true,
+                                });
+                            } else {
+                                res.json({
+                                    success: false,
+                                    error: "!password || incorrect",
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(
+                                "error in compare POST /login catch: ",
+                                err
+                            );
                             res.json({
-                                error: false,
+                                success: false,
+                                error: "true",
                             });
-                        } else {
-                            res.json({
-                                error: true,
-                            });
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(
-                            "error in compare POST /login catch: ",
-                            err
-                        );
-                        res.json({
-                            error: true,
                         });
+                } else {
+                    res.json({
+                        success: false,
+                        error: "!email || incorrect",
                     });
-            } else {
+                }
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST /login db.getUserInfo catch: ",
+                    err
+                );
                 res.json({
-                    error: false,
+                    success: false,
+                    error: "true",
                 });
-            }
-        })
-        .catch((err) => {
-            console.error("error in POST /login db.getUserInfo catch: ", err);
-            res.json({
-                error: true,
             });
+    } else if (password) {
+        res.json({
+            success: false,
+            error: "!email || incorrect",
         });
+    } else {
+        res.json({
+            success: false,
+            error: "!(email && password)",
+        });
+    }
 });
 
 app.post("/reset/password", (req, res) => {
@@ -163,13 +225,12 @@ app.post("/reset/password", (req, res) => {
     const { email } = req.body;
     db.checkUserByEmail(email)
         .then(({ rows }) => {
-            //console.log("rows.length: ", rows.length);
             if (rows.length > 0) {
                 // this is the code for generating the secretCode (=>random string)
                 const secretCode = cryptoRandomString({
                     length: 6,
                 });
-                //console.log("secretCode: ", secretCode);
+                //console.log("random string: ", secretCode);
                 db.addSecretCodeEmail(email, secretCode)
                     .then(() => {
                         ses.sendEmail(
@@ -214,23 +275,15 @@ The Social Network Services Team
 });
 
 app.post("/reset/password/verify", (req, res) => {
-    //console.log("post(/reset/password/verify req.body: ", req.body);
     const { code } = req.body;
-    //console.log("code entered: ", code);
     db.getCodeByEmail(code)
         .then(({ rows }) => {
-            //console.log("rows: ", rows);
-            //console.log("code sent by email: ", rows.slice(-1)[0].code);
             const codeEntered = code;
             const codeSentByEmail = rows.slice(-1)[0].code;
             if (codeSentByEmail === codeEntered) {
                 const { password } = req.body;
                 hash(password)
                     .then((hash) => {
-                        /* console.log(
-                            "post(/reset/password/verify/hash email: ",
-                            rows[0].email
-                        ); */
                         const userEmail = rows[0].email;
                         db.updatePassword(userEmail, hash)
                             .then(() => {
@@ -322,18 +375,32 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
                     "error in POST/upload db.updateProfilePic catch: ",
                     err
                 );
-                //res.json({ error: true });
+                res.json({ error: true });
             });
     } else {
         res.json({ error: true });
     }
 });
 
+app.post("/delete", s3.delete, (req, res) => {
+    const id = req.session.userId;
+    const urlNull = null;
+    db.updateProfilePic(id, urlNull)
+        .then(() => {
+            res.json({ error: false, profile_pic: urlNull });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/delete db.updateProfilePic catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.post("/edit/bio", (req, res) => {
-    //console.log("post(/edit/bio req.body:", req.body)
     const id = req.session.userId;
     const { draftBio } = req.body;
-
     db.updateBio(id, draftBio)
         .then(() => {
             //console.log("post(/edit/bio rows[0].bio:", rows[0].bio);
@@ -346,19 +413,13 @@ app.post("/edit/bio", (req, res) => {
 });
 
 app.get("/other-user/info/:id", (req, res) => {
-    //console.log("params.id: ", req.params.id);
-    //console.log("body: ", req.body);
     const id = req.session.userId;
     const requestedId = req.params.id;
-    //console.log("id: ", id);
-    //console.log("requestedId: ", requestedId);
     if (requestedId == id) {
-        //console.log("same id requested");
         res.json({ requestedInvalidId: true });
     }
     db.getOtherUserInfo(requestedId)
         .then(({ rows }) => {
-            //console.log("differemt id requested");
             res.json(rows);
         })
         .catch((err) => {
@@ -373,8 +434,6 @@ app.get("/other-user/info/:id", (req, res) => {
 app.get("/users/latest", (req, res) => {
     db.getLatestUsers()
         .then(({ rows }) => {
-            //console.log("rows: ", rows);
-            //console.log("rows[0]: ", rows[0]);
             res.json(rows);
         })
         .catch((err) => {
@@ -385,10 +444,8 @@ app.get("/users/latest", (req, res) => {
 
 app.get("/users/search/:query", (req, res) => {
     const searchedUser = req.params.query;
-    //console.log("searched User: ", searchedUser);
     db.getUsersPatternMatching(searchedUser)
         .then(({ rows }) => {
-            //console.log("rows: ", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -398,22 +455,17 @@ app.get("/users/search/:query", (req, res) => {
 });
 
 app.get("/friendship/status/:id", (req, res) => {
-    //console.log("req.params: ", req.params);
     const { id: recipientId } = req.params;
     const senderId = req.session.userId;
     let senderUser = false;
     db.getFriendshipStatus(senderId, recipientId)
         .then(({ rows }) => {
-            //console.log("rows: ", rows);
-            //console.log("rows.length: ", rows.length);
             if (!rows.length > 0) {
                 res.json({ friendship: false });
             } else if (rows[0].accepted) {
-                console.log("rows[0].accepted: ", rows[0].accepted);
                 res.json({ friendship: true });
             } else if (!rows[0].accepted) {
                 if (senderId == rows[0].sender_id) {
-                    //console.log("sender == rows[0].sender_id");
                     senderUser = true;
                 }
                 res.json({ senderUser: senderUser, friendshipRequest: true });
@@ -429,15 +481,11 @@ app.get("/friendship/status/:id", (req, res) => {
 });
 
 app.post("/friendship/action", (req, res) => {
-    //console.log("POST(/friendship/action req.body:", req.body);
     const senderId = req.session.userId;
     const { action, recipientId } = req.body;
-    //console.log("ACTION: ", action);
-    //console.log("req.body: ", req.body);
     if (action == BUTTON_TEXT.SEND_REQUEST) {
         db.sendFriendshipRequest(senderId, recipientId)
             .then(() => {
-                //console.log("POST(/friendship/action", BUTTON_TEXT.REFUSE_REQUEST);
                 res.json({ buttonValue: BUTTON_TEXT.REFUSE_REQUEST });
             })
             .catch((err) => {
@@ -450,7 +498,6 @@ app.post("/friendship/action", (req, res) => {
     } else if (action == BUTTON_TEXT.ACCEPT_REQUEST) {
         db.acceptFriendshipRequest(senderId, recipientId)
             .then(() => {
-                //console.log("POST(/friendship/action", BUTTON_TEXT.UNFRIEND);
                 res.json({ buttonValue: BUTTON_TEXT.UNFRIEND });
             })
             .catch((err) => {
@@ -463,10 +510,6 @@ app.post("/friendship/action", (req, res) => {
     } else if (action == BUTTON_TEXT.REFUSE_REQUEST) {
         db.refuseFriendshipRequest(senderId, recipientId)
             .then(() => {
-                /* console.log(
-                    "POST(/friendship/action",
-                    BUTTON_TEXT.SEND_REQUEST
-                ); */
                 res.json({ buttonValue: BUTTON_TEXT.SEND_REQUEST });
             })
             .catch((err) => {
@@ -479,10 +522,6 @@ app.post("/friendship/action", (req, res) => {
     } else if (action == BUTTON_TEXT.UNFRIEND) {
         db.deleteFriendship(senderId, recipientId)
             .then(() => {
-                /* console.log(
-                    "POST(/friendship/action",
-                    BUTTON_TEXT.SEND_REQUEST
-                ); */
                 res.json({ buttonValue: BUTTON_TEXT.SEND_REQUEST });
             })
             .catch((err) => {
@@ -499,7 +538,6 @@ app.get("/friends-wannabes", function (req, res) {
     const id = req.session.userId;
     db.getFriendsWannabes(id)
         .then(({ rows }) => {
-            //console.log("rows: ", rows);
             res.json({ rows });
         })
         .catch((err) => {
@@ -509,6 +547,11 @@ app.get("/friends-wannabes", function (req, res) {
             );
             res.json({ error: true });
         });
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.sendStatus(200);
 });
 
 // NB: always at the end, after the other routes!
@@ -532,7 +575,7 @@ io.on("connection", (socket) => {
     // "connection" = event; "socket" = callback (obj - connection client/server)
     console.log(`Socket with id: ${socket.id} has connected!`);
 
-    io && socket && (...)
+    //io && socket && (...)
 
     // data for socket.on("hello") on the client-side
     // sends a message to its own socket

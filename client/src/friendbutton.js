@@ -72,12 +72,12 @@ export default function FriendButton({ id }) {
     return (
         <>
             {/* <h5>[FriendButton]</h5> */}
-            <div className="registrationError">
+            {/* <div className="registrationError">
                 {error && <span>Ops, something went wrong!</span>}
-            </div>
+            </div> */}
             <div>
                 <button className="friendButton" onClick={handleClick}>
-                    {buttonText}
+                    {buttonText} 
                 </button>
             </div>
         </>

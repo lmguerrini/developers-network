@@ -8,7 +8,6 @@ import OtherProfile from "./otherprofile";
 import FindPeople from "./findpeople";
 import Friends from "./friends";
 import Uploader from "./uploader";
-//import Logout from "./logout";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -26,8 +25,10 @@ export default class App extends Component {
             uploaderIsVisible: false,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.logout = this.logout.bind(this);
         this.toggleModalUploader = this.toggleModalUploader.bind(this);
         this.setImage = this.setImage.bind(this);
+        //this.deleteImage = this.deleteImage.bind(this);
         this.editBio = this.editBio.bind(this);
     }
 
@@ -74,8 +75,16 @@ export default class App extends Component {
     async componentDidMount() {
         //console.log("async App/componentDidMount mounted!");
         const { data } = await axios.get("/user/info");
-        //console.log("data: ", data);
+        console.log("data async componentDidMount: ", data);
         this.setState({ ...data });
+    }
+
+    logout() {
+        axios.get("/logout").then(() =>
+            location.replace("/welcome#/login").catch((err) => {
+                console.error("error in App GET/logout catch: ", err);
+            })
+        );
     }
 
     toggleModalUploader() {
@@ -95,15 +104,34 @@ export default class App extends Component {
     }
 
     setImage(newProfilePic) {
-        console.log("setImage worked!");
+        //console.log("setImage worked!");
+        console.log("setImage profile_pic:", newProfilePic);
         // I can call setImage from every App's children
         // but setImage will only update the state of App
         // regardless of which component it's called from
         this.setState({
             profile_pic: newProfilePic, // set new newProfilePic's url
-            uploaderIsVisible: false, // close modal after newProfilePic updated
+            uploaderIsVisible: false, // close modal after delete/newProfilePic updated
         });
     }
+
+    /* deleteImage() {
+        console.log("deleteImage worked!");
+        axios
+            .post("/delete", {
+                params: {
+                    profPicUrl: this.state.profile_pic,
+                },
+            })
+            .then(() => {
+                this.setState({
+                    profile_pic: null,
+                });
+            })
+            .catch((err) => {
+                console.error("error in App GET/logout catch: ", err);
+            });
+    } */
 
     editBio(newBio) {
         console.log("editBio worked!");
@@ -136,7 +164,7 @@ export default class App extends Component {
                     </header>
                     <nav className="navApp">
                         <h4>
-                            <Link to="/">Home</Link>
+                            <Link to="/">Profile</Link>
                         </h4>
                         <h4>
                             <Link to="/friends">Friends</Link>
@@ -145,7 +173,9 @@ export default class App extends Component {
                             <Link to="/users">Find People</Link>
                         </h4>
                         <h4>
-                            <Link to="">Log Out</Link>
+                            <Link to="/logout" onClick={this.logout}>
+                                Log Out
+                            </Link>
                         </h4>
                     </nav>
                     <Route
@@ -217,8 +247,11 @@ export default class App extends Component {
                         <section>
                             <div className="modalUploader">
                                 <Uploader
+                                    profile_pic={this.state.profile_pic}
                                     setImage={this.setImage}
-                                    /* toggleModalUploader={this.toggleModalUploader} */
+                                    toggleModalUploader={
+                                        this.toggleModalUploader
+                                    }
                                 />
                             </div>
                         </section>

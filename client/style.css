@@ -129,6 +129,8 @@ body {
 
 .navApp > h4:hover {
     text-decoration: underline;
+    background-color: red;
+    transition: 0.5s;
 }
 
 /* ----section(Profile)---- */
@@ -150,6 +152,7 @@ body {
 
 .profile_pic:hover {
     cursor: pointer;
+    opacity: 50%;
 }
 
 /* ----section(Profile(BioEditor)---- */
@@ -208,7 +211,6 @@ body {
     -width: 500px;
     z-index: -1;
 }
-
 
 /* ----section(Uploader)---- */
 .modalUploader {

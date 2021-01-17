@@ -8,7 +8,8 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            error: false,
+            //error: false, // => general error
+            error: "", // => specific errors
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -22,20 +23,37 @@ export default class Login extends Component {
     }
 
     handleClick() {
-        //console.log("Login/ handleClick working!");;
+        //console.log("Login/ handleClick working!");
         axios
             .post("/login", this.state)
             .then(({ data }) => {
                 //console.log("Login-data: ", data);
-                if (data.error) {
-                    this.setState({ error: true });
+                //if (data.error) {
+                if (!data.success) {
+                    //this.setState({ error: true });
+                    if (data.error == "!(email && password)") {
+                        this.setState({
+                            error: "Please fill in all fields!",
+                        });
+                    } else if (data.error == "!password || incorrect") {
+                        this.setState({
+                            error: "Password missing or incorrect!",
+                        });
+                    } else if (data.error == "!email || incorrect") {
+                        this.setState({
+                            error: "Email missing or incorrect!",
+                        });
+                    } else if (data.error == "true") {
+                        this.setState({ error: "Ops, something went wrong!" });
+                    }
                 } else {
                     location.replace("/");
                 }
             })
             .catch((err) => {
                 console.error("err axios POST/login catch: ", err);
-                this.setState({ error: true });
+                //this.setState({ error: true });
+                this.setState({ error: "Ops, something went wrong!" });
             });
     }
 
@@ -44,9 +62,10 @@ export default class Login extends Component {
             <>
                 <h1>Log in</h1>
                 <div className="registrationError">
-                    {this.state.error && (
+                    {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>
-                    )}
+                    )} */}
+                    {this.state.error && <span>{this.state.error}</span>}
                 </div>
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
@@ -66,11 +85,11 @@ export default class Login extends Component {
                 <div className="loginBtnContainer">
                     <button onClick={this.handleClick}>Log in</button>
                     <p>
-                        Not a member? ☞ <Link to="/">Sign up!</Link> 
+                        Not a member? ☞ <Link to="/">Sign up!</Link>
                     </p>
                     <p>
                         Forgot your password? ☞{" "}
-                        <Link to="/reset-password">Reset password</Link> 
+                        <Link to="/reset-password">Reset password</Link>
                     </p>
                 </div>
             </>

@@ -6,7 +6,8 @@ CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       first VARCHAR(255) NOT NULL CHECK (first != ''),
       last VARCHAR(255) NOT NULL CHECK (last != ''),
-      email VARCHAR(255) NOT NULL UNIQUE CHECK (email != ''),
+      --email VARCHAR(255) NOT NULL UNIQUE CHECK (email != ''),
+      email VARCHAR(255) NOT NULL UNIQUE CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
       password VARCHAR(255) NOT NULL CHECK (password != ''),
       profile_pic VARCHAR (255),
       bio VARCHAR (255),
@@ -17,6 +18,7 @@ CREATE TABLE users(
 -- DELETE FROM users WHERE id  = 1;
 -- UPDATE users SET profile_pic = null WHERE id  = 1;
 -- DELETE * FROM users;
+
 
 CREATE TABLE reset_codes(
     id SERIAL PRIMARY KEY,

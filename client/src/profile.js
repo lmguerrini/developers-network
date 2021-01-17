@@ -27,7 +27,7 @@ export default function Profile({
     editBio,
     toggleModalUploader,
 }) {
-    /* console.log(
+    console.log(
         "Profile {props}: ",
         first,
         last,
@@ -35,14 +35,21 @@ export default function Profile({
         bio,
         editBio,
         toggleModalUploader
-    ); */
+    );
     return (
         <>
             {/* <h1>User Profile Component(P)</h1> */}
+            <h1>
+                {first} {last}&#39;s profile page!
+            </h1>
             <div className="profileContainer">
                 <div>
                     {/* <h1>Profile=-ProfilePic</h1> */}
                     <div className="profile_picBigContainer">
+                        {/* <h1>Profile=-ProfilePic</h1> */}
+                        {/* <h1>
+                            {first} {last}&#39;s profile page!
+                        </h1> */}
                         <ProfilePic
                             toggleModalUploader={toggleModalUploader}
                             profile_pic={profile_pic}
@@ -53,9 +60,7 @@ export default function Profile({
                 <div>
                     {/* <h1>Profile=-BioEditor</h1> */}
                     <div className="bioEditor">
-                        <h3>
-                            Welcome back {first} {last}!
-                        </h3>
+                        <h2>Bio:</h2>
                         <BioEditor bio={bio} editBio={editBio} />
                     </div>
                 </div>

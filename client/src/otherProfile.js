@@ -78,33 +78,22 @@ export default class OtherProfile extends Component {
         //console.log("props in OtherProfile: ", this.props);
         return (
             <>
-                {/* <h1>Other Profile Component</h1> */}
-                {/* <h2>
-                    I will be displaying the other users information including
-                    their profile pic and bio. However, I will NOT be able to
-                    edit their information!{" "}
-                </h2> */}
-
+                <h1>Other Profile Component</h1>
                 <div className="profileContainer">
                     <section className="sectionProfileFriendbutton">
-                        {/* <h1>Profile=-ProfilePic</h1> */}
+                        <h1>Profile=-ProfilePic</h1>
                         <div className="profile_picBigContainer">
-                            <ProfilePic
-                                //toggleModalUploader={toggleModalUploader}
-                                profile_pic={this.state.profile_pic}
-                                /* <img className="profile_picBig" src={profile_pic} /> */
-                            />
+                            <ProfilePic profile_pic={this.state.profile_pic} />
                         </div>
                         <div>
                             <FriendButton id={this.state.id} />
                         </div>
                     </section>
                     <section>
-                        {/* <h1>Profile=-BioEditor</h1> */}
+                        {<h1>Profile=-BioEditor</h1>}
                         <div className="bioEditor">
                             <h3>
-                                Welcome back {this.state.first}{" "}
-                                {this.state.last}!
+                                {this.state.first} {this.state.last} 
                             </h3>
                             {this.state.bio}
                         </div>
@@ -114,3 +103,9 @@ export default class OtherProfile extends Component {
         );
     }
 }
+
+/*
+    OtherProfile functions:
+    _ Displaying the other users information including their profile pic and bio.
+    _ It won't be able to edit their information!
+*/

@@ -55,7 +55,7 @@ export default class BioEditor extends Component {
 
     render() {
         // props passed down from the parent (App) to its children (Uploader, in this case)
-        //console.log("props in BioEditor: ", this.props);
+        console.log("props in BioEditor: ", this.props);
         return (
             <>
                 {/* <h1>Bio Editor Component</h1> */}

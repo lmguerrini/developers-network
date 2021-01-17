@@ -42,7 +42,7 @@ export default function FindPeople() {
         <section>
             <h2>Find People</h2>
             <div className="findPeopleContainer">
-                {!query && <h4>Checkout who just joined!</h4>}
+                {!query && <h3>Checkout who just joined!</h3>}
                 {!query &&
                     users.map((users, index) => (
                         <div key={index}>
@@ -63,13 +63,13 @@ export default function FindPeople() {
                                         onClick={users.toggleModalUploader}
                                     />
                                 )}
-                                <h5>
+                                <h3>
                                     {users.first} {users.last}
-                                </h5>
+                                </h3>
                             </Link>
                         </div>
                     ))}{" "}
-                {!query && <h4>Are you looking for someone in particular?</h4>}
+                {!query && <h3>Are you looking for someone in particular?</h3>}
                 {/* <input defaultValue={users.first} omChange={onChange} /> */}
                 {/* <input
                     defaultValue={users.first}

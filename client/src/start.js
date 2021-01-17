@@ -32,8 +32,7 @@ if (location.pathname === "/welcome") {
 //ReactDOM.render(<Welcome />, document.querySelector("main"));
 ReactDOM.render(elem, document.querySelector("main"));
 
-/* 
-*** React structure ***
+/********************** React structure ***********************
 
 * start.js *
     {Logged out}
@@ -56,10 +55,9 @@ ReactDOM.render(elem, document.querySelector("main"));
             - Friends (child)
             - Uploader (child)
             
-*/
+****************************************************************/
 
-/* 
-//**************** socket.io ****************
+/* //**************** socket.io ****************
 import { io } from "socket.io-client";
 
 const socket = io.connect();
@@ -89,5 +87,4 @@ function HelloWolrd() {
             Hello, World!
         </div>
     );
-}
- */
+} */

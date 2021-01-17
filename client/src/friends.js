@@ -40,16 +40,26 @@ export default function Friends() {
         };
     }, []);
 
-    console.log("wannabes B/A: ", wannabes);
-    console.log("friends B/A: ", friends);
+    //console.log("wannabes B/A: ", wannabes);
+    //console.log("friends B/A: ", friends);
 
     if ((!friends || !friends.length) && (!wannabes || !wannabes.length)) {
-        return null;
+        //return null;
+        return (
+            <div>
+                <h1>
+                    Ops, it seems you don&#39;t have any friends/friends
+                    requests yet..
+                </h1>
+                <h4>Note: You can click on &#39;Find People&#39; in order to look for people to add as friend</h4>
+            </div>
+        );
     }
 
     return (
         <section>
             {/* <h1>FRIENDS COMPONENT</h1> */}
+            {!friends && <h1>TEST</h1>}
 
             {!friends.length != 0 ? (
                 <h1>It seems you don&#39;t have any friends yet, but..</h1>
@@ -103,6 +113,13 @@ export default function Friends() {
                                 }
                             >
                                 {BUTTON_TEXT.ACCEPT_REQUEST}
+                            </button>
+                            <button
+                                onClick={() =>
+                                    dispatch(deleteFriendship(wannabe.id))
+                                }
+                            >
+                                Cancel
                             </button>
                         </div>
                     </div>

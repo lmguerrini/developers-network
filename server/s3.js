@@ -14,8 +14,9 @@ const s3 = new aws.S3({
 });
 
 module.exports.upload = (req, res, next) => {
-    //filename = 24 car genereted string-for-img
+    //filename = 24 (32) car genereted string-for-img
     const { filename, mimetype, size, path } = req.file;
+    console.log("S3 Upload req.file: ", req.file);
 
     const promise = s3
         .putObject({
@@ -30,7 +31,7 @@ module.exports.upload = (req, res, next) => {
 
     promise
         .then(() => {
-            //console.log("(s3-promise/then)Amazon upload complete!");
+            console.log("(s3-promise/then): image upload to AWS complete!");
             next();
             // optional clean up:
             fs.unlink(path, () => {});
@@ -39,5 +40,29 @@ module.exports.upload = (req, res, next) => {
         .catch((err) => {
             console.log("Something went wrong in uploading to S3!: ", err);
             res.sendStatus(404);
+        });
+};
+
+module.exports.delete = (req, res, next) => {
+    const filename = req.body.image.substr(49);
+
+    const promise = s3
+        .deleteObject({
+            Bucket: "lorenzoimageboardbucket", // our aws bucket's name
+            Key: filename,
+        })
+        .promise(); // this makes it return a promise
+
+    promise
+        .then(() => {
+            console.log("(s3-promise/then): image deletion from AWS complete!");
+            next();
+            // optional clean up:
+            //fs.unlink(path, () => {});
+            //this is called a "noop (no operation) function"
+        })
+        .catch((err) => {
+            console.log("Something went wrong in deleting from S3!: ", err);
+            res.sendStatus(404); // (?)
         });
 };

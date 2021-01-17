@@ -23,7 +23,8 @@ export default class Registration extends Component {
             last: "",
             email: "",
             password: "",
-            error: false,
+            //error: false, // => general error
+            error: "", // => specific errors
         };
 
         // this "this" refers to Registration
@@ -37,31 +38,15 @@ export default class Registration extends Component {
 
     handleChange(e) {
         //console.log("Registration/ handleChange");
-        //console.log("event object: ", e);
-
-        // take user's input and store it in state
-        /* 
-        We want the state to look like this: 
-        {
-            first: 'nome',
-            last: 'cognome',
-            email: 'some@email.com',
-            password: 'psw'
-        }
-        */
-
-        // I need to find out 2 things:
-        // 1. what is the user typing?
-        //console.log("e.target.value: ", e.target.value);
-        // 2. which input field is the user typing in?
-        //console.log("e.target.name: ", e.target.name);
 
         // now let's add this all to state:
-        // setState is async, that's we're cons.log with a callback
         this.setState(
             {
+                // e.target.name = which input field is the user typing in
                 [e.target.name]: e.target.value,
+                // e.target.value = what is the user typing
             }
+            // setState is async, that's why we're cons.log with a callback
             //() => console.log("this.state in handleChange: ", this.state)
         );
         // console.log("this.state in handleChange: ", this.state)
@@ -76,15 +61,39 @@ export default class Registration extends Component {
         axios
             .post("/registration", this.state)
             .then(({ data }) => {
-                //console.log("data: ", data);
-                // 2. process the response
-                // --- error: render error message
-                // (2.1) put something in state that indicates there's an error
-                // this could be something like error: true
-                // (2.2) render an error message. We've to be carefull to only render an error message it there's an err
-                // we're going to return the error conditionally
-                if (data.error) {
-                    this.setState({ error: true });
+                console.log("data: ", data);
+
+                //if (data.error) {
+                if (!data.success) {
+                    //this.setState({ error: true });
+                    if (data.error == "!(first)") {
+                        this.setState({
+                            error: "Please fill in the 'First Name' field!",
+                        });
+                    } else if (data.error == "!(last)") {
+                        this.setState({
+                            error: "Please fill in the 'Last Name' field!",
+                        });
+                    } else if (data.error == "!(email)") {
+                        this.setState({
+                            error: "Please fill in the 'Email' field!",
+                        });
+                    } else if (data.error == "!(password)") {
+                        this.setState({
+                            error: "Please fill in the 'Password' field!",
+                        });
+                    } else if (
+                        data.error == "!(first && last && email && password)"
+                    ) {
+                        this.setState({ error: "Please fill in all fields!" });
+                    } else if (data.error == "users_email_check") {
+                        this.setState({ error: "Please enter a valid email!" });
+                    } else if (data.error == "users_email_key") {
+                        this.setState({
+                            error:
+                                "It seems this email already exists in our database. Please try again!",
+                        });
+                    }
                 } else {
                     // --- success: redirrect to "/": location.replace("/");
                     location.replace("/");
@@ -92,7 +101,8 @@ export default class Registration extends Component {
             })
             .catch((err) => {
                 console.error("err axios POST/registration catch: ", err);
-                this.setState({ error: true });
+                //this.setState({ error: true });
+                this.setState({ error: "Ops, something went wrong!" });
             });
     }
 
@@ -101,9 +111,10 @@ export default class Registration extends Component {
             <>
                 <h1>Registration</h1>
                 <div className="registrationError">
-                    {this.state.error && (
+                    {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>
-                    )}
+                    )} */}
+                    {this.state.error && <span>{this.state.error}</span>}
                 </div>
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
@@ -138,7 +149,7 @@ export default class Registration extends Component {
                     Register
                 </button>
                 <p>
-                    Already a member? ☞ <Link to="/login">Log in!</Link> 
+                    Already a member? ☞ <Link to="/login">Log in!</Link>
                 </p>
             </>
         );

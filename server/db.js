@@ -43,7 +43,7 @@ module.exports.updatePassword = (password, email) => {
     return db.query(q, params);
 };
 
-// upload profilePic
+// upload/delete profilePic
 module.exports.getUserProfile = (id) => {
     const q = `SELECT * FROM users WHERE id = ($1)`;
     return db.query(q, [id]);
@@ -98,7 +98,7 @@ module.exports.sendFriendshipRequest = (senderId, recipientId) => {
     VALUES (($1), ($2), 'false')`;
     const params = [senderId, recipientId];
     return db.query(q, params);
-}; 
+};
 
 module.exports.acceptFriendshipRequest = (senderId, recipientId) => {
     const q = `UPDATE friendships 
@@ -124,7 +124,7 @@ module.exports.deleteFriendship = (senderId, recipientId) => {
     return db.query(q, params);
 };
 
-// friends 
+// friends
 module.exports.getFriendsWannabes = (id) => {
     const q = `SELECT users.id, users.first, users.last, users.profile_pic, friendships.accepted
     FROM friendships
