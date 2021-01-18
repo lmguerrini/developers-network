@@ -28,7 +28,6 @@ export default class App extends Component {
         this.logout = this.logout.bind(this);
         this.toggleModalUploader = this.toggleModalUploader.bind(this);
         this.setImage = this.setImage.bind(this);
-        //this.deleteImage = this.deleteImage.bind(this);
         this.editBio = this.editBio.bind(this);
     }
 
@@ -75,7 +74,7 @@ export default class App extends Component {
     async componentDidMount() {
         //console.log("async App/componentDidMount mounted!");
         const { data } = await axios.get("/user/info");
-        console.log("data async componentDidMount: ", data);
+        //console.log("data async componentDidMount: ", data);
         this.setState({ ...data });
     }
 
@@ -114,24 +113,6 @@ export default class App extends Component {
             uploaderIsVisible: false, // close modal after delete/newProfilePic updated
         });
     }
-
-    /* deleteImage() {
-        console.log("deleteImage worked!");
-        axios
-            .post("/delete", {
-                params: {
-                    profPicUrl: this.state.profile_pic,
-                },
-            })
-            .then(() => {
-                this.setState({
-                    profile_pic: null,
-                });
-            })
-            .catch((err) => {
-                console.error("error in App GET/logout catch: ", err);
-            });
-    } */
 
     editBio(newBio) {
         console.log("editBio worked!");

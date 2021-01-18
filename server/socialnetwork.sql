@@ -43,3 +43,5 @@ CREATE TABLE friendships(
 -- DELETE FROM friendships WHERE sender_id  = 1;
 -- DELETE * FROM friendships;
 -- CREATE UNIQUE INDEX ON friendships (least(sender_id, recipient_id), greatest(sender_id, recipient_id));
+
+

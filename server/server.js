@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
-/* const server = require("http").Server(app);
+const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
- */
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
@@ -54,12 +53,20 @@ app.use(
     })
 );
 
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
-    })
-);
+// NB: socket.io needs cookies in order to work
+//app.use(
+//cookieSession({
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
+});
+//);
+
+// must be after cookieSession
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 // must be after cookieSession
 app.use(csurf());
@@ -167,7 +174,6 @@ app.post("/login", (req, res) => {
                 if (rows.length > 0) {
                     compare(password, rows[0].password)
                         .then((result) => {
-                            console.log("result: ", result);
                             if (result) {
                                 req.session.userId = rows[0].id;
                                 res.json({
@@ -564,12 +570,59 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(process.env.PORT || 3001, function () {
+//app.listen(process.env.PORT || 3001, function () {
+// in order for the socket messages to come through (:"server" instead of "app"):
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening..");
 });
 
-/* 
 //**************** socket.io ****************
+//server-side socket code all writeten down here:
+
+io.on("connection", (socket) => {
+    // => event listener
+    console.log(`socket with id ${socket.id} just connected!`);
+    // NB: "socket.id" = not "user.id"
+    // => it will be assigned from socket.io to every user
+    // userId: that's the ID we assign to users when they register/login
+    //      => (socket.request.session.userId)
+    // req.session does NOT work here, since we don't have a request object
+    // NB: if in our POST registration/login we don't assign userId to req.session
+    //      (i.e.: "req.session.user.id = 14". If so: "socket.request.session.user.id")
+    //      then "socket.request.session.userId" won't work
+    //      console.log("socket.request.session: ", socket.requet.session); // should be: "socket.request.session.userId"
+
+    //server-side socket code all written down here:
+    socket.on("my new chat message", (message) => {
+        // message = e.target.value(chat.js/handlekeyDown)
+        // this will run whenever user posts a new chat message (e.key === "Enter")
+        // 1. INSERT new mesage into our new "chat_messages" table
+        // 2. emit a message back to the client
+        // (what we hae to emit back to the client is: message, profile_pic, name, id, timestamp)
+        io.sockets.emit("new message and user", {
+            message,
+            id,
+            profile_pic,
+            name,
+            timestamp,
+        });
+    });
+
+    // ["pseudo code"] for rendering the messages:
+    // specifically... what we want to do is, when a new user logs in, we want to grab the 10 most
+    // recent chat messages, put them in our global state, and then render them
+    // so this means this code will ONLY run ONCE - when a new user connects
+    // 1. retrieve the 10 most recent messages from the database
+    // - we want to retrieve not only the 10 most recent messages, but info about the users who posted them
+    // - this means we will need to do two queries (chat_messages and users) / one join
+    // 2. emit them to client. Specifically, only emit them to the user who just connected
+    // below is pseudo-code to demonstrate what the server needs to do here
+    db.getTenMostRecentMessages().then((results) => {
+        socket.emit("10 most recent messages", results);
+    });
+}); // close io.on("connection")
+
+/* 
 // NB: this will work only when we connect to socket.io
 io.on("connection", (socket) => {
     // "connection" = event; "socket" = callback (obj - connection client/server)

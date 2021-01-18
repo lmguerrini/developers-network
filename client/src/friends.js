@@ -51,7 +51,10 @@ export default function Friends() {
                     Ops, it seems you don&#39;t have any friends/friends
                     requests yet..
                 </h1>
-                <h4>Note: You can click on &#39;Find People&#39; in order to look for people to add as friend</h4>
+                <h4>
+                    Note: You can click on &#39;Find People&#39; in order to
+                    look for people to add as friend
+                </h4>
             </div>
         );
     }
@@ -105,22 +108,33 @@ export default function Friends() {
                                 </h3>
                             </Link>
 
-                            <button
-                                onClick={() =>
-                                    dispatch(
-                                        acceptFriendshipRequest(wannabe.id)
-                                    )
-                                }
-                            >
-                                {BUTTON_TEXT.ACCEPT_REQUEST}
-                            </button>
-                            <button
-                                onClick={() =>
-                                    dispatch(deleteFriendship(wannabe.id))
-                                }
-                            >
-                                Cancel
-                            </button>
+                            <div>
+                                <div>
+                                    <button
+                                        onClick={() =>
+                                            dispatch(
+                                                acceptFriendshipRequest(
+                                                    wannabe.id
+                                                )
+                                            )
+                                        }
+                                    >
+                                        {BUTTON_TEXT.ACCEPT_REQUEST}
+                                    </button>
+                                </div>
+                                <div>
+                                    <p>or </p>
+                                    <button
+                                        onClick={() =>
+                                            dispatch(
+                                                deleteFriendship(wannabe.id)
+                                            )
+                                        }
+                                    >
+                                        Refuse {/* <p>Friend Request</p> */}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}

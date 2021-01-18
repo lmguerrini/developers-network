@@ -27,7 +27,7 @@ export default function Profile({
     editBio,
     toggleModalUploader,
 }) {
-    console.log(
+    /* console.log(
         "Profile {props}: ",
         first,
         last,
@@ -35,7 +35,7 @@ export default function Profile({
         bio,
         editBio,
         toggleModalUploader
-    );
+    ); */
     return (
         <>
             {/* <h1>User Profile Component(P)</h1> */}

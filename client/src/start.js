@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension"; // to be able to see what's going on in our Redux DevTools
 import { reducer } from "./reducer";
+import { init } from "./socket";
 
 //import Registration from "./registration"; // => welcome.js
 import Welcome from "./welcome";
@@ -21,6 +22,7 @@ if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
     //elem = <h1>Home Page!</h1>;
+    init(store); // => connect socket.io with redux!
     elem = (
         <Provider store={store}>
             <App />
