@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import OtherProfile from "./otherprofile";
-import FindPeople from "./findpeople";
 import Friends from "./friends";
+import FindPeople from "./findpeople";
+import Chat from "./chat";
 import Uploader from "./uploader";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
@@ -154,6 +155,9 @@ export default class App extends Component {
                             <Link to="/users">Find People</Link>
                         </h4>
                         <h4>
+                            <Link to="/chat">Chat</Link>
+                        </h4>
+                        <h4>
                             <Link to="/logout" onClick={this.logout}>
                                 Log Out
                             </Link>
@@ -215,6 +219,18 @@ export default class App extends Component {
                         render={() => (
                             <section>
                                 <Friends
+                                /* match={props.match}
+                                key={props.match.url}
+                                history={props.history} */
+                                />
+                            </section>
+                        )}
+                    />
+                    <Route
+                        path="/chat"
+                        render={() => (
+                            <section>
+                                <Chat
                                 /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */

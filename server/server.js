@@ -440,6 +440,7 @@ app.get("/other-user/info/:id", (req, res) => {
 app.get("/users/latest", (req, res) => {
     db.getLatestUsers()
         .then(({ rows }) => {
+            console.log("GET 3 last users: ", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -576,12 +577,14 @@ server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening..");
 });
 
-//**************** socket.io ****************
+// ******************************** socket.io ******************************** \\
 //server-side socket code all writeten down here:
 
 io.on("connection", (socket) => {
     // => event listener
-    console.log(`socket with id ${socket.id} just connected!`);
+    console.log(
+        `socket with socket-id "${socket.id}" and userId "${socket.request.session.userId}" just connected!`
+    );
     // NB: "socket.id" = not "user.id"
     // => it will be assigned from socket.io to every user
     // userId: that's the ID we assign to users when they register/login
@@ -591,21 +594,58 @@ io.on("connection", (socket) => {
     //      (i.e.: "req.session.user.id = 14". If so: "socket.request.session.user.id")
     //      then "socket.request.session.userId" won't work
     //      console.log("socket.request.session: ", socket.requet.session); // should be: "socket.request.session.userId"
+    console.log("socket-id: ", socket.id);
+    console.log("socket userId: ", socket.request.session.userId);
+    const userId = socket.request.session.userId;
 
     //server-side socket code all written down here:
-    socket.on("my new chat message", (message) => {
+    socket.on("new chat message", (message) => {
         // message = e.target.value(chat.js/handlekeyDown)
         // this will run whenever user posts a new chat message (e.key === "Enter")
+        console.log("new message just written: ", message);
         // 1. INSERT new mesage into our new "chat_messages" table
-        // 2. emit a message back to the client
-        // (what we hae to emit back to the client is: message, profile_pic, name, id, timestamp)
-        io.sockets.emit("new message and user", {
-            message,
-            id,
-            profile_pic,
-            name,
-            timestamp,
-        });
+        db.insertNewMessage(userId, message)
+            .then(({ rows }) => {
+                /* console.log("rows: ", returnFromDb);
+                console.log("id: ", returnFromDb[0].id);
+                console.log("created_at: ", returnFromDb[0].created_at); */
+                const id = rows[0].id;
+                //console.log("id: ", id);
+
+                const created_atStringify = "" + rows[0].created_at + "";
+                const date = created_atStringify.substring(0, 15);
+                const time = created_atStringify.substring(16, 24);
+                const createdAt = "on " + date + " at " + time;
+                //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
+
+                db.getUserProfile(userId)
+                    .then(({ rows }) => {
+                        console.log("getUserProfile rows: ", rows);
+                        const name = rows[0].first + " " + rows[0].last;
+
+                        // 2. emit a message back to the client
+                        // (what we have to emit back to the client is: message, profile_pic, name, id, timestamp)
+                        io.sockets.emit("new message and user profile", {
+                            message,
+                            id,
+                            profile_pic: rows[0].profile_pic,
+                            name,
+                            timestamp: createdAt,
+                        });
+                    })
+                    .catch((err) => {
+                        console.error(
+                            `error in socket.on("new chat message") db.getUserProfile catch: `,
+                            err
+                        );
+                    });
+            })
+            .catch((err) => {
+                console.error(
+                    `error in socket.on("new chat message") db.insertNewMessage catch: `,
+                    err
+                );
+            });
     });
 
     // ["pseudo code"] for rendering the messages:
@@ -615,11 +655,31 @@ io.on("connection", (socket) => {
     // 1. retrieve the 10 most recent messages from the database
     // - we want to retrieve not only the 10 most recent messages, but info about the users who posted them
     // - this means we will need to do two queries (chat_messages and users) / one join
-    // 2. emit them to client. Specifically, only emit them to the user who just connected
-    // below is pseudo-code to demonstrate what the server needs to do here
-    db.getTenMostRecentMessages().then((results) => {
-        socket.emit("10 most recent messages", results);
-    });
+    db.getTenMostRecentMessages()
+        .then(({ rows }) => {
+            console.log("rows getTenMostRecentMessages: ", rows);
+            
+            const newRows = rows.map((obj) => ({
+                id: obj.id,
+                name: obj.first + " " + obj.last,
+                profile_pic: obj.profile_pic,
+                message: obj.message,
+                timestamp:
+                    "on " +
+                    ("" + obj.created_at + "").substring(0, 15) +
+                    " at " +
+                    ("" + obj.created_at + "").substring(16, 24),
+            }));
+            console.log("newRows: ", newRows);
+            
+            socket.emit("10 most recent messages", newRows);
+        })
+        .catch((err) => {
+            console.error(
+                `error in [io.on] db.getTenMostRecentMessages catch: `,
+                err
+            );
+        });
 }); // close io.on("connection")
 
 /* 

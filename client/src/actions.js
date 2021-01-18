@@ -9,7 +9,7 @@ export async function getFriendsWannabesList() {
     console.log("Action GET /friends-wannabes data: ", data);
     return {
         type: "GET_FRIENDS_WANNABES_LIST",
-        friendsWannabesList: data.rows, 
+        friendsWannabesList: data.rows,
     };
 }
 
@@ -32,7 +32,26 @@ export async function deleteFriendship(id) {
     });
     console.log("Action POST /friends/action: Refused friendship request!");
     return {
-        type: "DELETE_FRIEND", 
-        unfriendUserId: Number(id), 
+        type: "DELETE_FRIEND",
+        unfriendUserId: Number(id),
+    };
+}
+
+export async function postNewMessage(mostRecenteMessage) {
+    console.log("Action postNewMessage!");
+    console.log("action mostRecenteMessage: ", mostRecenteMessage);
+    return {
+        type: "POST_NEW_MESSAGE",
+        message: mostRecenteMessage,
+    };
+}
+
+export async function addTenMostRecentMessages(tenMostRecentMessages) {
+    console.log("Action getTenMostRecentMessages!");
+    console.log("tenMostRecentMessages: ", tenMostRecentMessages);
+
+    return {
+        type: "ADD_TEN_MOST_RECENT_MESSAGES",
+        messages: tenMostRecentMessages,
     };
 }
