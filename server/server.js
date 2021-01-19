@@ -422,7 +422,7 @@ app.get("/other-user/info/:id", (req, res) => {
     const id = req.session.userId;
     const requestedId = req.params.id;
     if (requestedId == id) {
-        res.json({ requestedInvalidId: true });
+        res.json({ requestedInvalidId: true, error: true });
     }
     db.getOtherUserInfo(requestedId)
         .then(({ rows }) => {

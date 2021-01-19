@@ -26,7 +26,8 @@ export default function Chat() {
     useEffect(() => {
         let abort;
         (async () => {
-            if (!abort) {
+            if (!abort && elemRef.current) {
+                // "scrollIntoView" shouldn't happen until "elemRef" exists
                 elemRef.current.scrollIntoView({ behavior: "smooth" });
             }
         })();

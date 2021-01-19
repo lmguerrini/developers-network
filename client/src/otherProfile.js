@@ -60,9 +60,10 @@ export default class OtherProfile extends Component {
                     console.table("OtherProfile this.state: ", this.state);
                 }); */
                 } else {
-                    //console.log("this.props.history.push(" / ")");
+                    console.log("this.props.history.push(" / ")");
                     this.props.history.push("/");
                 }
+                
             })
             .catch((err) => {
                 console.error(
@@ -93,7 +94,7 @@ export default class OtherProfile extends Component {
                         {<h1>Profile=-BioEditor</h1>}
                         <div className="bioEditor">
                             <h3>
-                                {this.state.first} {this.state.last} 
+                                {this.state.first} {this.state.last}
                             </h3>
                             {this.state.bio}
                         </div>
