@@ -38,8 +38,8 @@ export async function deleteFriendship(id) {
 }
 
 export async function postNewMessage(mostRecenteMessage) {
-    console.log("Action postNewMessage!");
-    console.log("action mostRecenteMessage: ", mostRecenteMessage);
+    //console.log("Action postNewMessage!");
+    console.log("Action mostRecenteMessage: ", mostRecenteMessage);
     return {
         type: "POST_NEW_MESSAGE",
         message: mostRecenteMessage,
@@ -47,8 +47,8 @@ export async function postNewMessage(mostRecenteMessage) {
 }
 
 export async function addTenMostRecentMessages(tenMostRecentMessages) {
-    console.log("Action getTenMostRecentMessages!");
-    console.log("tenMostRecentMessages: ", tenMostRecentMessages);
+    //console.log("Action getTenMostRecentMessages!");
+    //console.log("Action tenMostRecentMessages: ", tenMostRecentMessages);
 
     return {
         type: "ADD_TEN_MOST_RECENT_MESSAGES",

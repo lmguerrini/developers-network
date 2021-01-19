@@ -16,15 +16,17 @@ export const init = (store) => {
     socket.on("new message and user profile", (mostRecenteMessage) => {
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
-        console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
+        //console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "postNewMessage": name of my action creator
     });
 
     socket.on("10 most recent messages", (tenMostRecentMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-
-        store.dispatch(addTenMostRecentMessages(tenMostRecentMessages.reverse()));
+        //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
+        store.dispatch(
+            addTenMostRecentMessages(tenMostRecentMessages.reverse())
+        );
     });
 
     /* socket.on("someThirdEvent", (payload) => {

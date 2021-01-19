@@ -9,7 +9,7 @@ import {
 } from "./actions";
 
 export default function Friends() {
-    console.log("Friends component mounted!");
+    //console.log("Friends component mounted!");
     const dispatch = useDispatch();
 
     const wannabes = useSelector(

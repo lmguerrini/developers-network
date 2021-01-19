@@ -40,7 +40,8 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "POST_NEW_MESSAGE") {
-        console.log("Reducer POST_NEW_MESSAGE");
+        //console.log("Reducer POST_NEW_MESSAGE");
+
         state = {
             ...state,
             messages: [...state.messages, action.message],
@@ -48,14 +49,14 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "ADD_TEN_MOST_RECENT_MESSAGES") {
-        console.log("Reducer GET_TEN_MOST_RECENT_MESSAGES");
-        //console.log("reducer state: ", )
+        //console.log("Reducer GET_TEN_MOST_RECENT_MESSAGES");
+        
         state = {
             ...state,
             messages: action.messages,
         };
+        
     }
-
 
     return state;
 }

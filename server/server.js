@@ -602,15 +602,11 @@ io.on("connection", (socket) => {
     socket.on("new chat message", (message) => {
         // message = e.target.value(chat.js/handlekeyDown)
         // this will run whenever user posts a new chat message (e.key === "Enter")
-        console.log("new message just written: ", message);
+        //console.log("new message just written: ", message);
         // 1. INSERT new mesage into our new "chat_messages" table
         db.insertNewMessage(userId, message)
             .then(({ rows }) => {
-                /* console.log("rows: ", returnFromDb);
-                console.log("id: ", returnFromDb[0].id);
-                console.log("created_at: ", returnFromDb[0].created_at); */
-                const id = rows[0].id;
-                //console.log("id: ", id);
+                //const id = rows[0].id;
 
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
@@ -627,7 +623,7 @@ io.on("connection", (socket) => {
                         // (what we have to emit back to the client is: message, profile_pic, name, id, timestamp)
                         io.sockets.emit("new message and user profile", {
                             message,
-                            id,
+                            id: rows[0].id,
                             profile_pic: rows[0].profile_pic,
                             name,
                             timestamp: createdAt,
@@ -658,8 +654,10 @@ io.on("connection", (socket) => {
     db.getTenMostRecentMessages()
         .then(({ rows }) => {
             console.log("rows getTenMostRecentMessages: ", rows);
-            
+            console.log("userID: ", userId);
+
             const newRows = rows.map((obj) => ({
+                senderId: userId,
                 id: obj.id,
                 name: obj.first + " " + obj.last,
                 profile_pic: obj.profile_pic,
@@ -671,7 +669,7 @@ io.on("connection", (socket) => {
                     ("" + obj.created_at + "").substring(16, 24),
             }));
             console.log("newRows: ", newRows);
-            
+
             socket.emit("10 most recent messages", newRows);
         })
         .catch((err) => {

@@ -145,11 +145,22 @@ module.exports.insertNewMessage = (userId, message) => {
 };
 
 module.exports.getTenMostRecentMessages = () => {
-    const q = `SELECT users.id, users.first, users.last, users.profile_pic, chat_messages.id, chat_messages.message, chat_messages.created_at
+    const q = `SELECT users.id, users.first, users.last, users.profile_pic, chat_messages.message, chat_messages.created_at
     FROM chat_messages
     JOIN users
-    ON (users.id = chat_messages.user_id)
+    ON (chat_messages.user_id = users.id)
     ORDER BY chat_messages.created_at DESC
     LIMIT 10`;
     return db.query(q);
 };
+
+/* module.exports.getTenMostRecentMessages = (userId) => {
+    const q = `SELECT users.id, users.first, users.last, users.profile_pic, chat_messages.id, chat_messages.message, chat_messages.created_at
+    FROM chat_messages
+    JOIN users
+    ON (chat_messages.user_id = users.id)
+    ORDER BY chat_messages.created_at DESC
+    LIMIT 3`;
+    const params = [userId];
+    return db.query(q, params);
+}; */

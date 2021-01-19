@@ -16,7 +16,7 @@ export default function FriendButton({ id }) {
             const { data } = await axios.get(
                 `/friendship/status/${recipientId}`
             );
-            console.log("dataa: ", data);
+            //console.log("data: ", data);
             if (recipientId && !abort) {
                 //console.log("data from GET /friendship/status/${recipientId}: ", data);
                 if (data.friendshipRequest) {
@@ -77,8 +77,11 @@ export default function FriendButton({ id }) {
             </div> */}
             <div>
                 <button className="friendButton" onClick={handleClick}>
-                    {buttonText} 
+                    {buttonText}
                 </button>
+            </div>
+            <div className="registrationError">
+                {error && <span>Ops, something went wrong!</span>}
             </div>
         </>
     );
