@@ -120,28 +120,28 @@ export default class Registration extends Component {
                     /* onChange={(e) => this.handleChange(e)} */
                     onChange={this.handleChange}
                     name="first"
-                    placeholder="First Name"
+                    placeholder="First Name.."
                     type="text"
                 />
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
                     onChange={this.handleChange}
                     name="last"
-                    placeholder="Last Name"
+                    placeholder="Last Name.."
                     type="text"
                 />
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
                     onChange={this.handleChange}
                     name="email"
-                    placeholder="Email"
+                    placeholder="Email.."
                     type="email"
                 />
                 <input
                     /* onChange={(e) => this.handleChange(e)} */
                     onChange={this.handleChange}
                     name="password"
-                    placeholder="Password"
+                    placeholder="Password.."
                     type="password"
                 />
                 {/* <button onClick={() => this.handleClick()}>Register</button> */}
@@ -149,7 +149,7 @@ export default class Registration extends Component {
                     Register
                 </button>
                 <p>
-                    Already a member? ☞ <Link to="/login">Log in!</Link>
+                    Already a member? ☞ <Link to="/login" className="loginLink">Log in!</Link>
                 </p>
             </>
         );

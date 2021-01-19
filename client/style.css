@@ -4,37 +4,180 @@
 
 body {
     background-color: ghostwhite;
+    background-color: black;
 }
 
 /* 
 **************** WELCOME **************** 
 */
+
+
 .headerWelcome {
-    -background-color: red;
+    background: rgba(51, 51, 51, 0.384);
+    padding-top: 5em;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    -height: 150px;
-    border-bottom: 1px solid rgb(53, 53, 53);
+    justify-content: center;
+    -align-items: center;
+}
+.animationConatiner {
+    margin-top: 20px;
+    -height: 35px;
+    -background-color: red;
+    font-family: Dejavu Sans, monospace;
+    overflow: hidden;
+    border-right: 0.85em solid lime;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.55em;
+    animation: typing 4.9s steps(40, end), blinking 0.45s step-end infinite;
 }
 
-.headerWelcome > h1 {
+.animationConatiner > h1,
+h2 {
+    font-size: 35px;
     margin-top: 20px;
+    color: white;
+    bottom: 20px;
     -background-color: greenyellow;
 }
 
-.theSocialNetworkLogoBig {
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 83%;
+    }
+}
+
+@keyframes blinking {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgba(2, 170, 2, 0.829);
+    }
+}
+
+.slider-wrapper {
+    -background-color: red;
+    font-size: 30px;
+    font-family: Dejavu Sans, monospace;
+    color: white;
+    -font-weight: bold;
+    -text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+.slider {
+    -background-color: rgb(18, 18, 18);
+    -background-color: lime;
+    -margin-left: 0;
+    -height: 500px;
+    width: 100%;
+    padding-left: 15px;
+    overflow: hidden;
+}
+.slider div {
+    -background-color: orange;
+    color: whitesmoke;
+    margin-bottom: 5px;
+    padding: 2px 15px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.slider-text1 {
+    animation: slide-left 7s linear;
+    margin-top: 30px;
+    margin-left: -15%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+/* .slider-text1 > {
+    margin-top: 0;
+} */
+.slider-text2 {
+    animation: slide-right 8.5s linear;
+    margin-right: -15%;
+    margin-top: 10px;
+}
+
+@keyframes slide-left {
+    0% {
+        margin-left: -150%;
+    }
+    75% {
+        margin-left: -150%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+
+@keyframes slide-right {
+    0% {
+        margin-right: -150%;
+    }
+    75% {
+        margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+
+/* .theSocialNetworkLogoBig {
     -width: 100px;
     height: 300px;
     margin: 50px 0 50px 20px;
     -align-self: flex-start;
     -display: block;
+} */
+.matrixCodeContainer {
+    width: 100%;
+    height: 70vh;
+    overflow-y: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
-.sectionWelcome {
+.matrixCode {
+    width: 100%;
+    
+    -margin-bottom: 80%;
+}
+
+.sectionR-L-RP_Container {
+    -position: absolute;
+    -text-align: center;
+    top: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     -background-color: red;
-    margin-top: 30px;
-    height: 300px;
+}
+
+.sectionR-L-RP {
+    -text-align: center;
+    -margin: 0 auto;
+    background-color: rgba(7, 7, 7, 0.5);
+    -margin: 30px;
+    width: 300px;
+    height: 350px;
+    padding: 55px 25px 35px 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -42,9 +185,57 @@ body {
     -border-bottom: 1px solid rgb(53, 53, 53);
 }
 
-.sectionWelcome > #registerBtn {
+.sectionR-L-RP > h1,
+p,
+button {
+    font-family: Dejavu Sans, monospace;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.685);
+    text-decoration: none;
+    -outline: lime;
+}
+
+.sectionR-L-RP > input {
+    background-color: rgba(0, 0, 0, 0.884);
+    color: white;
+    font-size: 0.9em;
+    padding: 4px 0 4px 8px;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+}
+
+.sectionR-L-RP > input:focus {
+    border: 2px solid lime;
+}
+
+#registerBtn {
+    background-color: black;
     -color: red;
     width: 150px;
+}
+
+#registerBtn:focus {
+    border: 2px solid lime;
+    outline: none;
+}
+
+.loginLink {
+    font-size: 1.2em;
+    background-color: rgba(0, 0, 0, 0.815);
+    color: white;
+    text-decoration: none;
+}
+
+.loginLink:hover {
+    text-decoration: underline;
+}
+
+.loginLink:focus {
+    border: 2px solid lime;
+    outline: none;
 }
 
 .loginBtnContainer {
@@ -226,4 +417,18 @@ body {
     padding: 35px;
     z-index: 1;
     -height: 100px;
+}
+
+/******************************************
+    ************** footer **************
+*******************************************/
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding-bottom: 15px;
+    width: 100%;
+    color: white;
+    -background-color: rgb(0, 0, 0);
 }

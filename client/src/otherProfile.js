@@ -60,7 +60,7 @@ export default class OtherProfile extends Component {
                     console.table("OtherProfile this.state: ", this.state);
                 }); */
                 } else {
-                    console.log("this.props.history.push(" / ")");
+                    //console.log("requestedId == id");
                     this.props.history.push("/");
                 }
                 
