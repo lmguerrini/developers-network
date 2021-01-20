@@ -108,50 +108,55 @@ export default class Registration extends Component {
 
     render() {
         return (
-            <>
-                <h1>Registration</h1>
-                <div className="registrationError">
-                    {/* {this.state.error && (
+            <section className="sectionRegistrationContainer">
+                <div className="sectionRegistration">
+                    <h1 id="titles">Registration</h1>
+                    <div className="registrationError">
+                        {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>
                     )} */}
-                    {this.state.error && <span>{this.state.error}</span>}
+                        {this.state.error && <span>{this.state.error}</span>}
+                    </div>
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="first"
+                        placeholder="First Name.."
+                        type="text"
+                    />
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="last"
+                        placeholder="Last Name.."
+                        type="text"
+                    />
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="email"
+                        placeholder="Email.."
+                        type="email"
+                    />
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="password"
+                        placeholder="Password.."
+                        type="password"
+                    />
+                    {/* <button onClick={() => this.handleClick()}>Register</button> */}
+                    <button id="registerBtn" onClick={this.handleClick}>
+                        Register
+                    </button>
+                    <p>
+                        Already a member? ☞{" "}
+                        <Link to="/login" className="loginLink">
+                            Log in!
+                        </Link>
+                    </p>
                 </div>
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="first"
-                    placeholder="First Name.."
-                    type="text"
-                />
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="last"
-                    placeholder="Last Name.."
-                    type="text"
-                />
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="email"
-                    placeholder="Email.."
-                    type="email"
-                />
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="password"
-                    placeholder="Password.."
-                    type="password"
-                />
-                {/* <button onClick={() => this.handleClick()}>Register</button> */}
-                <button id="registerBtn" onClick={this.handleClick}>
-                    Register
-                </button>
-                <p>
-                    Already a member? ☞ <Link to="/login" className="loginLink">Log in!</Link>
-                </p>
-            </>
+            </section>
         );
     }
 }

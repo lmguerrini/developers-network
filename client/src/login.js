@@ -59,40 +59,49 @@ export default class Login extends Component {
 
     render() {
         return (
-            <>
-                <h1>Log in</h1>
-                <div className="registrationError">
-                    {/* {this.state.error && (
+            <section className="sectionR-L-RP_Container">
+                <div className="sectionR-L-RP">
+                    <h1 id="titles">Log in</h1>
+                    <div className="registrationError">
+                        {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>
                     )} */}
-                    {this.state.error && <span>{this.state.error}</span>}
+                        {this.state.error && <span>{this.state.error}</span>}
+                    </div>
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="email"
+                        placeholder="Email"
+                        type="email"
+                    />
+                    <input
+                        /* onChange={(e) => this.handleChange(e)} */
+                        onChange={this.handleChange}
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                    />
+                    {/* <button onClick={() => this.handleClick()}>Register</button> */}
+                    <div className="loginBtnContainer">
+                        <button id="registerBtn" onClick={this.handleClick}>
+                            Log in
+                        </button>
+                        <p>
+                            Not a member? ☞{" "}
+                            <Link to="/" className="loginLink">
+                                Sign up!
+                            </Link>
+                        </p>
+                        <p>
+                            Forgot your password? ☞{" "}
+                            <Link to="/reset-password" className="loginLink">
+                                Reset password
+                            </Link>
+                        </p>
+                    </div>
                 </div>
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="email"
-                    placeholder="Email"
-                    type="email"
-                />
-                <input
-                    /* onChange={(e) => this.handleChange(e)} */
-                    onChange={this.handleChange}
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                />
-                {/* <button onClick={() => this.handleClick()}>Register</button> */}
-                <div className="loginBtnContainer">
-                    <button onClick={this.handleClick}>Log in</button>
-                    <p>
-                        Not a member? ☞ <Link to="/">Sign up!</Link>
-                    </p>
-                    <p>
-                        Forgot your password? ☞{" "}
-                        <Link to="/reset-password">Reset password</Link>
-                    </p>
-                </div>
-            </>
+            </section>
         );
     }
 }
