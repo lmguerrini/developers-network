@@ -3,24 +3,41 @@
 }
 
 body {
-    background-color: ghostwhite;
+    -background-color: ghostwhite;
     background-color: black;
 }
 
-/* 
-**************** WELCOME **************** 
-*/
-
+/******************************************
+    ************** WELCOME **************
+*******************************************/
 
 .headerWelcome {
-    background: rgba(51, 51, 51, 0.384);
+    -background: rgba(51, 51, 51, 0.384);
+    background-color: black;
     padding-top: 5em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     -align-items: center;
+
+    -opacity: 0;
+    -visibility: hidden;
+    animation: 13s fadeInOut;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInOut {
+    50% {
+        background-color: black;
+    }
+    100% {
+        -background-color: red;
+        background: rgba(51, 51, 51, 0.384);
+    }
 }
 .animationConatiner {
+    width: 1125px;
+    -width: 1425px;
     margin-top: 20px;
     -height: 35px;
     -background-color: red;
@@ -30,7 +47,23 @@ body {
     white-space: nowrap;
     margin: 0 auto;
     letter-spacing: 0.55em;
-    animation: typing 4.9s steps(40, end), blinking 0.45s step-end infinite;
+
+    /* animation-delay: 5s, 5s;
+    animation-name: typing, blinking;
+    animation-duration: 4.9s, 0.45s;
+    animation-timing-function: steps(40, end), step-end infinite; */
+
+    animation: typing 4.5s steps(40, end), blinking 0.45s step-end infinite;
+}
+
+.animationConatiner span {
+    color: rgb(65, 65, 65);
+    -color: rgba(0, 255, 0, 0.527);
+
+    opacity: 0;
+    visibility: hidden;
+    animation: 14s fadeOut;
+    animation-fill-mode: forwards;
 }
 
 .animationConatiner > h1,
@@ -39,7 +72,7 @@ h2 {
     margin-top: 20px;
     color: white;
     bottom: 20px;
-    -background-color: greenyellow;
+    -background-color: rgb(255, 120, 47);
 }
 
 @keyframes typing {
@@ -47,7 +80,9 @@ h2 {
         width: 0;
     }
     to {
-        width: 83%;
+        -width: 83%;
+        width: 1125px;
+        -width: 1425px;
     }
 }
 
@@ -98,15 +133,47 @@ h2 {
     display: flex;
     flex-direction: column;
     align-self: center;
+    letter-spacing: 0.04em;
 }
 
-/* .slider-text1 > {
-    margin-top: 0;
-} */
+.slider-text1 p {
+    background: rgba(51, 51, 51, 0.052);
+}
+
+.slider-text1 span {
+    color: rgb(65, 65, 65);
+    -color: rgba(0, 255, 0, 0.527);
+
+    opacity: 0;
+    visibility: hidden;
+    animation: 14s fadeOut;
+    animation-fill-mode: forwards;
+}
+
+#byFor {
+    color: rgba(255, 255, 255, 0.861);
+}
+
 .slider-text2 {
     animation: slide-right 8.5s linear;
     margin-right: -15%;
     margin-top: 10px;
+    letter-spacing: 0.045em;
+}
+
+.slider-text2 p {
+    background: rgba(51, 51, 51, 0.052);
+}
+
+.slider-text2 span {
+    color: rgb(65, 65, 65);
+    -color: rgb(46, 46, 46);
+    -color: rgba(0, 255, 0, 0.477);
+
+    opacity: 0;
+    visibility: hidden;
+    animation: 14s fadeOut;
+    animation-fill-mode: forwards;
 }
 
 @keyframes slide-left {
@@ -152,12 +219,94 @@ h2 {
     overflow-y: hidden;
     position: absolute;
     z-index: -1;
+    -background-color: red;
 }
 
 .matrixCode {
     width: 100%;
-    
-    -margin-bottom: 80%;
+    -z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+    animation: 15s fadeIn;
+    animation-fill-mode: forwards;
+    -animation-delay: 5s;
+    -background-color: black;
+    -transition-delay: 3s;
+    -transition: opacity 3s linear, visibility 3s linear;
+}
+
+@keyframes fadeIn {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+/* ----container(Registration-Login-ResetPsw)---- */
+
+.sectionRegistrationContainer {
+    top: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sectionRegistration {
+    background-color: rgba(7, 7, 7, 0.5);
+    width: 400px;
+    height: 350px;
+    padding: 55px 25px 35px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    animation: 14s fadeOut;
+    animation-fill-mode: forwards;
+}
+
+#titles {
+    letter-spacing: 0.1em;
+}
+
+@keyframes fadeOut {
+    75% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.sectionRegistration > h1,
+p,
+button {
+    font-family: Dejavu Sans, monospace;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.685);
+    text-decoration: none;
+    -outline: lime;
+}
+
+.sectionRegistration > input {
+    background-color: rgba(0, 0, 0, 0.884);
+    color: white;
+    font-size: 0.9em;
+    padding: 4px 0 4px 8px;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+}
+
+.sectionRegistration > input:focus {
+    border: 2px solid lime;
 }
 
 .sectionR-L-RP_Container {
@@ -175,7 +324,7 @@ h2 {
     -margin: 0 auto;
     background-color: rgba(7, 7, 7, 0.5);
     -margin: 30px;
-    width: 300px;
+    width: 400px;
     height: 350px;
     padding: 55px 25px 35px 25px;
     display: flex;
@@ -210,7 +359,7 @@ button {
 .sectionR-L-RP > input:focus {
     border: 2px solid lime;
 }
-
+/* ----section(Registration)---- */
 #registerBtn {
     background-color: black;
     -color: red;
@@ -222,8 +371,9 @@ button {
     outline: none;
 }
 
+/* ----section(Login)---- */
 .loginLink {
-    font-size: 1.2em;
+    font-size: 1.1em;
     background-color: rgba(0, 0, 0, 0.815);
     color: white;
     text-decoration: none;
@@ -255,12 +405,18 @@ button {
     align-self: center;
 }
 
+/* ----section(ResetPsw)---- */
 .sectionResetPsw {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    color: white;
+    font-family: Dejavu Sans, monospace;
     justify-content: space-between;
     height: 150px;
+    -top: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .resetPswComponents {
@@ -272,21 +428,59 @@ button {
     align-items: center;
 }
 
-.resetPswComponents > input {
+/* .resetPswComponents > input {
     width: 250px;
+} */
+
+.resetPswComponents > input {
+    background-color: rgba(0, 0, 0, 0.884);
+    color: white;
+    font-size: 0.9em;
+    padding: 4px 0 4px 8px;
+    outline: none;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
 }
 
-.resetPswComponents > button {
-    width: 150px;
+#enterEmail {
+    padding: 0 50px 20px 50px;
+    -background-color: red;
+    text-align: center;
 }
+
+#enterPsw {
+    padding: 20px 50px 20px 50px;
+    -background-color: red;
+    text-align: center;
+}
+
+.component2btn {
+    margin-top: 30px;
+}
+
+.component3Link {
+    padding-top: 30px;
+    background-color: rgba(0, 0, 0, 0.682);
+}
+
+#component3Link {
+    color: lime;
+}
+
+/* .resetPswComponents > button {
+    width: 150px;
+
+} */
 
 .registrationError {
     color: orangered;
 }
 
-/* 
-****************** APP ****************** 
-*/
+/**********************************************
+    ***************** APP *****************
+**********************************************/
 /* ----header---- */
 .headerApp {
     -background-color: red;
