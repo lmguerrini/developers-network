@@ -422,7 +422,7 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     const url = `${s3Url}${req.file.filename}`;
     if (req.file) {
         db.updateProfilePic(id, url)
-            .then(({ rows }) => {
+            .then(() => {
                 //console.log("update rows:", rows[0].profile_pic);
                 //console.log("substr upload: ", rows[0].profile_pic.substr(49));
                 /* if (rows[0].profile_pic) {

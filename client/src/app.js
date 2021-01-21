@@ -176,7 +176,7 @@ export default class App extends Component {
                                     </p>
                                     <p>
                                         <Link to="/users" className="loginLink">
-                                            Find People
+                                            Find Devs
                                         </Link>
                                     </p>
                                     <p>

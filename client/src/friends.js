@@ -46,15 +46,17 @@ export default function Friends() {
     if ((!friends || !friends.length) && (!wannabes || !wannabes.length)) {
         //return null;
         return (
-            <div>
-                <h1>
-                    Ops, it seems you don&#39;t have any friends/friends
-                    requests yet..
-                </h1>
-                <h4>
-                    Note: You can click on &#39;Find People&#39; in order to
-                    look for people to add as friend
-                </h4>
+            <div className="opsNoFriendsNorRequestsFirstWrap">
+                <div className="opsNoFriendsNorRequestsSecondtWrap">
+                    <h1>
+                        Ops, it seems you don&#39;t have any friends/friends
+                        requests yet..
+                    </h1>
+                    <h4>
+                        Note: You can click on &#39;Find Developers&#39; in order to
+                        look for people to add as friend.
+                    </h4>
+                </div>
             </div>
         );
     }

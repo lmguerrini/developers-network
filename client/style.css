@@ -499,7 +499,7 @@ button {
 /**********************************************
     ***************** APP *****************
 **********************************************/
-.appParentWrapper{
+.appParentWrapper {
     background-color: ghostwhite;
 }
 
@@ -825,6 +825,21 @@ button {
 }
 
 /* ----section(Friends)---- */
+.opsNoFriendsNorRequestsFirstWrap {
+    display: flex;
+    justify-content: center;
+}
+
+.opsNoFriendsNorRequestsSecondtWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 65px;
+    align-items: center;
+    margin-top: 55px;
+    font-family: Dejavu Sans, monospace;
+}
+
 .friendsWrapper {
     margin-bottom: 50px;
 }
@@ -927,6 +942,11 @@ button {
     -background-color: red;
     -z-index: 1;
     -position: absolute;
+}
+
+.chatTextareaContainer textarea:focus {
+    outline: none;
+    border: 3px solid lime
 }
 
 /* .imgNameWrap{
