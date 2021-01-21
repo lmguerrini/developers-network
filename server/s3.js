@@ -44,6 +44,7 @@ module.exports.upload = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
+    console.log("from s3 delete filname: ", req.body.image.substr(49));
     const filename = req.body.image.substr(49);
 
     const promise = s3

@@ -245,10 +245,13 @@ app.post("/reset/password", (req, res) => {
                             `
 Dear user, 
 
+
 please enter this code in order to reset your password: ${secretCode}.
-                            
+    
+
 Sincerely, 
-The Social Network Services Team
+
+The Developers Network Services Team
                             `,
                             "Code to reset your password"
                         );
@@ -367,14 +370,95 @@ app.get("/user/info", async (req, res) => {
     }
 });
 
+app.post("/user/delete", (req, res) => {
+    const id = req.session.userId;
+    db.deleteUserFromChatMessages(id)
+        .then(() => {
+            console.log("user deleted from chat_messages table!");
+            db.deleteUserFromFriendships(id)
+                .then(() => {
+                    console.log("user deleted from friendships table!");
+                    db.deleteUserFromUsers(id)
+                        .then(() => {
+                            //console.log("delete user rows: ", rows[0]);
+                            console.log("user deleted from users table!");
+                            /* console.log(
+                                "substr delete: ",
+                                rows[0].profile_pic.substr(49)
+                            );
+                            if (rows[0].profile_pic) {
+                                //const lastProfPic = rows[0].profile_pic;
+                            } */
+                            res.json({ success: true });
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "error in POST/delete db.deleteUserFromUsers catch: ",
+                                err
+                            );
+                            res.json({ error: true });
+                        });
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in POST/delete db.deleteUserFromFriendships catch: ",
+                        err
+                    );
+                    res.json({ error: true });
+                });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/delete db.deleteUserFromChatMessages catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     const id = req.session.userId;
     // we can construct the URL needed to be able to see our image
     const url = `${s3Url}${req.file.filename}`;
     if (req.file) {
         db.updateProfilePic(id, url)
-            .then(() => {
+            .then(({ rows }) => {
+                //console.log("update rows:", rows[0].profile_pic);
+                //console.log("substr upload: ", rows[0].profile_pic.substr(49));
+                /* if (rows[0].profile_pic) {
+                    const penultimateProfPic = rows[0].profile_pic.substr(49);
+                    console.log(
+                        "penultimateProfPic from server: ",
+                        penultimateProfPic
+                    );
+                    const promise = s3
+                        .deleteObject({
+                            Bucket: "lorenzoimageboardbucket", 
+                            Key: penultimateProfPic,
+                        })
+                        .promise(); 
+
+                    promise
+                        .then(() => {
+                            console.log(
+                                "(s3-promise/then): image deletion from AWS complete!"
+                            );
+                            next();
+                            // optional clean up:
+                            //fs.unlink(path, () => {});
+                            //this is called a "noop (no operation) function"
+                        })
+                        .catch((err) => {
+                            console.log(
+                                "Something went wrong in deleting from S3!: ",
+                                err
+                            );
+                            res.sendStatus(404); // (?)
+                        }); */
+
+                //s3.delete(penultimateProfPic);
                 res.json({ error: false, profile_pic: url });
+                //}
             })
             .catch((err) => {
                 console.error(
@@ -653,8 +737,8 @@ io.on("connection", (socket) => {
     // - this means we will need to do two queries (chat_messages and users) / one join
     db.getTenMostRecentMessages()
         .then(({ rows }) => {
-            console.log("rows getTenMostRecentMessages: ", rows);
-            console.log("userID: ", userId);
+            //console.log("rows getTenMostRecentMessages: ", rows);
+            //console.log("userID: ", userId);
 
             const newRows = rows.map((obj) => ({
                 senderId: userId,
@@ -668,7 +752,7 @@ io.on("connection", (socket) => {
                     " at " +
                     ("" + obj.created_at + "").substring(16, 24),
             }));
-            console.log("newRows: ", newRows);
+            //console.log("newRows: ", newRows);
 
             socket.emit("10 most recent messages", newRows);
         })

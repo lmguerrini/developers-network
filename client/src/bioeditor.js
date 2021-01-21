@@ -64,33 +64,47 @@ export default class BioEditor extends Component {
                         <span>Ops, something went wrong!</span>
                     )}
                 </div>
-
-                {this.state.bioEditorIsVisible
-                    ? this.state.bioEditorIsVisible && (
-                        <div>
-                            {/* <h6>[editMode]</h6> */}
-                            <textarea
-                                name="draftBio"
-                                rows="5"
-                                col="20"
-                                defaultValue={this.props.bio}
-                                onChange={this.handleChange}
-                            />
-                            <button onClick={this.editBio}>Save</button>
-                            <button onClick={this.toggleTextarea}>
-                                Back
-                            </button>
-                        </div>
-                    )
-                    : !this.state.bioEditorIsVisible && (
-                        <div>
-                            {/* <h6>[displayMode]</h6> */}
-                            {<p>{this.props.bio}</p>}
-                            <button onClick={this.toggleTextarea}>
-                                {!this.props.bio ? "Add bio" : "Edit"}
-                            </button>
-                        </div>
-                    )}
+                <div id="bioeditorTextarea">
+                    {this.state.bioEditorIsVisible
+                        ? this.state.bioEditorIsVisible && (
+                            <div>
+                                {/* <h6>[editMode]</h6> */}
+                                <textarea
+                                    name="draftBio"
+                                    rows="10"
+                                    cols="76"
+                                    defaultValue={this.props.bio}
+                                    onChange={this.handleChange}
+                                />
+                                <div id="saveBackBtnWrap">
+                                    <button
+                                        id="bioeditBtn"
+                                        onClick={this.toggleTextarea}
+                                    >
+                                        Back
+                                    </button>
+                                    <button
+                                        id="bioeditBtn"
+                                        onClick={this.editBio}
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                        : !this.state.bioEditorIsVisible && (
+                            <div id="bioEditorIsVisible">
+                                {/* <h6>[displayMode]</h6> */}
+                                {<p>{this.props.bio}</p>}
+                                <button
+                                    id="bioeditBtn"
+                                    onClick={this.toggleTextarea}
+                                >
+                                    {!this.props.bio ? "Add bio" : "Edit"}
+                                </button>
+                            </div>
+                        )}
+                </div>
             </>
         );
     }

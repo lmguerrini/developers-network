@@ -7,6 +7,17 @@ body {
     background-color: black;
 }
 
+.parentContainer {
+    position: relative;
+    min-height: 100vh;
+    -background-color: black;
+    -background-color: ghostwhite;
+}
+
+.childrenContainer {
+    padding-bottom: 2.5rem;
+}
+
 /******************************************
     ************** WELCOME **************
 *******************************************/
@@ -239,10 +250,17 @@ h2 {
     50% {
         opacity: 0;
     }
+    /* 90% {
+        visibility: visible;
+        opacity: 1;
+    } */
     100% {
         visibility: visible;
         opacity: 1;
     }
+    /* 100% {
+        opacity: 0.85;
+    } */
 }
 
 /* ----container(Registration-Login-ResetPsw)---- */
@@ -380,7 +398,7 @@ button {
 }
 
 .loginLink:hover {
-    text-decoration: underline;
+    -text-decoration: underline;
 }
 
 .loginLink:focus {
@@ -481,58 +499,223 @@ button {
 /**********************************************
     ***************** APP *****************
 **********************************************/
+.appParentWrapper{
+    background-color: ghostwhite;
+}
+
 /* ----header---- */
 .headerApp {
     -background-color: red;
     display: flex;
     justify-content: space-between;
     height: 150px;
-    border-bottom: 1px solid rgb(53, 53, 53);
+    -border-bottom: 1px solid rgb(53, 53, 53);
+    -border: 5px solid rgba(255, 255, 255, 0.459);
+    border: 5px solid white;
+    -border-bottom: hidden;
+    border-radius: 5px;
+    background-color: rgb(29, 29, 29);
 }
-.theSocialNetworkLogo {
+.theDeveloperNetworkLogo {
     -width: 100px;
-    height: 60px;
-    margin: 50px 0 50px 20px;
+    height: 110px;
+    -margin: 50px 0 50px 20px;
+    margin-left: 2%;
+    align-self: center;
+    /* -transform: rotate(180deg);
+    -transition-duration: 3s;
+
+
+    -opacity: 0;
+    -visibility: hidden;
+    animation: 15s fadeIn;
+    animation-fill-mode: forwards;
+    -animation-delay: 5s;
+    -background-color: black;
+    -transition-delay: 3s;
+    -transition: opacity 3s linear, visibility 3s linear; */
+
+    animation: rotate 30s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.theDeveloperNetworkLogo:hover {
+    animation-play-state: paused;
 }
 
 /* ----nav---- */
 .navApp {
-    background-color: rgba(26, 255, 0, 0.425);
+    -background-color: rgba(26, 255, 0, 0.425);
+    -background-color: white;
+
     display: flex;
     justify-content: space-evenly;
     -height: 30px;
     border-bottom: 1px solid rgb(53, 53, 53);
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
-.navApp > h4 {
-    margin: 20px;
+.navApp p {
+    -margin: 20px;
     padding: 5px;
     text-decoration: none;
-    border: 1px solid rgb(53, 53, 53);
-    background-color: rgb(255, 234, 0);
+    font-size: 1.3em;
+    color: white;
+    -font-family: Dejavu Sans, monospace;
+    font-family: "Courier New", Courier, monospace;
+    -font-family: Andale Mono, monospace;
+    -border: 1px solid rgb(53, 53, 53);
 }
 
-.navApp > h4:hover {
+.logoutLink {
+    font-size: 1.1em;
+    background-color: rgba(0, 0, 0, 0.815);
+    color: rgba(255, 255, 255, 0.623);
+    outline: none;
+    text-decoration: none;
+}
+
+#deleteAccount {
+    color: red;
+}
+
+#deleteAccount:hover {
+    cursor: pointer;
+}
+
+.navApp > p:hover {
     text-decoration: underline;
-    background-color: red;
-    transition: 0.5s;
+    -background-color: rgba(255, 0, 0, 0.288);
 }
 
 /* ----section(Profile)---- */
+.sectionProfile {
+    display: flex;
+    justify-content: center;
+}
 .profileContainer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
     margin: 20px;
+    min-height: 600px;
+    max-width: 600px;
+    align-content: center;
 }
+
+.profileContainer p {
+    font-size: 1.6em;
+    color: white;
+    -font-family: Dejavu Sans, monospace;
+    font-family: "Courier New", Courier, monospace;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3.5px;
+}
+
+#welcomeBack {
+    -margin-right: 80px;
+    margin-top: 30px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+}
+
+#welcomeBack p {
+    letter-spacing: 0.2em;
+    padding: 5px 23px 5px 23px;
+}
+
+.cardContainer {
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 30px 0 30px;
+    -grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    justify-content: space-around;
+    grid-gap: 50px;
+    align-self: center;
+}
+
+.card {
+    -width: 100%;
+    -height: 100%;
+    -width: 500px;
+    -height: 250;
+    position: relative;
+    background-color: #000000d5;
+    color: whitesmoke;
+    margin: 20px;
+    border-radius: 5px;
+    width: 700px;
+    -height: 700px;
+    -max-width: 750px;
+    -min-height: 300px;
+    -min-width: 100%;
+    -max-height: 80%;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.profile_picBigContainer {
+    text-align: center;
+    -width: 250px;
+    -height: 200px;
+    -background-color: rgba(242, 255, 0, 0.288);
+}
+
+.profile_picBigContainer img {
+    margin-left: 1%;
+    height: auto;
+    width: 700px;
+    -margin-left: 15px;
+    -object-fit: scale-down;
+    -object-fit: contain;
+    border-radius: 5px;
+    -border-top-left-radius: 5px;
+    -border-top-right-radius: 5px;
+    border: 0;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+#introTitle {
+    align-self: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
 /* ----section(Profile(ProfilePic)---- */
+.profilePicContiner {
+    -border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 2%;
+}
+
 .profile_pic {
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 20px;
-    border: 1px solid rgba(53, 53, 53, 0.164);
-    padding: 2px;
+    -margin: 20px;
+    -border: 1px solid rgba(53, 53, 53, 0.164);
+    border: 8.8px solid white;
+    -padding: 2px;
+    align-self: center;
 }
 
 .profile_pic:hover {
@@ -546,28 +729,65 @@ button {
     -background-color: red;
 } */
 
-.profile_picBigContainer {
-    text-align: center;
-    -width: 250px;
-    -height: 200px;
-    background-color: rgba(242, 255, 0, 0.288);
-}
-
-.profile_picBigContainer img {
-    height: auto;
-    width: 500px;
-    -object-fit: scale-down;
-    -object-fit: contain;
-    border-radius: 0;
-    border: 0;
-}
-
 .bioEditor {
+    background-color: #000000c9;
     padding: 10px 20px 20px 20px;
-    background-color: rgba(252, 118, 0, 0.253);
+    -background-color: rgba(252, 118, 0, 0.253);
+}
+
+#bioEditorIsVisible p {
+    font-size: 1.25em;
+}
+
+#bioeditorTextarea {
+    padding-left: 25px;
+    padding-right: 25px;
+    -text-align: justify;
+    -text-justify: inter-word;
+    text-align: justify;
+}
+
+#bioeditBtn {
+    -margin-left: 45%;
+    font-size: 1.2em;
+    margin: 20px 45% 20px 45%;
+    outline: none;
+    width: 100px;
+}
+
+#bioeditBtn:hover {
+    border: 1px solid lime;
+}
+
+#saveBackBtnWrap {
+    display: flex;
+    justify-content: center;
+}
+
+#saveBackBtnWrap button {
+    margin-left: 65px;
+    margin-right: 65px;
 }
 
 /* ----section(OtherProfile)---- */
+/* .otherProfileContainer {
+    margin-left: 200px;
+    display: flex;
+    -flex-direction: column;
+    -align-items: center;
+    justify-content: center;
+    -justify-content: space-evenly;
+    margin: 20px;
+    min-height: 600px;
+    width: 600px;
+    -align-content: center;
+} */
+
+#otherProfileBioeditor {
+    font-size: 1.25em;
+    text-align: justify;
+}
+
 .sectionProfileFriendbutton {
     display: flex;
     flex-direction: column;
@@ -576,41 +796,233 @@ button {
 }
 
 /* ----section(OtherProfile(FriendButton)---- */
+.sectionWrapper {
+    display: flex;
+    justify-content: center;
+    -align-items: center;
+    -background-color: red;
+    -width: 1000px;
+    -height: 1000px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.friendButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .friendButton {
     -align-self: center;
     width: 180px;
     -margin-top: 10px;
     color: red;
-}
-
-/* ----section(FindPeople)---- */
-.findPeopleContainer {
-    background-color: lime;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
 }
 
 /* ----section(Friends)---- */
-.wannabesContainer {
-    background-color: red;
-    -display: flex;
-    -flex-direction: column;
-    -width: 500px;
-    z-index: -1;
+.friendsWrapper {
+    margin-bottom: 50px;
+}
+
+.friendsWrapper p {
+    font-size: 1.3em;
+    padding: 5px 0 5px 10px;
+}
+
+.friendsWrapper img {
+    margin: 2% 0 2% 4%;
+}
+
+.friendsWrapper button {
+    font-size: 1em;
+    padding: 5px 0 5px 10px;
+    color: red;
+    padding: 5px;
+    margin-left: 6%;
+    margin-top: 1%;
+}
+
+.wannabesWrapper {
+    margin-bottom: 50px;
+}
+
+.wannabesWrapper p {
+    font-size: 1.3em;
+    padding: 5px 0 5px 10px;
+}
+
+#friendsWannabesLink {
+    text-decoration: none;
+}
+
+.wannabesWrapper img {
+    margin: 2% 0 2% 4%;
+}
+
+.wannabesWrapper button {
+    font-size: 1em;
+    padding: 5px 0 5px 10px;
+    color: red;
+    padding: 5px;
+    margin-left: 6%;
+    margin-top: 1%;
+}
+
+.acceptBtnWrapper {
+    transform: translate(-35px, 0);
+}
+
+#acceptBtn {
+    color: lime;
+}
+
+.refuseBtnWrapper {
+    transform: translate(-35px, -5px);
+}
+
+/* ----section(FindPeople)---- */
+
+#findpeopleTitles {
+    font-size: 1.35em;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+#imgLatest {
+    padding: 5px;
+    margin-left: 5px;
+}
+
+#searchInput {
+    width: 250px;
+    height: 25px;
+    margin: 5px 0 10px 5px;
+    font-family: Dejavu Sans, monospace;
+}
+
+#nothingFoundWrapper {
+    margin: 5px 0 10px 5px;
+}
+
+#nothingFound {
+    color: lime;
+}
+
+/* ----section(Chat)---- */
+.sectionChatWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.chatHistoryContainer {
+    overflow: scroll;
+    height: 550px;
+    width: auto;
+    overflow-x: hidden;
+    -background-color: red;
+    -z-index: 1;
+    -position: absolute;
+}
+
+/* .imgNameWrap{
+    display: flex;
+}
+
+.imgNameWrap p {
+    align-self: center;
+    margin-left: 5%;
+} */
+
+.imgNameWrap img {
+    margin-left: 2%;
+}
+
+#messageName {
+    font-size: 1.2em;
+}
+
+#chat-messages {
+    margin: 0 3px 5px 3px;
+}
+
+#chat-messages p {
+    font-size: 1em;
+    color: lime;
+}
+
+#chatTextarea {
+    font-family: Dejavu Sans, monospace;
 }
 
 /* ----section(Uploader)---- */
-.modalUploader {
-    width: 300px;
-    -position: absolute;
-    position: fixed;
+
+.modalUploaderWrapper {
+    width: 760px;
+    height: 504px;
+    position: absolute;
+    -position: fixed;
     top: 150px;
     background-color: rgba(26, 26, 26, 0.801);
     color: white;
     text-align: center;
     margin: 0 25% 0 25%;
-    border-radius: 3px;
-    padding: 35px;
+    border-radius: 5px;
+    padding: 97px 150px 105px 150px;
     z-index: 1;
     -height: 100px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.uploaderContainer {
+    padding: 100px 150px 100px 150px;
+    width: 600px;
+    -width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.61);
+    border-radius: 5px;
+}
+
+#uploaderSigns {
+    color: rgba(191, 191, 191, 0.384);
+}
+
+.uploaderContainer p {
+    font-size: 1.5em;
+}
+
+#uploaderUploadBtn {
+    font-size: 1.23em;
+}
+
+#uploaderUploadBtn:hover {
+    color: lime;
+}
+
+#uploaderCloseBtn {
+    margin-top: 20px;
+    font-size: 1.22em;
+}
+
+#uploaderCloseBtn:hover {
+    color: rgba(140, 140, 140, 0.555);
+}
+
+#uploaderDeleteBtn {
+    font-size: 0.8em;
+}
+
+#uploaderDeleteBtn:hover {
+    color: red;
 }
 
 /******************************************
@@ -618,11 +1030,24 @@ button {
 *******************************************/
 
 footer {
-    position: fixed;
+    /* position: fixed;
     left: 0;
     bottom: 0;
     padding-bottom: 15px;
     width: 100%;
     color: white;
-    -background-color: rgb(0, 0, 0);
+    -background-color: rgb(0, 0, 0); */
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.6rem;
+    color: white;
+}
+
+.footerApp {
+    margin-left: 10px;
+    color: black;
+    -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }

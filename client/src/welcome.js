@@ -7,90 +7,98 @@ import ResetPassword from "./resetpsw";
 export default function Welcome() {
     return (
         <>
-            <header className="headerWelcome">
-                {/* <h1>Welcome -L-</h1> */}
-                {/* <h1>Welcome to The Social Network!</h1> */}
-                <div className="animationConatiner">
-                    <h1>
-                        Welcome to{" "}
-                        {/* <span>
+            <div className="parentContainer">
+                <div className="childrenContainer">
+                    <header className="headerWelcome">
+                        {/* <h1>Welcome -L-</h1> */}
+                        {/* <h1>Welcome to The Social Network!</h1> */}
+                        <div className="animationConatiner">
+                            <h1>
+                                Welcome to{" "}
+                                {/* <span>
                             <small>❮</small>b<small>❯</small>
                         </span> */}
-                        <b>The Developers Network!</b>
-                        {/* <span>
+                                <b>The Developers Network!</b>
+                                {/* <span>
                             <small>❮</small>/b<small>❯</small>
                         </span>{" "} */}
-                        &nbsp;\n
-                    </h1>
-                    {/* <h2>made by developers, for developers</h2> */}
-                </div>
-                <div className="slider-wrapper">
-                    {/* I can write */}
-                    <div className="slider">
-                        <div className="slider-text1">
-                            <p>
-                                <span>
-                                    <small>❮</small> p <small>❯</small>
-                                </span>
-                                &nbsp;made{" "}
-                                <em id="by">
-                                    {/* <span>
+                                &nbsp;\n
+                            </h1>
+                            {/* <h2>made by developers, for developers</h2> */}
+                        </div>
+                        <div className="slider-wrapper">
+                            {/* I can write */}
+                            <div className="slider">
+                                <div className="slider-text1">
+                                    <p>
+                                        <span>
+                                            <small>❮</small> p <small>❯</small>
+                                        </span>
+                                        &nbsp;made{" "}
+                                        <em id="by">
+                                            {/* <span>
                                         <small>❮</small>em<small>❯ </small>
                                     </span> */}
-                                    by
-                                    {/* <span>
+                                            by
+                                            {/* <span>
                                         <small> ❮</small>/em<small>❯</small>
                                     </span> */}
-                                </em>{" "}
-                                developers,&nbsp;
-                                <span>
-                                    <small>❮</small> br <small>❯</small>
-                                </span>
-                            </p>
-                        </div>
-                        <div className="slider-text2">
-                            <p>
-                                <em id="by">
-                                    {/* <span>
+                                        </em>{" "}
+                                        developers,&nbsp;
+                                        <span>
+                                            <small>❮</small> br <small>❯</small>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div className="slider-text2">
+                                    <p>
+                                        <em id="by">
+                                            {/* <span>
                                         <small>❮</small>em<small>❯ </small>
                                     </span> */}
-                                    for
-                                    {/* <span>
+                                            for
+                                            {/* <span>
                                         <small> ❮</small>/em<small>❯</small>
                                     </span> */}
-                                </em>{" "}
-                                developers.&nbsp;
-                                <span>
-                                    <small>❮</small> /p <small>❯</small>
-                                </span>
-                            </p>
+                                        </em>{" "}
+                                        developers.&nbsp;
+                                        <span>
+                                            <small>❮</small> /p <small>❯</small>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                {/* <img
+                        {/* <img
                     className="theSocialNetworkLogoBig"
                     src="/img/theSocialNetworkLogo.png"
                     alt="header-App Logo"
                 /> */}
-            </header>
-            <section className="matrixCodeContainer">
-                <img
-                    className="matrixCode"
-                    src="/img/matrixCode.jpg"
-                    alt="matrix code"
-                />
-            </section>
-            <HashRouter>
-                {/* <section className="sectionR-L-RP_Container">
+                    </header>
+                    <section className="matrixCodeContainer">
+                        <img
+                            className="matrixCode"
+                            src="/img/matrixCode.jpg"
+                            alt="matrix code"
+                        />
+                    </section>
+                    <HashRouter>
+                        {/* <section className="sectionR-L-RP_Container">
                     <div className="sectionR-L-RP"> */}
-                <Route exact path="/" component={Registration} />
-                <Route path="/login" component={Login} />
-                <Route path="/reset-password" component={ResetPassword} />
-                {/* </div>
+                        <Route exact path="/" component={Registration} />
+                        <Route path="/login" component={Login} />
+                        <Route
+                            path="/reset-password"
+                            component={ResetPassword}
+                        />
+                        {/* </div>
                 </section> */}
-            </HashRouter>
-            {/* <footer>Copyright © 2021 Neo, Inc. All rights reserved</footer> */}
+                    </HashRouter>
+                </div>
+                
+                <footer>Copyright © 2021 Neo, Inc. All rights reserved.</footer>
+            </div>
         </>
     );
 }

@@ -34,35 +34,50 @@ export default function Profile({
         profile_pic,
         bio,
         editBio,
-        toggleModalUploader
+        toggleModalUploader,
     ); */
+
     return (
         <>
-            {/* <h1>User Profile Component(P)</h1> */}
-            <h1>
-                {first} {last}&#39;s profile page!
-            </h1>
-            <div className="profileContainer">
-                <div>
-                    {/* <h1>Profile=-ProfilePic</h1> */}
-                    <div className="profile_picBigContainer">
-                        {/* <h1>Profile=-ProfilePic</h1> */}
-                        {/* <h1>
+            <div className="sectionProfile">
+                <div className="profileContainer">
+                    {/* <h1>User Profile Component(P)</h1> */}
+                    <div id="welcomeBack">
+                        <p>
+                            {" "}
+                            <b>
+                                Welcome back&nbsp;
+                                {first} {last}!
+                            </b>
+                            {/* &#39;s profile page! */}
+                        </p>
+                    </div>
+                    {/* <div className="profileContainer"> */}
+                    <div className="cardContainer">
+                        <div className="card">
+                            {/* <h1>Profile=-ProfilePic</h1> */}
+                            <div className="profile_picBigContainer">
+                                {/* <h1>Profile=-ProfilePic</h1> */}
+                                {/* <h1>
                             {first} {last}&#39;s profile page!
-                        </h1> */}
-                        <ProfilePic
-                            toggleModalUploader={toggleModalUploader}
-                            profile_pic={profile_pic}
-                            /* <img className="profile_picBig" src={profile_pic} /> */
-                        />
+                            </h1> */}
+                                <ProfilePic
+                                    toggleModalUploader={toggleModalUploader}
+                                    profile_pic={profile_pic}
+                                    /* <img className="profile_picBig" src={profile_pic} /> */
+                                />
+                            </div>
+
+                            {/* <h1>Profile=-BioEditor</h1> */}
+                            <div className="bioEditor">
+                                <p id="introTitle">
+                                    <b>Intro</b>
+                                </p>
+                                <BioEditor bio={bio} editBio={editBio} />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    {/* <h1>Profile=-BioEditor</h1> */}
-                    <div className="bioEditor">
-                        <h2>Bio:</h2>
-                        <BioEditor bio={bio} editBio={editBio} />
-                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </>

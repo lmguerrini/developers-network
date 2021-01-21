@@ -75,7 +75,7 @@ export default function FriendButton({ id }) {
             {/* <div className="registrationError">
                 {error && <span>Ops, something went wrong!</span>}
             </div> */}
-            <div>
+            <div className="friendButtonContainer">
                 <button className="friendButton" onClick={handleClick}>
                     {buttonText}
                 </button>

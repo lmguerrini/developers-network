@@ -39,84 +39,104 @@ export default function FindPeople() {
 
     console.log("Hooks component rendered");
     return (
-        <section>
-            <h2>Find People</h2>
-            <div className="findPeopleContainer">
-                {!query && <h3>Checkout who just joined!</h3>}
-                {!query &&
-                    users.map((users, index) => (
-                        <div key={index}>
-                            <Link to={"/user/" + users.id}>
-                                {users.profile_pic ? (
-                                    <img
-                                        /* className="profile_picBig" */
-                                        className="profile_pic"
-                                        src={users.profile_pic}
-                                        alt={`${users.first} ${users.last}`}
-                                        onClick={users.toggleModalUploader}
-                                    />
-                                ) : (
-                                    <img
-                                        className="profile_pic"
-                                        src="/img/defaultProfilePic.png"
-                                        alt="default profile_pic"
-                                        onClick={users.toggleModalUploader}
-                                    />
-                                )}
-                                <h3>
-                                    {users.first} {users.last}
-                                </h3>
-                            </Link>
-                        </div>
-                    ))}{" "}
-                {!query && <h3>Are you looking for someone in particular?</h3>}
-                {/* <input defaultValue={users.first} omChange={onChange} /> */}
-                {/* <input
+        <>
+            <div className="sectionWrapper">
+                {/* <h2>Find People</h2> */}
+                <div className="cardContainer">
+                    <div className="card">
+                        {!query && (
+                            <p id="findpeopleTitles">
+                                Checkout who just joined!
+                            </p>
+                        )}
+                        {!query &&
+                            users.map((users, index) => (
+                                <div id="imgLatest" key={index}>
+                                    <Link to={"/user/" + users.id}>
+                                        {users.profile_pic ? (
+                                            <img
+                                                /* className="profile_picBig" */
+                                                className="profile_pic"
+                                                src={users.profile_pic}
+                                                alt={`${users.first} ${users.last}`}
+                                                onClick={
+                                                    users.toggleModalUploader
+                                                }
+                                            />
+                                        ) : (
+                                            <img
+                                                className="profile_pic"
+                                                src="/img/defaultProfilePic.png"
+                                                alt="default profile_pic"
+                                                onClick={
+                                                    users.toggleModalUploader
+                                                }
+                                            />
+                                        )}
+                                        <p>
+                                            {users.first} {users.last}
+                                        </p>
+                                    </Link>
+                                </div>
+                            ))}{" "}
+                        {!query && (
+                            <p id="findpeopleTitles">
+                                Are you looking for someone in particular?
+                            </p>
+                        )}
+                        {/* <input defaultValue={users.first} omChange={onChange} /> */}
+                        {/* <input
                     defaultValue={users.first}
                     omChange={(e) => setFirst(e.target.value)}
                     /> */}
-                <input
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search people here.."
-                />
-                {query &&
-                    users.map((users, index) => (
-                        <div key={index}>
-                            <Link to={"/user/" + users.id}>
-                                {users.profile_pic ? (
-                                    <div /* className="profile_picBig" */>
-                                        <img
-                                            /* className="profile_picBig" */
-                                            className="profile_pic"
-                                            src={users.profile_pic}
-                                            alt={`${users.first} ${users.last}`}
-                                            /* onClick={users.toggleModalUploader} */
-                                        />
-                                    </div>
-                                ) : (
-                                    <img
-                                        className="profile_pic"
-                                        src="/img/defaultProfilePic.png"
-                                        alt="default profile_pic"
-                                        /* onClick={users.toggleModalUploader} */
-                                    />
-                                )}
-                                <h5>
-                                    {users.first} {users.last}
-                                </h5>
-                            </Link>
+                        <input
+                            id="searchInput"
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Search people here.."
+                        />
+                        {query &&
+                            users.map((users, index) => (
+                                <div key={index}>
+                                    <Link to={"/user/" + users.id}>
+                                        {users.profile_pic ? (
+                                            <div /* className="profile_picBig" */
+                                            >
+                                                <img
+                                                    /* className="profile_picBig" */
+                                                    className="profile_pic"
+                                                    src={users.profile_pic}
+                                                    alt={`${users.first} ${users.last}`}
+                                                    /* onClick={users.toggleModalUploader} */
+                                                />
+                                            </div>
+                                        ) : (
+                                            <img
+                                                className="profile_pic"
+                                                src="/img/defaultProfilePic.png"
+                                                alt="default profile_pic"
+                                                /* onClick={users.toggleModalUploader} */
+                                            />
+                                        )}
+                                        <p>
+                                            {users.first} {users.last}
+                                        </p>
+                                    </Link>
+                                </div>
+                            ))}
+                        {!users.length && query && (
+                            <div id="nothingFoundWrapper">
+                                <span id="nothingFound">
+                                    Nothing found, try again!
+                                </span>
+                            </div>
+                        )}
+                        <div className="registrationError">
+                            {error && <span>Ops, something went wrong!</span>}
                         </div>
-                    ))}
-                {!users.length && query && (
-                    <div /* className="registrationError" */>
-                        <span>Nothing found, try again!</span>
                     </div>
-                )}
-                <div className="registrationError">
-                    {error && <span>Ops, something went wrong!</span>}
                 </div>
             </div>
-        </section>
+        </>
     );
 }
 

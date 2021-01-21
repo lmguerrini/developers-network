@@ -60,84 +60,110 @@ export default function Friends() {
     }
 
     return (
-        <section>
-            {/* <h1>FRIENDS COMPONENT</h1> */}
-            {!friends && <h1>TEST</h1>}
+        <>
+            <div className="sectionWrapper">
+                {/* <h1>FRIENDS COMPONENT</h1> */}
+                {/* {!friends && <h1>TEST</h1>} */}
 
-            {!friends.length != 0 ? (
-                <h1>It seems you don&#39;t have any friends yet, but..</h1>
-            ) : (
-                friends &&
-                friends.map((friend) => (
-                    <div key={friend.id}>
-                        <div>
-                            <h2>These people are currently your friends</h2>
-                            <Link to={"/user/" + friend.id}>
-                                <img
-                                    className="profile_pic"
-                                    src={friend.profile_pic}
-                                />
-                                <h3>
-                                    {friend.first} {friend.last}
-                                </h3>
-                            </Link>
-                            <button
-                                onClick={() =>
-                                    dispatch(deleteFriendship(friend.id))
-                                }
-                            >
-                                {BUTTON_TEXT.UNFRIEND}
-                            </button>
+                <div className="cardContainer">
+                    <div className="card">
+                        <div className="friendsWrapper">
+                            {!friends.length != 0 ? (
+                                <p>
+                                    It seems you don&#39;t have any friends yet,
+                                    but..
+                                </p>
+                            ) : (
+                                friends &&
+                                friends.map((friend) => (
+                                    <div key={friend.id}>
+                                        <div>
+                                            <p>
+                                                These people are currently your
+                                                friends
+                                            </p>
+                                            <Link to={"/user/" + friend.id}>
+                                                <img
+                                                    className="profile_pic"
+                                                    src={friend.profile_pic}
+                                                />
+                                                <p id="friendsWannabesLink">
+                                                    {friend.first} {friend.last}
+                                                </p>
+                                            </Link>
+                                            <button
+                                                onClick={() =>
+                                                    dispatch(
+                                                        deleteFriendship(
+                                                            friend.id
+                                                        )
+                                                    )
+                                                }
+                                            >
+                                                {BUTTON_TEXT.UNFRIEND}
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                        <div className="wannabesWrapper">
+                            {wannabes &&
+                                wannabes.map((wannabe) => (
+                                    <div key={wannabe.id}>
+                                        <div className="wannabesContainer">
+                                            <p>
+                                                These people want to be your
+                                                friends
+                                            </p>
+                                            <Link to={"/user/" + wannabe.id}>
+                                                <img
+                                                    className="profile_pic"
+                                                    src={wannabe.profile_pic}
+                                                />
+                                                <p id="friendsWannabesLink">
+                                                    {wannabe.first}{" "}
+                                                    {wannabe.last}
+                                                </p>
+                                            </Link>
+
+                                            <div className="acceptBtnWrapper">
+                                                <button
+                                                    id="acceptBtn"
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            acceptFriendshipRequest(
+                                                                wannabe.id
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    {BUTTON_TEXT.ACCEPT_REQUEST}
+                                                </button>
+                                            </div>
+
+                                            <div className="refuseBtnWrapper">
+                                                <button
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deleteFriendship(
+                                                                wannabe.id
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    Refuse Friend Requesst{" "}
+                                                    {/* <p>Friend Request</p> */}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
                     </div>
-                ))
-            )}
-
-            {wannabes &&
-                wannabes.map((wannabe) => (
-                    <div key={wannabe.id}>
-                        <div className="wannabesContainer">
-                            <h2>These people want to be your friends</h2>
-                            <Link to={"/user/" + wannabe.id}>
-                                <img
-                                    className="profile_pic"
-                                    src={wannabe.profile_pic}
-                                />
-                                <h3>
-                                    {wannabe.first} {wannabe.last}
-                                </h3>
-                            </Link>
-
-                            <div>
-                                <div>
-                                    <button
-                                        onClick={() =>
-                                            dispatch(
-                                                acceptFriendshipRequest(
-                                                    wannabe.id
-                                                )
-                                            )
-                                        }
-                                    >
-                                        {BUTTON_TEXT.ACCEPT_REQUEST}
-                                    </button>
-                                </div>
-                                <div>
-                                    <p>or </p>
-                                    <button
-                                        onClick={() =>
-                                            dispatch(
-                                                deleteFriendship(wannabe.id)
-                                            )
-                                        }
-                                    >
-                                        Refuse {/* <p>Friend Request</p> */}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-        </section>
+                </div>
+            </div>
+        </>
     );
 }

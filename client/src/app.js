@@ -26,6 +26,7 @@ export default class App extends Component {
             uploaderIsVisible: false,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
         this.logout = this.logout.bind(this);
         this.toggleModalUploader = this.toggleModalUploader.bind(this);
         this.setImage = this.setImage.bind(this);
@@ -79,6 +80,15 @@ export default class App extends Component {
         this.setState({ ...data });
     }
 
+    async deleteUser() {
+        //console.log("async App/deleteUser is running!");
+        const { data } = await axios.post("/user/delete");
+        //console.log("data async deleteUser: ", data);
+        if (data.success) {
+            this.logout();
+        }
+    }
+
     logout() {
         axios.get("/logout").then(() =>
             location.replace("/welcome#/login").catch((err) => {
@@ -126,134 +136,174 @@ export default class App extends Component {
         //console.log("App/render/this.state: ", this.state);
         return (
             <>
-                <BrowserRouter>
-                    <header className="headerApp">
-                        {/* <h1>App -L-</h1> */}
-                        <img
-                            className="theSocialNetworkLogo"
-                            src="/img/theSocialNetworkLogo.png"
-                            alt="header-App Logo"
-                        />
-                        {
-                            <ProfilePic
-                                /* firstName={this.state.first} */
-                                first={this.state.first}
-                                last={this.state.last}
-                                profile_pic={this.state.profile_pic}
-                                toggleModalUploader={this.toggleModalUploader}
-                            />
-                        }
-                    </header>
-                    <nav className="navApp">
-                        <h4>
-                            <Link to="/">Profile</Link>
-                        </h4>
-                        <h4>
-                            <Link to="/friends">Friends</Link>
-                        </h4>
-                        <h4>
-                            <Link to="/users">Find People</Link>
-                        </h4>
-                        <h4>
-                            <Link to="/chat">Chat</Link>
-                        </h4>
-                        <h4>
-                            <Link to="/logout" onClick={this.logout}>
-                                Log Out
-                            </Link>
-                        </h4>
-                    </nav>
-                    <Route
-                        exact
-                        path="/"
-                        render={() => (
-                            <section>
-                                {/* <h1>[SECTION -Profile]</h1> */}
-                                <div className="profile-bioeditorContainer">
-                                    <Profile
-                                        id={this.state.id}
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        profile_pic={this.state.profile_pic}
-                                        toggleModalUploader={
-                                            this.toggleModalUploader
-                                        }
-                                        bio={this.state.bio}
-                                        editBio={this.editBio}
+                <div className="appParentWrapper">
+                    <div className="parentContainer">
+                        <div className="childrenContainer">
+                            <BrowserRouter>
+                                <header className="headerApp">
+                                    {/* <h1>App -L-</h1> */}
+
+                                    <img
+                                        className="theDeveloperNetworkLogo"
+                                        src="/img/theDeveloperNetworkLogo.png"
+                                        alt="The Developer Network Logo"
                                     />
-                                </div>
-                            </section>
-                        )}
-                    />
-                    {/* <Route path="/user/:id" compmonent={OtherProfile} /> 
+                                    {
+                                        <ProfilePic
+                                            /* firstName={this.state.first} */
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            profile_pic={this.state.profile_pic}
+                                            toggleModalUploader={
+                                                this.toggleModalUploader
+                                            }
+                                        />
+                                    }
+                                </header>
+                                <nav className="navApp">
+                                    <p>
+                                        <Link to="/" className="loginLink">
+                                            Profile
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link
+                                            to="/friends"
+                                            className="loginLink"
+                                        >
+                                            Friends
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/users" className="loginLink">
+                                            Find People
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/chat" className="loginLink">
+                                            Chatroom
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link
+                                            to="/logout"
+                                            className="logoutLink"
+                                            onClick={this.logout}
+                                        >
+                                            Log Out
+                                        </Link>
+                                    </p>
+                                    <p
+                                        id="deleteAccount"
+                                        className="logoutLink"
+                                        onClick={this.deleteUser}
+                                    >
+                                        Delete Account
+                                    </p>
+                                </nav>
+                                <Route
+                                    exact
+                                    path="/"
+                                    render={() => (
+                                        <section>
+                                            {/* <h1>[SECTION -Profile]</h1> */}
+                                            <div className="profile-bioeditorContainer">
+                                                <Profile
+                                                    id={this.state.id}
+                                                    first={this.state.first}
+                                                    last={this.state.last}
+                                                    profile_pic={
+                                                        this.state.profile_pic
+                                                    }
+                                                    toggleModalUploader={
+                                                        this.toggleModalUploader
+                                                    }
+                                                    bio={this.state.bio}
+                                                    editBio={this.editBio}
+                                                />
+                                            </div>
+                                        </section>
+                                    )}
+                                />
+                                {/* <Route path="/user/:id" compmonent={OtherProfile} /> 
                     render for bonus feature, to visit other profile, see
                     their friends and visit them  */}
-                    <Route
-                        path="/user/:id"
-                        /* path="/other-user/info/:id" */
-                        render={(props) => (
-                            <section>
-                                <OtherProfile
-                                    match={props.match}
-                                    key={props.match.url}
-                                    history={props.history}
+                                <Route
+                                    path="/user/:id"
+                                    /* path="/other-user/info/:id" */
+                                    render={(props) => (
+                                        <section>
+                                            <OtherProfile
+                                                match={props.match}
+                                                key={props.match.url}
+                                                history={props.history}
+                                            />
+                                        </section>
+                                    )}
                                 />
-                            </section>
-                        )}
-                    />
 
-                    <Route
-                        path="/users"
-                        render={() => (
-                            <section>
-                                <FindPeople
-                                /* match={props.match}
+                                <Route
+                                    path="/users"
+                                    render={() => (
+                                        <section>
+                                            <FindPeople
+                                            /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */
+                                            />
+                                        </section>
+                                    )}
                                 />
-                            </section>
-                        )}
-                    />
-                    <Route
-                        path="/friends"
-                        render={() => (
-                            <section>
-                                <Friends
-                                /* match={props.match}
+                                <Route
+                                    path="/friends"
+                                    render={() => (
+                                        <section>
+                                            <Friends
+                                            /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */
+                                            />
+                                        </section>
+                                    )}
                                 />
-                            </section>
-                        )}
-                    />
-                    <Route
-                        path="/chat"
-                        render={() => (
-                            <section>
-                                <Chat
-                                /* match={props.match}
+                                <Route
+                                    path="/chat"
+                                    render={() => (
+                                        <section>
+                                            <Chat
+                                            /* match={props.match}
                                 key={props.match.url}
                                 history={props.history} */
+                                            />
+                                        </section>
+                                    )}
                                 />
-                            </section>
-                        )}
-                    />
 
-                    {/* <h1>[SECTION -Uploader]</h1> */}
-                    {this.state.uploaderIsVisible && (
-                        <section>
-                            <div className="modalUploader">
-                                <Uploader
-                                    profile_pic={this.state.profile_pic}
-                                    setImage={this.setImage}
-                                    toggleModalUploader={
-                                        this.toggleModalUploader
-                                    }
-                                />
-                            </div>
-                        </section>
-                    )}
-                </BrowserRouter>
+                                {/* <h1>[SECTION -Uploader]</h1> */}
+                                {this.state.uploaderIsVisible && (
+                                    <section>
+                                        <div className="modalUploaderWrapper">
+                                            <Uploader
+                                                profile_pic={
+                                                    this.state.profile_pic
+                                                }
+                                                setImage={this.setImage}
+                                                toggleModalUploader={
+                                                    this.toggleModalUploader
+                                                }
+                                                /* deleteUser={this.deleteUser} */
+                                            />
+                                        </div>
+                                    </section>
+                                )}
+                            </BrowserRouter>
+                        </div>
+
+                        <footer className="footerApp">
+                            Copyright © 2021 Neo, Inc. All rights reserved.
+                        </footer>
+                    </div>
+                </div>
             </>
         );
     }

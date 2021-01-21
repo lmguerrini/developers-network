@@ -43,6 +43,28 @@ module.exports.updatePassword = (password, email) => {
     return db.query(q, params);
 };
 
+// delet user
+module.exports.deleteUserFromUsers = (id) => {
+    const q = `DELETE FROM users WHERE id = ($1)
+    RETURNING profile_pic`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteUserFromFriendships = (id) => {
+    const q = `DELETE FROM friendships 
+    WHERE (sender_id = ($1)) OR (recipient_id = ($1))`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteUserFromChatMessages = (id) => {
+    const q = `DELETE FROM chat_messages 
+    WHERE (user_id = ($1))`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 // upload/delete profilePic
 module.exports.getUserProfile = (id) => {
     const q = `SELECT * FROM users WHERE id = ($1)`;
@@ -51,7 +73,8 @@ module.exports.getUserProfile = (id) => {
 
 module.exports.updateProfilePic = (id, url) => {
     const q = `UPDATE users
-    SET profile_pic = ($2) WHERE id = ($1)`;
+    SET profile_pic = ($2) WHERE id = ($1)
+    RETURNING profile_pic`;
     const params = [id, url];
     return db.query(q, params);
 };

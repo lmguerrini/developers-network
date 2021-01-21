@@ -43,44 +43,79 @@ export default function Chat() {
 
     return (
         <>
-            <h1>Chat Room</h1>
-            <div className="chatContainer" /* ref={elemRef} */>
-                {chatMessages &&
-                    chatMessages.map((message, index) => (
-                        <div key={index}>
-                            <div>
-                                {/* <h2>These people are currently your friends</h2> */}
-                                <Link to={"/user/" + message.id}>
-                                    <img
-                                        className="profile_pic"
-                                        src={message.profile_pic}
-                                        alt={message.name}
-                                        /* alt={`${message.first} ${message.last}`} */
-                                    />
-                                    <h3>
-                                        {message.name}
-                                        {/* {message.first} {message.last} */}
-                                    </h3>
-                                </Link>
-                                <span>{message.timestamp}</span>
-                                <div id="chat-messages" ref={elemRef}>
-                                    <p>{message.message}</p>
-                                </div>
-                            </div>
+            {/* <div id="welcomeBack">
+                <p>
+                    {" "}
+                    <b>Chat Room</b>
+                </p>
+            </div> */}
+            {/* <h1>Chat Room</h1> */}
+            <div className="sectionWrapper">
+                <div className="cardContainer" /* ref={elemRef} */>
+                    <div className="card">
+                        <div className="chatHistoryContainer">
+                            {chatMessages &&
+                                chatMessages.map((message, index) => (
+                                    <div id="imgLatest" key={index}>
+                                        <div>
+                                            {/* <h2>These people are currently your friends</h2> */}
+                                            <Link to={"/user/" + message.id}>
+                                                <div className="imgNameWrap">
+                                                    <img
+                                                        className="profile_pic"
+                                                        src={
+                                                            message.profile_pic
+                                                        }
+                                                        alt={message.name}
+                                                        /* alt={`${message.first} ${message.last}`} */
+                                                    />
+                                                    {/* <p>
+                                                        <b id="messageName">
+                                                            {message.name}
+                                                        </b>
+                                                    </p> */}
+                                                </div>
+                                                <p>
+                                                    <b id="messageName">
+                                                        {message.name}
+                                                    </b>{" "}
+                                                    <small id="uploaderSigns">
+                                                        ❮
+                                                    </small>
+                                                    &nbsp;
+                                                    {message.timestamp}&nbsp;
+                                                    <small id="uploaderSigns">
+                                                        ❯
+                                                    </small>
+                                                    {/* {message.first} {message.last} */}
+                                                </p>
+                                            </Link>
+                                            {/* <p>{message.timestamp}</p> */}
+                                            <div
+                                                id="chat-messages"
+                                                ref={elemRef}
+                                            >
+                                                <p>{message.message}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                         </div>
-                    ))}
+                        <div className="chatTextareaContainer">
+                            <textarea
+                                id="chatTextarea"
+                                rows="5"
+                                cols="85"
+                                placeholder="Enter your message here.."
+                                onKeyDown={handlekeyDown}
+                            />
+                        </div>
+                        <button /* onClick={handlekeyDown} */>
+                            Post message in the chat
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <textarea
-                    rows="5"
-                    col="100"
-                    placeholder="Enter your message here.."
-                    onKeyDown={handlekeyDown}
-                />
-            </div>
-            <button /* onClick={handlekeyDown} */>
-                Post message in the chat
-            </button>
         </>
     );
 }

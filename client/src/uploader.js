@@ -83,29 +83,50 @@ export default class Uploader extends Component {
         //console.log("props in Uploader: ", this.props);
         return (
             <>
-                <div className="registrationError">
-                    {this.state.error && (
-                        <span>Ops, something went wrong!</span>
+                <div className="uploaderContainer">
+                    <div className="registrationError">
+                        {this.state.error && (
+                            <span>Ops, something went wrong!</span>
+                        )}
+                    </div>
+                    <p>
+                        <small id="uploaderSigns">❮</small> Upload your profile
+                        picture
+                        <small id="uploaderSigns"> ❯</small>
+                    </p>
+                    <input
+                        name="image"
+                        id="image"
+                        type="file"
+                        accept="image/*"
+                        onChange={this.handleChange}
+                    />
+                    {/* <h1 onClick={() => this.handleClick()}>Upload</h1> */}
+                    <button
+                        id="uploaderUploadBtn"
+                        onClick={this.handleUpdateImage}
+                    >
+                        Upload
+                    </button>
+                    {this.props.profile_pic && (
+                        <p>
+                            <small id="uploaderSigns">❮</small> or{" "}
+                            <button
+                                id="uploaderDeleteBtn"
+                                onClick={this.handleDeleteImage}
+                            >
+                                Delete
+                            </button>{" "}
+                            it <small id="uploaderSigns">❯</small>
+                        </p>
                     )}
+                    <button
+                        id="uploaderCloseBtn"
+                        onClick={this.props.toggleModalUploader}
+                    >
+                        Close
+                    </button>
                 </div>
-                <h4>Here you can upload your profile picture:</h4>
-                <input
-                    name="image"
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={this.handleChange}
-                />
-                {/* <h1 onClick={() => this.handleClick()}>Upload</h1> */}
-                <button onClick={this.handleUpdateImage}>Upload</button>
-                {this.props.profile_pic && (
-                    <h4>
-                        Or{" "}
-                        <button onClick={this.handleDeleteImage}>Delete</button>{" "}
-                        your profile picture.
-                    </h4>
-                )}
-                <button onClick={this.props.toggleModalUploader}>Close</button>
             </>
         );
     }

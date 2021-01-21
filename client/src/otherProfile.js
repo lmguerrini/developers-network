@@ -63,7 +63,6 @@ export default class OtherProfile extends Component {
                     //console.log("requestedId == id");
                     this.props.history.push("/");
                 }
-                
             })
             .catch((err) => {
                 console.error(
@@ -79,26 +78,32 @@ export default class OtherProfile extends Component {
         //console.log("props in OtherProfile: ", this.props);
         return (
             <>
-                <h1>Other Profile Component</h1>
-                <div className="profileContainer">
-                    <section className="sectionProfileFriendbutton">
-                        <h1>Profile=-ProfilePic</h1>
-                        <div className="profile_picBigContainer">
-                            <ProfilePic profile_pic={this.state.profile_pic} />
+                {/* <h1>Other Profile Component</h1> */}
+                <div className="otherProfileContainer">
+                    <div className="cardContainer">
+                        <div className="card">
+                            <div className="sectionProfileFriendbutton">
+                                {/* <h1>Profile=-ProfilePic</h1> */}
+                                <div className="profile_picBigContainer">
+                                    <ProfilePic
+                                        profile_pic={this.state.profile_pic}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                {/* {<h1>Profile=-BioEditor</h1>} */}
+                                <div className="bioEditor" id="otherProfileBioeditor">
+                                    <p id="introTitle">
+                                        {this.state.first} {this.state.last}
+                                    </p>
+                                    <p>{this.state.bio}</p>
+                                </div>
+                                <div>
+                                    <FriendButton id={this.state.id} />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <FriendButton id={this.state.id} />
-                        </div>
-                    </section>
-                    <section>
-                        {<h1>Profile=-BioEditor</h1>}
-                        <div className="bioEditor">
-                            <h3>
-                                {this.state.first} {this.state.last}
-                            </h3>
-                            {this.state.bio}
-                        </div>
-                    </section>
+                    </div>
                 </div>
             </>
         );
