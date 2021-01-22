@@ -8,7 +8,7 @@ exports.BUTTON_TEXT = {
 };
 
 /*  
-********** Shared "BUTTON_TEXT" list **********
+********** Shared "BUTTON_TEXT" links **********
 
 * server-side:
     _ server.js (POST("/friendship/action"))
