@@ -1,6 +1,10 @@
 // client/src/socket.js
 import io from "socket.io-client";
-import { postNewMessage, addTenMostRecentMessages } from "./actions";
+import {
+    postNewMessage,
+    addTenMostRecentMessages,
+    getOnlineUsersList,
+} from "./actions";
 
 export let socket;
 
@@ -11,6 +15,11 @@ export const init = (store) => {
         // because we want one socket per user (not one socket per diff tabs opened)
         socket = io.connect();
     }
+
+    socket.on("online users", (onlineUsers) => {
+        //console.log("socket.js onlineUsers: ", onlineUsers);
+        store.dispatch(getOnlineUsersList(onlineUsers));
+    });
 
     // this file will RECEIVE messaged from the server
     socket.on("new message and user profile", (mostRecenteMessage) => {
@@ -28,10 +37,6 @@ export const init = (store) => {
             addTenMostRecentMessages(tenMostRecentMessages.reverse())
         );
     });
-
-    /* socket.on("someThirdEvent", (payload) => {
-        // do something
-    }); */
 };
 
 // socket.io is not only for the chat room but it's available (potentially) for the site's functionalities

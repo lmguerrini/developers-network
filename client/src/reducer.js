@@ -50,12 +50,20 @@ export function reducer(state = {}, action) {
 
     if (action.type == "ADD_TEN_MOST_RECENT_MESSAGES") {
         //console.log("Reducer GET_TEN_MOST_RECENT_MESSAGES");
-        
+
         state = {
             ...state,
             messages: action.messages,
         };
-        
+    }
+
+    if (action.type == "GET_ONLINE_USERS_LIST") {
+        //console.log("Reducer GET_ONLINE_USERS_LIST");
+
+        state = {
+            ...state,
+            onlineUsersList: action.onlineUsersList,
+        };
     }
 
     return state;

@@ -187,3 +187,12 @@ module.exports.getTenMostRecentMessages = () => {
     const params = [userId];
     return db.query(q, params);
 }; */
+
+// online users
+
+module.exports.getOnlineUsers = (arrayUsersByIds) => {
+    const q = `SELECT id, first, last, profile_pic FROM users WHERE id = ANY($1)`;
+    const params = [arrayUsersByIds];
+    return db.query(q, params);
+};
+

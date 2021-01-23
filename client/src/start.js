@@ -55,6 +55,8 @@ ReactDOM.render(elem, document.querySelector("main"));
                 - FriendButton
             - FindPeople (child)
             - Friends (child)
+            _ Chat (child)
+                _ OnlineUsers
             - Uploader (child)
             
 ****************************************************************/

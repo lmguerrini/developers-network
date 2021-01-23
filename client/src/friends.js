@@ -23,6 +23,7 @@ export default function Friends() {
             state.friendsWannabesList &&
             state.friendsWannabesList.filter((user) => user.accepted == true)
     );
+    console.log("friends: ", friends);
 
     /* useEffect(() => {
         dispatch(getFriendsWannabesList());
@@ -53,8 +54,8 @@ export default function Friends() {
                         requests yet..
                     </h1>
                     <h4>
-                        Note: You can click on &#39;Find Developers&#39; in order to
-                        look for people to add as friend.
+                        Note: You can click on &#39;Find Developers&#39; in
+                        order to look for people to add as friend.
                     </h4>
                 </div>
             </div>

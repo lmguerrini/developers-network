@@ -524,7 +524,7 @@ app.get("/other-user/info/:id", (req, res) => {
 app.get("/users/latest", (req, res) => {
     db.getLatestUsers()
         .then(({ rows }) => {
-            console.log("GET 3 last users: ", rows);
+            //console.log("GET 3 last users: ", rows);
             res.json(rows);
         })
         .catch((err) => {
@@ -664,6 +664,9 @@ server.listen(process.env.PORT || 3001, function () {
 // ******************************** socket.io ******************************** \\
 //server-side socket code all writeten down here:
 
+let onlineUsersPlusOpenTabs = [];
+let onlineUsers = []; // keeps track of all users currently online
+
 io.on("connection", (socket) => {
     // => event listener
     console.log(
@@ -673,38 +676,93 @@ io.on("connection", (socket) => {
     // => it will be assigned from socket.io to every user
     // userId: that's the ID we assign to users when they register/login
     //      => (socket.request.session.userId)
-    // req.session does NOT work here, since we don't have a request object
-    // NB: if in our POST registration/login we don't assign userId to req.session
-    //      (i.e.: "req.session.user.id = 14". If so: "socket.request.session.user.id")
-    //      then "socket.request.session.userId" won't work
-    //      console.log("socket.request.session: ", socket.requet.session); // should be: "socket.request.session.userId"
-    console.log("socket-id: ", socket.id);
-    console.log("socket userId: ", socket.request.session.userId);
+    //console.log("socket-id: ", socket.id);
+    //console.log("userId: ", socket.request.session.userId);
     const userId = socket.request.session.userId;
+
+    if (!userId) {
+        return socket.disconnect(true);
+    }
+
+    // add user who just connected (ie logged in)
+    onlineUsersPlusOpenTabs.push(userId);
+    //console.log("online Users / Open Tabs: ", onlineUsersPlusOpenTabs);
+
+    // remove duplicate elements from the array
+    onlineUsers = [...new Set(onlineUsersPlusOpenTabs)];
+    //console.log("online Users: ", onlineUsers);
+
+    db.getOnlineUsers(onlineUsers)
+        .then(({ rows }) => {
+            const newRows = rows.map((obj) => ({
+                id: obj.id,
+                name: obj.first + " " + obj.last,
+                profile_pic: obj.profile_pic,
+            }));
+            //console.log("newRows: ", newRows);
+
+            io.sockets.emit("online users", newRows);
+        })
+        .catch((err) => {
+            console.error(
+                `error in io.on("online users") db.getOnlineUsers catch: `,
+                err
+            );
+        });
+
+    // runs when a user disconnects - ie logs off or closes browser/tab
+    socket.on("disconnect", () => {
+        const disconnectedUserOrTab = userId;
+        //console.log("disconnected User Or Tab: ", disconnectedUserOrTab);
+
+        //console.log("onlineUsersPlusOpenTabs B: ", onlineUsersPlusOpenTabs);
+        const indexOfDisconnectedUserOrTab = onlineUsersPlusOpenTabs.indexOf(disconnectedUserOrTab);
+        //console.log("index B: ", index);
+        if (indexOfDisconnectedUserOrTab !== -1) {
+            onlineUsersPlusOpenTabs.splice(indexOfDisconnectedUserOrTab, 1);
+        }
+        //console.log("onlineUsersPlusOpenTabs A: ", onlineUsersPlusOpenTabs);
+        //console.log("index A: ", index);
+
+        db.getOnlineUsers(onlineUsersPlusOpenTabs)
+            .then(({ rows }) => {
+                const newRows = rows.map((obj) => ({
+                    id: obj.id,
+                    name: obj.first + " " + obj.last,
+                    profile_pic: obj.profile_pic,
+                }));
+                //console.log("newRows: ", newRows);
+
+                io.sockets.emit("online users", newRows);
+            })
+            .catch((err) => {
+                console.error(
+                    `error in socket.on("disconnect") db.getOnlineUsers catch: `,
+                    err
+                );
+            });
+    });
 
     //server-side socket code all written down here:
     socket.on("new chat message", (message) => {
         // message = e.target.value(chat.js/handlekeyDown)
         // this will run whenever user posts a new chat message (e.key === "Enter")
-        //console.log("new message just written: ", message);
+        // console.log("new message just written: ", message);
         // 1. INSERT new mesage into our new "chat_messages" table
         db.insertNewMessage(userId, message)
             .then(({ rows }) => {
                 //const id = rows[0].id;
-
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
                 const createdAt = "on " + date + " at " + time;
                 //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
-
                 db.getUserProfile(userId)
                     .then(({ rows }) => {
-                        console.log("getUserProfile rows: ", rows);
+                        //console.log("getUserProfile rows: ", rows);
                         const name = rows[0].first + " " + rows[0].last;
 
                         // 2. emit a message back to the client
-                        // (what we have to emit back to the client is: message, profile_pic, name, id, timestamp)
                         io.sockets.emit("new message and user profile", {
                             message,
                             id: rows[0].id,
@@ -728,13 +786,6 @@ io.on("connection", (socket) => {
             });
     });
 
-    // ["pseudo code"] for rendering the messages:
-    // specifically... what we want to do is, when a new user logs in, we want to grab the 10 most
-    // recent chat messages, put them in our global state, and then render them
-    // so this means this code will ONLY run ONCE - when a new user connects
-    // 1. retrieve the 10 most recent messages from the database
-    // - we want to retrieve not only the 10 most recent messages, but info about the users who posted them
-    // - this means we will need to do two queries (chat_messages and users) / one join
     db.getTenMostRecentMessages()
         .then(({ rows }) => {
             //console.log("rows getTenMostRecentMessages: ", rows);

@@ -3,6 +3,7 @@ import { socket } from "./socket"; // to send messages to the server
 import { useEffect } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import OnlineUsers from "./onlineusers";
 
 export default function Chat() {
     // 1. retrieve chat messages from Redux and rendere them
@@ -52,7 +53,8 @@ export default function Chat() {
             {/* <h1>Chat Room</h1> */}
             <div className="sectionWrapper">
                 <div className="cardContainer" /* ref={elemRef} */>
-                    <div className="card">
+                    <div className="cardChat">
+                        <OnlineUsers></OnlineUsers>
                         <div className="chatHistoryContainer">
                             {chatMessages &&
                                 chatMessages.map((message, index) => (
@@ -105,14 +107,16 @@ export default function Chat() {
                             <textarea
                                 id="chatTextarea"
                                 rows="5"
-                                cols="85"
+                                cols="98"
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDown}
                             />
                         </div>
-                        <button /* onClick={handlekeyDown} */>
-                            Post message in the chat
-                        </button>
+                        <div id="chatbuttonWrap">
+                            <button /* onClick={handlekeyDown} */>
+                                Post message in the chat
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
