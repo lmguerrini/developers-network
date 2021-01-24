@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 //import { socket } from "./socket";
 import { Link } from "react-router-dom";
 import { addMostRecentPrivateMessages, postNewPrivateMessage } from "./actions";
-import OnlineUsers from "./onlineusers";
+//import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
     const privateChatMessages = useSelector(
@@ -80,7 +80,7 @@ export default function PrivateMessages(props) {
                             <div className="onineUsersGlassOverlay">
                                 <h1>
                                     Direct Messages between you and id{" "}
-                                    {otherUserId} 
+                                    {otherUserId}
                                 </h1>
                             </div>
                         </div>

@@ -45,8 +45,21 @@ export async function postNewMessage(mostRecenteMessage) {
     };
 }
 
-export async function addTenMostRecentMessages(tenMostRecentMessages) {
-    //console.log("Action getTenMostRecentMessages!");
+export async function deleteMessage(messageId) {
+    //console.log("Action deleteMessage!");
+    await axios.post("/message/delete", {
+        message: messageId,
+    });
+    //console.log("Action POST /message/delete messageId: ", messageId);
+
+    return {
+        type: "DELETE_MESSAGE",
+        message: messageId,
+    };
+}
+
+export async function addMostRecentMessages(tenMostRecentMessages) {
+    //console.log("Action getMostRecentMessages!");
     return {
         type: "ADD_TEN_MOST_RECENT_MESSAGES",
         messages: tenMostRecentMessages,

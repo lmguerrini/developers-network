@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { socket } from "./socket"; // to send messages to the server
 import { useEffect } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import OnlineUsers from "./onlineusers";
+import { deleteMessage } from "./actions";
+//import { RiDeleteBinLine } from "react-icons/fa";
 
 export default function Chat() {
     // retrieve chat messages from Redux and rendere them
     const chatMessages = useSelector((state) => state && state.messages);
     console.log("chatoroom chatMessages: ", chatMessages);
+
+    const dispatch = useDispatch();
 
     const elemRef = useRef(); // for function
     //this.elemRef = React.createRef(); // for Class
@@ -108,6 +112,28 @@ export default function Chat() {
                                                 ref={elemRef}
                                             >
                                                 <p>{message.message}</p>
+                                                <button
+                                                    id="deleteMessageBtn"
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deleteMessage(
+                                                                message.id
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    delete 🗑{/* Delete Message with id{" "}
+                                                    {message.id} */}
+                                                </button>
+                                                {/* <RiDeleteBinLine
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deleteMessage(
+                                                                message.id
+                                                            )
+                                                        )
+                                                    }
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>

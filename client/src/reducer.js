@@ -48,6 +48,17 @@ export function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "DELETE_MESSAGE") {
+        //console.log("Reducer DELETE_MESSAG");
+
+        state = {
+            ...state,
+            messages: state.messages.filter((deleteMessage) => {
+                return deleteMessage.id != action.message;
+            }),
+        };
+    }
+
     if (action.type == "ADD_TEN_MOST_RECENT_MESSAGES") {
         //console.log("Reducer GET_TEN_MOST_RECENT_MESSAGES");
 
@@ -105,7 +116,6 @@ export function reducer(state = {}, action) {
         };
         console.log("reducer new private msg state: ", state);
     }
-
 
     return state;
 }

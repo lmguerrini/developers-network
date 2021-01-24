@@ -993,6 +993,14 @@ button {
     color: lime;
 }
 
+#deleteMessageBtn {
+    font-size: 0.9em;
+}
+
+#deleteMessageBtn:hover {
+    color: red;
+}
+
 #chatTextarea {
     font-family: Dejavu Sans, monospace;
 }

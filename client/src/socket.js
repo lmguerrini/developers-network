@@ -2,7 +2,7 @@
 import io from "socket.io-client";
 import {
     postNewMessage,
-    addTenMostRecentMessages,
+    addMostRecentMessages,
     getOnlineUsersList,
     postNewPrivateMessage,
     addMostRecentPrivateMessages,
@@ -35,17 +35,15 @@ export const init = (store) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
         //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
-        store.dispatch(
-            addTenMostRecentMessages(tenMostRecentMessages.reverse())
-        );
+        store.dispatch(addMostRecentMessages(tenMostRecentMessages.reverse()));
     });
 
-    socket.on("new private message and user profile", (newPrivateMessage) => {
+    /* socket.on("new private message and user profile", (newPrivateMessage) => {
         console.log("socket.js newPrivateMessage: ", newPrivateMessage);
         store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "postNewMessage": name of my action creator
-    });
+    }); */
 
-    socket.on("most recent private messages", (mostRecentPrivateMessages) => {
+    /* socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
         console.log(
@@ -55,7 +53,7 @@ export const init = (store) => {
         store.dispatch(
             addMostRecentPrivateMessages(mostRecentPrivateMessages.reverse())
         );
-    });
+    }); */
 };
 
 // socket.io is not only for the chat room but it's available (potentially) for the site's functionalities

@@ -724,6 +724,21 @@ app.post("/message/private", function (req, res) {
         });
 });
 
+app.post("/message/delete", function (req, res) {
+    const messageId = req.body.message;
+    db.deleteMessage(messageId)
+        .then(({ rows }) => {
+            res.json({ rows });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/message/delete db.deleteUserFromChatMessages catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.sendStatus(200);
@@ -831,9 +846,9 @@ io.on("connection", (socket) => {
             });
     });
 
-    db.getTenMostRecentMessages()
+    db.getMostRecentMessages()
         .then(({ rows }) => {
-            //console.log("rows getTenMostRecentMessages: ", rows);
+            //console.log("rows getMostRecentMessages: ", rows);
             //console.log("userID: ", userId);
 
             const newRows = rows.map((obj) => ({
@@ -854,7 +869,7 @@ io.on("connection", (socket) => {
         })
         .catch((err) => {
             console.error(
-                `error in [io.on] db.getTenMostRecentMessages catch: `,
+                `error in [io.on] db.getMostRecentMessages catch: `,
                 err
             );
         });
