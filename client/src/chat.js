@@ -10,7 +10,7 @@ import { deleteMessage } from "./actions";
 export default function Chat() {
     // retrieve chat messages from Redux and rendere them
     const chatMessages = useSelector((state) => state && state.messages);
-    console.log("chatoroom chatMessages: ", chatMessages);
+    //console.log("chatoroom chatMessages: ", chatMessages);
 
     const dispatch = useDispatch();
 
@@ -20,6 +20,7 @@ export default function Chat() {
     // post new message
     const handlekeyDown = (e) => {
         if (e.key === "Enter") {
+            
             e.preventDefault();
 
             // NB: we're going to send messages off using socket instead of axios
