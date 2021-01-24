@@ -8,6 +8,7 @@ import OtherProfile from "./otherprofile";
 import Friends from "./friends";
 import FindPeople from "./findpeople";
 import Chat from "./chat";
+import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
@@ -248,8 +249,8 @@ export default class App extends Component {
                                         <section>
                                             <FindPeople
                                             /* match={props.match}
-                                key={props.match.url}
-                                history={props.history} */
+                                            key={props.match.url}
+                                            history={props.history} */
                                             />
                                         </section>
                                     )}
@@ -260,8 +261,8 @@ export default class App extends Component {
                                         <section>
                                             <Friends
                                             /* match={props.match}
-                                key={props.match.url}
-                                history={props.history} */
+                                            key={props.match.url}
+                                            history={props.history} */
                                             />
                                         </section>
                                     )}
@@ -272,8 +273,20 @@ export default class App extends Component {
                                         <section>
                                             <Chat
                                             /* match={props.match}
-                                key={props.match.url}
-                                history={props.history} */
+                                            key={props.match.url}
+                                            history={props.history} */
+                                            />
+                                        </section>
+                                    )}
+                                />
+                                <Route
+                                    path="/privatemessage/:id"
+                                    render={(props) => (
+                                        <section>
+                                            <PrivateMessages
+                                                match={props.match}
+                                                key={props.match.url}
+                                                history={props.history}
                                             />
                                         </section>
                                     )}

@@ -4,6 +4,8 @@ import {
     postNewMessage,
     addTenMostRecentMessages,
     getOnlineUsersList,
+    postNewPrivateMessage,
+    addMostRecentPrivateMessages,
 } from "./actions";
 
 export let socket;
@@ -25,7 +27,7 @@ export const init = (store) => {
     socket.on("new message and user profile", (mostRecenteMessage) => {
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
-        //console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
+        console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "postNewMessage": name of my action creator
     });
 
@@ -35,6 +37,23 @@ export const init = (store) => {
         //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
         store.dispatch(
             addTenMostRecentMessages(tenMostRecentMessages.reverse())
+        );
+    });
+
+    socket.on("new private message and user profile", (newPrivateMessage) => {
+        console.log("socket.js newPrivateMessage: ", newPrivateMessage);
+        store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "postNewMessage": name of my action creator
+    });
+
+    socket.on("most recent private messages", (mostRecentPrivateMessages) => {
+        // this runs when a new user connects (logs in)
+        // and see the messages already there on the page
+        console.log(
+            "socket.js mostRecentPrivateMessages: ",
+            mostRecentPrivateMessages
+        );
+        store.dispatch(
+            addMostRecentPrivateMessages(mostRecentPrivateMessages.reverse())
         );
     });
 };

@@ -1,38 +1,53 @@
-import { useSelector } from "react-redux";
-import { socket } from "./socket"; // to send messages to the server
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+//import { socket } from "./socket";
 import { Link } from "react-router-dom";
+import { addMostRecentPrivateMessages, postNewPrivateMessage } from "./actions";
 import OnlineUsers from "./onlineusers";
 
-export default function Chat() {
-    // retrieve chat messages from Redux and rendere them
-    const chatMessages = useSelector((state) => state && state.messages);
-    console.log("chatoroom chatMessages: ", chatMessages);
+export default function PrivateMessages(props) {
+    const privateChatMessages = useSelector(
+        (state) => state && state.privateMessages
+    );
+    //console.log("private chatMessages: ", privateChatMessages);
 
-    const elemRef = useRef(); // for function
-    //this.elemRef = React.createRef(); // for Class
-    let message;
-    // post new message
-    const handlekeyDown = (e) => {
+    const dispatch = useDispatch();
+    const otherUserId = props.match.params.id;
+
+    useEffect(() => {
+        let abort;
+        (async () => {
+            if (!abort) {
+                dispatch(addMostRecentPrivateMessages(otherUserId));
+            }
+        })();
+        return () => {
+            // NB: this runs before every next re-render
+            abort = true;
+        };
+    }, []);
+
+    // post new messages
+    const handlekeyDownPrivate = (e) => {
+        //console.log("private e value: ", e.target.value);
         if (e.key === "Enter") {
             e.preventDefault();
+            const message = e.target.value;
 
-            // NB: we're going to send messages off using socket instead of axios
             // socket.emit will send a message to the server
-            socket.emit("new chat message", e.target.value);
+            //socket.emit("new private message", message, otherUserId);
+            /* socket.emit("new private message", {
+                message: e.target.value,
+                senderId: userId,
+                recipientId: otherUserId,
+            }); */
+            dispatch(postNewPrivateMessage(message, otherUserId));
             e.target.value = "";
-        } else if (e.key) {
-            message = e.target.value + e.key;
-            //e.target.value = "";
         }
     };
 
-    // post new message
-    const handleClickDown = () => {
-        socket.emit("new chat message", message);
-        //e.target.value = "";
-    };
+    const elemRef = useRef(); // for function
+    //this.elemRef = React.createRef(); // for Class
 
     useEffect(() => {
         let abort;
@@ -46,28 +61,33 @@ export default function Chat() {
             // NB: this runs before every next re-render
             abort = true;
         };
-    }, [chatMessages]);
+    }, [privateChatMessages]);
 
-    if (!chatMessages || !chatMessages.length) {
+    if (!privateChatMessages || !privateChatMessages.length) {
         return null;
     }
 
     return (
         <>
-            {/* <div id="welcomeBack">
-                <p>
-                    {" "}
-                    <b>Chat Room</b>
-                </p>
-            </div> */}
-            {/* <h1>Chat Room</h1> */}
+            {" "}
+            {/* <h1>Private Messages between you and {otherUserId}</h1> */}
             <div className="sectionWrapper">
                 <div className="cardContainer" /* ref={elemRef} */>
                     <div className="cardChat">
-                        <OnlineUsers></OnlineUsers>
+                        {/* <OnlineUsers></OnlineUsers> */}
+
+                        <div className="onlineUserContainerWrap">
+                            <div className="onineUsersGlassOverlay">
+                                <h1>
+                                    Direct Messages between you and id{" "}
+                                    {otherUserId} 
+                                </h1>
+                            </div>
+                        </div>
+
                         <div className="chatHistoryContainer">
-                            {chatMessages &&
-                                chatMessages.map((message, index) => (
+                            {privateChatMessages &&
+                                privateChatMessages.map((message, index) => (
                                     <div id="imgLatest" key={index}>
                                         <div>
                                             {/* <h2>These people are currently your friends</h2> */}
@@ -119,13 +139,20 @@ export default function Chat() {
                                 rows="5"
                                 cols="98"
                                 placeholder="Enter your message here.."
-                                onKeyDown={handlekeyDown}
+                                onKeyDown={handlekeyDownPrivate}
                             />
                         </div>
-                        <div id="chatbuttonWrap">
+                        {/* <div id="chatbuttonWrap">
                             <button onClick={handleClickDown}>
                                 Post message in the chat
                             </button>
+                        </div> */}
+                        <div id="chatbuttonWrap">
+                            <Link to={`/user/${otherUserId}`}>
+                                <button className="friendButton">
+                                    Close Direct Messages Chat
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -640,6 +640,90 @@ app.get("/friends-wannabes", function (req, res) {
         });
 });
 
+app.get("/message/private/:id", function (req, res) {
+    const senderId = req.session.userId;
+    const recipientId = req.params.id;
+
+    db.getMostRecentPrivateMessages(senderId, recipientId)
+        .then(({ rows }) => {
+            //console.log("rows get privatemessage: ", rows);
+
+            const newRows = rows
+                .map((obj) => ({
+                    senderId,
+                    recipientId,
+                    messageId: obj.id,
+                    name: obj.first + " " + obj.last,
+                    profile_pic: obj.profile_pic,
+                    message: obj.message,
+                    timestamp:
+                        "on " +
+                        ("" + obj.created_at + "").substring(0, 15) +
+                        " at " +
+                        ("" + obj.created_at + "").substring(16, 24),
+                }))
+                .reverse();
+            //console.log("GET newRows: ", newRows.reverse());
+
+            res.json({ newRows });
+        })
+        .catch((err) => {
+            console.error(
+                "error in GET/message/private/:id db.getMostRecentPrivateMessages catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/message/private", function (req, res) {
+    const senderId = req.session.userId;
+    //console.log("senderId ", senderId);
+    const { recipientId, message } = req.body;
+    //console.log("recipientId ", recipientId);
+    //console.log("message ", message);
+
+    db.insertNewPrivateMessage(senderId, recipientId, message)
+        .then(({ rows }) => {
+            //console.log("rows post insertNewPrivateMessage: ", rows);
+            const messageId = rows[0].id;
+            //console.log("message Id: ", messageId);
+
+            db.getNewPrivateMessageInfo(messageId)
+                .then(({ rows }) => {
+                    //console.log("rows post getNewPrivateMessage: ", rows);
+
+                    const newRows = rows.map((obj) => ({
+                        name: obj.first + " " + obj.last,
+                        profile_pic: obj.profile_pic,
+                        message: obj.message,
+                        timestamp:
+                            "on " +
+                            ("" + obj.created_at + "").substring(0, 15) +
+                            " at " +
+                            ("" + obj.created_at + "").substring(16, 24),
+                    }));
+                    //console.log("POST newRows: ", newRows);
+
+                    res.json({ newRows });
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in POST/message/private db.insertNewPrivateMessage catch: ",
+                        err
+                    );
+                    res.json({ error: true });
+                });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/message/private db.insertNewPrivateMessage catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.sendStatus(200);
@@ -666,6 +750,8 @@ server.listen(process.env.PORT || 3001, function () {
 
 let onlineUsersPlusOpenTabs = [];
 let onlineUsers = []; // keeps track of all users currently online
+//let sockets = {};
+//let users = {};
 
 io.on("connection", (socket) => {
     // => event listener
@@ -716,7 +802,9 @@ io.on("connection", (socket) => {
         //console.log("disconnected User Or Tab: ", disconnectedUserOrTab);
 
         //console.log("onlineUsersPlusOpenTabs B: ", onlineUsersPlusOpenTabs);
-        const indexOfDisconnectedUserOrTab = onlineUsersPlusOpenTabs.indexOf(disconnectedUserOrTab);
+        const indexOfDisconnectedUserOrTab = onlineUsersPlusOpenTabs.indexOf(
+            disconnectedUserOrTab
+        );
         //console.log("index B: ", index);
         if (indexOfDisconnectedUserOrTab !== -1) {
             onlineUsersPlusOpenTabs.splice(indexOfDisconnectedUserOrTab, 1);
@@ -742,6 +830,34 @@ io.on("connection", (socket) => {
                 );
             });
     });
+
+    db.getTenMostRecentMessages()
+        .then(({ rows }) => {
+            //console.log("rows getTenMostRecentMessages: ", rows);
+            //console.log("userID: ", userId);
+
+            const newRows = rows.map((obj) => ({
+                senderId: userId,
+                id: obj.id,
+                name: obj.first + " " + obj.last,
+                profile_pic: obj.profile_pic,
+                message: obj.message,
+                timestamp:
+                    "on " +
+                    ("" + obj.created_at + "").substring(0, 15) +
+                    " at " +
+                    ("" + obj.created_at + "").substring(16, 24),
+            }));
+            //console.log("newRows: ", newRows);
+
+            socket.emit("10 most recent messages", newRows);
+        })
+        .catch((err) => {
+            console.error(
+                `error in [io.on] db.getTenMostRecentMessages catch: `,
+                err
+            );
+        });
 
     //server-side socket code all written down here:
     socket.on("new chat message", (message) => {
@@ -786,14 +902,24 @@ io.on("connection", (socket) => {
             });
     });
 
-    db.getTenMostRecentMessages()
+    /* var users = {};
+    users[userId] = socket.id;
+    console.log("users: ", users); */
+    /* console.log("onliners: ", onlineUsers);
+    const myUserId = onlineUsers[0];
+    const otherUserId = onlineUsers[1];
+    console.log("myUserId: ", myUserId);
+    console.log("otherUserId: ", otherUserId);
+
+    //const userIdPrivate = req.session.userId;
+    db.getMostRecentPrivateMessages(myUserId, otherUserId)
         .then(({ rows }) => {
-            //console.log("rows getTenMostRecentMessages: ", rows);
-            //console.log("userID: ", userId);
+            console.log("rows getMostRecentPrivateMessages: ", rows);
+            //const senderId = userId;
+            //console.log("userID: ", senderId);
 
             const newRows = rows.map((obj) => ({
-                senderId: userId,
-                id: obj.id,
+                senderId: obj.id,
                 name: obj.first + " " + obj.last,
                 profile_pic: obj.profile_pic,
                 message: obj.message,
@@ -803,16 +929,94 @@ io.on("connection", (socket) => {
                     " at " +
                     ("" + obj.created_at + "").substring(16, 24),
             }));
-            //console.log("newRows: ", newRows);
+            console.log("newRows: ", newRows);
 
-            socket.emit("10 most recent messages", newRows);
+            //socket.emit("most recent private messages", newRows);
+            //client.emit("most recent private messages", newRows);
+            //console.log("from: ", newRows[0].senderId);
+            //console.log("to socketId: ", socket.id);
+            //io.to(socket.id).emit("most recent private messages", newRows);
+
+            io.sockets.sockets
+                .get(socket.id)
+                .emit("most recent private messages", newRows);
         })
         .catch((err) => {
             console.error(
-                `error in [io.on] db.getTenMostRecentMessages catch: `,
+                `error in [io.on] db.getMostRecentPrivateMessages catch: `,
                 err
             );
-        });
+        }); */
+
+    /* socket.on("new private message", (message, recipientId) => {
+        console.log("received message: ", message);
+        console.log("received recipientId: ", recipientId);
+        const senderId = userId;
+        db.insertNewPrivateMessage(senderId, recipientId, message)
+            .then(({ rows }) => {
+                //console.log("userId/senderId: ", senderId);
+                //console.log("private rows: ", rows);
+                //const id = rows[0].id;
+                const created_atStringify = "" + rows[0].created_at + "";
+                const date = created_atStringify.substring(0, 15);
+                const time = created_atStringify.substring(16, 24);
+                const createdAt = "on " + date + " at " + time;
+                //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
+                db.getUserProfile(userId)
+                    .then(({ rows }) => {
+                        //console.log("getUserProfile rows: ", rows);
+                        const name = rows[0].first + " " + rows[0].last;
+                        //console.log("name: ", name);
+
+                        // emit a message back to the client
+                        io.sockets.emit("new message and user profile", {
+                            message,
+                            id: rows[0].id,
+                            profile_pic: rows[0].profile_pic,
+                            name,
+                            timestamp: createdAt,
+                        });
+
+                        //console.log("socket.id: ", socket.id);
+                        //console.log("id: ", rows[0].id);
+
+                        // message to a specific socket
+                        io.sockets.sockets
+                            .get(socket.id)
+                            .emit("new private message and user profile", {
+                                message,
+                                id: rows[0].id,
+                                profile_pic: rows[0].profile_pic,
+                                name,
+                                timestamp: createdAt,
+                            });
+
+                        // sending to individual socketid (private message)
+                        io.to(socket.id).emit(
+                            "new private message and user profile",
+                            {
+                                message,
+                                id: rows[0].id,
+                                profile_pic: rows[0].profile_pic,
+                                name,
+                                timestamp: createdAt,
+                            }
+                        );
+                    })
+                    .catch((err) => {
+                        console.error(
+                            `error in socket.on("new chat message") db.getUserProfile catch: `,
+                            err
+                        );
+                    });
+            })
+            .catch((err) => {
+                console.error(
+                    `error in socket.on("new private message") db.insertNewPrivateMessage catch: `,
+                    err
+                );
+            });
+    }); */
 }); // close io.on("connection")
 
 /* 

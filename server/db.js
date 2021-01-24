@@ -159,7 +159,7 @@ module.exports.getFriendsWannabes = (id) => {
     return db.query(q, params);
 };
 
-// chat
+// chatroom
 module.exports.insertNewMessage = (userId, message) => {
     const q = `INSERT INTO chat_messages (user_id, message)
     VALUES (($1), ($2)) RETURNING id, created_at;`;
@@ -173,7 +173,7 @@ module.exports.getTenMostRecentMessages = () => {
     JOIN users
     ON (chat_messages.user_id = users.id)
     ORDER BY chat_messages.created_at DESC
-    LIMIT 10`;
+    LIMIT 20`;
     return db.query(q);
 };
 
@@ -189,10 +189,39 @@ module.exports.getTenMostRecentMessages = () => {
 }; */
 
 // online users
-
 module.exports.getOnlineUsers = (arrayUsersByIds) => {
     const q = `SELECT id, first, last, profile_pic FROM users WHERE id = ANY($1)`;
     const params = [arrayUsersByIds];
     return db.query(q, params);
 };
 
+// private messages
+module.exports.insertNewPrivateMessage = (senderId, recipientId, message) => {
+    const q = `INSERT INTO private_messages (sender_id, recipient_id, message)
+    VALUES (($1), ($2), ($3)) RETURNING *;`;
+    const params = [senderId, recipientId, message];
+    return db.query(q, params);
+};
+
+module.exports.getNewPrivateMessageInfo = (messageId) => {
+    const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
+    FROM private_messages
+    JOIN users
+    ON (private_messages.sender_id = users.id)
+    WHERE private_messages.id = ($1)`;
+    const params = [messageId];
+    return db.query(q, params);
+};
+
+module.exports.getMostRecentPrivateMessages = (senderId, recipientId) => {
+    const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
+    FROM private_messages
+    JOIN users
+    ON (private_messages.sender_id = users.id)
+    WHERE (sender_id = ($1) AND recipient_id = ($2))
+    OR (sender_id = ($2) AND recipient_id = ($1))
+    ORDER BY private_messages.created_at DESC
+    LIMIT 15`;
+    const params = [senderId, recipientId];
+    return db.query(q, params);
+};

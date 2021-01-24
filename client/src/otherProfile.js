@@ -2,6 +2,7 @@ import { Component } from "react";
 import axios from "./axios";
 import ProfilePic from "./profilepic";
 import FriendButton from "./friendbutton";
+import { Link } from "react-router-dom";
 
 export default class OtherProfile extends Component {
     constructor(props) {
@@ -92,7 +93,10 @@ export default class OtherProfile extends Component {
                             </div>
                             <div>
                                 {/* {<h1>Profile=-BioEditor</h1>} */}
-                                <div className="bioEditor" id="otherProfileBioeditor">
+                                <div
+                                    className="bioEditor"
+                                    id="otherProfileBioeditor"
+                                >
                                     <p id="introTitle">
                                         {this.state.first} {this.state.last}
                                     </p>
@@ -100,6 +104,15 @@ export default class OtherProfile extends Component {
                                 </div>
                                 <div>
                                     <FriendButton id={this.state.id} />
+                                </div>
+                                <div>
+                                    <Link
+                                        to={`/privatemessage/${this.state.id}`}
+                                    >
+                                        <button className="friendButton">
+                                            Direct Message
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

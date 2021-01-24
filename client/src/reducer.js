@@ -66,6 +66,47 @@ export function reducer(state = {}, action) {
         };
     }
 
+    /* if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
+
+        state = {
+            ...state,
+            privateMessages: [...state.privateMessages, action.privateMessage],
+        };
+        console.log("reducer new private msg state: ", state);
+    } */
+
+    /* if (action.type == "ADD_MOST_RECENT_PRIVATE_MESSAGES") {
+        //console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
+
+        state = {
+            ...state,
+            privateMessages: action.latestPrivateMessages,
+        };
+        console.log("reducer recent private msgs state: ", state);
+    } */
+
+    if (action.type == "ADD_MOST_RECENT_PRIVATE_MESSAGES") {
+        //console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
+
+        state = {
+            ...state,
+            privateMessages: action.latestPrivateMessages,
+        };
+        console.log("reducer recent private msgs state: ", state);
+    }
+
+    if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
+
+        state = {
+            ...state,
+            privateMessages: [...state.privateMessages, action.privateMessage],
+        };
+        console.log("reducer new private msg state: ", state);
+    }
+
+
     return state;
 }
 
