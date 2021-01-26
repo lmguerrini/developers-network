@@ -124,7 +124,7 @@ export default function Chat() {
                                                 id="chat-messages"
                                                 ref={elemRef}
                                             >
-                                                <p>{message.message}</p>
+                                                <pre>{message.message}</pre>
 
                                                 {/* <RiDeleteBinLine
                                                     onClick={() =>

@@ -1035,9 +1035,10 @@ button {
     margin: 0 3px 5px 3px;
 }
 
-#chat-messages p {
-    font-size: 1em;
+#chat-messages pre {
+    font-size: 1.2em;
     color: lime;
+    -font-family: Dejavu Sans, monospace;
 }
 
 #deleteMessageBtn {
