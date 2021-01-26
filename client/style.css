@@ -1041,6 +1041,15 @@ button {
     -font-family: Dejavu Sans, monospace;
 }
 
+#chat-messages a {
+    color: lime; 
+}
+
+#chat-messages a:hover {
+    color: rgba(0, 255, 0, 0.651); 
+    transition: 0.5s;
+}
+
 #deleteMessageBtn {
     font-size: 0.9em;
     margin-left: 150px;
