@@ -10,6 +10,7 @@ export default function PrivateMessages(props) {
         (state) => state && state.privateMessages
     );
     //console.log("private chatMessages: ", privateChatMessages);
+    console.log("props---: ", props);
 
     const dispatch = useDispatch();
     const otherUserId = props.match.params.id;
@@ -76,11 +77,12 @@ export default function PrivateMessages(props) {
                     <div className="cardChat">
                         {/* <OnlineUsers></OnlineUsers> */}
 
-                        <div className="onlineUserContainerWrap">
-                            <div className="onineUsersGlassOverlay">
-                                <h1>
-                                    Direct Messages between you and id{" "}
-                                    {otherUserId}
+                        <div className="wallPostsGlassOverlayWrap">
+                            <div className="wallPostsGlassOverlay">
+                                <h1 id="directMessages">
+                                    <small id="uploaderSigns">❮</small>
+                                    &nbsp;Direct Messages{" "}
+                                    <small id="uploaderSigns">❯</small>
                                 </h1>
                             </div>
                         </div>
@@ -127,7 +129,33 @@ export default function PrivateMessages(props) {
                                                 id="chat-messages"
                                                 ref={elemRef}
                                             >
-                                                <p>{message.message}</p>
+                                                <pre className="prettyprint">
+                                                    <code className="language-javascript">
+                                                        {message.message.startsWith(
+                                                            "https://"
+                                                        ) ? (
+                                                            <a
+                                                                href={
+                                                                    message.message
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            <span>
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </span>
+                                                        )}
+                                                    </code>
+
+                                                    {/* {message.message} */}
+                                                </pre>
                                             </div>
                                         </div>
                                     </div>

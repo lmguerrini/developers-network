@@ -124,30 +124,29 @@ export default function Chat() {
                                                 id="chat-messages"
                                                 ref={elemRef}
                                             >
-                                                <pre className="prettyprint"
-                                                >
+                                                <pre className="prettyprint">
                                                     <code className="language-javascript">
                                                         {message.message.startsWith(
                                                             "https://"
                                                         ) ? (
-                                                                <a
-                                                                    href={
-                                                                        message.message
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noreferrer"
-                                                                >
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </a>
-                                                            ) : (
-                                                                <span>
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </span>
-                                                            )}
+                                                            <a
+                                                                href={
+                                                                    message.message
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            <span>
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </span>
+                                                        )}
                                                     </code>
 
                                                     {/* {message.message} */}

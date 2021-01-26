@@ -1148,11 +1148,11 @@ li.L9 {
 /* code-prettify(sons-of-obsidian)_END */
 
 #chat-messages a {
-    color: lime;
+    color: white;
 }
 
 #chat-messages a:hover {
-    color: rgba(0, 255, 0, 0.651);
+    color: rgba(0, 255, 0, 0.888);
     transition: 0.5s;
 }
 
@@ -1262,6 +1262,13 @@ li.L9 {
     100% {
         border-color: rgba(0, 255, 0, 0.774);
     }
+}
+
+/* ----section(DirectMessages)---- */
+
+#directMessages {
+    text-align: center;
+    font-family: Dejavu Sans, monospace;
 }
 
 /* ----section(Wall)---- */
