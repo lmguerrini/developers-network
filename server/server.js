@@ -724,6 +724,21 @@ app.post("/message/private", function (req, res) {
         });
 });
 
+app.post("/privatemessage/delete", function (req, res) {
+    const messageId = req.body.message;
+    db.deletePrivateMessage(messageId)
+        .then(({ rows }) => {
+            res.json({ rows });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/privatemessage/delete db.deletePrivateMessage catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.post("/message/delete", function (req, res) {
     const messageId = req.body.message;
     db.deleteMessage(messageId)

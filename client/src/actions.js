@@ -58,6 +58,19 @@ export async function deleteMessage(messageId) {
     };
 }
 
+export async function deletePrivateMessage(messageId) {
+    //console.log("Action deletePrivateMessage!");
+    await axios.post("/privatemessage/delete", {
+        message: messageId,
+    });
+    //console.log("Action POST /privatemessage/delete messageId: ", messageId);
+
+    return {
+        type: "DELETE_PRIVATE_MESSAGE",
+        privatemessage: messageId,
+    };
+}
+
 export async function addMostRecentMessages(tenMostRecentMessages) {
     //console.log("Action getMostRecentMessages!");
     return {

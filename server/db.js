@@ -209,6 +209,12 @@ module.exports.insertNewPrivateMessage = (senderId, recipientId, message) => {
     return db.query(q, params);
 };
 
+module.exports.deletePrivateMessage = (messageId) => {
+    const q = `DELETE FROM private_messages WHERE id = ($1)`;
+    const params = [messageId];
+    return db.query(q, params);
+};
+
 module.exports.getNewPrivateMessageInfo = (messageId) => {
     const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
     FROM private_messages

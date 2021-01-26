@@ -49,13 +49,28 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "DELETE_MESSAGE") {
-        //console.log("Reducer DELETE_MESSAG");
+        //console.log("Reducer DELETE_MESSAGE");
 
         state = {
             ...state,
             messages: state.messages.filter((deleteMessage) => {
                 return deleteMessage.id != action.message;
             }),
+        };
+    }
+
+    if (action.type == "DELETE_PRIVATE_MESSAGE") {
+        //console.log("Reducer DELETE_PRIVATE_MESSAGE");
+
+        state = {
+            ...state,
+            privateMessages: state.privateMessages.filter(
+                (deletePrivateMessage) => {
+                    return (
+                        deletePrivateMessage.messageId != action.privatemessage
+                    );
+                }
+            ),
         };
     }
 

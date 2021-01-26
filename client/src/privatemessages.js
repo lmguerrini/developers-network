@@ -2,15 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 //import { socket } from "./socket";
 import { Link } from "react-router-dom";
-import { addMostRecentPrivateMessages, postNewPrivateMessage } from "./actions";
+import {
+    addMostRecentPrivateMessages,
+    postNewPrivateMessage,
+    deletePrivateMessage,
+} from "./actions";
 //import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
     const privateChatMessages = useSelector(
         (state) => state && state.privateMessages
     );
-    //console.log("private chatMessages: ", privateChatMessages);
-    console.log("props---: ", props);
+    console.log("private chatMessages: ", privateChatMessages);
 
     const dispatch = useDispatch();
     const otherUserId = props.match.params.id;
@@ -93,37 +96,50 @@ export default function PrivateMessages(props) {
                                     <div id="imgLatest" key={index}>
                                         <div>
                                             {/* <h2>These people are currently your friends</h2> */}
-                                            <Link to={"/user/" + message.id}>
-                                                <div className="imgNameWrap">
-                                                    <img
-                                                        className="profile_pic"
-                                                        src={
-                                                            message.profile_pic
-                                                        }
-                                                        alt={message.name}
-                                                        /* alt={`${message.first} ${message.last}`} */
-                                                    />
-                                                    {/* <p>
+                                            {/* <Link to={"/user/" + message.id}> */}
+                                            <div className="imgNameWrap">
+                                                <img
+                                                    className="profile_pic"
+                                                    src={message.profile_pic}
+                                                    alt={message.name}
+                                                    /* alt={`${message.first} ${message.last}`} */
+                                                />
+                                                {/* <p>
                                                         <b id="messageName">
                                                             {message.name}
                                                         </b>
                                                     </p> */}
-                                                </div>
-                                                <p>
-                                                    <b id="messageName">
-                                                        {message.name}
-                                                    </b>{" "}
-                                                    <small id="uploaderSigns">
-                                                        ❮
-                                                    </small>
-                                                    &nbsp;
-                                                    {message.timestamp}&nbsp;
-                                                    <small id="uploaderSigns">
-                                                        ❯
-                                                    </small>
-                                                    {/* {message.first} {message.last} */}
-                                                </p>
-                                            </Link>
+                                            </div>
+                                            {/* </Link> */}
+                                            <p>
+                                                <b id="messageName">
+                                                    {message.name}
+                                                </b>{" "}
+                                                <small id="uploaderSigns">
+                                                    ❮
+                                                </small>
+                                                &nbsp;
+                                                {message.timestamp}&nbsp;
+                                                <small id="uploaderSigns">
+                                                    ❯
+                                                </small>
+                                                {/* {message.first} {message.last} */}
+                                                <button
+                                                    id="deleteMessageBtn"
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deletePrivateMessage(
+                                                                message.messageId
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    🗑
+                                                    {/* Delete Message with id{" "}
+                                                    {message.id} */}
+                                                </button>
+                                            </p>
+
                                             {/* <p>{message.timestamp}</p> */}
                                             <div
                                                 id="chat-messages"
