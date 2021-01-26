@@ -3,6 +3,7 @@ import axios from "./axios";
 import ProfilePic from "./profilepic";
 import FriendButton from "./friendbutton";
 import { Link } from "react-router-dom";
+import Wall from "./wall";
 
 export default class OtherProfile extends Component {
     constructor(props) {
@@ -102,22 +103,27 @@ export default class OtherProfile extends Component {
                                     </p>
                                     <p>{this.state.bio}</p>
                                 </div>
-                                <div>
-                                    <FriendButton id={this.state.id} />
-                                </div>
-                                <div>
-                                    <Link
-                                        to={`/privatemessage/${this.state.id}`}
-                                    >
-                                        <button className="friendButton">
-                                            Direct Message
-                                        </button>
-                                    </Link>
+                                <div className="otherProfileBtnWrapper">
+                                    <div className="friendButtonOtherProfWrap">
+                                        <FriendButton id={this.state.id} />
+                                    </div>
+                                    <div className="dmWrap">
+                                        <Link
+                                            to={`/privatemessage/${this.state.id}`}
+                                        >
+                                            <button className="friendButton">
+                                                Direct Message
+                                            </button>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <section>
+                    <Wall id={this.state.id} myWall={false} />
+                </section>
             </>
         );
     }

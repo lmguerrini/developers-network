@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS chat_messages;
 DROP TABLE IF EXISTS private_messages;
+DROP TABLE IF EXISTS wall;
+DROP TABLE IF EXISTS wall_comments;
 
 CREATE TABLE users(
       id SERIAL PRIMARY KEY,
@@ -75,4 +77,20 @@ CREATE TABLE private_messages(
 -- DELETE FROM private_messages WHERE id  = 1;
 -- DELETE * FROM private_messages;
 -- INSERT INTO private_messages (sender_id, recipient_id, message) VALUES ('100', '101', 'message chat test 1') RETURNING id, created_at;
--- INSERT INTO private_messages (sender_id, recipient_id, message) VALUES ('101', '100', 'message chat test 2');
+-- INSERT INTO private_messages (sender_id, recipient_id, message) VALUES ('236', '221', 'message chat test 2');
+
+CREATE TABLE wall(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    url VARCHAR NOT NULL
+);
+
+-- SELECT * FROM wall;
+-- SELECT * FROM wall WHERE id  = 1;
+-- DELETE FROM wall WHERE id  = 1;
+-- DELETE * FROM wall;
+-- INSERT INTO wall (user_id, url, description) VALUES ('236', 'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg', 'This photo brings back so many great memories.') RETURNING *;
+
+

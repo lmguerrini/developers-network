@@ -20,7 +20,6 @@ export default function Chat() {
     // post new message
     const handlekeyDown = (e) => {
         if (e.key === "Enter") {
-            
             e.preventDefault();
 
             // NB: we're going to send messages off using socket instead of axios
@@ -76,43 +75,34 @@ export default function Chat() {
                                     <div id="imgLatest" key={index}>
                                         <div>
                                             {/* <h2>These people are currently your friends</h2> */}
-                                            <Link to={"/user/" + message.id}>
-                                                <div className="imgNameWrap">
-                                                    <img
-                                                        className="profile_pic"
-                                                        src={
-                                                            message.profile_pic
-                                                        }
-                                                        alt={message.name}
-                                                        /* alt={`${message.first} ${message.last}`} */
-                                                    />
-                                                    {/* <p>
+                                            {/* <Link to={"/user/" + message.id}> */}
+                                            <div className="imgNameWrap">
+                                                <img
+                                                    className="profile_pic"
+                                                    src={message.profile_pic}
+                                                    alt={message.name}
+                                                    /* alt={`${message.first} ${message.last}`} */
+                                                />
+                                                {/* <p>
                                                         <b id="messageName">
                                                             {message.name}
                                                         </b>
                                                     </p> */}
-                                                </div>
-                                                <p>
-                                                    <b id="messageName">
-                                                        {message.name}
-                                                    </b>{" "}
-                                                    <small id="uploaderSigns">
-                                                        ❮
-                                                    </small>
-                                                    &nbsp;
-                                                    {message.timestamp}&nbsp;
-                                                    <small id="uploaderSigns">
-                                                        ❯
-                                                    </small>
-                                                    {/* {message.first} {message.last} */}
-                                                </p>
-                                            </Link>
-                                            {/* <p>{message.timestamp}</p> */}
-                                            <div
-                                                id="chat-messages"
-                                                ref={elemRef}
-                                            >
-                                                <p>{message.message}</p>
+                                            </div>
+                                            {/* </Link> */}
+                                            <p>
+                                                <b id="messageName">
+                                                    {message.name}
+                                                </b>{" "}
+                                                <small id="uploaderSigns">
+                                                    ❮
+                                                </small>
+                                                &nbsp;
+                                                {message.timestamp}&nbsp;
+                                                <small id="uploaderSigns">
+                                                    ❯
+                                                </small>
+                                                {/* {message.first} {message.last} */}
                                                 <button
                                                     id="deleteMessageBtn"
                                                     onClick={() =>
@@ -123,9 +113,19 @@ export default function Chat() {
                                                         )
                                                     }
                                                 >
-                                                    delete 🗑{/* Delete Message with id{" "}
+                                                    🗑
+                                                    {/* Delete Message with id{" "}
                                                     {message.id} */}
                                                 </button>
+                                            </p>
+
+                                            {/* <p>{message.timestamp}</p> */}
+                                            <div
+                                                id="chat-messages"
+                                                ref={elemRef}
+                                            >
+                                                <p>{message.message}</p>
+
                                                 {/* <RiDeleteBinLine
                                                     onClick={() =>
                                                         dispatch(

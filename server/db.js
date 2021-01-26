@@ -231,3 +231,19 @@ module.exports.getMostRecentPrivateMessages = (senderId, recipientId) => {
     const params = [senderId, recipientId];
     return db.query(q, params);
 };
+
+// wall
+module.exports.getWallPosts = (userId) => {
+    const q = `SELECT * FROM wall WHERE user_id = ($1) ORDER BY created_at DESC`;
+    const params = [userId];
+    return db.query(q, params);
+};
+
+module.exports.postWallPost = (userId, url, description) => {
+    const q = `INSERT INTO wall (user_id, url, description) 
+    VALUES (($1), ($2), ($3)) RETURNING *;`;
+    const params = [userId, url, description];
+    return db.query(q, params);
+};
+
+

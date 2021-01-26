@@ -117,6 +117,26 @@ export function reducer(state = {}, action) {
         console.log("reducer new private msg state: ", state);
     }
 
+    if (action.type == "GET_WALL_POSTS") {
+        console.log("Reducer GET_WALL_POSTS");
+
+        state = {
+            ...state,
+            wallPosts: action.wallPost,
+        };
+        console.log("reducer GET wall posts state: ", state);
+    }
+
+    if (action.type == "POST_WALL_POST") {
+        console.log("Reducer POST_WALL_POST");
+
+        state = {
+            ...state,
+            wallPosts: [action.wallPost, ...state.wallPosts],
+        };
+        console.log("reducer POST new wall post state: ", state);
+    }
+
     return state;
 }
 

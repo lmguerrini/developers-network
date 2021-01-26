@@ -120,3 +120,25 @@ export async function postNewPrivateMessage(message, otherUserId) {
         privateMessage: data.newRows,
     };
 }
+
+export async function getWallPosts(id) {
+    //console.log("Action addMostRecentPrivateMessages!");
+    const { data } = await axios.get(`/wall/posts/${id}`);
+    //console.log("Action GET /wall/posts/:id data: ", data.newRows);
+
+    return {
+        type: "GET_WALL_POSTS",
+        wallPost: data.newRows,
+    };
+}
+
+export async function postWallPost(formData) {
+    //console.log("Action addMostRecentPrivateMessages!");
+    const { data } = await axios.post(`/wall/posts/`, formData);
+    //console.log("Action POST /wall/posts/ data: ", data.newRows);
+
+    return {
+        type: "POST_WALL_POST",
+        wallPost: data.newRows,
+    };
+}

@@ -1,5 +1,6 @@
 import ProfilePic from "./profilepic";
 import BioEditor from "./bioeditor";
+import Wall from "./wall";
 
 /* 
 NB: The Profile component will be responsible for laying out the content we want to show: 
@@ -20,6 +21,7 @@ NB: The Profile component will be responsible for laying out the content we want
 
 // destructuring it, it's just a personal preference
 export default function Profile({
+    id,
     first,
     last,
     profile_pic,
@@ -29,6 +31,7 @@ export default function Profile({
 }) {
     /* console.log(
         "Profile {props}: ",
+        id,
         first,
         last,
         profile_pic,
@@ -79,6 +82,9 @@ export default function Profile({
                     </div>
                     {/* </div> */}
                 </div>
+            </div>
+            <div className="wallOuterContainer">
+                <Wall id={id} myWall={true} />
             </div>
         </>
     );

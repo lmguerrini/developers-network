@@ -24,7 +24,7 @@ export default function OnlineUsers() {
                 </div>
             )}
             <div className="onlineUserContainerWrap">
-                <div className="onineUsersGlassOverlay">
+                <div className="onlineUsersGlassOverlay">
                     {onlineUsers &&
                         onlineUsers.map((onlineUser) => (
                             <div

@@ -732,11 +732,85 @@ app.post("/message/delete", function (req, res) {
         })
         .catch((err) => {
             console.error(
-                "error in POST/message/delete db.deleteUserFromChatMessages catch: ",
+                "error in POST/message/delete db.deleteMessage catch: ",
                 err
             );
             res.json({ error: true });
         });
+});
+
+app.get("/wall/posts/:id", function (req, res) {
+    //console.log("GET wall post params: ", req.params);
+    //console.log("id: ", req.params.id);
+    const { id } = req.params;
+    db.getWallPosts(id)
+        .then(({ rows }) => {
+            //console.log("GET wall post rows: ", rows);
+
+            const newRows = rows.map((obj) => ({
+                id: obj.id,
+                userId: obj.user_id,
+                image: obj.url,
+                title: obj.description,
+                timestamp:
+                    "on " +
+                    ("" + obj.created_at + "").substring(0, 15) +
+                    " at " +
+                    ("" + obj.created_at + "").substring(16, 24),
+            }));
+            //console.log("POST newRows: ", newRows);
+            res.json({ newRows });
+        })
+        .catch((err) => {
+            console.error(
+                "error in GET/wall/post/:id db.getWallPosts catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/wall/posts", uploader.single("image"), s3.upload, (req, res) => {
+    //console.log("POST wall post req.body: ", req.body);
+    //console.log("POST wall post description: ", req.body.description); // insert
+    const id = req.session.userId;
+    //console.log("id POST: ", id);
+    // we can construct the URL needed to be able to see our image
+    //console.log("POST req.file.filename: ", req.file.filename);
+    const url = `${s3Url}${req.file.filename}`;
+    //console.log("url POST: ", url);
+    const description = req.body.description;
+    //console.log("description POST: ", description);
+    if (req.file) {
+        db.postWallPost(id, url, description)
+            .then(({ rows }) => {
+                //console.log("POST wall post rows: ", rows[0]);
+
+                const mappedRows = rows.map((obj) => ({
+                    id: obj.id,
+                    userId: obj.user_id,
+                    image: obj.url,
+                    title: obj.description,
+                    timestamp:
+                        "on " +
+                        ("" + obj.created_at + "").substring(0, 15) +
+                        " at " +
+                        ("" + obj.created_at + "").substring(16, 24),
+                }));
+                const newRows = mappedRows[0];
+                //console.log("POST newRows: ", newRows);
+                res.json({ newRows });
+            })
+            .catch((err) => {
+                console.error(
+                    "error in POST/wall/posts db.postWallPost catch: ",
+                    err
+                );
+                res.json({ error: true });
+            });
+    } else {
+        res.json({ error: true });
+    }
 });
 
 app.get("/logout", (req, res) => {
