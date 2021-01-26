@@ -96,7 +96,7 @@ export default function Welcome() {
                 </section> */}
                     </HashRouter>
                 </div>
-                
+
                 <footer>Copyright © 2021 Neo, Inc. All rights reserved.</footer>
             </div>
         </>

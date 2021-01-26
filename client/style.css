@@ -1,5 +1,6 @@
 * {
-    margin: 0;
+    -margin: 0;
+    margin: 0.01px;
 }
 
 body {
@@ -511,7 +512,7 @@ button {
     height: 150px;
     -border-bottom: 1px solid rgb(53, 53, 53);
     -border: 5px solid rgba(255, 255, 255, 0.459);
-    border: 5px solid white;
+    border: 8px solid white;
     -border-bottom: hidden;
     border-radius: 5px;
     background-color: rgb(29, 29, 29);
@@ -1032,21 +1033,126 @@ button {
 }
 
 #chat-messages {
-    margin: 0 3px 5px 3px;
+    margin: 5px 3px;
 }
 
 #chat-messages pre {
-    font-size: 1.2em;
-    color: lime;
+    -font-size: 1.15em;
+    -color: lime;
     -font-family: Dejavu Sans, monospace;
+    border: 2px solid rgba(255, 255, 255, 0.169);
+    padding: 5px 10px;
+    background-color: #00000033;
 }
 
+/* code-prettify(sons-of-obsidian)_START */
+.str {
+    color: #ec7600;
+}
+.kwd {
+    color: #78f800;
+}
+.com {
+    color: #66747b;
+}
+.typ {
+    color: #678cb1;
+}
+.lit {
+    color: #ffff00;
+}
+.pun {
+    color: #f1f2f3;
+}
+.pln {
+    color: #f1f2f3;
+}
+.tag {
+    color: #8ac763;
+}
+.atn {
+    color: #e0e2e4;
+}
+.atv {
+    color: #ec7600;
+}
+.dec {
+    color: purple;
+}
+pre.prettyprint {
+    border: 0px solid #888;
+}
+ol.linenums {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.prettyprint {
+    background: #000;
+}
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L4,
+li.L5,
+li.L6,
+li.L7,
+li.L8,
+li.L9 {
+    color: #555;
+    list-style-type: decimal;
+}
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 {
+    background: #111;
+}
+@media print {
+    .str {
+        color: #060;
+    }
+    .kwd {
+        color: #006;
+        font-weight: bold;
+    }
+    .com {
+        color: #600;
+        font-style: italic;
+    }
+    .typ {
+        color: #404;
+        font-weight: bold;
+    }
+    .lit {
+        color: #044;
+    }
+    .pun {
+        color: #440;
+    }
+    .pln {
+        color: #000;
+    }
+    .tag {
+        color: #006;
+        font-weight: bold;
+    }
+    .atn {
+        color: #404;
+    }
+    .atv {
+        color: #060;
+    }
+}
+/* code-prettify(sons-of-obsidian)_END */
+
 #chat-messages a {
-    color: lime; 
+    color: lime;
 }
 
 #chat-messages a:hover {
-    color: rgba(0, 255, 0, 0.651); 
+    color: rgba(0, 255, 0, 0.651);
     transition: 0.5s;
 }
 
