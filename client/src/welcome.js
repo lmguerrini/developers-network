@@ -18,7 +18,13 @@ export default function Welcome() {
                                 {/* <span>
                             <small>❮</small>b<small>❯</small>
                         </span> */}
-                                <b>The Developers Network!</b>
+                                <b
+                                    className="glitchMainTitle"
+                                    data-text="The Developers Network!"
+                                >
+                                    The Developers Network!
+                                </b>
+                                {/* <div>The Developers Network!</div> */}
                                 {/* <span>
                             <small>❮</small>/b<small>❯</small>
                         </span>{" "} */}
@@ -44,7 +50,7 @@ export default function Welcome() {
                                         <small> ❮</small>/em<small>❯</small>
                                     </span> */}
                                         </em>{" "}
-                                        developers,&nbsp;
+                                        developers_&nbsp;
                                         <span>
                                             <small>❮</small> br <small>❯</small>
                                         </span>
@@ -61,7 +67,7 @@ export default function Welcome() {
                                         <small> ❮</small>/em<small>❯</small>
                                     </span> */}
                                         </em>{" "}
-                                        developers.&nbsp;
+                                        developers_&nbsp;
                                         <span>
                                             <small>❮</small> /p <small>❯</small>
                                         </span>
@@ -97,7 +103,12 @@ export default function Welcome() {
                     </HashRouter>
                 </div>
 
-                <footer>Copyright © 2021 Neo, Inc. All rights reserved.</footer>
+                <footer
+                    className="glitchFooter"
+                    data-text="Copyright © 2021 Neo, Inc. All rights reserved."
+                >
+                    Copyright © 2021 Neo, Inc. All rights reserved.
+                </footer>
             </div>
         </>
     );

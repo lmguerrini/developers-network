@@ -48,8 +48,9 @@ body {
     }
 }
 .animationConatiner {
-    width: 1125px;
-    -width: 1425px;
+    -width: 1125px;
+    width: 1220px;
+    -width: 1350px;
     margin-top: 20px;
     -height: 35px;
     -background-color: red;
@@ -93,7 +94,8 @@ h2 {
     }
     to {
         -width: 83%;
-        width: 1125px;
+        -width: 1125px;
+        width: 1220px;
         -width: 1425px;
     }
 }
@@ -104,7 +106,61 @@ h2 {
         border-color: transparent;
     }
     50% {
-        border-color: rgba(2, 170, 2, 0.829);
+        /* border-color: rgba(2, 170, 2, 0.829); */
+        border-color: rgb(56, 142, 80);
+    }
+}
+
+.glitchMainTitle {
+    font-size: 1.2em;
+    position: relative;
+}
+
+.glitchMainTitle:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchMainTitle-before 1.8s infinite linear alternate-reverse;
+}
+
+@keyframes glitchMainTitle-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+
+.glitchMainTitle:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 5px;
+    text-shadow: -5px 0 rgba(68, 145, 74, 0.863);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchMainTitle-after 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitchMainTitle-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
     }
 }
 
@@ -273,8 +329,20 @@ h2 {
     align-items: center;
 }
 
+/* .onlineUsersGlassOverlay {
+    border: 4px solid white;
+    border-left: 1.8px solid white;
+    border-radius: 4px;
+    padding: 10px;
+    -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    -background-color: rgba(0, 0, 0, 0.909);
+    backdrop-filter: blur(5px);
+    -opacity: 0.5;
+} */
+
 .sectionRegistration {
-    background-color: rgba(7, 7, 7, 0.5);
+    -background-color: rgba(7, 7, 7, 0.5);
+    backdrop-filter: blur(4px);
     width: 400px;
     height: 350px;
     padding: 55px 25px 35px 25px;
@@ -307,7 +375,8 @@ p,
 button {
     font-family: Dejavu Sans, monospace;
     color: white;
-    background-color: rgba(0, 0, 0, 0.685);
+    -background-color: rgba(0, 0, 0, 0.288);
+    backdrop-filter: blur(5px);
     text-decoration: none;
     -outline: lime;
 }
@@ -341,7 +410,8 @@ button {
 .sectionR-L-RP {
     -text-align: center;
     -margin: 0 auto;
-    background-color: rgba(7, 7, 7, 0.5);
+    -background-color: rgba(7, 7, 7, 0.5);
+    backdrop-filter: blur(3.5px);
     -margin: 30px;
     width: 400px;
     height: 350px;
@@ -358,7 +428,7 @@ p,
 button {
     font-family: Dejavu Sans, monospace;
     color: white;
-    background-color: rgba(0, 0, 0, 0.685);
+    -background-color: rgba(0, 0, 0, 0.685);
     text-decoration: none;
     -outline: lime;
 }
@@ -393,7 +463,7 @@ button {
 /* ----section(Login)---- */
 .loginLink {
     font-size: 1.1em;
-    background-color: rgba(0, 0, 0, 0.815);
+    -background-color: rgba(0, 0, 0, 0.815);
     color: white;
     text-decoration: none;
 }
@@ -1579,10 +1649,116 @@ footer {
     width: 100%;
     height: 1.6rem;
     color: white;
+    font-family: Dejavu Sans, monospace;
 }
 
-.footerApp {
+.glitchFooter {
+    font-size: 1em;
+
+    -background-color: black;
+}
+
+.glitchFooter:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchFooter-before 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitchFooter-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+
+.glitchFooter:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 5px;
+    text-shadow: -5px 0 rgba(68, 145, 74, 0.863);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchFooter-after 4s infinite linear alternate-reverse;
+}
+@keyframes glitchFooter-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+
+#footerApp {
     margin-left: 10px;
     color: black;
     -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+}
+
+.glitchFooterApp {
+    font-size: 1em;
+    -background-color: black;
+}
+
+.glitchFooterApp:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 rgba(0, 0, 0, 0.712);
+    top: 0;
+    color: black;
+    -background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchFooterApp-before 4.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchFooterApp-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+
+.glitchFooterApp:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 rgba(0, 0, 0, 0.521);
+    top: 0;
+    color: black;
+    -background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchFooterApp-after 3.5s infinite linear alternate-reverse;
+}
+@keyframes glitchFooterApp-after {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
 }

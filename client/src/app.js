@@ -312,7 +312,11 @@ export default class App extends Component {
                             </BrowserRouter>
                         </div>
 
-                        <footer className="footerApp">
+                        <footer
+                            id="footerApp"
+                            className="glitchFooterApp"
+                            data-text="Copyright © 2021 Neo, Inc. All rights reserved."
+                        >
                             Copyright © 2021 Neo, Inc. All rights reserved.
                         </footer>
                     </div>
