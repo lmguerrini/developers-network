@@ -329,17 +329,6 @@ h2 {
     align-items: center;
 }
 
-/* .onlineUsersGlassOverlay {
-    border: 4px solid white;
-    border-left: 1.8px solid white;
-    border-radius: 4px;
-    padding: 10px;
-    -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
-    -background-color: rgba(0, 0, 0, 0.909);
-    backdrop-filter: blur(5px);
-    -opacity: 0.5;
-} */
-
 .sectionRegistration {
     -background-color: rgba(7, 7, 7, 0.5);
     backdrop-filter: blur(4px);
@@ -376,7 +365,7 @@ button {
     font-family: Dejavu Sans, monospace;
     color: white;
     -background-color: rgba(0, 0, 0, 0.288);
-    backdrop-filter: blur(5px);
+    -backdrop-filter: blur(5px);
     text-decoration: none;
     -outline: lime;
 }
@@ -410,7 +399,7 @@ button {
 .sectionR-L-RP {
     -text-align: center;
     -margin: 0 auto;
-    -background-color: rgba(7, 7, 7, 0.5);
+    background-color: rgba(7, 7, 7, 0.5);
     backdrop-filter: blur(3.5px);
     -margin: 30px;
     width: 400px;
@@ -428,7 +417,7 @@ p,
 button {
     font-family: Dejavu Sans, monospace;
     color: white;
-    -background-color: rgba(0, 0, 0, 0.685);
+    background-color: rgba(0, 0, 0, 0.685);
     text-decoration: none;
     -outline: lime;
 }
@@ -453,6 +442,7 @@ button {
     background-color: black;
     -color: red;
     width: 150px;
+    font-size: 1em;
 }
 
 #registerBtn:focus {
@@ -463,7 +453,7 @@ button {
 /* ----section(Login)---- */
 .loginLink {
     font-size: 1.1em;
-    -background-color: rgba(0, 0, 0, 0.815);
+    background-color: rgba(0, 0, 0, 0.815);
     color: white;
     text-decoration: none;
 }

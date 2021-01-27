@@ -909,12 +909,11 @@ io.on("connection", (socket) => {
         const indexOfDisconnectedUserOrTab = onlineUsersPlusOpenTabs.indexOf(
             disconnectedUserOrTab
         );
-        //console.log("index B: ", index);
+
         if (indexOfDisconnectedUserOrTab !== -1) {
             onlineUsersPlusOpenTabs.splice(indexOfDisconnectedUserOrTab, 1);
         }
         //console.log("onlineUsersPlusOpenTabs A: ", onlineUsersPlusOpenTabs);
-        //console.log("index A: ", index);
 
         db.getOnlineUsers(onlineUsersPlusOpenTabs)
             .then(({ rows }) => {
