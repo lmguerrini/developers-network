@@ -7,6 +7,7 @@ import {
     postNewPrivateMessage,
     deletePrivateMessage,
 } from "./actions";
+import { RiDeleteBinLine } from "react-icons/ri";
 //import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
@@ -124,7 +125,7 @@ export default function PrivateMessages(props) {
                                                     ❯
                                                 </small>
                                                 {/* {message.first} {message.last} */}
-                                                <button
+                                                {/* <button
                                                     id="deleteMessageBtn"
                                                     onClick={() =>
                                                         dispatch(
@@ -135,9 +136,20 @@ export default function PrivateMessages(props) {
                                                     }
                                                 >
                                                     🗑
-                                                    {/* Delete Message with id{" "}
-                                                    {message.id} */}
-                                                </button>
+                                                    Delete Message with id{" "}
+                                                    {message.id}
+                                                </button> */}
+                                                <RiDeleteBinLine
+                                                    className="deleteMessageBtn"
+                                                    /* id="deleteAccount" */
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deletePrivateMessage(
+                                                                message.messageId
+                                                            )
+                                                        )
+                                                    }
+                                                />
                                             </p>
 
                                             {/* <p>{message.timestamp}</p> */}

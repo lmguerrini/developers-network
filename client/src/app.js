@@ -10,6 +10,13 @@ import FindPeople from "./findpeople";
 import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
+import { FiLogOut } from "react-icons/fi";
+import { AiOutlineUserDelete } from "react-icons/ai";
+import { RiWechatLine } from "react-icons/ri";
+import { RiUserSearchFill } from "react-icons/ri";
+import { FaUserFriends } from "react-icons/fa";
+import { AiOutlineUser } from "react-icons/ai";
+//import { FaUserSlash } from "react-icons/fa";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -163,35 +170,51 @@ export default class App extends Component {
                                 </header>
                                 <nav className="navApp">
                                     <p>
-                                        <Link to="/" className="loginLink">
-                                            Profile
+                                        <Link
+                                            to="/"
+                                            id="profileIcon" /* className="loginLink" */
+                                        >
+                                            {/* Profile */}
+                                            <AiOutlineUser />
                                         </Link>
                                     </p>
                                     <p>
                                         <Link
                                             to="/friends"
-                                            className="loginLink"
+                                            id="friendsIcon"
+                                            /* className="loginLink" */
                                         >
-                                            Friends
+                                            {/* Friends */}
+                                            <FaUserFriends />
                                         </Link>
                                     </p>
                                     <p>
-                                        <Link to="/users" className="loginLink">
-                                            Find Devs
+                                        <Link
+                                            to="/users"
+                                            id="navIcons" /* className="loginLink" */
+                                        >
+                                            {/* Find Devs */}
+                                            <RiUserSearchFill />
                                         </Link>
                                     </p>
                                     <p>
-                                        <Link to="/chat" className="loginLink">
-                                            Chatroom
+                                        <Link
+                                            to="/chat"
+                                            id="chatIcon" /* className="loginLink" */
+                                        >
+                                            {/* Chatroom */}
+                                            <RiWechatLine />
                                         </Link>
                                     </p>
                                     <p>
                                         <Link
                                             to="/logout"
                                             className="logoutLink"
+                                            id="logout"
                                             onClick={this.logout}
                                         >
-                                            Log Out
+                                            {/*  Log Out */}
+                                            <FiLogOut />
                                         </Link>
                                     </p>
                                     <p
@@ -199,7 +222,9 @@ export default class App extends Component {
                                         className="logoutLink"
                                         onClick={this.deleteUser}
                                     >
-                                        Delete Account
+                                        {/* Delete Account */}
+                                        <AiOutlineUserDelete />
+                                        {/* <FaUserSlash /> */}
                                     </p>
                                 </nav>
 

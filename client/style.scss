@@ -561,7 +561,8 @@ button {
     ***************** APP *****************
 **********************************************/
 .appParentWrapper {
-    background-color: ghostwhite;
+    -background-color: ghostwhite;
+    background-color: rgba(255, 255, 255, 0.984);
 }
 
 /* ----header---- */
@@ -628,6 +629,7 @@ button {
 }
 
 .navApp p {
+    background-color: white;
     -margin: 20px;
     padding: 5px;
     text-decoration: none;
@@ -639,20 +641,87 @@ button {
     -border: 1px solid rgb(53, 53, 53);
 }
 
-.logoutLink {
+#navIcons {
+    color: black;
+    background-color: white;
+    padding: 3px 20px;
+    -border-radius: 50%;
+    font-size: 1.28em;
+}
+
+#navIcons:hover {
+    color: rgb(0, 212, 0);
+}
+
+#profileIcon {
+    color: black;
+    background-color: white;
+    padding: 0 20px;
+    -border-radius: 50%;
+    font-size: 1.4em;
+}
+
+#profileIcon:hover {
+    color: rgb(0, 212, 0);
+}
+
+#friendsIcon {
+    color: black;
+    background-color: white;
+    padding: 0 20px;
+    -border-radius: 50%;
+    font-size: 1.4em;
+}
+
+#friendsIcon:hover {
+    color: rgb(0, 212, 0);
+}
+
+#chatIcon {
+    color: black;
+    background-color: white;
+    padding: 0 20px;
+    -border-radius: 50%;
+    font-size: 1.5em;
+}
+
+#chatIcon:hover {
+    color: rgb(0, 212, 0);
+}
+
+/* .logoutLink {
     font-size: 1.1em;
     background-color: rgba(0, 0, 0, 0.815);
     color: rgba(255, 255, 255, 0.623);
     outline: none;
     text-decoration: none;
+    padding: 6.5px 10px;
+    border-radius: 5px;
+} */
+
+#logout {
+    color: rgba(0, 0, 0, 0.815);
+    padding: 6.5px 10px;
+    border-radius: 25px;
+    font-size: 1.3em;
+}
+
+#logout:hover {
+    color: rgba(0, 0, 0, 0.445);
+    transition: 0.35s;
 }
 
 #deleteAccount {
-    color: red;
+    color: rgba(0, 0, 0, 0.895);
+    padding: 6.5px 10px;
+    border-radius: 25px;
+    font-size: 1.68em;
 }
 
 #deleteAccount:hover {
     cursor: pointer;
+    transition: 0.4s;
+    color: red;
 }
 
 .navApp > p:hover {
@@ -991,7 +1060,7 @@ button {
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center; */
-    background-color: rgba(0, 0, 0, 0.788);
+    background-color: rgba(0, 0, 0, 0.486);
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1036,7 +1105,8 @@ button {
     flex-wrap: wrap;
     justify-content: space-between; */
     -padding-bottom: 5%;
-    background-color: rgba(0, 0, 0, 0.788);
+    -background-color: rgba(0, 0, 0, 0.788);
+    background-color: rgba(0, 0, 0, 0.486);
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1209,6 +1279,10 @@ button {
     margin-left: 2%;
 }
 
+/* .messageDateTimeDeleteBtnWrap {
+    padding-bottom: 20px;
+} */
+
 #messageName {
     font-size: 1.2em;
 }
@@ -1337,22 +1411,28 @@ li.L9 {
     transition: 0.5s;
 }
 
-#deleteMessageBtn {
-    font-size: 0.9em;
-    margin-left: 150px;
+.deleteMessageBtn {
+    font-size: 1.2em;
+    margin-left: 180px;
     border-radius: 50%;
     padding: 5px;
     outline: none;
+
+    color: lime;
+    -padding: 6.5px 10px;
+    -border-radius: 5px;
+    -font-size: 1.4em;
 }
 
-#deleteMessageBtn:hover {
+.deleteMessageBtn:hover {
     outline: none;
     color: red;
-    border: 3px solid red;
-    -background-color: red;
+    cursor: pointer;
+    -border: 1px solid red;
+    -background-color: rgba(255, 255, 255, 0.137);
 }
 
-#deleteMessageBtn:active {
+.deleteMessageBtn:active {
     border: 3px solid lime;
 }
 
@@ -1817,6 +1897,7 @@ footer {
 
     animation: glitchFooter-after 4s infinite linear alternate-reverse;
 }
+
 @keyframes glitchFooter-after {
     $steps: 25;
     @for $i from 0 through $steps {
@@ -1885,3 +1966,7 @@ footer {
         }
     }
 }
+
+/* ***********************************************************************
+        ************************ DARK MODE ************************
+*********************************************************************** */

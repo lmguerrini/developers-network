@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { socket } from "./socket"; // to send messages to the server
 import { useEffect } from "react";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import OnlineUsers from "./onlineusers";
 import { deleteMessage } from "./actions";
-//import { RiDeleteBinLine } from "react-icons/fa";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function Chat() {
     // retrieve chat messages from Redux and rendere them
@@ -90,7 +90,7 @@ export default function Chat() {
                                                     </p> */}
                                             </div>
                                             {/* </Link> */}
-                                            <p>
+                                            <p className="messageDateTimeDeleteBtnWrap">
                                                 <b id="messageName">
                                                     {message.name}
                                                 </b>{" "}
@@ -103,7 +103,7 @@ export default function Chat() {
                                                     ❯
                                                 </small>
                                                 {/* {message.first} {message.last} */}
-                                                <button
+                                                {/* <button
                                                     id="deleteMessageBtn"
                                                     onClick={() =>
                                                         dispatch(
@@ -114,9 +114,20 @@ export default function Chat() {
                                                     }
                                                 >
                                                     🗑
-                                                    {/* Delete Message with id{" "}
-                                                    {message.id} */}
-                                                </button>
+                                                    Delete Message with id{" "}
+                                                    {message.id}
+                                                </button> */}
+                                                <RiDeleteBinLine
+                                                    className="deleteMessageBtn"
+                                                    /* id="deleteAccount" */
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            deleteMessage(
+                                                                message.id
+                                                            )
+                                                        )
+                                                    }
+                                                />
                                             </p>
 
                                             {/* <p>{message.timestamp}</p> */}

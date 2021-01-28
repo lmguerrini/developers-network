@@ -72,7 +72,9 @@ export default function Friends() {
                     <div className="card">
                         {friends.length > 0 && (
                             <div className="friendsGlassOverlay">
-                                <p>These people are currently your friends</p>
+                                <p>
+                                    These developers are currently your friends
+                                </p>
                             </div>
                         )}
 
@@ -97,7 +99,8 @@ export default function Friends() {
                                                     src={friend.profile_pic}
                                                 />
                                                 <p id="friendsWannabesLink">
-                                                    {friend.first} {friend.last} {friends.length}
+                                                    {friend.first} {friend.last}{" "}
+                                                    {friends.length}
                                                 </p>
                                             </Link>
                                             <button
@@ -119,7 +122,7 @@ export default function Friends() {
 
                         {wannabes.length > 0 && (
                             <div className="friendsGlassOverlay">
-                                <p>These people want to be your friends</p>
+                                <p>These developers want to be your friends</p>
                             </div>
                         )}
 

@@ -47,7 +47,8 @@ export default function FindPeople() {
                         {!query && (
                             <div className="friendsGlassOverlay">
                                 <p /* id="findpeopleTitles" */>
-                                    Checkout who just joined!
+                                    Checkout the developers who have just
+                                    joined <b>DN</b>!
                                 </p>
                             </div>
                         )}
@@ -86,7 +87,8 @@ export default function FindPeople() {
                         {!query && (
                             <div className="friendsSearchGlassOverlay">
                                 <p /* id="findpeopleTitles" */>
-                                    Are you looking for someone in particular?
+                                    Are you looking for a developer in
+                                    particular?
                                 </p>
                             </div>
                         )}
@@ -99,7 +101,7 @@ export default function FindPeople() {
                             <input
                                 id="searchInput"
                                 onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Search people here.."
+                                placeholder="Search developers here.."
                             />
                         </div>
                         <div className="friendsWrapper">
