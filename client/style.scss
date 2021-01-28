@@ -660,6 +660,28 @@ button {
     -background-color: rgba(255, 0, 0, 0.288);
 }
 
+/* .whiteStructureContainer {
+    width: 100%;
+    height: 70vh;
+    overflow-y: hidden;
+    position: absolute;
+    z-index: 0;
+    -background-color: red;
+}
+
+.whiteStructure {
+    width: 100%;
+    z-index: -2000000;
+    -opacity: 0.5;
+    -visibility: hidden;
+    -animation: 15s fadeIn;
+    -animation-fill-mode: forwards;
+    -animation-delay: 5s;
+    -background-color: black;
+    -transition-delay: 3s;
+    -transition: opacity 3s linear, visibility 3s linear;
+} */
+
 /* ----section(Profile)---- */
 .sectionProfile {
     display: flex;
@@ -724,7 +746,7 @@ button {
     background-color: #000000d5;
     color: whitesmoke;
     margin: 20px;
-    border-radius: 5px;
+    border-radius: 7.5px;
     width: 700px;
     -height: 700px;
     -max-width: 750px;
@@ -914,6 +936,7 @@ button {
     -height: 1000px;
     margin-left: 25%;
     margin-right: 25%;
+    -border-radius: 10px;
 }
 
 .friendButtonContainer {
@@ -949,17 +972,51 @@ button {
     font-family: Dejavu Sans, monospace;
 }
 
-.friendsWrapper {
-    margin-bottom: 50px;
+.friendsGlassOverlay {
+    border: 4px solid white;
+    border-left: 1.8px solid white;
+    border-radius: 4px;
+    padding: 10px;
+    /* box-shadow: 0 0 15px white, 0 5px 5px rgba(0, 0, 0, 0.22); */
+    box-shadow: 0 4px 15px -2px white;
+    background-color: rgba(0, 0, 0, 0.801);
+    backdrop-filter: blur(5px);
+    font-size: 1.2em;
+    text-align: center;
 }
 
-.friendsWrapper p {
-    font-size: 1.3em;
-    padding: 5px 0 5px 10px;
+.friendsWrapper {
+    padding-bottom: 5%;
+    /*  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center; */
+    background-color: rgba(0, 0, 0, 0.788);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    padding: 20px 40px;
+    border-radius: 7.5px;
 }
 
 .friendsWrapper img {
-    margin: 2% 0 2% 4%;
+    -margin: 20% 40%;
+    margin-top: 20px;
+    -align-self: center;
+    place-self: center;
+}
+
+.friendsWrapper p {
+    font-size: 1.1em;
+    -padding: 5px 0 5px 10px;
+    text-decoration: none;
+    align-self: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .friendsWrapper button {
@@ -967,17 +1024,38 @@ button {
     padding: 5px 0 5px 10px;
     color: red;
     padding: 5px;
-    margin-left: 6%;
+    margin-left: 10%;
     margin-top: 1%;
+    align-self: center;
+    -text-align: center;
 }
 
 .wannabesWrapper {
-    margin-bottom: 50px;
+    /* margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; */
+    -padding-bottom: 5%;
+    background-color: rgba(0, 0, 0, 0.788);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    padding: 20px 40px;
+    padding-left: 10%;
 }
 
 .wannabesWrapper p {
-    font-size: 1.3em;
-    padding: 5px 0 5px 10px;
+    font-size: 1.1em;
+    -padding: 5px 0 5px 10px;
+    -padding: 5px 0 5px 10px;
+    text-decoration: none;
+    align-self: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #friendsWannabesLink {
@@ -985,7 +1063,8 @@ button {
 }
 
 .wannabesWrapper img {
-    margin: 2% 0 2% 4%;
+    -margin: 2% 0 2% 4%;
+    margin-top: 20px;
 }
 
 .wannabesWrapper button {
@@ -1011,8 +1090,21 @@ button {
 
 /* ----section(FindPeople)---- */
 
+.friendsSearchGlassOverlay {
+    border: 4px solid white;
+    border-left: 1.8px solid white;
+    border-radius: 4px;
+    padding: 10px;
+    /* box-shadow: 0 0 15px white, 0 5px 5px rgba(0, 0, 0, 0.22); */
+    box-shadow: 0 4px 15px -2px white;
+    background-color: rgba(0, 0, 0, 0.801);
+    backdrop-filter: blur(5px);
+    font-size: 1.1em;
+    text-align: center;
+}
+
 #findpeopleTitles {
-    font-size: 1.35em;
+    font-size: 1.3em;
     padding: 5px;
     margin-left: 5px;
 }
@@ -1022,11 +1114,40 @@ button {
     margin-left: 5px;
 }
 
+.searchInputWrapper {
+    -padding-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.788);
+
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    padding: 20px 40px; */
+}
+
 #searchInput {
-    width: 250px;
+    margin-top: 3.5%;
+    width: 600px;
     height: 25px;
-    margin: 5px 0 10px 5px;
+    -margin: 5px 0 10px 1.5px;
     font-family: Dejavu Sans, monospace;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.801);
+    color: white;
+    border: 3px solid rgba(255, 255, 255, 0.795);
+    padding-left: 15px;
+    -text-align: center;
+    font-size: 1em;
+}
+
+#searchInput:focus {
+    border: 3px solid lime;
 }
 
 #nothingFoundWrapper {
@@ -1536,7 +1657,7 @@ li.L9 {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    height: 90px;
+    -height: 90px;
     align-items: center;
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.521);
@@ -1548,6 +1669,8 @@ li.L9 {
 
 #titleTimestampWrap > p {
     text-align: center;
+    padding-top: 15px;
+    font-size: 0.9em;
 }
 
 #titleTimestampWrap > p > b > p {
@@ -1557,33 +1680,42 @@ li.L9 {
 /* ----section(Uploader)---- */
 
 .modalUploaderWrapper {
-    width: 760px;
-    height: 504px;
+    width: 98.5vw;
+    height: 86vh;
+    -width: 760px;
+    -height: 504px;
     position: absolute;
     -position: fixed;
     top: 150px;
     background-color: rgba(26, 26, 26, 0.801);
     color: white;
-    text-align: center;
-    margin: 0 25% 0 25%;
+    -text-align: center;
+    -margin: 0 25% 0 25%;
     border-radius: 5px;
-    padding: 97px 150px 105px 150px;
+    -padding: 97px 150px 105px 150px;
     z-index: 1;
     -height: 100px;
     display: flex;
     justify-content: center;
     border-radius: 5px;
+    -border: 2px solid red;
+    backdrop-filter: blur(10px);
+    margin-left: 8px;
+    margin-top: 13px;
 }
 
 .uploaderContainer {
-    padding: 100px 150px 100px 150px;
-    width: 600px;
-    -width: 100%;
+    margin-bottom: 615px;
+    -padding: 5% 10%;
+    -padding: 100px 150px 100px 150px;
+    -width: 600px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.61);
+    -background-color: rgba(0, 0, 0, 0.61);
+    -ackdrop-filter: blur(1px);
     border-radius: 5px;
 }
 
@@ -1743,6 +1875,7 @@ footer {
 
     animation: glitchFooterApp-after 3.5s infinite linear alternate-reverse;
 }
+
 @keyframes glitchFooterApp-after {
     $steps: 30;
     @for $i from 0 through $steps {

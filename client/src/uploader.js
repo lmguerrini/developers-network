@@ -89,11 +89,18 @@ export default class Uploader extends Component {
                             <span>Ops, something went wrong!</span>
                         )}
                     </div>
-                    <p>
+                    <div id="welcomeBack">
+                        <p>
+                            <small id="uploaderSigns">❮</small> Upload your
+                            profile picture
+                            <small id="uploaderSigns"> ❯</small>
+                        </p>
+                    </div>
+                    {/* <p>
                         <small id="uploaderSigns">❮</small> Upload your profile
                         picture
                         <small id="uploaderSigns"> ❯</small>
-                    </p>
+                    </p> */}
                     <input
                         name="image"
                         id="image"

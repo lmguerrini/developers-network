@@ -67,9 +67,9 @@ export default function PrivateMessages(props) {
         };
     }, [privateChatMessages]);
 
-    if (!privateChatMessages || !privateChatMessages.length) {
+    /* if (!privateChatMessages || !privateChatMessages.length) {
         return null;
-    }
+    } */
 
     return (
         <>
@@ -84,7 +84,7 @@ export default function PrivateMessages(props) {
                             <div className="wallPostsGlassOverlay">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
-                                    &nbsp;Direct Messages{" "}
+                                    &nbsp;Private Messages{" "}
                                     <small id="uploaderSigns">❯</small>
                                 </h1>
                             </div>
@@ -194,7 +194,7 @@ export default function PrivateMessages(props) {
                         <div id="chatbuttonWrap">
                             <Link to={`/user/${otherUserId}`}>
                                 <button className="friendButton">
-                                    Close Direct Messages Chat
+                                    Close Private Messages Chat
                                 </button>
                             </Link>
                         </div>

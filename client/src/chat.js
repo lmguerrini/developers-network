@@ -52,9 +52,9 @@ export default function Chat() {
         };
     }, [chatMessages]);
 
-    if (!chatMessages || !chatMessages.length) {
+    /* if (!chatMessages || !chatMessages.length) {
         return null;
-    }
+    } */
 
     return (
         <>

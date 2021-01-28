@@ -202,6 +202,7 @@ export default class App extends Component {
                                         Delete Account
                                     </p>
                                 </nav>
+
                                 <Route
                                     exact
                                     path="/"
@@ -227,8 +228,8 @@ export default class App extends Component {
                                     )}
                                 />
                                 {/* <Route path="/user/:id" compmonent={OtherProfile} /> 
-                    render for bonus feature, to visit other profile, see
-                    their friends and visit them  */}
+                                render for bonus feature, to visit other profile, see
+                                their friends and visit them  */}
                                 <Route
                                     path="/user/:id"
                                     /* path="/other-user/info/:id" */

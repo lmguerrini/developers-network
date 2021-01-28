@@ -70,6 +70,12 @@ export default function Friends() {
 
                 <div className="cardContainer">
                     <div className="card">
+                        {friends.length > 0 && (
+                            <div className="friendsGlassOverlay">
+                                <p>These people are currently your friends</p>
+                            </div>
+                        )}
+
                         <div className="friendsWrapper">
                             {!friends.length != 0 ? (
                                 <p>
@@ -81,17 +87,17 @@ export default function Friends() {
                                 friends.map((friend) => (
                                     <div key={friend.id}>
                                         <div>
-                                            <p>
+                                            {/* <p>
                                                 These people are currently your
                                                 friends
-                                            </p>
+                                            </p> */}
                                             <Link to={"/user/" + friend.id}>
                                                 <img
                                                     className="profile_pic"
                                                     src={friend.profile_pic}
                                                 />
                                                 <p id="friendsWannabesLink">
-                                                    {friend.first} {friend.last}
+                                                    {friend.first} {friend.last} {friends.length}
                                                 </p>
                                             </Link>
                                             <button
@@ -111,15 +117,18 @@ export default function Friends() {
                             )}
                         </div>
 
+                        {wannabes.length > 0 && (
+                            <div className="friendsGlassOverlay">
+                                <p>These people want to be your friends</p>
+                            </div>
+                        )}
+
+                        {/* <p>These people want to be your friends</p> */}
                         <div className="wannabesWrapper">
                             {wannabes &&
                                 wannabes.map((wannabe) => (
                                     <div key={wannabe.id}>
                                         <div className="wannabesContainer">
-                                            <p>
-                                                These people want to be your
-                                                friends
-                                            </p>
                                             <Link to={"/user/" + wannabe.id}>
                                                 <img
                                                     className="profile_pic"

@@ -96,7 +96,7 @@ module.exports.getOtherUserInfo = (id) => {
 // find people
 module.exports.getLatestUsers = () => {
     const q = `SELECT id, first, last, email, profile_pic, bio, created_at FROM users 
-    ORDER BY created_at DESC LIMIT 3`;
+    ORDER BY created_at DESC LIMIT 9`;
     return db.query(q);
 };
 

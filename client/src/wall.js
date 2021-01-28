@@ -150,7 +150,7 @@ export default function Wall({ id, myWall }) {
                                                                 </small>
                                                                 &nbsp; posted{" "}
                                                                 {post.timestamp}
-                                                                &nbsp;
+                                                                &nbsp;&nbsp;
                                                                 <small id="uploaderSigns">
                                                                     ❯
                                                                 </small>
