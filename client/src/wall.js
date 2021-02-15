@@ -10,7 +10,7 @@ export default function Wall({ id, myWall }) {
     const [file, setFile] = useState();
     const error = useSelector((state) => state && state.error);
     const wallPosts = useSelector((state) => state && state.wallPosts);
-    console.log("wallPosts from wall.js: ", wallPosts);
+    //console.log("wallPosts from wall.js: ", wallPosts);
 
     useEffect(() => {
         dispatch(getWallPosts(id));

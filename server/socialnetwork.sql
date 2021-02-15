@@ -38,7 +38,9 @@ CREATE TABLE reset_codes(
 CREATE TABLE friendships(
   id SERIAL PRIMARY KEY,
   sender_id INT REFERENCES users(id) NOT NULL,
+  --sender_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
   recipient_id INT REFERENCES users(id) NOT NULL,
+  --recipient_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
   accepted BOOLEAN DEFAULT false
 );
 
@@ -53,6 +55,7 @@ CREATE TABLE friendships(
 CREATE TABLE chat_messages(
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id),
+    --user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     message TEXT NOT NULL CHECK (message != '')
 );
@@ -67,7 +70,9 @@ CREATE TABLE chat_messages(
 CREATE TABLE private_messages(
     id SERIAL PRIMARY KEY,
     sender_id INTEGER NOT NULL REFERENCES users(id),
+    --sender_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     recipient_id INTEGER NOT NULL REFERENCES users(id),
+    --recipient_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     message TEXT NOT NULL CHECK (message != '')
 );
@@ -89,7 +94,7 @@ CREATE TABLE wall(
 
 -- SELECT * FROM wall;
 -- SELECT * FROM wall WHERE id  = 1;
--- DELETE FROM wall WHERE id  = 1;
+-- DELETE FROM wall WHERE id  = 1; 'undefined'
 -- DELETE * FROM wall;
 -- INSERT INTO wall (user_id, url, description) VALUES ('236', 'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg', 'This photo brings back so many great memories.') RETURNING *;
 

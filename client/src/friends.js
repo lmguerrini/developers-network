@@ -23,7 +23,7 @@ export default function Friends() {
             state.friendsWannabesList &&
             state.friendsWannabesList.filter((user) => user.accepted == true)
     );
-    console.log("friends: ", friends);
+    //console.log("friends: ", friends);
 
     /* useEffect(() => {
         dispatch(getFriendsWannabesList());
@@ -100,7 +100,7 @@ export default function Friends() {
                                                 />
                                                 <p id="friendsWannabesLink">
                                                     {friend.first} {friend.last}{" "}
-                                                    {friends.length}
+                                                    {/* {friends.length} */}
                                                 </p>
                                             </Link>
                                             <button

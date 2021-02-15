@@ -16,7 +16,6 @@ import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
-//import { FaUserSlash } from "react-icons/fa";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -32,6 +31,7 @@ export default class App extends Component {
             profile_pic: "",
             bio: "",
             uploaderIsVisible: false,
+            active: false,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
@@ -172,7 +172,8 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/"
-                                            id="profileIcon" /* className="loginLink" */
+                                            id="profileIcon"
+                                            className="bounce" /* className="loginLink" */
                                         >
                                             {/* Profile */}
                                             <AiOutlineUser />
@@ -182,6 +183,7 @@ export default class App extends Component {
                                         <Link
                                             to="/friends"
                                             id="friendsIcon"
+                                            className="bounce"
                                             /* className="loginLink" */
                                         >
                                             {/* Friends */}
@@ -191,7 +193,9 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/users"
-                                            id="navIcons" /* className="loginLink" */
+                                            id="navIcons"
+                                            className="bounce"
+                                            /* className="loginLink" */
                                         >
                                             {/* Find Devs */}
                                             <RiUserSearchFill />
@@ -200,7 +204,9 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/chat"
-                                            id="chatIcon" /* className="loginLink" */
+                                            id="chatIcon"
+                                            className="bounce"
+                                            /* className="loginLink" */
                                         >
                                             {/* Chatroom */}
                                             <RiWechatLine />

@@ -140,24 +140,24 @@ export default function Chat() {
                                                         {message.message.startsWith(
                                                             "https://"
                                                         ) ? (
-                                                            <a
-                                                                href={
-                                                                    message.message
-                                                                }
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                            >
-                                                                {
-                                                                    message.message
-                                                                }
-                                                            </a>
-                                                        ) : (
-                                                            <span>
-                                                                {
-                                                                    message.message
-                                                                }
-                                                            </span>
-                                                        )}
+                                                                <a
+                                                                    href={
+                                                                        message.message
+                                                                    }
+                                                                    target="_blank"
+                                                                    rel="noreferrer"
+                                                                >
+                                                                    {
+                                                                        message.message
+                                                                    }
+                                                                </a>
+                                                            ) : (
+                                                                <span>
+                                                                    {
+                                                                        message.message
+                                                                    }
+                                                                </span>
+                                                            )}
                                                     </code>
 
                                                     {/* {message.message} */}

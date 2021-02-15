@@ -6,7 +6,7 @@ import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
 
 export async function getFriendsWannabesList() {
     const { data } = await axios.get("/friends-wannabes");
-    console.log("Action GET /friends-wannabes data: ", data);
+    //console.log("Action GET /friends-wannabes data: ", data);
     return {
         type: "GET_FRIENDS_WANNABES_LIST",
         friendsWannabesList: data.rows,

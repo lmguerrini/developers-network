@@ -37,7 +37,7 @@ export default function FindPeople() {
         };
     }, [query]); // "query" a 2nd argument => make get request only when "query is been updated
 
-    console.log("Hooks component rendered");
+    //console.log("Hooks component rendered");
     return (
         <>
             <div className="sectionWrapper">

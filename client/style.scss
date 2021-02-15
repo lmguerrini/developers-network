@@ -6,6 +6,7 @@
 body {
     -background-color: ghostwhite;
     background-color: black;
+    overflow: hidden;
 }
 
 .parentContainer {
@@ -653,17 +654,118 @@ button {
     color: rgb(0, 212, 0);
 }
 
+#navIcons:focus {
+    color: rgb(0, 212, 0);
+}
+
 #profileIcon {
     color: black;
     background-color: white;
     padding: 0 20px;
     -border-radius: 50%;
     font-size: 1.4em;
+
+    &:hover {
+        color: rgb(0, 212, 0);
+    }
+
+    &:focus {
+        color: rgb(0, 212, 0);
+    }
 }
 
-#profileIcon:hover {
+/* #profileIcon:hover {
     color: rgb(0, 212, 0);
 }
+
+#profileIcon:focus {
+    color: rgb(0, 212, 0);
+} */
+
+/* bounce animation: START */
+
+.bounce:focus {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce-animation 0.5s infinite linear;
+    -o-animation: bounce-animation 0.5s infinite linear;
+    -webkit-animation: bounce-animation 0.5s infinite linear;
+    animation: bounce-animation 0.5s infinite linear;
+    animation-iteration-count: 3;
+}
+
+@-webkit-keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-moz-keyframes bounce {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-o-keyframes bounce {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-ms-keyframes bounce {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@keyframes bounce {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+/* bounce animation: END */
 
 #friendsIcon {
     color: black;
@@ -671,10 +773,14 @@ button {
     padding: 0 20px;
     -border-radius: 50%;
     font-size: 1.4em;
-}
 
-#friendsIcon:hover {
-    color: rgb(0, 212, 0);
+    &:hover {
+        color: rgb(0, 212, 0);
+    }
+
+    &:focus {
+        color: rgb(0, 212, 0);
+    }
 }
 
 #chatIcon {
@@ -683,10 +789,14 @@ button {
     padding: 0 20px;
     -border-radius: 50%;
     font-size: 1.5em;
-}
 
-#chatIcon:hover {
-    color: rgb(0, 212, 0);
+    &:hover {
+        color: rgb(0, 212, 0);
+    }
+
+    &:focus {
+        color: rgb(0, 212, 0);
+    }
 }
 
 /* .logoutLink {
@@ -704,11 +814,11 @@ button {
     padding: 6.5px 10px;
     border-radius: 25px;
     font-size: 1.3em;
-}
 
-#logout:hover {
-    color: rgba(0, 0, 0, 0.445);
-    transition: 0.35s;
+    &:hover {
+        color: rgba(0, 0, 0, 0.445);
+        transition: 0.35s;
+    }
 }
 
 #deleteAccount {
@@ -716,12 +826,12 @@ button {
     padding: 6.5px 10px;
     border-radius: 25px;
     font-size: 1.68em;
-}
 
-#deleteAccount:hover {
-    cursor: pointer;
-    transition: 0.4s;
-    color: red;
+    &:hover {
+        cursor: pointer;
+        transition: 0.4s;
+        color: red;
+    }
 }
 
 .navApp > p:hover {
@@ -1556,7 +1666,7 @@ li.L9 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
     align-items: center;
     -background-color: lime;
 }
@@ -1815,6 +1925,10 @@ li.L9 {
     color: lime;
 }
 
+#uploaderUploadBtn:focus {
+    color: lime;
+}
+
 #uploaderCloseBtn {
     margin-top: 20px;
     font-size: 1.22em;
@@ -1916,6 +2030,7 @@ footer {
 
 .glitchFooterApp {
     font-size: 1em;
+    padding-bottom: 15px;
     -background-color: black;
 }
 

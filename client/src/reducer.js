@@ -129,17 +129,17 @@ export function reducer(state = {}, action) {
             ...state,
             privateMessages: [...state.privateMessages, action.privateMessage],
         };
-        console.log("reducer new private msg state: ", state);
+        //console.log("reducer new private msg state: ", state);
     }
 
     if (action.type == "GET_WALL_POSTS") {
-        console.log("Reducer GET_WALL_POSTS");
+        //console.log("Reducer GET_WALL_POSTS");
 
         state = {
             ...state,
             wallPosts: action.wallPost,
         };
-        console.log("reducer GET wall posts state: ", state);
+        //console.log("reducer GET wall posts state: ", state);
     }
 
     if (action.type == "POST_WALL_POST") {
@@ -149,7 +149,7 @@ export function reducer(state = {}, action) {
             ...state,
             wallPosts: [action.wallPost, ...state.wallPosts],
         };
-        console.log("reducer POST new wall post state: ", state);
+        //console.log("reducer POST new wall post state: ", state);
     }
 
     return state;
