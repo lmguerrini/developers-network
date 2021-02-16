@@ -65,6 +65,20 @@ module.exports.deleteUserFromChatMessages = (id) => {
     return db.query(q, params);
 };
 
+module.exports.deleteUserFromPrivateMessages = (id) => {
+    const q = `DELETE FROM private_messages 
+    WHERE (sender_id = ($1))`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteUserFromWall = (id) => {
+    const q = `DELETE FROM wall 
+    WHERE (user_id = ($1))`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 // upload/delete profilePic
 module.exports.getUserProfile = (id) => {
     const q = `SELECT * FROM users WHERE id = ($1)`;

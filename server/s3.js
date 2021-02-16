@@ -22,7 +22,7 @@ module.exports.upload = (req, res, next) => {
         .putObject({
             Bucket: "lorenzoimageboardbucket", // our aws bucket's name created for this project
             ACL: "public-read", // public available
-            Key: filename,
+            Key: `${req.session.userId}/` + filename,
             Body: fs.createReadStream(path),
             ContentType: mimetype,
             ContentLength: size,
@@ -66,4 +66,42 @@ module.exports.delete = (req, res, next) => {
             console.log("Something went wrong in deleting from S3!: ", err);
             res.sendStatus(404); // (?)
         });
+};
+
+module.exports.deleteIdFolder = async function (id) {
+    try {
+        const { Contents } = await s3
+            .listObjectsV2({
+                Bucket: "lorenzoimageboardbucket",
+                Prefix: `${id}`,
+            })
+            .promise();
+
+        if (Contents.length > 0) {
+            console.log(
+                "S3: contents found in the requested {id}'s folder. About to delete.."
+            );
+            const toDelete = Contents.map((element) => {
+                return {
+                    Key: element.Key,
+                };
+            });
+            const { Deleted } = await s3
+                .deleteObjects({
+                    Bucket: "lorenzoimageboardbucket",
+                    Delete: {
+                        Objects: toDelete,
+                    },
+                })
+                .promise();
+            console.log(
+                "S3: the requested {id}'s folder has been successfully deleted! Contents deleted: ",
+                Deleted
+            );
+        } else {
+            console.log("S3: this {id} has no contents");
+        }
+    } catch (err) {
+        console.log("Something went wrong in deleting from S3!: ", err);
+    }
 };

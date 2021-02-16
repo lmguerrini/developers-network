@@ -27,7 +27,12 @@ export default class Uploader extends Component {
                         this.setState({ error: true });
                     } else {
                         // NB: setImage is called in Uploader but it runs in App!
+                        console.log(
+                            "[s3 uploader.js] data.profile_pic: ",
+                            data.profile_pic
+                        );
                         this.props.setImage(data.profile_pic);
+                        
                         //this.props.toggleUploader();
                     }
                 })

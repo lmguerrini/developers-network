@@ -372,28 +372,70 @@ app.get("/user/info", async (req, res) => {
 
 app.post("/user/delete", (req, res) => {
     const id = req.session.userId;
-    db.deleteUserFromChatMessages(id)
+
+    s3.deleteIdFolder(id)
         .then(() => {
-            console.log("user deleted from chat_messages table!");
-            db.deleteUserFromFriendships(id)
+            console.log("user s3 folder deleted!");
+            db.deleteUserFromWall(id)
                 .then(() => {
-                    console.log("user deleted from friendships table!");
-                    db.deleteUserFromUsers(id)
+                    console.log("user deleted from wall table!");
+                    db.deleteUserFromPrivateMessages(id)
                         .then(() => {
-                            //console.log("delete user rows: ", rows[0]);
-                            console.log("user deleted from users table!");
-                            /* console.log(
-                                "substr delete: ",
-                                rows[0].profile_pic.substr(49)
+                            console.log(
+                                "user deleted from private_messages table!"
                             );
-                            if (rows[0].profile_pic) {
-                                //const lastProfPic = rows[0].profile_pic;
-                            } */
-                            res.json({ success: true });
+                            db.deleteUserFromChatMessages(id)
+                                .then(() => {
+                                    console.log(
+                                        "user deleted from chat_messages table!"
+                                    );
+                                    db.deleteUserFromFriendships(id)
+                                        .then(() => {
+                                            console.log(
+                                                "user deleted from friendships table!"
+                                            );
+                                            db.deleteUserFromUsers(id)
+                                                .then(() => {
+                                                    //console.log("delete user rows: ", rows[0]);
+                                                    console.log(
+                                                        "user deleted from users table!"
+                                                    );
+                                                    /* console.log(
+                                                "substr delete: ",
+                                                rows[0].profile_pic.substr(49)
+                                                );
+                                                if (rows[0].profile_pic) {
+                                                //const lastProfPic = rows[0].profile_pic;
+                                            } */
+                                                    res.json({ success: true });
+                                                })
+                                                .catch((err) => {
+                                                    console.error(
+                                                        "error in POST/user/delete db.deleteUserFromUsers catch: ",
+                                                        err
+                                                    );
+                                                    res.json({ error: true });
+                                                });
+                                        })
+                                        .catch((err) => {
+                                            console.error(
+                                                "error in POST/user/delete db.deleteUserFromFriendships catch: ",
+                                                err
+                                            );
+                                            res.json({ error: true });
+                                        });
+                                })
+                                .catch((err) => {
+                                    console.error(
+                                        "error in POST/user/delete db.deleteUserFromChatMessages catch: ",
+                                        err
+                                    );
+                                    res.json({ error: true });
+                                });
                         })
                         .catch((err) => {
                             console.error(
-                                "error in POST/delete db.deleteUserFromUsers catch: ",
+                                "error in POST/user/delete db.deleteUserFromPrivateMessages catch: ",
                                 err
                             );
                             res.json({ error: true });
@@ -401,7 +443,7 @@ app.post("/user/delete", (req, res) => {
                 })
                 .catch((err) => {
                     console.error(
-                        "error in POST/delete db.deleteUserFromFriendships catch: ",
+                        "error in POST/user/delete db.deleteUserFromWall catch: ",
                         err
                     );
                     res.json({ error: true });
@@ -409,7 +451,7 @@ app.post("/user/delete", (req, res) => {
         })
         .catch((err) => {
             console.error(
-                "error in POST/delete db.deleteUserFromChatMessages catch: ",
+                "error in POST/user/delete s3.deleteIdFolder catch: ",
                 err
             );
             res.json({ error: true });
@@ -419,10 +461,12 @@ app.post("/user/delete", (req, res) => {
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     const id = req.session.userId;
     // we can construct the URL needed to be able to see our image
-    const url = `${s3Url}${req.file.filename}`;
+    //const url = `${s3Url}${req.file.filename}`; // before making userId=s3-folder
+    const { filename } = req.file;
+    const url = s3Url + `${req.session.userId}/` + filename;
     if (req.file) {
         db.updateProfilePic(id, url)
-            .then(() => {
+            .then(({ rows }) => {
                 //console.log("update rows:", rows[0].profile_pic);
                 //console.log("substr upload: ", rows[0].profile_pic.substr(49));
                 /* if (rows[0].profile_pic) {
@@ -455,9 +499,10 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
                             );
                             res.sendStatus(404); // (?)
                         }); */
-
                 //s3.delete(penultimateProfPic);
-                res.json({ error: false, profile_pic: url });
+
+                /* res.json({ error: false, profile_pic: url }); */
+                res.json(rows[0]);
                 //}
             })
             .catch((err) => {

@@ -1,12 +1,13 @@
 * {
-    -margin: 0;
-    margin: 0.01px;
+    margin: 0;
+    left: 0;
+    -margin: 0.01px;
 }
 
 body {
     -background-color: ghostwhite;
     background-color: black;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .parentContainer {
@@ -1927,6 +1928,9 @@ li.L9 {
 
 #uploaderUploadBtn:focus {
     color: lime;
+    outline: none;
+    border: 1px solid lime;
+    animation: border-pulsate 1.45s infinite;
 }
 
 #uploaderCloseBtn {

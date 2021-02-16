@@ -226,7 +226,13 @@ export default class App extends Component {
                                     <p
                                         id="deleteAccount"
                                         className="logoutLink"
-                                        onClick={this.deleteUser}
+                                        onClick={
+                                            /* () =>
+                                            window.confirm(
+                                                "Are your sure you want to delete your account? Note: there is no going back. Please be certain."
+                                            ) && */ this
+                                                .deleteUser
+                                        }
                                     >
                                         {/* Delete Account */}
                                         <AiOutlineUserDelete />
