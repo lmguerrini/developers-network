@@ -16,6 +16,7 @@ import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
+import { DarkMode } from "./darkmode";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -150,7 +151,7 @@ export default class App extends Component {
                             <BrowserRouter>
                                 <header className="headerApp">
                                     {/* <h1>App -L-</h1> */}
-
+                                    <div className="headerAppGlass"></div>
                                     <img
                                         className="theDeveloperNetworkLogo"
                                         src="/img/theDeveloperNetworkLogo.png"
@@ -238,6 +239,14 @@ export default class App extends Component {
                                         <AiOutlineUserDelete />
                                         {/* <FaUserSlash /> */}
                                     </p>
+                                    <div id="darkModeWrap">
+                                        <div id="darkModeContainer">
+                                            <DarkMode />
+                                        </div>
+                                        <div id="darkModeCheckHiderWrap">
+                                            <div id="darkModeCheckHider"></div>
+                                        </div>
+                                    </div>
                                 </nav>
 
                                 <Route

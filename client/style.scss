@@ -1,7 +1,14 @@
+html {
+    --primaryBackgroundColor: rgba(255, 255, 255, 0.984);
+    --secondaryBackgroundColor: rgb(20, 20, 20);
+    --primaryTextColor: black;
+    --secondaryTextColor: white;
+}
+
 * {
     margin: 0;
     left: 0;
-    -margin: 0.01px;
+    //margin: 0.01px;
 }
 
 body {
@@ -563,13 +570,18 @@ button {
     ***************** APP *****************
 **********************************************/
 .appParentWrapper {
-    -background-color: ghostwhite;
+    /* -background-color: ghostwhite;
     background-color: rgba(255, 255, 255, 0.984);
+    -background-color: black; */
+    background: var(--primaryBackgroundColor);
+
+    -webkit-transition: background 1s linear;
+    -ms-transition: background 1s linear;
+    transition: background 1s linear;
 }
 
 /* ----header---- */
 .headerApp {
-    -background-color: red;
     display: flex;
     justify-content: space-between;
     height: 150px;
@@ -577,8 +589,22 @@ button {
     -border: 5px solid rgba(255, 255, 255, 0.459);
     border: 8px solid white;
     -border-bottom: hidden;
-    border-radius: 5px;
+    -border-radius: 5px;
     background-color: rgb(29, 29, 29);
+    -backdrop-filter: blur(5px);
+    border-radius: 13px;
+    -z-index: 0;
+}
+
+.headerAppGlass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -background-color: red;
+    width: 100vw;
+    height: 180px;
+    -z-index: 0;
+    backdrop-filter: blur(3px);
 }
 
 .theDeveloperNetworkLogo {
@@ -587,6 +613,7 @@ button {
     -margin: 50px 0 50px 20px;
     margin-left: 2%;
     align-self: center;
+    z-index: 1;
     /* -transform: rotate(180deg);
     -transition-duration: 3s;
 
@@ -605,10 +632,18 @@ button {
 
 @keyframes rotate {
     0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
         transform: rotate(0deg);
     }
 
     100% {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
         transform: rotate(360deg);
     }
 }
@@ -621,67 +656,28 @@ button {
 .navApp {
     -background-color: rgba(26, 255, 0, 0.425);
     -background-color: white;
-
+    z-index: 1;
     display: flex;
     justify-content: space-evenly;
-    -height: 30px;
     border-bottom: 1px solid rgb(53, 53, 53);
     margin-right: 10%;
     margin-left: 10%;
+    height: 50px;
 }
 
 .navApp p {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     -margin: 20px;
     padding: 5px;
     text-decoration: none;
     font-size: 1.3em;
-    color: white;
+    -color: white;
     -font-family: Dejavu Sans, monospace;
-    font-family: "Courier New", Courier, monospace;
+    -font-family: "Courier New", Courier, monospace;
     -font-family: Andale Mono, monospace;
     -border: 1px solid rgb(53, 53, 53);
+    z-index: 1;
 }
-
-#navIcons {
-    color: black;
-    background-color: white;
-    padding: 3px 20px;
-    -border-radius: 50%;
-    font-size: 1.28em;
-}
-
-#navIcons:hover {
-    color: rgb(0, 212, 0);
-}
-
-#navIcons:focus {
-    color: rgb(0, 212, 0);
-}
-
-#profileIcon {
-    color: black;
-    background-color: white;
-    padding: 0 20px;
-    -border-radius: 50%;
-    font-size: 1.4em;
-
-    &:hover {
-        color: rgb(0, 212, 0);
-    }
-
-    &:focus {
-        color: rgb(0, 212, 0);
-    }
-}
-
-/* #profileIcon:hover {
-    color: rgb(0, 212, 0);
-}
-
-#profileIcon:focus {
-    color: rgb(0, 212, 0);
-} */
 
 /* bounce animation: START */
 
@@ -768,9 +764,49 @@ button {
 
 /* bounce animation: END */
 
+#navIcons {
+    color: black;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 3px 20px;
+    -border-radius: 50%;
+    font-size: 1.28em;
+}
+
+#navIcons:hover {
+    color: rgb(0, 212, 0);
+}
+
+#navIcons:focus {
+    color: rgb(0, 212, 0);
+}
+
+#profileIcon {
+    color: black;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0 20px;
+    -border-radius: 50%;
+    font-size: 1.4em;
+
+    &:hover {
+        color: rgb(0, 212, 0);
+    }
+
+    &:focus {
+        color: rgb(0, 212, 0);
+    }
+}
+
+/* #profileIcon:hover {
+    color: rgb(0, 212, 0);
+}
+
+#profileIcon:focus {
+    color: rgb(0, 212, 0);
+} */
+
 #friendsIcon {
     color: black;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     padding: 0 20px;
     -border-radius: 50%;
     font-size: 1.4em;
@@ -786,7 +822,7 @@ button {
 
 #chatIcon {
     color: black;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     padding: 0 20px;
     -border-radius: 50%;
     font-size: 1.5em;
@@ -814,7 +850,8 @@ button {
     color: rgba(0, 0, 0, 0.815);
     padding: 6.5px 10px;
     border-radius: 25px;
-    font-size: 1.3em;
+    font-size: 1.33em;
+    top: 35px;
 
     &:hover {
         color: rgba(0, 0, 0, 0.445);
@@ -826,7 +863,7 @@ button {
     color: rgba(0, 0, 0, 0.895);
     padding: 6.5px 10px;
     border-radius: 25px;
-    font-size: 1.68em;
+    font-size: 1.75em;
 
     &:hover {
         cursor: pointer;
@@ -834,6 +871,74 @@ button {
         color: red;
     }
 }
+
+#darkModeWrap {
+    -border: 1px solid rgb(0, 42, 255);
+    height: 300px;
+    width: 30px;
+    position: relative;
+    z-index: 0;
+}
+
+#darkModeContainer {
+    position: absolute;
+    z-index: 1;
+    color: rgba(0, 0, 0, 0.815);
+    -padding: 6.5px 10px;
+    border-radius: 25px;
+    font-size: 1.85em;
+    width: 30px;
+    height: 40px;
+    -transform: rotate(267deg);
+    overflow: hidden;
+    -border: 1px solid rgba(255, 0, 0, 0.539);
+    -transform: translateX(-1%) translateY(-1%);
+    padding-top: 5px;
+
+    -webkit-transition: color 2s ease-in;
+    -ms-transition: color 2s ease-in;
+    transition: color 2s ease-in;
+
+    &:hover {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.637);
+        transition: 0.35s;
+        text-decoration: none;
+    }
+
+    &:active {
+        color: rgba(0, 255, 0, 0.568);
+    }
+}
+
+/* #darkModeCheckHiderWrap {
+    background-color: black;
+    -position: absolute;
+    margin-top: 55px;
+    height: 55px;
+    width: 17px;
+    top: 55px;
+    z-index: -20;
+    -border: 1px solid lime;
+
+    -webkit-transition: background-color 1s linear;
+    -ms-transition: background-color 1s linear;
+    transition: background-color 1s linear;
+} */
+/* 
+#darkModeCheckHider {
+    position: absolute;
+    height: 55px;
+    width: 17px;
+    top: 55px;
+    -border: 1px solid rgb(255, 0, 234);
+    background-color: rgb(251, 251, 251);
+    z-index: 1;
+
+    -webkit-transition: background-color 1s linear;
+    -ms-transition: background-color 1s linear;
+    transition: background-color 1s linear;
+} */
 
 .navApp > p:hover {
     text-decoration: underline;
@@ -896,6 +1001,7 @@ button {
     -margin-right: 80px;
     margin-top: 30px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+    z-index: 1;
 }
 
 #welcomeBack p {
@@ -969,7 +1075,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    z-index: 1;
     margin-right: 2%;
 }
 
@@ -983,6 +1089,7 @@ button {
     border: 8.8px solid white;
     -padding: 2px;
     align-self: center;
+    z-index: 1;
 }
 
 .profile_pic:hover {
@@ -1674,15 +1781,15 @@ li.L9 {
 
 .cardWallWrapper {
     margin-top: 95px;
-    background-color: black;
+    background: var(--primaryBackgroundColor);
     width: 100vw;
     z-index: 1;
     -border: 10px solid blue;
 }
 
 .cardWallWrapperZindex {
-    -background-color: red;
-    background: rgba(51, 51, 51, 0.199);
+    background: var(--primaryBackgroundColor);
+    -background: rgba(51, 51, 51, 0.199);
     margin-top: 5%;
 }
 
@@ -1711,7 +1818,8 @@ li.L9 {
     min-width: 700px;
     -moz-animation-direction: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
-    box-shadow: 0 0 20px white, 0 0 5px white;
+    -box-shadow: 0 0 20px white, 0 0 5px white;
+    box-shadow: 5px 25px 55px rgba(0, 0, 0, 0.826);
     -border: 10px solid yellow;
 }
 
@@ -1737,7 +1845,7 @@ li.L9 {
     -border: 4px solid lime;
     margin-bottom: 5%;
     -margin-top: 1%;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .wallHistoryContainer::-webkit-scrollbar {
@@ -1764,6 +1872,7 @@ li.L9 {
 .wallPostsGlassOverlayWrap {
     position: absolute;
     width: 100%;
+    border-radius: 5px;
 }
 
 .wallPostsGlassOverlay {
@@ -2089,3 +2198,91 @@ footer {
 /* ***********************************************************************
         ************************ DARK MODE ************************
 *********************************************************************** */
+
+html.darkMode {
+    .appParentWrapper {
+        background: var(--secondaryBackgroundColor);
+    }
+
+    .headerApp {
+        border-bottom: 4px solid white;
+        margin-bottom: 4px;
+    }
+
+    .headerAppGlass {
+        backdrop-filter: blur(3.5px);
+    }
+
+    #darkModeContainer {
+        color: white;
+        -webkit-transition: color 2s ease-in-out;
+        -ms-transition: color 2s ease-in-out;
+        transition: color 2s ease-in-out;
+
+        &:active {
+            color: rgba(0, 255, 0, 0.568);
+        }
+    }
+
+    #darkModeCheckHiderWrap,
+    #darkModeCheckHider,
+    .cardWallWrapperZindex,
+    .cardWallWrapper {
+        background: var(--secondaryBackgroundColor);
+    }
+
+    .navApp {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.799);
+        -webkit-transition: border-bottom 1s linear;
+        -ms-transition: border-bottom 1s linear;
+        transition: border-bottom 1s ease-in-out;
+    }
+
+    #profileIcon,
+    #friendsIcon,
+    #navIcons,
+    #chatIcon,
+    #logout,
+    #deleteAccount,
+    #footerApp {
+        color: var(--secondaryTextColor);
+
+        &:focus {
+            color: lime;
+        }
+    }
+
+    #welcomeBack {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.753),
+            0 0 5px rgba(255, 255, 255, 0.521);
+    }
+
+    .card,
+    .cardChat {
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.915), 0 0 15px white;
+    }
+
+    .cardWall {
+        box-shadow: 0 0 20px white, 0 0 5px white;
+    }
+
+    .opsNoFriendsNorRequestsSecondtWrap {
+        color: rgba(255, 255, 255, 0.813);
+    }
+}
+
+@mixin whenDark {
+    html.darkMode & {
+        @content;
+    }
+
+    // If JS disabled
+    @media (prefers-color-scheme: dark) {
+        & {
+            @content;
+        }
+        /* .navApp {
+            border-bottom: 1px solid red;
+        } */
+    }
+}

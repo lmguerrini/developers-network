@@ -181,7 +181,7 @@ export default function Chat() {
                             <textarea
                                 id="chatTextarea"
                                 rows="5"
-                                cols="98"
+                                cols="100"
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDown}
                             />
