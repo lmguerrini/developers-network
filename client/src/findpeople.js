@@ -47,8 +47,8 @@ export default function FindPeople() {
                         {!query && (
                             <div className="friendsGlassOverlay">
                                 <p /* id="findpeopleTitles" */>
-                                    Checkout the developers who have just
-                                    joined <b>DN</b>!
+                                    Checkout the developers who have just joined{" "}
+                                    <b>DN</b>!
                                 </p>
                             </div>
                         )}
@@ -135,9 +135,15 @@ export default function FindPeople() {
                                     </div>
                                 ))}
                             {!users.length && query && (
-                                <div id="nothingFoundWrapper">
-                                    <span id="nothingFound">
-                                        Nothing found, try again!
+                                <div id="nothingFound">
+                                    <span>
+                                        <small>&lt;</small>&emsp;No developer
+                                        found under this name.{" "}
+                                        <small>&lt; br /&gt;</small>
+                                        <br />
+                                        &emsp;&emsp;Please try again
+                                        differently.&emsp;
+                                        <small>/ &gt;</small>
                                     </span>
                                 </div>
                             )}

@@ -218,7 +218,12 @@ export default class App extends Component {
                                             to="/logout"
                                             className="logoutLink"
                                             id="logout"
-                                            onClick={this.logout}
+                                            onClick={(e) => {
+                                                window.confirm(
+                                                    "[LOGOUT] \nAre you sure you want to logout?"
+                                                ) && this.logout(e);
+                                            }}
+                                            /* onClick={this.logout} */
                                         >
                                             {/*  Log Out */}
                                             <FiLogOut />
@@ -227,13 +232,11 @@ export default class App extends Component {
                                     <p
                                         id="deleteAccount"
                                         className="logoutLink"
-                                        onClick={
-                                            /* () =>
+                                        onClick={(e) => {
                                             window.confirm(
-                                                "Are your sure you want to delete your account? Note: there is no going back. Please be certain."
-                                            ) && */ this
-                                                .deleteUser
-                                        }
+                                                "[ACCOUNT DELETION] \nAre your sure you want to delete your account and all related data? \nNote: there is no going back! Please be certain."
+                                            ) && this.deleteUser(e);
+                                        }}
                                     >
                                         {/* Delete Account */}
                                         <AiOutlineUserDelete />

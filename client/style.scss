@@ -1438,12 +1438,20 @@ button {
     border: 3px solid lime;
 }
 
-#nothingFoundWrapper {
+#nothingFound {
     margin: 5px 0 10px 5px;
+    -border: 1px solid lime;
+    width: 600px;
 }
 
-#nothingFound {
+#nothingFound span {
     color: lime;
+    font-family: Dejavu Sans, monospace;
+}
+/* id="entityName" */
+
+#nothingFound small {
+    color: rgb(65, 65, 65);
 }
 
 /* ----section(Chat)---- */
@@ -2205,8 +2213,8 @@ html.darkMode {
     }
 
     .headerApp {
-        border-bottom: 4px solid white;
-        margin-bottom: 4px;
+        border-bottom: 6px solid white;
+        margin-bottom: 2px;
     }
 
     .headerAppGlass {
