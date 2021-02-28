@@ -1,6 +1,6 @@
 /* custom hooks for refactoring Login and Registration components */
 import { useState } from "react";
-import axios from "./axios";
+import axios from "../axios";
 
 export default function useAuthSubmit(path, fields) {
     const [error, setError] = useState(false);

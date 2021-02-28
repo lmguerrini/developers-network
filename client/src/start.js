@@ -50,6 +50,8 @@ ReactDOM.render(elem, document.querySelector("main"));
             - Profile (child)
                 - ProfilPic
                 - BioEditor
+                - Wall
+            - EditProfile (child)
             - OtherProfile (child)
                 - ProfilPic
                 - FriendButton

@@ -457,6 +457,7 @@ button {
 #registerBtn:focus {
     border: 2px solid lime;
     outline: none;
+    cursor: wait;
 }
 
 /* ----section(Login)---- */
@@ -846,7 +847,7 @@ button {
     border-radius: 5px;
 } */
 
-#logout {
+/* #logout {
     color: rgba(0, 0, 0, 0.815);
     padding: 6.5px 10px;
     border-radius: 25px;
@@ -857,9 +858,13 @@ button {
         color: rgba(0, 0, 0, 0.445);
         transition: 0.35s;
     }
-}
 
-#deleteAccount {
+    &:focus {
+        cursor: wait;
+    }
+} */
+
+/* #deleteAccount {
     color: rgba(0, 0, 0, 0.895);
     padding: 6.5px 10px;
     border-radius: 25px;
@@ -870,7 +875,7 @@ button {
         transition: 0.4s;
         color: red;
     }
-}
+} */
 
 #darkModeWrap {
     -border: 1px solid rgb(0, 42, 255);
@@ -901,13 +906,33 @@ button {
 
     &:hover {
         cursor: pointer;
-        color: rgba(0, 0, 0, 0.637);
+        -color: rgba(0, 0, 0, 0.637);
+        -color: lime;
         transition: 0.35s;
         text-decoration: none;
+        animation: rotateToggleDarkMode 2.5s infinite;
     }
 
     &:active {
         color: rgba(0, 255, 0, 0.568);
+    }
+}
+
+@keyframes rotateToggleDarkMode {
+    0% {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -ms-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
     }
 }
 
@@ -1002,11 +1027,17 @@ button {
     margin-top: 30px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
     z-index: 1;
+    text-decoration: none;
 }
 
 #welcomeBack p {
     letter-spacing: 0.2em;
     padding: 5px 23px 5px 23px;
+    text-decoration: none;
+}
+
+#toggleModalSettings {
+    cursor: pointer;
 }
 
 .cardContainer {
@@ -1448,7 +1479,6 @@ button {
     color: lime;
     font-family: Dejavu Sans, monospace;
 }
-/* id="entityName" */
 
 #nothingFound small {
     color: rgb(65, 65, 65);
@@ -1989,7 +2019,7 @@ li.L9 {
 
 .modalUploaderWrapper {
     width: 98.5vw;
-    height: 86vh;
+    height: 90vh;
     -width: 760px;
     -height: 504px;
     position: absolute;
@@ -2009,7 +2039,8 @@ li.L9 {
     -border: 2px solid red;
     backdrop-filter: blur(10px);
     margin-left: 8px;
-    margin-top: 13px;
+    margin-top: 16px;
+    padding-bottom: 200px;
 }
 
 .uploaderContainer {
@@ -2065,6 +2096,134 @@ li.L9 {
 
 #uploaderDeleteBtn:hover {
     color: red;
+}
+
+/* ----section(EditProfile)---- */
+
+.modalsettingsWrapper {
+    width: 98.5vw;
+    height: 100vh;
+    -width: 760px;
+    -height: 504px;
+    position: absolute;
+    -position: fixed;
+    top: 150px;
+    background-color: rgba(26, 26, 26, 0.881);
+    color: white;
+    -text-align: center;
+    -margin: 0 25% 0 25%;
+    border-radius: 5px;
+    -padding: 97px 150px 105px 150px;
+    z-index: 1;
+    -height: 100px;
+    display: flex;
+    justify-content: center;
+    -flex-direction: column;
+    border-radius: 5px;
+    -border: 2px solid red;
+    backdrop-filter: blur(10px);
+    margin-left: 8px;
+    margin-top: 13px;
+    padding-top: 50px;
+}
+
+#welcomeBack {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.753),
+        0 0 5px rgba(255, 255, 255, 0.521);
+}
+
+.modalsettingsWrapper input {
+    background: none;
+    color: white;
+    width: 250px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    -border: none;
+    outline: none;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-color: rgba(255, 255, 255, 0.744);
+    font-size: 1em;
+    font-family: Dejavu Sans, monospace;
+}
+
+.saveCancelContainer button {
+    cursor: pointer;
+    margin-right: 50px;
+    margin-left: 50px;
+    -padding-bottom: 3px;
+    font-size: 1.1em;
+    padding: 5px 13px;
+}
+
+#saveChanges {
+    outline: none;
+
+    &:hover {
+        color: lime;
+        transition: 0.5s;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:white;font-size:24px;'><text y='50%'>✔︎</text></svg>")
+                16 0,
+            auto;
+    }
+
+    &:focus {
+        cursor: progress;
+    }
+}
+
+#cancelChanges {
+    outline: none;
+
+    &:hover {
+        color: red;
+        transition: 0.5s;
+        //cursor: no-drop;
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='30' height='38' viewport='0 0 100 100' style='fill:red;border:red;font-size:24px;'><text y='50%'>🔙</text></svg>")
+                16 0,
+            auto;
+    }
+}
+
+.logoutDeleteContainer {
+    display: flex;
+    justify-content: space-between;
+    -width: 550px;
+    width: 550px;
+    padding-top: 40px;
+    border-top: 3px solid black;
+}
+
+#logout {
+    -color: rgba(0, 0, 0, 0.815);
+    color: white;
+    padding: 6.5px 9px;
+    border-radius: 25px;
+    font-size: 1.8em;
+    top: 35px;
+
+    &:hover {
+        color: rgb(56, 142, 80);
+        transition: 0.35s;
+    }
+
+    &:focus {
+        cursor: wait;
+    }
+}
+
+#deleteAccount {
+    -color: rgba(0, 0, 0, 0.895);
+    color: white;
+    padding: 6.5px 10px;
+    font-size: 1.5em;
+
+    &:hover {
+        cursor: pointer;
+        transition: 0.4s;
+        color: red;
+    }
 }
 
 /******************************************
@@ -2279,7 +2438,7 @@ html.darkMode {
     }
 }
 
-@mixin whenDark {
+/* @mixin whenDark {
     html.darkMode & {
         @content;
     }
@@ -2289,8 +2448,12 @@ html.darkMode {
         & {
             @content;
         }
-        /* .navApp {
+        .navApp {
             border-bottom: 1px solid red;
-        } */
+        }
     }
-}
+} */
+
+/* ***********************************************************************
+        ************************ MEDIA QUERIES ************************
+*********************************************************************** */

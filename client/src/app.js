@@ -4,18 +4,20 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
+import EditProfile from "./editprofile";
 import OtherProfile from "./otherprofile";
 import Friends from "./friends";
 import FindPeople from "./findpeople";
 import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
-import { FiLogOut } from "react-icons/fi";
-import { AiOutlineUserDelete } from "react-icons/ai";
+//import { FiLogOut } from "react-icons/fi";
+//import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
+//import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
@@ -32,13 +34,15 @@ export default class App extends Component {
             profile_pic: "",
             bio: "",
             uploaderIsVisible: false,
-            active: false,
+            settingsIsVisible: false,
+            //active: false,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.logout = this.logout.bind(this);
         this.toggleModalUploader = this.toggleModalUploader.bind(this);
         this.setImage = this.setImage.bind(this);
+        this.toggleModalSettings = this.toggleModalSettings.bind(this);
         this.editBio = this.editBio.bind(this);
     }
 
@@ -119,6 +123,12 @@ export default class App extends Component {
         } */
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible,
+        });
+    }
+
+    toggleModalSettings() {
+        this.setState({
+            settingsIsVisible: !this.state.settingsIsVisible,
         });
     }
 
@@ -213,7 +223,16 @@ export default class App extends Component {
                                             <RiWechatLine />
                                         </Link>
                                     </p>
-                                    <p>
+                                    {/* <p>
+                                        <Link
+                                            to="/edit/profile"
+                                            id="chatIcon"
+                                            className="bounce"
+                                        >
+                                            <FaRegEdit />
+                                        </Link>
+                                    </p> */}
+                                    {/* <p>
                                         <Link
                                             to="/logout"
                                             className="logoutLink"
@@ -223,13 +242,13 @@ export default class App extends Component {
                                                     "[LOGOUT] \nAre you sure you want to logout?"
                                                 ) && this.logout(e);
                                             }}
-                                            /* onClick={this.logout} */
+                                            onClick={this.logout}
                                         >
-                                            {/*  Log Out */}
+                                             Log Out
                                             <FiLogOut />
                                         </Link>
-                                    </p>
-                                    <p
+                                    </p> */}
+                                    {/* <p
                                         id="deleteAccount"
                                         className="logoutLink"
                                         onClick={(e) => {
@@ -238,10 +257,9 @@ export default class App extends Component {
                                             ) && this.deleteUser(e);
                                         }}
                                     >
-                                        {/* Delete Account */}
+                                        Delete Account
                                         <AiOutlineUserDelete />
-                                        {/* <FaUserSlash /> */}
-                                    </p>
+                                    </p> */}
                                     <div id="darkModeWrap">
                                         <div id="darkModeContainer">
                                             <DarkMode />
@@ -268,6 +286,9 @@ export default class App extends Component {
                                                     }
                                                     toggleModalUploader={
                                                         this.toggleModalUploader
+                                                    }
+                                                    toggleModalSettings={
+                                                        this.toggleModalSettings
                                                     }
                                                     bio={this.state.bio}
                                                     editBio={this.editBio}
@@ -341,6 +362,35 @@ export default class App extends Component {
                                         </section>
                                     )}
                                 />
+
+                                {/* <Route
+                                    path="/edit/profile"
+                                    render={() => (
+                                        <EditProfile
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            email={this.state.email}
+                                        />
+                                    )}
+                                /> */}
+
+                                {this.state.settingsIsVisible && (
+                                    <section>
+                                        <div className="modalsettingsWrapper">
+                                            <EditProfile
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                email={this.state.email}
+                                                toggleModalSettings={
+                                                    this.toggleModalSettings
+                                                }
+                                                logout={this.logout}
+                                                deleteAccount={this.deleteUser}
+                                                /* deleteUser={this.deleteUser} */
+                                            />
+                                        </div>
+                                    </section>
+                                )}
 
                                 {/* <h1>[SECTION -Uploader]</h1> */}
                                 {this.state.uploaderIsVisible && (

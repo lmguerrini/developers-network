@@ -1,6 +1,8 @@
 import ProfilePic from "./profilepic";
 import BioEditor from "./bioeditor";
 import Wall from "./wall";
+import EditProfile from "./editprofile";
+import { Link } from "react-router-dom";
 
 /* 
 NB: The Profile component will be responsible for laying out the content we want to show: 
@@ -28,6 +30,7 @@ export default function Profile({
     bio,
     editBio,
     toggleModalUploader,
+    toggleModalSettings,
 }) {
     /* console.log(
         "Profile {props}: ",
@@ -46,7 +49,11 @@ export default function Profile({
                 <div className="profileContainer">
                     {/* <h1>User Profile Component(P)</h1> */}
                     <div id="welcomeBack">
-                        <p>
+                        {/* <Link
+                            to="/edit/profile"
+                            style={{ textDecoration: "none" }}
+                        > */}
+                        <p id="toggleModalSettings" onClick={toggleModalSettings}>
                             {" "}
                             <b>
                                 Welcome back&nbsp;
@@ -54,6 +61,7 @@ export default function Profile({
                             </b>
                             {/* &#39;s profile page! */}
                         </p>
+                        {/* </Link> */}
                     </div>
                     {/* <div className="profileContainer"> */}
                     <div className="cardContainer">
@@ -78,6 +86,12 @@ export default function Profile({
                                 </p>
                                 <BioEditor bio={bio} editBio={editBio} />
                             </div>
+                            {/* <div className="modalUploaderWrapper">
+                                <EditProfile
+                                    toggleModalSettings={toggleModalSettings}
+                                    
+                                />
+                            </div> */}
                         </div>
                     </div>
                     {/* </div> */}

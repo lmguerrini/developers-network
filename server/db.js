@@ -43,6 +43,23 @@ module.exports.updatePassword = (password, email) => {
     return db.query(q, params);
 };
 
+// edit user
+module.exports.editUser = (id, first, last, email) => {
+    const q = `UPDATE users
+    SET first = ($2), last = ($3), email = ($4) 
+    WHERE id = ($1) RETURNING *`;
+    const params = [id, first, last, email];
+    return db.query(q, params);
+};
+
+module.exports.editUserPsw = (id, first, last, email, password) => {
+    const q = `UPDATE users
+    SET first = ($2), last = ($3), email = ($4), password = ($5) 
+    WHERE id = ($1) RETURNING *`;
+    const params = [id, first, last, email, password];
+    return db.query(q, params);
+};
+
 // delet user
 module.exports.deleteUserFromUsers = (id) => {
     const q = `DELETE FROM users WHERE id = ($1)
@@ -265,5 +282,3 @@ module.exports.postWallPost = (userId, url, description) => {
     const params = [userId, url, description];
     return db.query(q, params);
 };
-
-

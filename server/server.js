@@ -102,13 +102,13 @@ app.post("/registration", (req, res) => {
             error: "!(first)",
         });
     } else if (last == "" && first && email && password) {
-        console.log("First field empty!");
+        console.log("Last field empty!");
         res.json({
             success: false,
             error: "!(last)",
         });
     } else if (email == "" && first && last && password) {
-        console.log("First field empty!");
+        console.log("Email field empty!");
         res.json({
             success: false,
             error: "!(email)",
@@ -367,6 +367,79 @@ app.get("/user/info", async (req, res) => {
     } catch (err) {
         console.error("error in GET/upload db.getUserProfile catch: ", err);
         res.json({ error: true });
+    }
+});
+
+app.post("/user/edit", (req, res) => {
+    const userId = req.session.userId;
+    const { first, last, email, password } = req.body;
+
+    if (!password) {
+        if (first == "" && last && email) {
+            console.log("First field empty!");
+            res.json({
+                success: false,
+                error: "!(first)",
+            });
+        } else if (last == "" && first && email) {
+            console.log("Last field empty!");
+            res.json({
+                success: false,
+                error: "!(last)",
+            });
+        } else if (email == "" && first && last) {
+            console.log("Email field empty!");
+            res.json({
+                success: false,
+                error: "!(email)",
+            });
+        } else {
+            db.editUser(userId, first, last, email)
+                .then(() => res.json({ success: true }))
+                .catch((err) => {
+                    /* console.log("error in db.editUser catch: ", err);
+                res.json({ success: false, error: true }); */
+
+                    if (err.constraint == "users_email_check") {
+                        console.log("Please enter a valid email!");
+                        res.json({
+                            success: false,
+                            error: err.constraint,
+                        });
+                    } else if (err.constraint == "users_email_key") {
+                        console.log(
+                            "error in db.editUser catch: ",
+                            err.constraint
+                        );
+                        res.json({
+                            success: false,
+                            error: err.constraint,
+                        });
+                    } else {
+                        console.error("error in db.editUser catch: ", err);
+                        //res.json({ success: false, error: true });
+                        res.json({
+                            success: false,
+                            error:
+                                "Ops, something went wrong! \nPlease try again",
+                        });
+                    }
+                });
+        }
+    } else {
+        hash(password).then((hash) => {
+            db.editUserPsw(userId, first, last, email, hash)
+                .then(() => res.json({ success: true }))
+                .catch((err) => {
+                    console.error("error in db.editUserPsw catch: ", err);
+                    //res.json({ success: false, error: true });
+                    res.json({
+                        success: false,
+                        error:
+                            "Ops, something went wrong while inserting the new password! \nPlease try again",
+                    });
+                });
+        });
     }
 });
 
