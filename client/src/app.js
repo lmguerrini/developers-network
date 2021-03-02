@@ -11,14 +11,15 @@ import FindPeople from "./findpeople";
 import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
-//import { FiLogOut } from "react-icons/fi";
-//import { AiOutlineUserDelete } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 //import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
+import ParticlesJS from "./particles";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -161,7 +162,10 @@ export default class App extends Component {
                             <BrowserRouter>
                                 <header className="headerApp">
                                     {/* <h1>App -L-</h1> */}
-                                    <div className="headerAppGlass"></div>
+                                    <div
+                                        className="headerAppGlass"
+                                        id="particles-js"
+                                    ><ParticlesJS /></div>
                                     <img
                                         className="theDeveloperNetworkLogo"
                                         src="/img/theDeveloperNetworkLogo.png"
@@ -223,6 +227,8 @@ export default class App extends Component {
                                             <RiWechatLine />
                                         </Link>
                                     </p>
+
+                                    {/* <div id="menuLine"></div> */}
                                     {/* <p>
                                         <Link
                                             to="/edit/profile"
@@ -232,23 +238,23 @@ export default class App extends Component {
                                             <FaRegEdit />
                                         </Link>
                                     </p> */}
-                                    {/* <p>
+                                    <p>
                                         <Link
                                             to="/logout"
                                             className="logoutLink"
                                             id="logout"
-                                            onClick={(e) => {
+                                            /* onClick={(e) => {
                                                 window.confirm(
                                                     "[LOGOUT] \nAre you sure you want to logout?"
                                                 ) && this.logout(e);
-                                            }}
+                                            }} */
                                             onClick={this.logout}
                                         >
-                                             Log Out
+                                            {/* Log Out */}
                                             <FiLogOut />
                                         </Link>
-                                    </p> */}
-                                    {/* <p
+                                    </p>
+                                    <p
                                         id="deleteAccount"
                                         className="logoutLink"
                                         onClick={(e) => {
@@ -257,9 +263,9 @@ export default class App extends Component {
                                             ) && this.deleteUser(e);
                                         }}
                                     >
-                                        Delete Account
+                                        {/* Delete Account */}
                                         <AiOutlineUserDelete />
-                                    </p> */}
+                                    </p>
                                     <div id="darkModeWrap">
                                         <div id="darkModeContainer">
                                             <DarkMode />
@@ -362,7 +368,6 @@ export default class App extends Component {
                                         </section>
                                     )}
                                 />
-
                                 {/* <Route
                                     path="/edit/profile"
                                     render={() => (

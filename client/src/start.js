@@ -5,7 +5,6 @@ import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension"; // to be able to see what's going on in our Redux DevTools
 import { reducer } from "./reducer";
 import { init } from "./socket";
-
 //import Registration from "./registration"; // => welcome.js
 import Welcome from "./welcome";
 import App from "./app";

@@ -292,20 +292,20 @@ h2 {
 } */
 .matrixCodeContainer {
     width: 100%;
-    height: 70vh;
+    height: 60vh;
     overflow-y: hidden;
     position: absolute;
-    z-index: -1;
+    -z-index: -1;
     -background-color: red;
 }
 
 .matrixCode {
     width: 100%;
     -z-index: -1;
-    opacity: 0;
+    /* opacity: 0;
     visibility: hidden;
     animation: 15s fadeIn;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
     -animation-delay: 5s;
     -background-color: black;
     -transition-delay: 3s;
@@ -332,7 +332,7 @@ h2 {
 /* ----container(Registration-Login-ResetPsw)---- */
 
 .sectionRegistrationContainer {
-    top: 350px;
+    top: 340px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -341,17 +341,19 @@ h2 {
 .sectionRegistration {
     -background-color: rgba(7, 7, 7, 0.5);
     backdrop-filter: blur(4px);
-    width: 400px;
-    height: 350px;
-    padding: 55px 25px 35px 25px;
+    width: 100%;
+    height: 400px;
+    //height: 35vh;
+    padding: 55px 25px 210px 25px;
+    //padding-bottom: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    opacity: 0;
+    /* opacity: 0;
     visibility: hidden;
     animation: 14s fadeOut;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
 }
 
 #titles {
@@ -392,7 +394,7 @@ button {
 }
 
 .sectionRegistration > input:focus {
-    border: 2px solid lime;
+    border: 2px solid rgb(56, 142, 81);
 }
 
 .sectionR-L-RP_Container {
@@ -411,9 +413,13 @@ button {
     background-color: rgba(7, 7, 7, 0.5);
     backdrop-filter: blur(3.5px);
     -margin: 30px;
-    width: 400px;
-    height: 350px;
-    padding: 55px 25px 35px 25px;
+    width: 100%;
+    //height: 350px;
+    //padding: 55px 25px 35px 25px;
+    height: 400px;
+    //height: 35vh;
+    padding: 55px 25px 210px 25px;
+    //padding-bottom: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -444,7 +450,7 @@ button {
 }
 
 .sectionR-L-RP > input:focus {
-    border: 2px solid lime;
+    border: 2px solid rgb(56, 142, 81);
 }
 /* ----section(Registration)---- */
 #registerBtn {
@@ -455,7 +461,7 @@ button {
 }
 
 #registerBtn:focus {
-    border: 2px solid lime;
+    border: 2px solid rgb(56, 142, 81);
     outline: none;
     cursor: wait;
 }
@@ -473,7 +479,7 @@ button {
 }
 
 .loginLink:focus {
-    border: 2px solid lime;
+    border: 2px solid rgb(56, 142, 81);
     outline: none;
 }
 
@@ -513,7 +519,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 150px;
+    height: 250px;
     align-items: center;
 }
 
@@ -551,11 +557,15 @@ button {
 
 .component3Link {
     padding-top: 30px;
-    background-color: rgba(0, 0, 0, 0.682);
+    //background-color: rgba(0, 0, 0, 0.682);
 }
 
 #component3Link {
-    color: lime;
+    color: rgb(56, 142, 81);
+
+    &:focus {
+        color: lime;
+    }
 }
 
 /* .resetPswComponents > button {
@@ -607,6 +617,15 @@ button {
     -z-index: 0;
     backdrop-filter: blur(3px);
 }
+
+/* PARTICLES.JS - START - */
+#particles-js {
+    position: absolute;
+    height: 150px;
+
+    //border: 3px solid lime;
+}
+/* PARTICLES.JS - END - */
 
 .theDeveloperNetworkLogo {
     -width: 100px;
@@ -837,17 +856,25 @@ button {
     }
 }
 
-/* .logoutLink {
+/* #menuLine {
+    -background: red;
+    -width: 10px;
+    height: 20px;
+    border: 1px solid black;
+    margin-top: 11px;
+} */
+
+.logoutLink {
     font-size: 1.1em;
-    background-color: rgba(0, 0, 0, 0.815);
+    //background-color: rgba(0, 0, 0, 0.815);
     color: rgba(255, 255, 255, 0.623);
     outline: none;
     text-decoration: none;
     padding: 6.5px 10px;
     border-radius: 5px;
-} */
+}
 
-/* #logout {
+#logout {
     color: rgba(0, 0, 0, 0.815);
     padding: 6.5px 10px;
     border-radius: 25px;
@@ -862,9 +889,9 @@ button {
     &:focus {
         cursor: wait;
     }
-} */
+}
 
-/* #deleteAccount {
+#deleteAccount {
     color: rgba(0, 0, 0, 0.895);
     padding: 6.5px 10px;
     border-radius: 25px;
@@ -875,7 +902,7 @@ button {
         transition: 0.4s;
         color: red;
     }
-} */
+}
 
 #darkModeWrap {
     -border: 1px solid rgb(0, 42, 255);
@@ -911,6 +938,10 @@ button {
         transition: 0.35s;
         text-decoration: none;
         animation: rotateToggleDarkMode 2.5s infinite;
+
+        /* cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>☽</text></svg>")
+                16 0,
+            auto; */
     }
 
     &:active {
@@ -2068,34 +2099,42 @@ li.L9 {
 
 #uploaderUploadBtn {
     font-size: 1.23em;
-}
 
-#uploaderUploadBtn:hover {
-    color: lime;
-}
+    &:hover {
+        color: lime;
+    }
 
-#uploaderUploadBtn:focus {
-    color: lime;
-    outline: none;
-    border: 1px solid lime;
-    animation: border-pulsate 1.45s infinite;
+    &:focus {
+        color: lime;
+        outline: none;
+        border: 1px solid lime;
+        animation: border-pulsate 1.45s infinite;
+    }
 }
 
 #uploaderCloseBtn {
     margin-top: 20px;
     font-size: 1.22em;
-}
+    outline: none;
 
-#uploaderCloseBtn:hover {
-    color: rgba(140, 140, 140, 0.555);
+    &:hover {
+        color: rgba(140, 140, 140, 0.555);
+    }
+
+    &:focus {
+        color: rgba(140, 140, 140, 0.555);
+        outline: none;
+        border: 1px solid rgba(140, 140, 140, 0.555);
+        animation: border-pulsate 1.45s infinite;
+    }
 }
 
 #uploaderDeleteBtn {
     font-size: 0.8em;
-}
 
-#uploaderDeleteBtn:hover {
-    color: red;
+    &:hover {
+        color: red;
+    }
 }
 
 /* ----section(EditProfile)---- */
@@ -2193,9 +2232,19 @@ li.L9 {
     width: 550px;
     padding-top: 40px;
     border-top: 3px solid black;
+
+    /* &:hover {
+        border-top: 3px solid rgba(0, 255, 0, 0.459);
+        transition: 0.85s;
+    } */
 }
 
-#logout {
+.logoutDeleteContainer span {
+    font-size: 0.9em;
+    padding: 15px;
+}
+
+#logoutEP {
     -color: rgba(0, 0, 0, 0.815);
     color: white;
     padding: 6.5px 9px;
@@ -2213,16 +2262,22 @@ li.L9 {
     }
 }
 
-#deleteAccount {
+#deleteAccountEP {
     -color: rgba(0, 0, 0, 0.895);
     color: white;
     padding: 6.5px 10px;
     font-size: 1.5em;
 
-    &:hover {
+    &:hover,
+    .logoutDeleteContainer:hover {
         cursor: pointer;
         transition: 0.4s;
         color: red;
+
+        .logoutDeleteContainer {
+            border-top: 3px solid rgba(255, 0, 0, 0.459);
+            transition: 0.85s;
+        }
     }
 }
 
@@ -2389,6 +2444,12 @@ html.darkMode {
         &:active {
             color: rgba(0, 255, 0, 0.568);
         }
+
+        /* &:hover {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:white;font-size:24px;'><text y='50%'>☀︎</text></svg>")
+                16 0,
+            auto;
+        } */
     }
 
     #darkModeCheckHiderWrap,

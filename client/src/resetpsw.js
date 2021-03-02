@@ -64,6 +64,7 @@ export default class ResetPassword extends Component {
                 <div className="sectionR-L-RP">
                     <div className="sectionResetPsw">
                         <h1 id="titles">Reset Password</h1>
+                        <br></br>
                         <div className="registrationError">
                             {this.state.error && (
                                 <span>Ops, something went wrong!</span>
@@ -101,7 +102,7 @@ export default class ResetPassword extends Component {
                                 <div className="resetPswComponents">
                                     <h4 id="enterEmail">
                                         Please enter the code you received by
-                                        email.
+                                        email
                                     </h4>
                                     <input
                                         /* onChange={(e) => this.handleChange(e)} */
@@ -111,7 +112,7 @@ export default class ResetPassword extends Component {
                                         type="text"
                                     />
                                     <h4 id="enterPsw">
-                                        Please enter a new password:
+                                        Please enter a new password
                                     </h4>
                                     <input
                                         /* onChange={(e) => this.handleChange(e)} */

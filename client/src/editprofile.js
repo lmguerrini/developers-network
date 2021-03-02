@@ -97,7 +97,7 @@ export default function EditProfile({
                         <Link
                             to="/logout"
                             className="logoutLink"
-                            id="logout"
+                            id="logoutEP"
                             /* onClick={(e) => {
                                                 window.confirm(
                                                     "[LOGOUT] \nAre you sure you want to logout?"
@@ -105,12 +105,13 @@ export default function EditProfile({
                                             }} */
                             onClick={logout}
                         >
-                            {/*  Log Out */}
+                            <span>Log Out</span>
+                            <br />
                             <FiLogOut />
                         </Link>
                     </button>
                     <button
-                        id="deleteAccount"
+                        id="deleteAccountEP"
                         className="logoutLink"
                         onClick={(e) => {
                             window.confirm(
@@ -118,7 +119,8 @@ export default function EditProfile({
                             ) && deleteAccount(e);
                         }}
                     >
-                        {/* Delete Account */}
+                        <span>Delete Account</span>
+                        <br />
                         <AiOutlineUserDelete />
                     </button>
                 </div>
