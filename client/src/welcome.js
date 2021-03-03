@@ -3,7 +3,7 @@ import { HashRouter, Route } from "react-router-dom";
 import Registration from "./registration";
 import Login from "./login";
 import ResetPassword from "./resetpsw";
-import ParticlesJS from "./particles";
+import ParticlesWelcome from "../public/anim/Welcome[p]/particlesWelcome";
 
 export default function Welcome() {
     return (
@@ -83,13 +83,16 @@ export default function Welcome() {
                     alt="header-App Logo"
                 /> */}
                     </header>
-                    <section className="matrixCodeContainer matrixCode" id="particles-js">
+                    <section
+                        className="matrixCodeContainer matrixCode"
+                        id="particles-js"
+                    >
                         {/* <img
                             className="matrixCode"
                             src="/img/matrixCode.jpg"
                             alt="matrix code"
                         /> */}
-                        <ParticlesJS />
+                        <ParticlesWelcome />
                     </section>
                     <HashRouter>
                         {/* <section className="sectionR-L-RP_Container">

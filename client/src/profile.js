@@ -99,7 +99,7 @@ export default function Profile({
             </div>
             <div className="wallOuterContainer">
                 <Wall id={id} myWall={true} />
-            </div>
+            </div> 
         </>
     );
 }

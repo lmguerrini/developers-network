@@ -95,7 +95,7 @@ export default class BioEditor extends Component {
                         : !this.state.bioEditorIsVisible && (
                             <div id="bioEditorIsVisible">
                                 {/* <h6>[displayMode]</h6> */}
-                                {<pre>{this.props.bio}</pre>}
+                                {<p>{this.props.bio}</p>}
                                 <button
                                     id="bioeditBtn"
                                     onClick={this.toggleTextarea}

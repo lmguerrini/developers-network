@@ -19,7 +19,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 //import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
-import ParticlesJS from "./particles";
+import ParticlesApp from "../public/anim/App[p]/particlesApp";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -163,9 +163,11 @@ export default class App extends Component {
                                 <header className="headerApp">
                                     {/* <h1>App -L-</h1> */}
                                     <div
-                                        className="headerAppGlass"
-                                        id="particles-js"
-                                    ><ParticlesJS /></div>
+                                        className="headerAppGlass matrixCodeContainer matrixCode"
+                                        id="particlesApp-js"
+                                    >
+                                        <ParticlesApp />
+                                    </div>
                                     <img
                                         className="theDeveloperNetworkLogo"
                                         src="/img/theDeveloperNetworkLogo.png"

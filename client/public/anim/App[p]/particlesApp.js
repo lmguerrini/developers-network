@@ -1,8 +1,8 @@
 import Particles from "react-particles-js";
 
-export default function ParticlesJS() {
+export default function ParticlesApp() {
     return (
-        <div className="App">
+        <div className="ParticlesApp">
             <Particles
                 params={{
                     particles: {
@@ -60,7 +60,7 @@ export default function ParticlesJS() {
                         },
                         move: {
                             enable: true,
-                            speed: 3,
+                            speed: 0.5,
                             direction: "none",
                             random: false,
                             straight: false,
