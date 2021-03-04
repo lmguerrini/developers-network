@@ -26,6 +26,7 @@ export default function Chat() {
             // socket.emit will send a message to the server
             socket.emit("new chat message", e.target.value);
             e.target.value = "";
+            socket.emit("notification new chat message");
         } else if (e.key) {
             message = e.target.value + e.key;
             //e.target.value = "";

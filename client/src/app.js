@@ -11,12 +11,14 @@ import FindPeople from "./findpeople";
 import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
+import NotificationToaster from "./notification";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
+import { GrNotification } from "react-icons/gr";
 //import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
 import ParticlesApp from "../public/anim/App[p]/particlesApp";
@@ -166,7 +168,7 @@ export default class App extends Component {
                                         className="headerAppGlass matrixCodeContainer matrixCode"
                                         id="particlesApp-js"
                                     >
-                                        <ParticlesApp />
+                                        {/* <ParticlesApp /> */}
                                     </div>
                                     <img
                                         className="theDeveloperNetworkLogo"
@@ -227,6 +229,17 @@ export default class App extends Component {
                                         >
                                             {/* Chatroom */}
                                             <RiWechatLine />
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link
+                                            to="/notificationToaster"
+                                            id="chatIcon"
+                                            className="bounce"
+                                            /* className="loginLink" */
+                                        >
+                                            {/* Notification */}
+                                            <GrNotification />
                                         </Link>
                                     </p>
 
@@ -366,6 +379,18 @@ export default class App extends Component {
                                                 match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
+                                            />
+                                        </section>
+                                    )}
+                                />
+                                <Route
+                                    path="/notificationToaster"
+                                    render={() => (
+                                        <section>
+                                            <NotificationToaster
+                                            /* match={props.match}
+                                                key={props.match.url}
+                                                history={props.history} */
                                             />
                                         </section>
                                     )}

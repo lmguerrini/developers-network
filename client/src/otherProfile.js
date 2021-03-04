@@ -96,7 +96,7 @@ export default class OtherProfile extends Component {
                                 {/* {<h1>Profile=-BioEditor</h1>} */}
                                 <div
                                     className="bioEditor"
-                                    id="otherProfileBioeditor"
+                                    id="otherProfileBioeditor bioEditorIsVisible"
                                 >
                                     <p id="introTitle">
                                         {this.state.first} {this.state.last}

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
+import { RiUserSearchFill } from "react-icons/ri";
 import {
     getFriendsWannabesList,
     acceptFriendshipRequest,
@@ -50,12 +51,14 @@ export default function Friends() {
             <div className="opsNoFriendsNorRequestsFirstWrap">
                 <div className="opsNoFriendsNorRequestsSecondtWrap">
                     <h1>
-                        Ops, it seems you don&#39;t have any friends/friends
-                        requests yet..
+                        Ops, it seems you don&#39;t have any friends (requests)
+                        yet..
                     </h1>
                     <h4>
-                        Note: You can click on &#39;Find Developers&#39; in
-                        order to look for people to add as friend.
+                        Note: You can click on{" "}
+                        <RiUserSearchFill id="RiUserSearchFill" /> (Find
+                        Developers) in order to look for developers to add as
+                        friends.
                     </h4>
                 </div>
             </div>
@@ -80,10 +83,16 @@ export default function Friends() {
 
                         <div className="friendsWrapper">
                             {!friends.length != 0 ? (
-                                <p>
+                                <pre
+                                    style={{
+                                        opacity: '0.8',
+                                        fontSize: "16px",
+                                        paddingLeft: "50%",
+                                    }}
+                                >
                                     It seems you don&#39;t have any friends yet,
                                     but..
-                                </p>
+                                </pre>
                             ) : (
                                 friends &&
                                 friends.map((friend) => (

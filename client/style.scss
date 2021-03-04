@@ -1265,10 +1265,12 @@ button {
 
 .friendButtonOtherProfWrap button {
     color: white;
-}
+    width: 100%;
+    outline: none;
 
-.friendButtonOtherProfWrap button:hover {
-    color: lime;
+    &:hover {
+        color: lime;
+    }
 }
 
 .dmWrap {
@@ -1328,6 +1330,10 @@ button {
     margin-top: 55px;
     font-family: Dejavu Sans, monospace;
     z-index: 1;
+}
+
+#RiUserSearchFill {
+    font-size: 1.3em;
 }
 
 .friendsGlassOverlay {
@@ -2053,6 +2059,42 @@ li.L9 {
 
 #titleTimestampWrap > p > b > p {
     margin-bottom: 15px;
+}
+
+/* ----section(Notification)---- */
+
+#pushNotificationBell {
+    font-size: 2em;
+    //animation:swing 2.6s ease 0s;
+    -moz-animation: swing 0.5s infinite linear;
+    -o-animation: swing 0.5s infinite linear;
+    -webkit-animation: swing 0.5s infinite linear;
+    animation: swing 0.5s infinite linear;
+    animation-iteration-count: 10;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotateZ(0);
+    }
+    25% {
+        transform: rotateZ(25deg);
+    }
+    50% {
+        transform: rotateZ(-15deg);
+    }
+    75% {
+        transform: rotateZ(10deg);
+    }
+    100% {
+        transform: rotateZ(0);
+    }
+}
+
+#pushNotificationText {
+    font-size: 1em;
+    padding-top: 5px;
+    font-family: Dejavu Sans, monospace;
 }
 
 /* ----section(Uploader)---- */

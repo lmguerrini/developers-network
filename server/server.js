@@ -974,12 +974,14 @@ let onlineUsersPlusOpenTabs = [];
 let onlineUsers = []; // keeps track of all users currently online
 //let sockets = {};
 //let users = {};
+let socketToIds = {};
 
 io.on("connection", (socket) => {
     // => event listener
     console.log(
         `socket with socket-id "${socket.id}" and userId "${socket.request.session.userId}" just connected!`
     );
+    socketToIds[socket.id] = socket.request.session.userId;
     // NB: "socket.id" = not "user.id"
     // => it will be assigned from socket.io to every user
     // userId: that's the ID we assign to users when they register/login
@@ -1020,6 +1022,7 @@ io.on("connection", (socket) => {
 
     // runs when a user disconnects - ie logs off or closes browser/tab
     socket.on("disconnect", () => {
+        delete socketToIds[socket.id];
         const disconnectedUserOrTab = userId;
         //console.log("disconnected User Or Tab: ", disconnectedUserOrTab);
 
@@ -1047,6 +1050,57 @@ io.on("connection", (socket) => {
             .catch((err) => {
                 console.error(
                     `error in socket.on("disconnect") db.getOnlineUsers catch: `,
+                    err
+                );
+            });
+    });
+
+    socket.on("notification friend request", (recipientId) => {
+        db.getUserProfile(userId)
+            .then(({ rows }) => {
+                //console.log("notification/getUserProfile rows: ", rows);
+                const name = rows[0].first + " " + rows[0].last;
+                //console.log("notification/getUserProfile name: ", name);
+
+                for (const key in socketToIds) {
+                    if (socketToIds[key] == recipientId) {
+                        io.sockets.sockets
+                            .get(key)
+                            .emit("notification friend request", {
+                                senderId: socket.request.session.userId,
+                                senderName: name,
+                            });
+                    }
+                }
+            })
+            .catch((err) => {
+                console.error(
+                    `error in socket.on("notification friend requestq") db.getUserProfile catch: `,
+                    err
+                );
+            });
+    });
+    socket.on("notification friend request revoked", (recipientId) => {
+        db.getUserProfile(userId)
+            .then(({ rows }) => {
+                //console.log("notification/getUserProfile rows: ", rows);
+                const name = rows[0].first + " " + rows[0].last;
+                //console.log("notification/getUserProfile name: ", name);
+
+                for (const key in socketToIds) {
+                    if (socketToIds[key] == recipientId) {
+                        io.sockets.sockets
+                            .get(key)
+                            .emit("notification friend request revoked", {
+                                senderId: socket.request.session.userId,
+                                senderName: name,
+                            });
+                    }
+                }
+            })
+            .catch((err) => {
+                console.error(
+                    `error in socket.on("notification friend requestq revoked") db.getUserProfile catch: `,
                     err
                 );
             });
@@ -1085,7 +1139,7 @@ io.on("connection", (socket) => {
         // message = e.target.value(chat.js/handlekeyDown)
         // this will run whenever user posts a new chat message (e.key === "Enter")
         // console.log("new message just written: ", message);
-        // 1. INSERT new mesage into our new "chat_messages" table
+        // 1. INSERT new mesage into new "chat_messages" table
         db.insertNewMessage(userId, message)
             .then(({ rows }) => {
                 //const id = rows[0].id;
@@ -1107,6 +1161,17 @@ io.on("connection", (socket) => {
                             name,
                             timestamp: createdAt,
                         });
+
+                        // sends a message to all sockets EXCEPT your own
+                        socket.broadcast.emit(
+                            "notification new chat message",
+                            {
+                                senderId: socket.request.session.userId,
+                                senderName: name,
+                            }
+                        );
+
+                        
                     })
                     .catch((err) => {
                         console.error(

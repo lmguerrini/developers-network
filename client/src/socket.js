@@ -4,9 +4,11 @@ import {
     postNewMessage,
     addMostRecentMessages,
     getOnlineUsersList,
-    postNewPrivateMessage,
-    addMostRecentPrivateMessages,
+    //postNewPrivateMessage,
+    //addMostRecentPrivateMessages,
 } from "./actions";
+import toaster from "toasted-notes";
+import { MdNotificationsActive } from "react-icons/md";
 
 export let socket;
 
@@ -29,6 +31,25 @@ export const init = (store) => {
         // hand over to redux => dispatch an action(->reducer):
         console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "postNewMessage": name of my action creator
+    });
+
+    socket.on("notification new chat message", (notificationNewChatMessage) => {
+        const senderName = `${notificationNewChatMessage.senderName}`;
+        const pushNotificationText = ` has just wrote a new chat message. Check it out!`;
+        const pushNotification = (
+            <>
+                <MdNotificationsActive id="pushNotificationBell" />
+                &emsp;
+                <span id="pushNotificationText">
+                    <b>{senderName}</b>
+                    {pushNotificationText}
+                </span>
+            </>
+        );
+
+        toaster.notify(pushNotification, {
+            duration: 5000,
+        });
     });
 
     socket.on("10 most recent messages", (tenMostRecentMessages) => {
@@ -54,6 +75,47 @@ export const init = (store) => {
             addMostRecentPrivateMessages(mostRecentPrivateMessages.reverse())
         );
     }); */
+
+    socket.on("notification friend request", (notificationFriendRequest) => {
+        const pushNotificationText = `You have just got a new friend request from `;
+        const senderName = `${notificationFriendRequest.senderName}`;
+        const pushNotification = (
+            <>
+                <MdNotificationsActive id="pushNotificationBell" />
+                &emsp;
+                <span id="pushNotificationText">{pushNotificationText}<b>{senderName}</b></span>
+            </>
+        );
+
+        toaster.notify(pushNotification, {
+            duration: 5000,
+        });
+    });
+
+    socket.on(
+        "notification friend request revoked",
+        (notificationFriendRequest) => {
+            const pushNotificationText = `Your friend request from ${notificationFriendRequest.senderName} has just been revoked!`;
+            const pushNotification = (
+                <>
+                    <MdNotificationsActive id="pushNotificationBell" />
+                    &emsp;
+                    <span
+                        id="pushNotificationText"
+                        style={{
+                            color: "red",
+                        }}
+                    >
+                        {pushNotificationText}
+                    </span>
+                </>
+            );
+
+            toaster.notify(pushNotification, {
+                duration: 5000,
+            });
+        }
+    );
 };
 
 // socket.io is not only for the chat room but it's available (potentially) for the site's functionalities

@@ -1,6 +1,7 @@
 import axios from "./axios";
 import { useState, useEffect } from "react";
 import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
+import { socket } from "./socket";
 
 export default function FriendButton({ id }) {
     const [buttonText, setButtonText] = useState("");
@@ -47,11 +48,19 @@ export default function FriendButton({ id }) {
     }, [recipientId]);
 
     const handleClick = () => {
+        if (buttonText == "Add Friend") {
+            socket.emit("notification friend request", Number(recipientId));
+        } else if (buttonText == "Cancel Friend Request") {
+            socket.emit(
+                "notification friend request revoked",
+                Number(recipientId)
+            );
+        }
         axios
             //.get(`/other-user/info/${this.props.match.params.id}`)
             .post("/friendship/action", {
                 action: buttonText,
-                recipientId: recipientId,
+                recipientId: Number(recipientId),
             })
             .then(({ data }) => {
                 console.log(
@@ -77,7 +86,17 @@ export default function FriendButton({ id }) {
             </div> */}
             <div className="friendButtonContainer">
                 <button className="friendButton" onClick={handleClick}>
-                    {buttonText}
+                    {buttonText == "Cancel Friend Request" ? (
+                        <p
+                            style={{
+                                color: "red",
+                            }}
+                        >
+                            {buttonText}
+                        </p>
+                    ) : (
+                        buttonText
+                    )}
                 </button>
             </div>
             <div className="registrationError">
