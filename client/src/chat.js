@@ -71,6 +71,7 @@ export default function Chat() {
                     <div className="cardChat">
                         <OnlineUsers></OnlineUsers>
                         <div className="chatHistoryContainer">
+                            <div id="generalChatPaddingTop"></div>
                             {chatMessages &&
                                 chatMessages.map((message, index) => (
                                     <div id="imgLatest" key={index}>
@@ -93,16 +94,19 @@ export default function Chat() {
                                             {/* </Link> */}
                                             <p className="messageDateTimeDeleteBtnWrap">
                                                 <b id="messageName">
-                                                    {message.name}
+                                                    {message.name}&emsp;
                                                 </b>{" "}
-                                                <small id="uploaderSigns">
-                                                    ❮
-                                                </small>
-                                                &nbsp;
-                                                {message.timestamp}&nbsp;
-                                                <small id="uploaderSigns">
-                                                    ❯
-                                                </small>
+                                                <span>
+                                                    <small id="uploaderSigns">
+                                                        ❮
+                                                    </small>
+                                                    &nbsp;
+                                                    {message.timestamp}
+                                                    &nbsp;
+                                                    <small id="uploaderSigns">
+                                                        ❯
+                                                    </small>
+                                                </span>
                                                 {/* {message.first} {message.last} */}
                                                 {/* <button
                                                     id="deleteMessageBtn"
@@ -141,24 +145,24 @@ export default function Chat() {
                                                         {message.message.startsWith(
                                                             "https://"
                                                         ) ? (
-                                                                <a
-                                                                    href={
-                                                                        message.message
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noreferrer"
-                                                                >
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </a>
-                                                            ) : (
-                                                                <span>
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </span>
-                                                            )}
+                                                            <a
+                                                                href={
+                                                                    message.message
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            <span>
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </span>
+                                                        )}
                                                     </code>
 
                                                     {/* {message.message} */}

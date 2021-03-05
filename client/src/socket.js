@@ -81,9 +81,12 @@ export const init = (store) => {
         const senderName = `${notificationFriendRequest.senderName}`;
         const pushNotification = (
             <>
-                <MdNotificationsActive id="pushNotificationBell" />
+                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
                 &emsp;
-                <span id="pushNotificationText">{pushNotificationText}<b>{senderName}</b></span>
+                <span className="pushNotificationFriendRequestText">
+                    {pushNotificationText}
+                    <b>{senderName}</b>
+                </span>
             </>
         );
 
@@ -94,19 +97,24 @@ export const init = (store) => {
 
     socket.on(
         "notification friend request revoked",
-        (notificationFriendRequest) => {
-            const pushNotificationText = `Your friend request from ${notificationFriendRequest.senderName} has just been revoked!`;
+        (notificationFriendRequestRevoked) => {
+            const pushNotificationText1 = `Your friend request from `;
+            const senderName = `${notificationFriendRequestRevoked.senderName}`;
+            const pushNotificationText2 = ` has just been revoked 🚫`;
             const pushNotification = (
                 <>
-                    <MdNotificationsActive id="pushNotificationBell" />
+                    <MdNotificationsActive
+                        className="pushNotificationFriendRequestBell"
+                        id="revoked"
+                    />
                     &emsp;
                     <span
-                        id="pushNotificationText"
-                        style={{
-                            color: "red",
-                        }}
+                        className="pushNotificationFriendRequestText"
+                        id="revoked"
                     >
-                        {pushNotificationText}
+                        {pushNotificationText1}
+                        <b>{senderName}</b>
+                        {pushNotificationText2}
                     </span>
                 </>
             );

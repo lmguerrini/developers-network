@@ -39,7 +39,10 @@ export default function OnlineUsers() {
                                             src={onlineUser.profile_pic}
                                             alt={onlineUser.name}
                                         />
-                                        <p id="friendsWannabesLink">
+                                        <p
+                                            /* id="friendsWannabesLink" */
+                                            className="onlineUserNameWrap"
+                                        >
                                             <small id="uploaderSigns">
                                                 ❮&nbsp;
                                             </small>

@@ -92,6 +92,7 @@ export default function PrivateMessages(props) {
                         </div>
 
                         <div className="chatHistoryContainer">
+                            <div id="privateChatPaddingTop"></div>
                             {privateChatMessages &&
                                 privateChatMessages.map((message, index) => (
                                     <div id="imgLatest" key={index}>
@@ -112,7 +113,7 @@ export default function PrivateMessages(props) {
                                                     </p> */}
                                             </div>
                                             {/* </Link> */}
-                                            <p>
+                                            <p className="messageDateTimeDeleteBtnWrapPM">
                                                 <b id="messageName">
                                                     {message.name}
                                                 </b>{" "}
