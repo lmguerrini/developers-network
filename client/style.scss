@@ -1425,6 +1425,8 @@ button {
 
 #friendsWannabesLink {
     text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: black;
 }
 
 .wannabesWrapper img {
@@ -1574,9 +1576,21 @@ button {
     background-color: #000000df;
 }
 
-.chatTextareaContainer textarea:focus {
-    outline: none;
-    border: 3px solid lime;
+.chatTextareaContainer textarea {
+    padding: 10px;
+    //font-size: 0.9em;
+    border: 3px solid rgb(56, 142, 80);
+    animation: blinking 1.45s step-end infinite;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+
+    &:focus {
+        outline: none;
+        //border: 3px solid lime;
+        animation: blinking 0.2s step-end;
+    }
 }
 
 .imgNameWrap {
@@ -1593,7 +1607,7 @@ button {
     margin-left: 2%;
     //border: 3px solid lime;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.402),
-            0 0 5px rgba(255, 255, 255, 0.521);
+        0 0 5px rgba(255, 255, 255, 0.521);
     //box-shadow: 0 0 100px rgb(0, 0, 0), 0 0 75px rgb(0, 0, 0);
 }
 
@@ -1608,7 +1622,7 @@ button {
     //justify-content: space-around;
     border-radius: 5px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.244),
-            0 0 5px rgba(255, 255, 255, 0.521);
+        0 0 5px rgba(255, 255, 255, 0.521);
     //box-shadow: 0 0 100px rgb(0, 0, 0), 0 0 75px rgb(0, 0, 0);
 }
 
@@ -1847,7 +1861,8 @@ li.L9 {
 
 #onlineUserProfilePic {
     -border: none;
-    border: 7px solid rgba(0, 255, 0, 0.774);
+    //border: 7px solid rgba(0, 255, 0, 0.774);
+    border: 7px solid rgb(56, 142, 80);
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
     filter: drop-shadow(8px 8px 10px rgba(0, 255, 0, 0.288));
     animation: border-pulsate 2.45s infinite;

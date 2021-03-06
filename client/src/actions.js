@@ -38,7 +38,7 @@ export async function deleteFriendship(id) {
 }
 
 export async function postNewMessage(mostRecenteMessage) {
-    //console.log("Action postNewMessage!");
+    console.log("Action postNewMessage!");
     return {
         type: "POST_NEW_MESSAGE",
         message: mostRecenteMessage,
@@ -58,16 +58,16 @@ export async function deleteMessage(messageId) {
     };
 }
 
-export async function deletePrivateMessage(messageId) {
-    //console.log("Action deletePrivateMessage!");
-    await axios.post("/privatemessage/delete", {
-        message: messageId,
-    });
-    //console.log("Action POST /privatemessage/delete messageId: ", messageId);
+export async function deletePrivateMessage(privateMessageId) {
+    console.log("Action deletePrivateMessage!");
 
+    /* await axios.post("/privatemessage/delete", {
+        message: privateMessageId,
+    }); */
+    //console.log("Action POST /privatemessage/delete messageId: ", messageId);
     return {
         type: "DELETE_PRIVATE_MESSAGE",
-        privatemessage: messageId,
+        privatemessage: privateMessageId,
     };
 }
 
@@ -87,15 +87,15 @@ export async function getOnlineUsersList(onlineUsers) {
     };
 }
 
-/* export async function postNewPrivateMessage(newPrivateMessage) {
-    //console.log("Action getNewPrivateMessages!");
+export async function postNewPrivateMessage(newPrivateMessage) {
+    console.log("Action postNewPrivateMessages!");
     console.log("Action mostRecentePrivateMessage: ", newPrivateMessage);
 
     return {
         type: "POST_NEW_PRIVATE_MESSAGE",
         privateMessage: newPrivateMessage,
     };
-} */
+}
 
 /* export async function addMostRecentPrivateMessages(mostRecentPrivateMessages) {
     //console.log("Action addMostRecentPrivateMessages!");
@@ -109,17 +109,22 @@ export async function getOnlineUsersList(onlineUsers) {
     };
 } */
 
-export async function addMostRecentPrivateMessages(id) {
-    //console.log("Action addMostRecentPrivateMessages!");
-    const { data } = await axios.get(`/message/private/${id}`);
-    //console.log("Action GET /message/private/:id data: ", data.newRows);
+export async function addMostRecentPrivateMessages(mostRecentPrivateMessages) {
+    console.log("Action addMostRecentPrivateMessages!");
+    console.log(
+        "Action addMostRecentPrivateMessages: ",
+        mostRecentPrivateMessages
+    );
+    //const { data } = await axios.get(`/privatemessage/${id}`);
+    //console.log("Action GET /privatemessage/:id data.newRows: ", data.newRows);
 
     return {
         type: "ADD_MOST_RECENT_PRIVATE_MESSAGES",
-        latestPrivateMessages: data.newRows,
+        latestPrivateMessages: mostRecentPrivateMessages,
     };
 }
-
+/* 
+//without socket.io
 export async function postNewPrivateMessage(message, otherUserId) {
     //console.log("Action postNewPrivateMessage!");
     const { data } = await axios.post("/message/private", {
@@ -132,7 +137,7 @@ export async function postNewPrivateMessage(message, otherUserId) {
         type: "POST_NEW_PRIVATE_MESSAGE",
         privateMessage: data.newRows,
     };
-}
+} */
 
 export async function getWallPosts(id) {
     //console.log("Action addMostRecentPrivateMessages!");

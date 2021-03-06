@@ -264,7 +264,7 @@ module.exports.getMostRecentPrivateMessages = (senderId, recipientId) => {
     WHERE (sender_id = ($1) AND recipient_id = ($2))
     OR (sender_id = ($2) AND recipient_id = ($1))
     ORDER BY private_messages.created_at DESC
-    LIMIT 15`;
+    LIMIT 55`;
     const params = [senderId, recipientId];
     return db.query(q, params);
 };

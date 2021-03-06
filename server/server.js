@@ -758,9 +758,10 @@ app.get("/friends-wannabes", function (req, res) {
         });
 });
 
-app.get("/message/private/:id", function (req, res) {
+/* app.get("/message/private/:id", function (req, res) {
     const senderId = req.session.userId;
     const recipientId = req.params.id;
+    console.log("/privatemessage/:id: ", senderId, recipientId);
 
     db.getMostRecentPrivateMessages(senderId, recipientId)
         .then(({ rows }) => {
@@ -768,13 +769,13 @@ app.get("/message/private/:id", function (req, res) {
 
             const newRows = rows
                 .map((obj) => ({
-                    senderId,
-                    recipientId,
+                    senderIdPM: senderId,
+                    recipientIdPM: recipientId,
                     messageId: obj.id,
-                    name: obj.first + " " + obj.last,
-                    profile_pic: obj.profile_pic,
-                    message: obj.message,
-                    timestamp:
+                    senderNamePM: obj.first + " " + obj.last,
+                    senderProfile_picPM: obj.profile_pic,
+                    privateMessage: obj.message,
+                    privateMessageDateTime:
                         "on " +
                         ("" + obj.created_at + "").substring(0, 15) +
                         " at " +
@@ -787,14 +788,15 @@ app.get("/message/private/:id", function (req, res) {
         })
         .catch((err) => {
             console.error(
-                "error in GET/message/private/:id db.getMostRecentPrivateMessages catch: ",
+                "error in GET/privatemessage/:id db.getMostRecentPrivateMessages catch: ",
                 err
             );
             res.json({ error: true });
         });
-});
+}); */
 
-app.post("/message/private", function (req, res) {
+//app.post("/message/private", function (req, res) {
+app.post("/privatemessage", function (req, res) {
     const senderId = req.session.userId;
     //console.log("senderId ", senderId);
     const { recipientId, message } = req.body;
@@ -843,8 +845,11 @@ app.post("/message/private", function (req, res) {
 });
 
 app.post("/privatemessage/delete", function (req, res) {
-    const messageId = req.body.message;
-    db.deletePrivateMessage(messageId)
+    console.log('app.post("/privatemessage/delete"');
+    const privateMessageId = req.body.message;
+    console.log("Server req.body :", req.body);
+    console.log("Server req.body.message :", req.body.message);
+    db.deletePrivateMessage(privateMessageId)
         .then(({ rows }) => {
             res.json({ rows });
         })
@@ -975,6 +980,7 @@ let onlineUsers = []; // keeps track of all users currently online
 //let sockets = {};
 //let users = {};
 let socketToIds = {};
+let recipientIdPM;
 
 io.on("connection", (socket) => {
     // => event listener
@@ -1080,6 +1086,7 @@ io.on("connection", (socket) => {
                 );
             });
     });
+
     socket.on("notification friend request revoked", (recipientId) => {
         db.getUserProfile(userId)
             .then(({ rows }) => {
@@ -1163,15 +1170,10 @@ io.on("connection", (socket) => {
                         });
 
                         // sends a message to all sockets EXCEPT your own
-                        socket.broadcast.emit(
-                            "notification new chat message",
-                            {
-                                senderId: socket.request.session.userId,
-                                senderName: name,
-                            }
-                        );
-
-                        
+                        socket.broadcast.emit("notification new chat message", {
+                            senderId: socket.request.session.userId,
+                            senderName: name,
+                        });
                     })
                     .catch((err) => {
                         console.error(
@@ -1195,79 +1197,175 @@ io.on("connection", (socket) => {
     const myUserId = onlineUsers[0];
     const otherUserId = onlineUsers[1];
     console.log("myUserId: ", myUserId);
-    console.log("otherUserId: ", otherUserId);
+    console.log("otherUserId: ", otherUserId); */
 
-    //const userIdPrivate = req.session.userId;
-    db.getMostRecentPrivateMessages(myUserId, otherUserId)
-        .then(({ rows }) => {
-            console.log("rows getMostRecentPrivateMessages: ", rows);
-            //const senderId = userId;
-            //console.log("userID: ", senderId);
-
-            const newRows = rows.map((obj) => ({
-                senderId: obj.id,
-                name: obj.first + " " + obj.last,
-                profile_pic: obj.profile_pic,
-                message: obj.message,
-                timestamp:
-                    "on " +
-                    ("" + obj.created_at + "").substring(0, 15) +
-                    " at " +
-                    ("" + obj.created_at + "").substring(16, 24),
-            }));
-            console.log("newRows: ", newRows);
-
-            //socket.emit("most recent private messages", newRows);
-            //client.emit("most recent private messages", newRows);
-            //console.log("from: ", newRows[0].senderId);
-            //console.log("to socketId: ", socket.id);
-            //io.to(socket.id).emit("most recent private messages", newRows);
-
-            io.sockets.sockets
-                .get(socket.id)
-                .emit("most recent private messages", newRows);
-        })
-        .catch((err) => {
-            console.error(
-                `error in [io.on] db.getMostRecentPrivateMessages catch: `,
-                err
-            );
-        }); */
-
-    /* socket.on("new private message", (message, recipientId) => {
-        console.log("received message: ", message);
-        console.log("received recipientId: ", recipientId);
-        const senderId = userId;
-        db.insertNewPrivateMessage(senderId, recipientId, message)
+    socket.on("get most recent private messages", (recipientId) => {
+        recipientIdPM = recipientId;
+        const senderIdPM = userId;
+        /* console.log(
+            "Server senderIdPM->recipientId: ",
+            senderIdPM,
+            recipientIdPM
+        ); */
+        db.getMostRecentPrivateMessages(senderIdPM, recipientIdPM)
             .then(({ rows }) => {
-                //console.log("userId/senderId: ", senderId);
-                //console.log("private rows: ", rows);
-                //const id = rows[0].id;
+                //console.log("rows getMostRecentPrivateMessages: ", rows);
+
+                const newRows = rows
+                    .map((obj) => ({
+                        privateMessageId: obj.id,
+                        recipientIdPM,
+                        senderIdPM,
+                        senderNamePM: obj.first + " " + obj.last,
+                        senderProfile_picPM: obj.profile_pic,
+                        privateMessage: obj.message,
+                        privateMessageDateTime:
+                            "on " +
+                            ("" + obj.created_at + "").substring(0, 15) +
+                            " at " +
+                            ("" + obj.created_at + "").substring(16, 24),
+                    }))
+                    .reverse();
+                //console.log("newRows: ", newRows);
+                socket.emit("most recent private messages", newRows);
+
+                // message to a specific socket
+                /* for (const key in socketToIds) {
+                    //console.log("key: ", key);
+                    if (socketToIds[key] == recipientIdPM) {
+                        io.sockets.sockets
+                            .get(key)
+                            .emit("most recent private messages", newRows);
+                    }
+                } */
+            })
+            .catch((err) => {
+                console.error(
+                    `error in [io.on] db.getMostRecentPrivateMessages catch: `,
+                    err
+                );
+            });
+    });
+
+    socket.on("new private message", (message) => {
+        const messagePM = message.message;
+        const senderIdPM = userId;
+        const recipientIdPM = message.recipientId;
+        db.insertNewPrivateMessage(senderIdPM, recipientIdPM, messagePM)
+            .then(({ rows }) => {
+                console.log("private rows: ", rows);
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
                 const createdAt = "on " + date + " at " + time;
                 //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
-                db.getUserProfile(userId)
+                /* const privateMessageId = rows[0].id;
+                db.getNewPrivateMessageInfo(privateMessageId)
+                    .then(({ rows }) => {
+                        console.log("rows post getNewPrivateMessage: ", rows);
+
+                        const newRows = rows
+                            .map((obj) => ({
+                                privateMessageId: obj.id,
+                                recipientIdPM: Number(recipientIdPM),
+                                senderIdPM,
+                                senderNamePM: obj.first + " " + obj.last,
+                                senderProfile_picPM: obj.profile_pic,
+                                privateMessage: obj.message,
+                                privateMessageDateTime:
+                                    "on " +
+                                    ("" + obj.created_at + "").substring(
+                                        0,
+                                        15
+                                    ) +
+                                    " at " +
+                                    ("" + obj.created_at + "").substring(
+                                        16,
+                                        24
+                                    ),
+                            }))
+                            .reverse();
+                        console.log("newRows: ", newRows);
+
+                        // message to a specific socket
+                        for (const key in socketToIds) {
+                            //console.log("key: ", key);
+                            if (socketToIds[key] == recipientIdPM) {
+                                io.sockets.emit(
+                                    "new private message and users profiles",
+                                    newRows[0]
+                                );
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/message/private db.insertNewPrivateMessage catch: ",
+                            err
+                        );
+                        //res.json({ error: true });
+                    }); */
+
+                db.getUserProfile(senderIdPM)
                     .then(({ rows }) => {
                         //console.log("getUserProfile rows: ", rows);
                         const name = rows[0].first + " " + rows[0].last;
-                        //console.log("name: ", name);
 
                         // emit a message back to the client
-                        io.sockets.emit("new message and user profile", {
-                            message,
-                            id: rows[0].id,
-                            profile_pic: rows[0].profile_pic,
-                            name,
-                            timestamp: createdAt,
-                        });
 
-                        //console.log("socket.id: ", socket.id);
-                        //console.log("id: ", rows[0].id);
+                        /* io.sockets.emit(
+                            "new private message and users profiles",
+                            {
+                                message,
+                                id: rows[0].id,
+                                profile_pic: rows[0].profile_pic,
+                                name,
+                                timestamp: createdAt,
+                            }
+                        ); */
+
+                        //console.log("socket.id(senderIdPM): ", socket.id);
+
+                        for (const key in socketToIds) {
+                            //console.log("key: ", key);
+                            if (socketToIds[key] == recipientIdPM) {
+                                io.sockets.emit(
+                                    "new private message and users profiles",
+                                    {
+                                        privateMessage: message.message,
+                                        recipientIdPM,
+                                        senderProfile_picPM:
+                                            rows[0].profile_pic,
+                                        privateMessageDateTime: createdAt,
+                                        senderIdPM,
+                                        senderNamePM: name,
+                                    }
+                                );
+                            }
+                        }
 
                         // message to a specific socket
-                        io.sockets.sockets
+                        /* for (const key in socketToIds) {
+                            //console.log("key: ", key);
+                            if (socketToIds[key] == recipientIdPM) {
+                                io.sockets.sockets
+                                    .get(key)
+                                    .emit(
+                                        "new private message and users profiles",
+                                        {
+                                            privateMessage: message.message,
+                                            recipientIdPM,
+                                            senderProfile_picPM:
+                                                rows[0].profile_pic,
+                                            privateMessageDateTime: createdAt,
+                                            senderIdPM,
+                                            senderNamePM: name,
+                                        }
+                                    );
+                            }
+                        } */
+
+                        /* io.sockets.sockets
                             .get(socket.id)
                             .emit("new private message and user profile", {
                                 message,
@@ -1275,10 +1373,10 @@ io.on("connection", (socket) => {
                                 profile_pic: rows[0].profile_pic,
                                 name,
                                 timestamp: createdAt,
-                            });
+                            }); */
 
                         // sending to individual socketid (private message)
-                        io.to(socket.id).emit(
+                        /* io.to(socket.id).emit(
                             "new private message and user profile",
                             {
                                 message,
@@ -1287,7 +1385,7 @@ io.on("connection", (socket) => {
                                 name,
                                 timestamp: createdAt,
                             }
-                        );
+                        ); */
                     })
                     .catch((err) => {
                         console.error(
@@ -1302,7 +1400,18 @@ io.on("connection", (socket) => {
                     err
                 );
             });
-    }); */
+    });
+
+    socket.on("delete private message", (privateMessageId) => {
+        //console.log("Server DELETE PM :", privateMessageId);
+        for (const key in socketToIds) {
+            if (socketToIds[key] == recipientIdPM) {
+                io.sockets.emit("delete private message", {
+                    privateMessageId,
+                });
+            }
+        }
+    });
 }); // close io.on("connection")
 
 /* 

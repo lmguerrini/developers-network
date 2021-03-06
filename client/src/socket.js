@@ -4,8 +4,9 @@ import {
     postNewMessage,
     addMostRecentMessages,
     getOnlineUsersList,
-    //postNewPrivateMessage,
-    //addMostRecentPrivateMessages,
+    postNewPrivateMessage,
+    addMostRecentPrivateMessages,
+    deletePrivateMessage,
 } from "./actions";
 import toaster from "toasted-notes";
 import { MdNotificationsActive } from "react-icons/md";
@@ -27,6 +28,7 @@ export const init = (store) => {
 
     // this file will RECEIVE messaged from the server
     socket.on("new message and user profile", (mostRecenteMessage) => {
+        console.log("Socket new message and user profile!");
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
         console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
@@ -55,16 +57,16 @@ export const init = (store) => {
     socket.on("10 most recent messages", (tenMostRecentMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-        //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
+        console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
         store.dispatch(addMostRecentMessages(tenMostRecentMessages.reverse()));
     });
 
-    /* socket.on("new private message and user profile", (newPrivateMessage) => {
+    socket.on("new private message and users profiles", (newPrivateMessage) => {
         console.log("socket.js newPrivateMessage: ", newPrivateMessage);
-        store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "postNewMessage": name of my action creator
-    }); */
+        store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "postNewPrivateMessage": name of my action creator
+    });
 
-    /* socket.on("most recent private messages", (mostRecentPrivateMessages) => {
+    socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
         console.log(
@@ -72,9 +74,14 @@ export const init = (store) => {
             mostRecentPrivateMessages
         );
         store.dispatch(
-            addMostRecentPrivateMessages(mostRecentPrivateMessages.reverse())
+            addMostRecentPrivateMessages(mostRecentPrivateMessages)
         );
-    }); */
+    });
+
+    socket.on("delete private message", (privateMessageId) => {
+        console.log("socket.js privateMessageId to delete: ", privateMessageId);
+        store.dispatch(deletePrivateMessage(privateMessageId)); 
+    });
 
     socket.on("notification friend request", (notificationFriendRequest) => {
         const pushNotificationText = `You have just got a new friend request from `;

@@ -10,7 +10,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 export default function Chat() {
     // retrieve chat messages from Redux and rendere them
     const chatMessages = useSelector((state) => state && state.messages);
-    //console.log("chatoroom chatMessages: ", chatMessages);
+    console.log("chatoroom chatMessages: ", chatMessages);
 
     const dispatch = useDispatch();
 
@@ -20,6 +20,7 @@ export default function Chat() {
     // post new message
     const handlekeyDown = (e) => {
         if (e.key === "Enter") {
+            console.log("About to emit new chat msg from Chat.js..");
             e.preventDefault();
 
             // NB: we're going to send messages off using socket instead of axios
@@ -186,7 +187,7 @@ export default function Chat() {
                             <textarea
                                 id="chatTextarea"
                                 rows="5"
-                                cols="100"
+                                cols="101"
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDown}
                             />

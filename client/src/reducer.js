@@ -40,7 +40,7 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "POST_NEW_MESSAGE") {
-        //console.log("Reducer POST_NEW_MESSAGE");
+        console.log("Reducer POST_NEW_MESSAGE");
 
         state = {
             ...state,
@@ -49,7 +49,8 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "DELETE_MESSAGE") {
-        //console.log("Reducer DELETE_MESSAGE");
+        console.log("Reducer DELETE_MESSAGE");
+        console.log("Reducer DELETE_MESSAGE state BEFORE :", state);
 
         state = {
             ...state,
@@ -57,20 +58,46 @@ export function reducer(state = {}, action) {
                 return deleteMessage.id != action.message;
             }),
         };
+        console.log("Reducer DELETE_MESSAGE state AFTER :", state);
     }
 
     if (action.type == "DELETE_PRIVATE_MESSAGE") {
-        //console.log("Reducer DELETE_PRIVATE_MESSAGE");
+        console.log("Reducer DELETE_PRIVATE_MESSAGE");
+
+        /* const privateMessagesFiltered = state.privateMessages.filter(
+            (deletePrivateMessage) =>
+                deletePrivateMessage.privateMessageId ===
+                action.privateMessage
+        ); */
 
         state = {
             ...state,
             privateMessages: state.privateMessages.filter(
                 (deletePrivateMessage) => {
                     return (
-                        deletePrivateMessage.messageId != action.privatemessage
+                        deletePrivateMessage.privateMessageId !=
+                        action.privateMessage
                     );
                 }
             ),
+            /* privateMessages: state.privateMessages.reduce(
+                (p, c) => (
+                    c.privateMessageId !== action.privateMessage && p.push(c), p
+                ),
+                []
+            ), */
+            /* privateMessages: privateMessagesFiltered.forEach((f) =>
+                state.privateMessages.splice(
+                    state.privateMessages.findIndex(
+                        (e) => e.privateMessageId === f.privateMessageId
+                    ),
+                    1
+                )
+            ), */
+            /* privateMessages: [
+                ...state.privateMessages.slice(0, action.privateMessage),
+                ...state.privateMessages.slice(action.privateMessage + 1),
+            ], */
         };
     }
 
@@ -113,23 +140,23 @@ export function reducer(state = {}, action) {
     } */
 
     if (action.type == "ADD_MOST_RECENT_PRIVATE_MESSAGES") {
-        //console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
+        console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
 
         state = {
             ...state,
             privateMessages: action.latestPrivateMessages,
         };
-        console.log("reducer recent private msgs state: ", state);
+        console.log("Reducer recent private msgs state: ", state);
     }
 
     if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
-        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
+        console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
 
+        console.log("Reducer POST_NEW_PRIVATE_MESSAGE state: ", state);
         state = {
             ...state,
             privateMessages: [...state.privateMessages, action.privateMessage],
         };
-        //console.log("reducer new private msg state: ", state);
     }
 
     if (action.type == "GET_WALL_POSTS") {

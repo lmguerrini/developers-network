@@ -1,29 +1,41 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-//import { socket } from "./socket";
+import { socket } from "./socket";
 import { Link } from "react-router-dom";
-import {
+/* import {
     addMostRecentPrivateMessages,
     postNewPrivateMessage,
     deletePrivateMessage,
-} from "./actions";
+} from "./actions"; */
 import { RiDeleteBinLine } from "react-icons/ri";
 //import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
+    //console.log("PrivateMessages props: ", props);
     const privateChatMessages = useSelector(
         (state) => state && state.privateMessages
     );
     console.log("private chatMessages: ", privateChatMessages);
 
-    const dispatch = useDispatch();
-    const otherUserId = props.match.params.id;
+    //const dispatch = useDispatch(); // delete PM
+    const recipientId = props.match.params.id;
+    console.log("PrivateMessages recipientId: ", recipientId);
+    //var socket = io.connect("/privatemessage", { query: otherUserId });
 
     useEffect(() => {
         let abort;
         (async () => {
             if (!abort) {
-                dispatch(addMostRecentPrivateMessages(otherUserId));
+                console.log("PrivateMessages useEffect");
+                /* socket.emit("add recent private messages", {
+                    //senderId: userId,
+                    recipientId: otherUserId,
+                }); */
+                socket.emit(
+                    "get most recent private messages",
+                    Number(recipientId)
+                );
+                //dispatch(addMostRecentPrivateMessages(recipientId));
             }
         })();
         return () => {
@@ -32,7 +44,7 @@ export default function PrivateMessages(props) {
         };
     }, []);
 
-    // post new messages
+    // post new private messages
     const handlekeyDownPrivate = (e) => {
         //console.log("private e value: ", e.target.value);
         if (e.key === "Enter") {
@@ -41,12 +53,12 @@ export default function PrivateMessages(props) {
 
             // socket.emit will send a message to the server
             //socket.emit("new private message", message, otherUserId);
-            /* socket.emit("new private message", {
-                message: e.target.value,
-                senderId: userId,
-                recipientId: otherUserId,
-            }); */
-            dispatch(postNewPrivateMessage(message, otherUserId));
+            socket.emit("new private message", {
+                message,
+                //senderId: userId,
+                recipientId,
+            });
+            //dispatch(postNewPrivateMessage(message, otherUserId));
             e.target.value = "";
         }
     };
@@ -102,8 +114,10 @@ export default function PrivateMessages(props) {
                                             <div className="imgNameWrap">
                                                 <img
                                                     className="profile_pic"
-                                                    src={message.profile_pic}
-                                                    alt={message.name}
+                                                    src={
+                                                        message.senderProfile_picPM
+                                                    }
+                                                    alt={message.senderNamePM}
                                                     /* alt={`${message.first} ${message.last}`} */
                                                 />
                                                 {/* <p>
@@ -115,13 +129,14 @@ export default function PrivateMessages(props) {
                                             {/* </Link> */}
                                             <p className="messageDateTimeDeleteBtnWrapPM">
                                                 <b id="messageName">
-                                                    {message.name}
+                                                    {message.senderNamePM}&nbsp;
                                                 </b>{" "}
                                                 <small id="uploaderSigns">
                                                     ❮
                                                 </small>
                                                 &nbsp;
-                                                {message.timestamp}&nbsp;
+                                                {message.privateMessageDateTime}
+                                                &nbsp;
                                                 <small id="uploaderSigns">
                                                     ❯
                                                 </small>
@@ -143,11 +158,17 @@ export default function PrivateMessages(props) {
                                                 <RiDeleteBinLine
                                                     className="deleteMessageBtn"
                                                     /* id="deleteAccount" */
-                                                    onClick={() =>
+                                                    /* onClick={() =>
                                                         dispatch(
                                                             deletePrivateMessage(
-                                                                message.messageId
+                                                                message.privateMessageId
                                                             )
+                                                        )
+                                                    } */
+                                                    onClick={() =>
+                                                        socket.emit(
+                                                            "delete private message",
+                                                            message.privateMessageId
                                                         )
                                                     }
                                                 />
@@ -160,27 +181,28 @@ export default function PrivateMessages(props) {
                                             >
                                                 <pre className="prettyprint">
                                                     <code className="language-javascript">
-                                                        {message.message.startsWith(
+                                                        {message.privateMessage.startsWith(
                                                             "https://"
                                                         ) ? (
                                                             <a
                                                                 href={
-                                                                    message.message
+                                                                    message.privateMessage
                                                                 }
                                                                 target="_blank"
                                                                 rel="noreferrer"
                                                             >
                                                                 {
-                                                                    message.message
+                                                                    message.privateMessage
                                                                 }
                                                             </a>
                                                         ) : (
                                                             <span>
                                                                 {
-                                                                    message.message
+                                                                    message.privateMessage
                                                                 }
                                                             </span>
                                                         )}
+                                                        {/* {message.privateMessage} */}
                                                     </code>
 
                                                     {/* {message.message} */}
@@ -194,7 +216,7 @@ export default function PrivateMessages(props) {
                             <textarea
                                 id="chatTextarea"
                                 rows="5"
-                                cols="98"
+                                cols="101"
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDownPrivate}
                             />
@@ -205,7 +227,7 @@ export default function PrivateMessages(props) {
                             </button>
                         </div> */}
                         <div id="chatbuttonWrap">
-                            <Link to={`/user/${otherUserId}`}>
+                            <Link to={`/user/${recipientId}`}>
                                 <button className="friendButton">
                                     Close Private Messages Chat
                                 </button>
