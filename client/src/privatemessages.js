@@ -26,11 +26,8 @@ export default function PrivateMessages(props) {
         let abort;
         (async () => {
             if (!abort) {
-                console.log("PrivateMessages useEffect");
-                /* socket.emit("add recent private messages", {
-                    //senderId: userId,
-                    recipientId: otherUserId,
-                }); */
+                //console.log("PrivateMessages useEffect");
+
                 socket.emit(
                     "get most recent private messages",
                     Number(recipientId)
@@ -168,9 +165,13 @@ export default function PrivateMessages(props) {
                                                     onClick={() =>
                                                         socket.emit(
                                                             "delete private message",
-                                                            Number(
-                                                                message.privateMessageId
-                                                            )
+                                                            {
+                                                                privateMessageId: Number(
+                                                                    message.privateMessageId
+                                                                ),
+                                                                privateMessageDateTime:
+                                                                    message.privateMessageDateTime,
+                                                            }
                                                         )
                                                     }
                                                 />

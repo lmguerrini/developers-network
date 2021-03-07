@@ -20,7 +20,7 @@ export default function Chat() {
     // post new message
     const handlekeyDown = (e) => {
         if (e.key === "Enter") {
-            console.log("About to emit new chat msg from Chat.js..");
+            //console.log("About to emit new chat msg from Chat.js..");
             e.preventDefault();
 
             // NB: we're going to send messages off using socket instead of axios

@@ -981,6 +981,7 @@ let onlineUsers = []; // keeps track of all users currently online
 //let users = {};
 let socketToIds = {};
 let recipientIdPM;
+let nameRequester;
 
 io.on("connection", (socket) => {
     // => event listener
@@ -1258,6 +1259,8 @@ io.on("connection", (socket) => {
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
                 const createdAt = "on " + date + " at " + time;
+                const messageId = Number(rows[0].id);
+
                 //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
                 /* const privateMessageId = rows[0].id;
                 db.getNewPrivateMessageInfo(privateMessageId)
@@ -1332,6 +1335,8 @@ io.on("connection", (socket) => {
                                 io.sockets.emit(
                                     "new private message and users profiles",
                                     {
+                                        test: "test",
+                                        privateMessageId: messageId,
                                         privateMessage: message.message,
                                         recipientIdPM,
                                         senderProfile_picPM:
@@ -1413,13 +1418,66 @@ io.on("connection", (socket) => {
             });
     });
 
-    socket.on("delete private message", (privateMessageId) => {
-        //console.log("Server DELETE PM :", privateMessageId);
-        for (const key in socketToIds) {
-            if (socketToIds[key] == recipientIdPM) {
-                io.sockets.emit("delete private message", {
-                    privateMessageId,
+    socket.on("delete private message", async (privateMessageIdDateTime) => {
+        //console.log("Server DELETE PM :", privateMessageIdDateTime);
+        const privateMessageId = privateMessageIdDateTime.privateMessageId;
+        const privateMessageDateTime =
+            privateMessageIdDateTime.privateMessageDateTime;
+
+        try {
+            let results = await db.getUserProfile(userId);
+            //console.log("ASYNC results: ", results);
+            for (const rows in results) {
+                if (rows == "rows") {
+                    //console.log("rows :", results.rows[0].first);
+                    nameRequester = results.rows[0].first;
+                }
+            }
+        } catch (err) {
+            console.error(
+                `error in socket.on("delete private message") db.getUserProfile catch: `,
+                err
+            );
+            socket.emit("notification general ERR", {
+                senderNamePM: nameRequester,
+            });
+        }
+
+        if (privateMessageId) {
+            db.deletePrivateMessage(privateMessageId)
+                .then(() => {
+                    for (const key in socketToIds) {
+                        if (socketToIds[key] == recipientIdPM) {
+                            io.sockets.emit("delete private message", {
+                                privateMessageId,
+                            });
+                            socket.emit("notification delete private message", {
+                                senderNamePM: nameRequester,
+                                privateMessageDateTime,
+                            });
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in socket.on('delete private message') db.deletePrivateMessage catch: ",
+                        err
+                    );
+                    socket.emit("notification general ERR", {
+                        senderNamePM: nameRequester,
+                    });
                 });
+        } else {
+            console.log(
+                "Server DELETE PM: failed! 'privateMessageId' = undefined!"
+            );
+
+            for (const key in socketToIds) {
+                if (socketToIds[key] == recipientIdPM) {
+                    socket.emit("notification ERR delete private message", {
+                        senderNamePM: nameRequester,
+                    });
+                }
             }
         }
     });

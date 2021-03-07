@@ -50,7 +50,6 @@ export function reducer(state = {}, action) {
 
     if (action.type == "DELETE_MESSAGE") {
         console.log("Reducer DELETE_MESSAGE");
-        console.log("Reducer DELETE_MESSAGE state BEFORE :", state);
 
         state = {
             ...state,
@@ -58,7 +57,6 @@ export function reducer(state = {}, action) {
                 return deleteMessage.id != action.message;
             }),
         };
-        console.log("Reducer DELETE_MESSAGE state AFTER :", state);
     }
 
     if (action.type == "DELETE_PRIVATE_MESSAGE") {
@@ -76,7 +74,7 @@ export function reducer(state = {}, action) {
                 (deletePrivateMessage) => {
                     return (
                         deletePrivateMessage.privateMessageId !=
-                        action.privateMessage
+                        action.privatemessageToDelete
                     );
                 }
             ),
@@ -146,13 +144,11 @@ export function reducer(state = {}, action) {
             ...state,
             privateMessages: action.latestPrivateMessages,
         };
-        console.log("Reducer recent private msgs state: ", state);
     }
 
     if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
         console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
 
-        console.log("Reducer POST_NEW_PRIVATE_MESSAGE state: ", state);
         state = {
             ...state,
             privateMessages: [...state.privateMessages, action.privateMessage],

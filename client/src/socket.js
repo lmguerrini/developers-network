@@ -31,7 +31,7 @@ export const init = (store) => {
         console.log("Socket new message and user profile!");
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
-        console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
+        //console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "mostRecenteMessage": name of my action creator
     });
 
@@ -57,12 +57,12 @@ export const init = (store) => {
     socket.on("10 most recent messages", (tenMostRecentMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-        console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
+        //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
         store.dispatch(addMostRecentMessages(tenMostRecentMessages.reverse()));
     });
 
     socket.on("new private message and users profiles", (newPrivateMessage) => {
-        console.log("socket.js newPrivateMessage: ", newPrivateMessage);
+        //console.log("socket.js newPrivateMessage: ", newPrivateMessage);
         store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "newPrivateMessage": name of my action creator
     });
 
@@ -94,18 +94,112 @@ export const init = (store) => {
     socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-        console.log(
+        /* console.log(
             "socket.js mostRecentPrivateMessages: ",
             mostRecentPrivateMessages
-        );
-        store.dispatch(
-            addMostRecentPrivateMessages(mostRecentPrivateMessages)
-        );
+        ); */
+        store.dispatch(addMostRecentPrivateMessages(mostRecentPrivateMessages));
     });
 
     socket.on("delete private message", (privateMessageId) => {
-        console.log("socket.js privateMessageId to delete: ", privateMessageId);
-        store.dispatch(deletePrivateMessage(privateMessageId)); 
+        /* console.log(
+            "socket.js privateMessageId to delete1: ",
+            privateMessageId
+        ); */
+
+        const privateMessageIdToDelete = privateMessageId.privateMessageId;
+        store.dispatch(deletePrivateMessage(privateMessageIdToDelete));
+    });
+    socket.on("notification delete private message", (notificationDeletePM) => {
+        /* console.log(
+            'socket.io "notification delete private message :',
+            notificationDeletePM
+        ); */
+        const pushNotificationText1 = `✅ You have just successfully deleted the private message written`;
+        const pushNotificationText2 = ` ${notificationDeletePM.privateMessageDateTime}, `;
+        const senderName = `${notificationDeletePM.senderNamePM}.`;
+        const pushNotification = (
+            <>
+                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
+                &emsp;
+                <span className="pushNotificationFriendRequestText">
+                    {pushNotificationText1}
+                    {pushNotificationText2}
+                    <b>{senderName}</b>
+                </span>
+            </>
+        );
+
+        toaster.notify(pushNotification, {
+            duration: 5000,
+        });
+    });
+
+    socket.on(
+        "notification ERR delete private message",
+        (notificationErrDeletePM) => {
+            /* console.log(
+                'socket.io "notification ERR delete private message" received :',
+                notificationErrDeletePM
+            ); */
+            const pushNotificationText1 = `Ops, something went wrong, `;
+            const senderName = `${notificationErrDeletePM.senderNamePM}.`;
+            const pushNotificationText2 = `Please try again after reloading the page!`;
+            const pushNotification = (
+                <>
+                    <MdNotificationsActive
+                        className="pushNotificationFriendRequestBell"
+                        id="revoked"
+                    />
+                    &emsp;
+                    <span
+                        className="pushNotificationFriendRequestText"
+                        id="revoked"
+                    >
+                        {pushNotificationText1}
+                        <b>{senderName}</b>
+                        <br></br>
+                        {pushNotificationText2}
+                    </span>
+                </>
+            );
+
+            toaster.notify(pushNotification, {
+                duration: 5000,
+            });
+        }
+    );
+
+    socket.on("notification general ERR", (notificationGeneralErrDeletePM) => {
+        /* console.log(
+            'socket.io "notification ERR delete private message" received :',
+            notificationGeneralErrDeletePM
+        ); */
+        const pushNotificationText1 = `Ops, something went wrong, `;
+        const senderName = `${notificationGeneralErrDeletePM.senderNamePM}.`;
+        const pushNotificationText2 = `Please try again.`;
+        const pushNotification = (
+            <>
+                <MdNotificationsActive
+                    className="pushNotificationFriendRequestBell"
+                    id="revoked"
+                />
+                &emsp;
+                <span
+                    className="pushNotificationFriendRequestText"
+                    id="revoked"
+                >
+                    {pushNotificationText1}
+                    <b>{senderName}</b>
+                    <br></br>
+                    {pushNotificationText2}
+                </span>
+            </>
+        );
+
+        toaster.notify(pushNotification, {
+            duration: 5000,
+        });
     });
 
     socket.on("notification friend request", (notificationFriendRequest) => {
