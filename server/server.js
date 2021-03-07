@@ -796,7 +796,7 @@ app.get("/friends-wannabes", function (req, res) {
 }); */
 
 //app.post("/message/private", function (req, res) {
-app.post("/privatemessage", function (req, res) {
+/* app.post("/privatemessage", function (req, res) {
     const senderId = req.session.userId;
     //console.log("senderId ", senderId);
     const { recipientId, message } = req.body;
@@ -842,9 +842,9 @@ app.post("/privatemessage", function (req, res) {
             );
             res.json({ error: true });
         });
-});
+}); */
 
-app.post("/privatemessage/delete", function (req, res) {
+/* app.post("/privatemessage/delete", function (req, res) {
     console.log('app.post("/privatemessage/delete"');
     const privateMessageId = req.body.message;
     console.log("Server req.body :", req.body);
@@ -860,7 +860,7 @@ app.post("/privatemessage/delete", function (req, res) {
             );
             res.json({ error: true });
         });
-});
+}); */
 
 app.post("/message/delete", function (req, res) {
     const messageId = req.body.message;
@@ -1169,7 +1169,7 @@ io.on("connection", (socket) => {
                             timestamp: createdAt,
                         });
 
-                        // sends a message to all sockets EXCEPT your own
+                        // sends a notification to all sockets EXCEPT your own
                         socket.broadcast.emit("notification new chat message", {
                             senderId: socket.request.session.userId,
                             senderName: name,
@@ -1341,6 +1341,17 @@ io.on("connection", (socket) => {
                                         senderNamePM: name,
                                     }
                                 );
+                                // sends a notification to a specific socket
+                                io.sockets.sockets
+                                    .get(key)
+                                    .emit(
+                                        "notification new private chat message",
+                                        {
+                                            senderIdPM:
+                                                socket.request.session.userId,
+                                            senderNamePM: name,
+                                        }
+                                    );
                             }
                         }
 

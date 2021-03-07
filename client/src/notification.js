@@ -1,5 +1,5 @@
 import toaster from "toasted-notes";
-//import "toasted-notes/src/styles.css"; 
+import "toasted-notes/src/styles.css"; 
 
 export default function NotificationToaster() {
 

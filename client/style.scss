@@ -1424,7 +1424,7 @@ button {
 }
 
 #friendsWannabesLink {
-    text-decoration: none;
+    //text-decoration: none;
     text-decoration: underline;
     text-decoration-color: black;
 }
@@ -2127,6 +2127,10 @@ li.L9 {
 
 /* ----section(Notification)---- */
 
+.Toaster__alert {
+    border: 1px solid lime;
+    width: 100%;
+}
 /* .Toaster__alert {
     //background-color: white;
     backdrop-filter: blur(5px);
@@ -2183,11 +2187,13 @@ li.L9 {
     padding: 8px;
     //position: fixed;
     //z-index: 10;
-}
+} */
+
+
 
 .pushNotificationFriendRequestBell {
     font-size: 2.3em;
-    color: white;
+    color: rgb(0, 0, 0);
     //animation:swing 2.6s ease 0s;
     -moz-animation: swing 0.5s infinite linear;
     -o-animation: swing 0.5s infinite linear;
@@ -2218,12 +2224,12 @@ li.L9 {
     font-size: 1em;
     padding-top: 5px;
     font-family: Dejavu Sans, monospace;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 #revoked {
     color: red;
-} */
+}
 
 #test {
     color: red;

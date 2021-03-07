@@ -32,17 +32,17 @@ export const init = (store) => {
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
         console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
-        store.dispatch(postNewMessage(mostRecenteMessage)); // "postNewMessage": name of my action creator
+        store.dispatch(postNewMessage(mostRecenteMessage)); // "mostRecenteMessage": name of my action creator
     });
 
     socket.on("notification new chat message", (notificationNewChatMessage) => {
         const senderName = `${notificationNewChatMessage.senderName}`;
-        const pushNotificationText = ` has just wrote a new chat message. Check it out!`;
+        const pushNotificationText = ` has just written a new message in Chat. Check it out!`;
         const pushNotification = (
             <>
-                <MdNotificationsActive id="pushNotificationBell" />
+                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
                 &emsp;
-                <span id="pushNotificationText">
+                <span className="pushNotificationFriendRequestText">
                     <b>{senderName}</b>
                     {pushNotificationText}
                 </span>
@@ -63,8 +63,33 @@ export const init = (store) => {
 
     socket.on("new private message and users profiles", (newPrivateMessage) => {
         console.log("socket.js newPrivateMessage: ", newPrivateMessage);
-        store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "postNewPrivateMessage": name of my action creator
+        store.dispatch(postNewPrivateMessage(newPrivateMessage)); // "newPrivateMessage": name of my action creator
     });
+
+    socket.on(
+        "notification new private chat message",
+        (notificationNewChatMessage) => {
+            const senderNamePM = `${notificationNewChatMessage.senderNamePM}`;
+            const pushNotificationText1 = ` has just written you a Private Message.`;
+            const pushNotificationText2 = ` Check it out!`;
+            const pushNotification = (
+                <>
+                    <MdNotificationsActive className="pushNotificationFriendRequestBell" />
+                    &emsp;
+                    <span className="pushNotificationFriendRequestText">
+                        <b>{senderNamePM}</b>
+                        {pushNotificationText1}
+                        <br></br>
+                        {pushNotificationText2}
+                    </span>
+                </>
+            );
+
+            toaster.notify(pushNotification, {
+                duration: 5000,
+            });
+        }
+    );
 
     socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)

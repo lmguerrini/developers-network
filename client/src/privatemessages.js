@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux"; // useDispatch
 import { useEffect, useRef } from "react";
 import { socket } from "./socket";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function PrivateMessages(props) {
 
     //const dispatch = useDispatch(); // delete PM
     const recipientId = props.match.params.id;
-    console.log("PrivateMessages recipientId: ", recipientId);
+    //console.log("PrivateMessages recipientId: ", recipientId);
     //var socket = io.connect("/privatemessage", { query: otherUserId });
 
     useEffect(() => {
@@ -168,7 +168,9 @@ export default function PrivateMessages(props) {
                                                     onClick={() =>
                                                         socket.emit(
                                                             "delete private message",
-                                                            message.privateMessageId
+                                                            Number(
+                                                                message.privateMessageId
+                                                            )
                                                         )
                                                     }
                                                 />
