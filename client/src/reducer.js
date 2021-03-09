@@ -49,12 +49,15 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "DELETE_MESSAGE") {
-        console.log("Reducer DELETE_MESSAGE");
+        //console.log("Reducer DELETE_MESSAGE");
 
         state = {
             ...state,
-            messages: state.messages.filter((deleteMessage) => {
-                return deleteMessage.id != action.message;
+            messages: state.messages.filter((deleteChatMessage) => {
+                return (
+                    deleteChatMessage.chatMessageId !=
+                    action.chatMessageToDelete
+                );
             }),
         };
     }

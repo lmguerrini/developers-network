@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
     deletePrivateMessage,
 } from "./actions"; */
 import { RiDeleteBinLine } from "react-icons/ri";
+import { RiGitRepositoryPrivateLine } from "react-icons/ri";
 //import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
@@ -16,6 +17,7 @@ export default function PrivateMessages(props) {
         (state) => state && state.privateMessages
     );
     console.log("private chatMessages: ", privateChatMessages);
+    console.log("private chatMessages PROPS: ", props);
 
     //const dispatch = useDispatch(); // delete PM
     const recipientId = props.match.params.id;
@@ -94,7 +96,9 @@ export default function PrivateMessages(props) {
                             <div className="wallPostsGlassOverlay">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
-                                    &nbsp;Private Messages{" "}
+                                    &nbsp;
+                                    <RiGitRepositoryPrivateLine id="privateChatIcon" />{" "}
+                                    Private Chat{/* Messages */}{" "}
                                     <small id="uploaderSigns">❯</small>
                                 </h1>
                             </div>
@@ -162,7 +166,7 @@ export default function PrivateMessages(props) {
                                                             )
                                                         )
                                                     } */
-                                                    onClick={() =>
+                                                    /* onClick={() =>
                                                         socket.emit(
                                                             "delete private message",
                                                             {
@@ -173,7 +177,44 @@ export default function PrivateMessages(props) {
                                                                     message.privateMessageDateTime,
                                                             }
                                                         )
-                                                    }
+                                                    } */
+                                                    onClick={() => {
+                                                        /* message.privateMessage.toString()
+                                                            .lenght < 150
+                                                            ? window.confirm(
+                                                                  `[PM DELETION] \nAre your sure you want to delete the Private Message ` +
+                                                                  `"${message.privateMessage}"` +
+                                                                      ` written ` +
+                                                                      `${message.privateMessageDateTime}` +
+                                                                      `? \n\nNote: there is no going back! Please be certain.`
+                                                              ) &&
+                                                              socket.emit(
+                                                                  "delete private message",
+                                                                  {
+                                                                      privateMessageId: Number(
+                                                                          message.privateMessageId
+                                                                      ),
+                                                                      privateMessageDateTime:
+                                                                          message.privateMessageDateTime,
+                                                                  }
+                                                              )
+                                                            : */ window.confirm(
+                                                            `[PM DELETION] \nAre your sure you want to delete the Private Message ` +
+                                                                ` written ` +
+                                                                `${message.privateMessageDateTime}` +
+                                                                `? \n\nNote: there is no going back! Please be certain.`
+                                                        ) &&
+                                                            socket.emit(
+                                                                "delete private message",
+                                                                {
+                                                                    privateMessageId: Number(
+                                                                        message.privateMessageId
+                                                                    ),
+                                                                    privateMessageDateTime:
+                                                                        message.privateMessageDateTime,
+                                                                }
+                                                            );
+                                                    }}
                                                 />
                                             </p>
 
@@ -232,7 +273,7 @@ export default function PrivateMessages(props) {
                         <div id="chatbuttonWrap">
                             <Link to={`/user/${recipientId}`}>
                                 <button className="friendButton">
-                                    Close Private Messages Chat
+                                    Close Private {/* Messages */} Chat
                                 </button>
                             </Link>
                         </div>

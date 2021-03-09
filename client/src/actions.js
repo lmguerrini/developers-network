@@ -45,16 +45,16 @@ export async function postNewMessage(mostRecenteMessage) {
     };
 }
 
-export async function deleteMessage(messageId) {
-    //console.log("Action deleteMessage!");
-    await axios.post("/message/delete", {
+export async function deleteMessage(chatMessageId) {
+    //console.log("Action deleteMessage!", chatMessageId);
+    /* await axios.post("/message/delete", {
         message: messageId,
-    });
+    }); */
     //console.log("Action POST /message/delete messageId: ", messageId);
 
     return {
         type: "DELETE_MESSAGE",
-        message: messageId,
+        chatMessageToDelete: chatMessageId,
     };
 }
 

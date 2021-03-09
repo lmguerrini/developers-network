@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import {
     postNewMessage,
     addMostRecentMessages,
+    deleteMessage,
     getOnlineUsersList,
     postNewPrivateMessage,
     addMostRecentPrivateMessages,
@@ -45,6 +46,41 @@ export const init = (store) => {
                 <span className="pushNotificationFriendRequestText">
                     <b>{senderName}</b>
                     {pushNotificationText}
+                </span>
+            </>
+        );
+
+        toaster.notify(pushNotification, {
+            duration: 5000,
+        });
+    });
+
+    socket.on("delete chat message", (chatMessageId) => {
+        /* console.log(
+            "socket.js chatMessageId to delete: ",
+            chatMessageId
+        ); */
+
+        const chatMessageIdToDelete = chatMessageId.chatMessageId;
+        store.dispatch(deleteMessage(chatMessageIdToDelete));
+    });
+
+    socket.on("notification delete chat message", (notificationDeleteChatMessage) => {
+        console.log(
+            'socket.io "notification delete private message :',
+            notificationDeleteChatMessage
+        );
+        const pushNotificationText1 = `✅ You have just successfully deleted the Chat Message written`;
+        const pushNotificationText2 = ` ${notificationDeleteChatMessage.chatMessageDateTime}, `;
+        const senderName = `${notificationDeleteChatMessage.senderName}.`;
+        const pushNotification = (
+            <>
+                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
+                &emsp;
+                <span className="pushNotificationFriendRequestText">
+                    {pushNotificationText1}
+                    {pushNotificationText2}
+                    <b>{senderName}</b>
                 </span>
             </>
         );
@@ -110,12 +146,13 @@ export const init = (store) => {
         const privateMessageIdToDelete = privateMessageId.privateMessageId;
         store.dispatch(deletePrivateMessage(privateMessageIdToDelete));
     });
+
     socket.on("notification delete private message", (notificationDeletePM) => {
         /* console.log(
             'socket.io "notification delete private message :',
             notificationDeletePM
         ); */
-        const pushNotificationText1 = `✅ You have just successfully deleted the private message written`;
+        const pushNotificationText1 = `✅ You have just successfully deleted the Private Message written`;
         const pushNotificationText2 = ` ${notificationDeletePM.privateMessageDateTime}, `;
         const senderName = `${notificationDeletePM.senderNamePM}.`;
         const pushNotification = (

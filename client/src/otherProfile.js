@@ -109,10 +109,16 @@ export default class OtherProfile extends Component {
                                     </div>
                                     <div className="dmWrap">
                                         <Link
-                                            to={`/privatemessage/${this.state.id}`}
+                                            /* to={`/privatemessage/${this.state.id}`} */
+                                            to={{
+                                                pathname: `/privatemessage/${this.state.id}`,
+                                                name:
+                                                    `${this.state.first}` +
+                                                    `${this.state.last}`,
+                                            }}
                                         >
                                             <button className="friendButton">
-                                                Direct Message
+                                                Private Chat
                                             </button>
                                         </Link>
                                     </div>

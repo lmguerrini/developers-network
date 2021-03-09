@@ -364,9 +364,11 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             <Chat
-                                            /* match={props.match}
-                                            key={props.match.url}
-                                            history={props.history} */
+                                                /* match={props.match}
+                                                key={props.match.url}
+                                                history={props.history}
+                                                id={this.state.id}
+                                                name={`${this.state.first} ${this.state.last}`} */
                                             />
                                         </section>
                                     )}
@@ -379,6 +381,7 @@ export default class App extends Component {
                                                 match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
+                                                name={`${this.state.first} ${this.state.last}`}
                                             />
                                         </section>
                                     )}

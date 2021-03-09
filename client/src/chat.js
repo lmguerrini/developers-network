@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 //import { Link } from "react-router-dom";
 import OnlineUsers from "./onlineusers";
-import { deleteMessage } from "./actions";
+//import { deleteMessage } from "./actions";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function Chat() {
@@ -12,7 +12,7 @@ export default function Chat() {
     const chatMessages = useSelector((state) => state && state.messages);
     console.log("chatoroom chatMessages: ", chatMessages);
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     const elemRef = useRef(); // for function
     //this.elemRef = React.createRef(); // for Class
@@ -126,11 +126,30 @@ export default function Chat() {
                                                 <RiDeleteBinLine
                                                     className="deleteMessageBtn"
                                                     /* id="deleteAccount" */
-                                                    onClick={() =>
+                                                    /* onClick={() =>
                                                         dispatch(
                                                             deleteMessage(
                                                                 message.id
                                                             )
+                                                        )
+                                                    } */
+                                                    onClick={() =>
+                                                        /* {
+                                                        window.confirm(
+                                                            `[Chat Message DELETION] \nAre your sure you want to delete the Chat Message ` +
+                                                                ` written ` +
+                                                                `${message.chatMessageDateTime}` +
+                                                                `? \n\nNote: there is no going back! Please be certain.`
+                                                        ) && */
+                                                        socket.emit(
+                                                            "delete chat message",
+                                                            {
+                                                                chatMessageId: Number(
+                                                                    message.chatMessageId
+                                                                ),
+                                                                chatMessageDateTime:
+                                                                    message.chatMessageDateTime,
+                                                            }
                                                         )
                                                     }
                                                 />

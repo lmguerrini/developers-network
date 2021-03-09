@@ -887,7 +887,8 @@ button {
     padding: 6.5px 10px;
     border-radius: 25px;
     font-size: 1.33em;
-    top: 35px;
+    //top: 35px;
+    
 
     &:hover {
         color: rgba(0, 0, 0, 0.445);
@@ -1572,6 +1573,11 @@ button {
     background-color: rgba(0, 0, 0, 0.856);
 }
 
+#privateChatIcon {
+    //font-size:0.85em;
+    transform: translateY(3px);
+}
+
 .chatTextareaContainer {
     background-color: #000000df;
 }
@@ -1593,10 +1599,10 @@ button {
     }
 }
 
-.imgNameWrap {
-    //display: flex;
-    //border: 3px solid lime;
-}
+/* .imgNameWrap {
+    display: flex;
+    border: 3px solid lime;
+} */
 
 /* .imgNameWrap p {
     align-self: center;

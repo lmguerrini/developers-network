@@ -862,7 +862,7 @@ app.get("/friends-wannabes", function (req, res) {
         });
 }); */
 
-app.post("/message/delete", function (req, res) {
+/* app.post("/message/delete", function (req, res) {
     const messageId = req.body.message;
     db.deleteMessage(messageId)
         .then(({ rows }) => {
@@ -875,7 +875,7 @@ app.post("/message/delete", function (req, res) {
             );
             res.json({ error: true });
         });
-});
+}); */
 
 app.get("/wall/posts/:id", function (req, res) {
     //console.log("GET wall post params: ", req.params);
@@ -1121,11 +1121,11 @@ io.on("connection", (socket) => {
 
             const newRows = rows.map((obj) => ({
                 senderId: userId,
-                id: obj.id,
-                name: obj.first + " " + obj.last,
+                chatMessageId: obj.id,
+                senderName: obj.first + " " + obj.last,
                 profile_pic: obj.profile_pic,
                 message: obj.message,
-                timestamp:
+                chatMessageDateTime:
                     "on " +
                     ("" + obj.created_at + "").substring(0, 15) +
                     " at " +
@@ -1150,7 +1150,7 @@ io.on("connection", (socket) => {
         // 1. INSERT new mesage into new "chat_messages" table
         db.insertNewMessage(userId, message)
             .then(({ rows }) => {
-                //const id = rows[0].id;
+                const chatMessageId = rows[0].id;
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
@@ -1159,15 +1159,15 @@ io.on("connection", (socket) => {
                 db.getUserProfile(userId)
                     .then(({ rows }) => {
                         //console.log("getUserProfile rows: ", rows);
-                        const name = rows[0].first + " " + rows[0].last;
+                        const senderName = rows[0].first + " " + rows[0].last;
 
                         // 2. emit a message back to the client
                         io.sockets.emit("new message and user profile", {
                             message,
-                            id: rows[0].id,
+                            chatMessageId,
                             profile_pic: rows[0].profile_pic,
-                            name,
-                            timestamp: createdAt,
+                            senderName,
+                            chatMessageDateTime: createdAt,
                         });
 
                         // sends a notification to all sockets EXCEPT your own
@@ -1189,6 +1189,61 @@ io.on("connection", (socket) => {
                     err
                 );
             });
+    });
+
+    socket.on("delete chat message", async (chatMessageIdDateTime) => {
+        //console.log("Server DELETE PM :", chatMessageIdDateTime);
+        const chatMessageId = chatMessageIdDateTime.chatMessageId;
+        const chatMessageDateTime = chatMessageIdDateTime.chatMessageDateTime;
+
+        try {
+            let results = await db.getUserProfile(userId);
+            //console.log("ASYNC results: ", results);
+            for (const rows in results) {
+                if (rows == "rows") {
+                    //console.log("rows :", results.rows[0].first);
+                    nameRequester = results.rows[0].first;
+                }
+            }
+        } catch (err) {
+            console.error(
+                `error in socket.on("delete private message") db.getUserProfile catch: `,
+                err
+            );
+            socket.emit("notification general ERR", {
+                senderName: nameRequester,
+            });
+        }
+
+        if (chatMessageId) {
+            db.deleteMessage(chatMessageId)
+                .then(() => {
+                    io.sockets.emit("delete chat message", {
+                        chatMessageId,
+                    });
+                    socket.emit("notification delete chat message", {
+                        senderName: nameRequester,
+                        chatMessageDateTime,
+                    });
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in socket.on('delete chat message') db.deleteMessage catch: ",
+                        err
+                    );
+                    socket.emit("notification general ERR", {
+                        senderName: nameRequester,
+                    });
+                });
+        } else {
+            console.log(
+                "Server DELETE PM: failed! 'chatMessageId' = undefined!"
+            );
+
+            socket.emit("notification ERR delete chat message", {
+                senderName: nameRequester,
+            });
+        }
     });
 
     /* var users = {};
@@ -1254,7 +1309,7 @@ io.on("connection", (socket) => {
         const recipientIdPM = message.recipientId;
         db.insertNewPrivateMessage(senderIdPM, recipientIdPM, messagePM)
             .then(({ rows }) => {
-                console.log("private rows: ", rows);
+                //console.log("private rows: ", rows);
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
@@ -1335,7 +1390,6 @@ io.on("connection", (socket) => {
                                 io.sockets.emit(
                                     "new private message and users profiles",
                                     {
-                                        test: "test",
                                         privateMessageId: messageId,
                                         privateMessage: message.message,
                                         recipientIdPM,
