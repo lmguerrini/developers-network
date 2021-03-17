@@ -10,7 +10,7 @@ export default function Wall({ id, myWall }) {
     const [file, setFile] = useState();
     const error = useSelector((state) => state && state.error);
     const wallPosts = useSelector((state) => state && state.wallPosts);
-    //console.log("wallPosts from wall.js: ", wallPosts);
+    console.log("wallPosts from wall.js: ", wallPosts);
 
     useEffect(() => {
         dispatch(getWallPosts(id));
@@ -63,7 +63,7 @@ export default function Wall({ id, myWall }) {
                                                 {/* <h1>Wall posts</h1> */}
                                                 <div>
                                                     {/* <p id="noPostsYet">No posts yet</p> */}
-                                                    <p>
+                                                    <p id="wallTitle">
                                                         Here you can upload
                                                         something on your wall_
                                                     </p>
@@ -124,9 +124,11 @@ export default function Wall({ id, myWall }) {
                                     <div className="wallHistoryContainer">
                                         {wallPosts &&
                                             wallPosts.map((post, index) => (
-                                                <div id="imgLatest" key={index}>
+                                                <div
+                                                    id="wallHistoryElements"
+                                                    key={index}
+                                                >
                                                     <div>
-                                                        {/* <div className="imgNameWrap"> */}
                                                         <div className="wallPostsPicContainer">
                                                             <img
                                                                 src={post.image}

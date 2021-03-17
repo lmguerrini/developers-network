@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux"; // useDispatch
 import { socket } from "./socket"; // to send messages to the server
 import { useEffect } from "react";
 import { useRef } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import OnlineUsers from "./onlineusers";
 //import { deleteMessage } from "./actions";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -10,7 +10,6 @@ import { RiDeleteBinLine } from "react-icons/ri";
 export default function Chat() {
     // retrieve chat messages from Redux and rendere them
     const chatMessages = useSelector((state) => state && state.messages);
-    console.log("chatoroom chatMessages: ", chatMessages);
 
     //const dispatch = useDispatch();
 
@@ -78,31 +77,43 @@ export default function Chat() {
                                     <div id="imgLatest" key={index}>
                                         <div>
                                             {/* <h2>These people are currently your friends</h2> */}
-                                            {/* <Link to={"/user/" + message.id}> */}
+
                                             <div className="imgNameWrap">
-                                                <img
-                                                    className="profile_pic"
-                                                    src={message.profile_pic}
-                                                    alt={message.name}
-                                                    /* alt={`${message.first} ${message.last}`} */
-                                                />
+                                                <Link
+                                                    to={
+                                                        "/user/" +
+                                                        message.senderId
+                                                    }
+                                                >
+                                                    <img
+                                                        className="profile_pic"
+                                                        src={
+                                                            message.profile_pic
+                                                        }
+                                                        alt={message.name}
+                                                        /* alt={`${message.first} ${message.last}`} */
+                                                    />
+                                                </Link>
                                                 {/* <p>
                                                         <b id="messageName">
                                                             {message.name}
                                                         </b>
                                                     </p> */}
                                             </div>
-                                            {/* </Link> */}
+
                                             <p className="messageDateTimeDeleteBtnWrap">
                                                 <b id="messageName">
-                                                    {message.name}&emsp;
+                                                    &nbsp;{message.senderName}
+                                                    &emsp;
                                                 </b>{" "}
                                                 <span>
                                                     <small id="uploaderSigns">
                                                         ❮
                                                     </small>
                                                     &nbsp;
-                                                    {message.timestamp}
+                                                    {
+                                                        message.chatMessageDateTime
+                                                    }
                                                     &nbsp;
                                                     <small id="uploaderSigns">
                                                         ❯
@@ -165,28 +176,29 @@ export default function Chat() {
                                                         {message.message.startsWith(
                                                             "https://"
                                                         ) ? (
-                                                            <a
-                                                                href={
-                                                                    message.message
-                                                                }
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                            >
-                                                                {
-                                                                    message.message
-                                                                }
-                                                            </a>
-                                                        ) : (
-                                                            <span>
-                                                                {
-                                                                    message.message
-                                                                }
-                                                            </span>
-                                                        )}
-                                                    </code>
-
-                                                    {/* {message.message} */}
+                                                                <a
+                                                                    href={
+                                                                        message.message
+                                                                    }
+                                                                    target="_blank"
+                                                                    rel="noreferrer"
+                                                                    className="chatLink"
+                                                                >
+                                                                    {
+                                                                        message.message
+                                                                    }
+                                                                </a>
+                                                            ) : (
+                                                                <span>
+                                                                    {
+                                                                        message.message
+                                                                    }
+                                                                </span>
+                                                            )}
+                                                    </code>{" "}
                                                 </pre>
+
+                                                {/* {message.message} */}
 
                                                 {/* <RiDeleteBinLine
                                                     onClick={() =>

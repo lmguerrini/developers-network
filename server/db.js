@@ -214,6 +214,15 @@ module.exports.getMostRecentMessages = () => {
     return db.query(q);
 };
 
+module.exports.getChatMessageUserId = () => {
+    const q = `SELECT users.id as userid FROM users
+    JOIN chat_messages
+    ON (chat_messages.user_id = users.id)
+    ORDER BY chat_messages.created_at DESC
+    LIMIT 25`;
+    return db.query(q);
+};
+
 /* module.exports.getMostRecentMessages = (userId) => {
     const q = `SELECT users.id, users.first, users.last, users.profile_pic, chat_messages.id, chat_messages.message, chat_messages.created_at
     FROM chat_messages
@@ -246,7 +255,7 @@ module.exports.deletePrivateMessage = (messageId) => {
     return db.query(q, params);
 };
 
-module.exports.getNewPrivateMessageInfo = (messageId) => {
+/* module.exports.getNewPrivateMessageInfo = (messageId) => {
     const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
     FROM private_messages
     JOIN users
@@ -254,7 +263,7 @@ module.exports.getNewPrivateMessageInfo = (messageId) => {
     WHERE private_messages.id = ($1)`;
     const params = [messageId];
     return db.query(q, params);
-};
+}; */
 
 module.exports.getMostRecentPrivateMessages = (senderId, recipientId) => {
     const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
@@ -282,3 +291,32 @@ module.exports.postWallPost = (userId, url, description) => {
     const params = [userId, url, description];
     return db.query(q, params);
 };
+
+// notifications
+module.exports.getMostRecentPMNotifications = (recipientId) => {
+    const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
+    FROM private_messages
+    JOIN users
+    ON (private_messages.sender_id = users.id)
+    WHERE (recipient_id = ($1))
+    ORDER BY private_messages.created_at DESC
+    LIMIT 15`;
+    const params = [recipientId];
+    return db.query(q, params);
+};
+
+module.exports.getPrivateMessageUserId = () => {
+    const q = `SELECT users.id as userid FROM users
+    JOIN private_messages
+    ON (private_messages.sender_id = users.id)
+    ORDER BY private_messages.created_at DESC
+    LIMIT 15`;
+    return db.query(q);
+};
+
+module.exports.getFriendshipRequestNotifications = (recipientId) => {
+    const q = `SELECT * FROM friendships WHERE (recipient_id = ($1) AND accepted = ('false')) ORDER BY id DESC`;
+    const params = [recipientId];
+    return db.query(q, params);
+};
+

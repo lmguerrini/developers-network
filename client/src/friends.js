@@ -85,7 +85,7 @@ export default function Friends() {
                             {!friends.length != 0 ? (
                                 <pre
                                     style={{
-                                        opacity: '0.8',
+                                        opacity: "0.8",
                                         fontSize: "16px",
                                         paddingLeft: "50%",
                                     }}
@@ -97,7 +97,7 @@ export default function Friends() {
                                 friends &&
                                 friends.map((friend) => (
                                     <div key={friend.id}>
-                                        <div>
+                                        <div className="imgNameAlign">
                                             {/* <p>
                                                 These people are currently your
                                                 friends

@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function OnlineUsers() {
-    const onlineUsers = useSelector((state) => state && state.onlineUsersList);
-    //console.log("onlineUsers: ", onlineUsers);
+    const onlineUsers = useSelector((state) => state && state.onlineUsers);
 
     if (!onlineUsers || !onlineUsers.length) {
         return null;

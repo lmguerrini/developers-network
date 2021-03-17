@@ -55,7 +55,11 @@ export default function FindPeople() {
                         <div className="friendsWrapper">
                             {!query &&
                                 users.map((users, index) => (
-                                    <div id="imgLatest" key={index}>
+                                    <div
+                                        id="imgLatest"
+                                        className="imgNameAlign"
+                                        key={index}
+                                    >
                                         <Link to={"/user/" + users.id}>
                                             {users.profile_pic ? (
                                                 <img

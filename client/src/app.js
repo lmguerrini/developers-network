@@ -11,7 +11,7 @@ import FindPeople from "./findpeople";
 import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
-import NotificationToaster from "./notification";
+import Notifications from "./notifications";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
@@ -22,6 +22,8 @@ import { GrNotification } from "react-icons/gr";
 //import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
 import ParticlesApp from "../public/anim/App[p]/particlesApp";
+import { ParallaxProvider } from "react-scroll-parallax";
+import { Parallax } from "react-scroll-parallax";
 
 // App must be a class component because it needs state and lifecycle methods (componentDidMount)
 export default class App extends Component {
@@ -168,7 +170,15 @@ export default class App extends Component {
                                         className="headerAppGlass matrixCodeContainer matrixCode"
                                         id="particlesApp-js"
                                     >
-                                        {/* <ParticlesApp /> */}
+                                        {/* <ParallaxProvider>
+                                            <Parallax
+                                                className="custom-class"
+                                                y={[-0.5, 10]}
+                                                tagOuter="figure"
+                                            >
+                                                <ParticlesApp />
+                                            </Parallax>
+                                        </ParallaxProvider> */}
                                     </div>
                                     <img
                                         className="theDeveloperNetworkLogo"
@@ -233,8 +243,8 @@ export default class App extends Component {
                                     </p>
                                     <p>
                                         <Link
-                                            to="/notificationToaster"
-                                            id="chatIcon"
+                                            to="/notifications"
+                                            id="notificationIcon"
                                             className="bounce"
                                             /* className="loginLink" */
                                         >
@@ -364,7 +374,7 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             <Chat
-                                                /* match={props.match}
+                                            /* match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
                                                 id={this.state.id}
@@ -387,13 +397,15 @@ export default class App extends Component {
                                     )}
                                 />
                                 <Route
-                                    path="/notificationToaster"
-                                    render={() => (
+                                    path="/notifications"
+                                    render={(props) => (
                                         <section>
-                                            <NotificationToaster
-                                            /* match={props.match}
+                                            <Notifications
+                                                match={props.match}
                                                 key={props.match.url}
-                                                history={props.history} */
+                                                history={props.history}
+                                                name={`${this.state.first} ${this.state.last}`}
+                                                id={this.state.id}
                                             />
                                         </section>
                                     )}

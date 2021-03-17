@@ -40,7 +40,7 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "POST_NEW_MESSAGE") {
-        console.log("Reducer POST_NEW_MESSAGE");
+        //console.log("Reducer POST_NEW_MESSAGE");
 
         state = {
             ...state,
@@ -116,7 +116,7 @@ export function reducer(state = {}, action) {
 
         state = {
             ...state,
-            onlineUsersList: action.onlineUsersList,
+            onlineUsers: action.onlineUsersList,
         };
     }
 
@@ -140,8 +140,17 @@ export function reducer(state = {}, action) {
         console.log("reducer recent private msgs state: ", state);
     } */
 
+    if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
+
+        state = {
+            ...state,
+            privateMessages: [...state.privateMessages, action.privateMessage],
+        };
+    }
+
     if (action.type == "ADD_MOST_RECENT_PRIVATE_MESSAGES") {
-        console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
+        //console.log("Reducer ADD_MOST_RECENT_PRIVATE_MESSAGES");
 
         state = {
             ...state,
@@ -149,12 +158,38 @@ export function reducer(state = {}, action) {
         };
     }
 
-    if (action.type == "POST_NEW_PRIVATE_MESSAGE") {
-        console.log("Reducer POST_NEW_PRIVATE_MESSAGE");
+    /* if (action.type == "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION") {
+        console.log("Reducer POST_NEW_PRIVATE_MESSAGE_NOTIFICATION");
+        console.log("Reducer Array.isArray(state) :", Array.isArray(state));
+        console.log("Reducer typeof(state) :", typeof state);
+        console.log("Reducer PM_NOTIFICATION B state :", state);
 
         state = {
             ...state,
-            privateMessages: [...state.privateMessages, action.privateMessage],
+            privateMessageNotifications: action.privateMessageNotification,
+        };
+        console.log("Reducer PM_NOTIFICATION A state :", state);
+    } */
+
+    if (action.type == "ADD_MOST_RECENT_PM_NOTIFICATIONS") {
+        console.log("Reducer ADD_MOST_RECENT_PM_NOTIFICATIONS B:", state);
+
+        state = {
+            ...state,
+            notificationsPM: action.notificationPM,
+        };
+        console.log("Reducer ADD_MOST_RECENT_PM_NOTIFICATIONS A:", state);
+    }
+
+    if (action.type == "ADD_MOST_RECENT_FRIENDSHIP_REQUEST_NOTIFICATIONS") {
+        /* console.log(
+            "Reducer ADD_MOST_RECENT_FRIENDSHIP_REQUEST_NOTIFICATIONS B:",
+            state
+        ); */
+
+        state = {
+            ...state,
+            notificationsFR: [action.notificationFriendshipRequest],
         };
     }
 

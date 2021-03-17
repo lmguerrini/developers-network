@@ -18,6 +18,8 @@ const uidSafe = require("uid-safe");
 const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 const { BUTTON_TEXT } = require("../shared-datas/button-friendships-text");
+const moment = require("moment");
+//const { Last } = require("react-bootstrap/esm/PageItem");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -682,7 +684,7 @@ app.get("/friendship/status/:id", (req, res) => {
         })
         .catch((err) => {
             console.error(
-                "error in GET/friendship/rows/:id db.getFriendshipStatus catch: ",
+                "error in GET/friendship/status/:id db.getFriendshipStatus catch: ",
                 err
             );
             res.json({ error: true });
@@ -915,8 +917,10 @@ app.post("/wall/posts", uploader.single("image"), s3.upload, (req, res) => {
     //console.log("id POST: ", id);
     // we can construct the URL needed to be able to see our image
     //console.log("POST req.file.filename: ", req.file.filename);
-    const url = `${s3Url}${req.file.filename}`;
-    //console.log("url POST: ", url);
+    //const url = `${s3Url}${req.file.filename}`;
+    const { filename } = req.file;
+    const url = s3Url + `${req.session.userId}/` + filename;
+    console.log("url POST/wall: ", url);
     const description = req.body.description;
     //console.log("description POST: ", description);
     if (req.file) {
@@ -977,11 +981,12 @@ server.listen(process.env.PORT || 3001, function () {
 
 let onlineUsersPlusOpenTabs = [];
 let onlineUsers = []; // keeps track of all users currently online
-//let sockets = {};
-//let users = {};
 let socketToIds = {};
+let recipientOnlinePM = false;
 let recipientIdPM;
 let nameRequester;
+//let createdAtFromNowPM;
+let createdAtFromNowFR;
 
 io.on("connection", (socket) => {
     // => event listener
@@ -1007,7 +1012,6 @@ io.on("connection", (socket) => {
 
     // remove duplicate elements from the array
     onlineUsers = [...new Set(onlineUsersPlusOpenTabs)];
-    //console.log("online Users: ", onlineUsers);
 
     db.getOnlineUsers(onlineUsers)
         .then(({ rows }) => {
@@ -1018,6 +1022,7 @@ io.on("connection", (socket) => {
             }));
             //console.log("newRows: ", newRows);
 
+            // sending to all connected users
             io.sockets.emit("online users", newRows);
         })
         .catch((err) => {
@@ -1115,25 +1120,42 @@ io.on("connection", (socket) => {
     });
 
     db.getMostRecentMessages()
-        .then(({ rows }) => {
-            //console.log("rows getMostRecentMessages: ", rows);
-            //console.log("userID: ", userId);
+        .then(({ rows: firstRows }) => {
+            //console.log("firstRows: ", firstRows.slice(0, 5));
+            db.getChatMessageUserId().then(({ rows: secondRows }) => {
+                //console.log("secondRows: ", secondRows.slice(0, 5));
 
-            const newRows = rows.map((obj) => ({
-                senderId: userId,
-                chatMessageId: obj.id,
-                senderName: obj.first + " " + obj.last,
-                profile_pic: obj.profile_pic,
-                message: obj.message,
-                chatMessageDateTime:
-                    "on " +
-                    ("" + obj.created_at + "").substring(0, 15) +
-                    " at " +
-                    ("" + obj.created_at + "").substring(16, 24),
-            }));
-            //console.log("newRows: ", newRows);
+                let thirdRows = firstRows.map((item, i) =>
+                    Object.assign({}, item, secondRows[i])
+                );
+                /* let thirdRows = [];
 
-            socket.emit("10 most recent messages", newRows);
+                for (let i = 0; i < firstRows.length; i++) {
+                    thirdRows.push({
+                        ...secondRows[i],
+                        ...firstRows[i],
+                    });
+                } */
+                //console.log("thirdRows: ", thirdRows.slice(0, 5));
+
+                const newRows = thirdRows.map((obj) => ({
+                    senderId: obj.userid,
+                    recipientId: userId,
+                    chatMessageId: obj.id,
+                    senderName: obj.first + " " + obj.last,
+                    profile_pic: obj.profile_pic,
+                    message: obj.message,
+                    chatMessageDateTime:
+                        "on " +
+                        ("" + obj.created_at + "").substring(0, 15) +
+                        " at " +
+                        ("" + obj.created_at + "").substring(16, 24),
+                    createdAtFromNow: moment(obj.created_at).fromNow(),
+                }));
+                //console.log("newRows: ", newRows.slice(0, 3));
+
+                socket.emit("most recent chat messages", newRows);
+            });
         })
         .catch((err) => {
             console.error(
@@ -1152,6 +1174,8 @@ io.on("connection", (socket) => {
             .then(({ rows }) => {
                 const chatMessageId = rows[0].id;
                 const created_atStringify = "" + rows[0].created_at + "";
+                const createdAtFromNow = moment(rows[0].created_at).fromNow();
+
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
                 const createdAt = "on " + date + " at " + time;
@@ -1168,12 +1192,13 @@ io.on("connection", (socket) => {
                             profile_pic: rows[0].profile_pic,
                             senderName,
                             chatMessageDateTime: createdAt,
+                            createdAtFromNow,
                         });
 
                         // sends a notification to all sockets EXCEPT your own
                         socket.broadcast.emit("notification new chat message", {
                             senderId: socket.request.session.userId,
-                            senderName: name,
+                            senderName,
                         });
                     })
                     .catch((err) => {
@@ -1258,11 +1283,11 @@ io.on("connection", (socket) => {
     socket.on("get most recent private messages", (recipientId) => {
         recipientIdPM = recipientId;
         const senderIdPM = userId;
-        /* console.log(
+        console.log(
             "Server senderIdPM->recipientId: ",
             senderIdPM,
             recipientIdPM
-        ); */
+        );
         db.getMostRecentPrivateMessages(senderIdPM, recipientIdPM)
             .then(({ rows }) => {
                 //console.log("rows getMostRecentPrivateMessages: ", rows);
@@ -1280,6 +1305,9 @@ io.on("connection", (socket) => {
                             ("" + obj.created_at + "").substring(0, 15) +
                             " at " +
                             ("" + obj.created_at + "").substring(16, 24),
+                        privateMessageDateTimeFromNow: moment(
+                            obj.created_at
+                        ).fromNow(),
                     }))
                     .reverse();
                 //console.log("newRows: ", newRows);
@@ -1309,11 +1337,11 @@ io.on("connection", (socket) => {
         const recipientIdPM = message.recipientId;
         db.insertNewPrivateMessage(senderIdPM, recipientIdPM, messagePM)
             .then(({ rows }) => {
-                //console.log("private rows: ", rows);
                 const created_atStringify = "" + rows[0].created_at + "";
                 const date = created_atStringify.substring(0, 15);
                 const time = created_atStringify.substring(16, 24);
                 const createdAt = "on " + date + " at " + time;
+                //const createdAtFromNow = moment(rows[0].created_at).fromNow();
                 const messageId = Number(rows[0].id);
 
                 //console.log("createdAt: ", createdAt); // on Mon Jan 18 2021 at 12:00:00
@@ -1385,9 +1413,60 @@ io.on("connection", (socket) => {
                         //console.log("socket.id(senderIdPM): ", socket.id);
 
                         for (const key in socketToIds) {
-                            //console.log("key: ", key);
+                            /* console.log(
+                                "socketToIds[key] == recipientIdPM: ",
+                                key,
+                                socketToIds[key],
+                                recipientIdPM
+                            ); */
                             if (socketToIds[key] == recipientIdPM) {
+                                console.log(
+                                    "new private message :",
+                                    senderIdPM,
+                                    recipientIdPM,
+                                    message.message,
+                                    messageId,
+                                    createdAt,
+                                    name,
+                                    rows[0].profile_pic
+                                );
+                                recipientOnlinePM = true;
                                 io.sockets.emit(
+                                    "new private message and users profiles",
+                                    {
+                                        privateMessageId: messageId,
+                                        privateMessage: message.message,
+                                        recipientIdPM,
+                                        senderProfile_picPM:
+                                            rows[0].profile_pic,
+                                        privateMessageDateTime: createdAt,
+                                        senderIdPM,
+                                        senderNamePM: name,
+                                        privateMessageDateTimeFromNow: moment(
+                                            rows[0].created_at
+                                        ).fromNow(),
+                                    }
+                                );
+                                // sends a notification to a specific socket
+                                /* io.sockets.sockets
+                                    .get(key)
+                                    .emit(
+                                        "notification new private chat message",
+                                        {
+                                            privateMessageId: messageId,
+                                            senderIdPM:
+                                                socket.request.session.userId,
+                                            senderNamePM: name,
+                                            privateMessageDateTimeFromNow: createdAtFromNow,
+                                            senderProfile_picPM:
+                                                rows[0].profile_pic,
+                                        }
+                                    ); */
+                            } else if (recipientOnlinePM == false) {
+                                /* console.log(
+                                    "Info(recipientOnlinePM == false): recipient not online when PM sent: socket.emit()"
+                                ); */
+                                socket.emit(
                                     "new private message and users profiles",
                                     {
                                         privateMessageId: messageId,
@@ -1400,17 +1479,6 @@ io.on("connection", (socket) => {
                                         senderNamePM: name,
                                     }
                                 );
-                                // sends a notification to a specific socket
-                                io.sockets.sockets
-                                    .get(key)
-                                    .emit(
-                                        "notification new private chat message",
-                                        {
-                                            senderIdPM:
-                                                socket.request.session.userId,
-                                            senderNamePM: name,
-                                        }
-                                    );
                             }
                         }
 
@@ -1471,6 +1539,175 @@ io.on("connection", (socket) => {
                 );
             });
     });
+
+    socket.on(
+        "get most recent notifications",
+        async (recipientIdNotifications) => {
+            try {
+                // PM notifications
+                db.getMostRecentPMNotifications(recipientIdNotifications)
+                    .then(({ rows: firstRows }) => {
+                        /* console.log(
+                            "rows getMostRecentPrivateMessages: ",
+                            firstRows.slice(0, 3)
+                        ); */
+
+                        db.getPrivateMessageUserId().then(
+                            ({ rows: secondRows }) => {
+                                //console.log("secondRows: ", secondRows.slice(0, 3));
+
+                                /* let thirdRows = firstRows.map((item, i) =>
+                                    Object.assign({}, item, secondRows[i])
+                                ); */
+                                let thirdRows = [];
+
+                                for (let i = 0; i < firstRows.length; i++) {
+                                    thirdRows.push({
+                                        ...secondRows[i],
+                                        ...firstRows[i],
+                                    });
+                                }
+                                /* console.log(
+                                    "thirdRows: ",
+                                    thirdRows.slice(0, 3)
+                                ); */
+
+                                const mostRecentPMNotifications = thirdRows.map(
+                                    (obj) => ({
+                                        senderId: obj.userid,
+                                        privateMessageId: obj.id,
+                                        recipientId: recipientIdNotifications,
+                                        senderNamePM:
+                                            obj.first + " " + obj.last,
+                                        senderProfile_picPM: obj.profile_pic,
+                                        privateMessage: obj.message,
+                                        privateMessageDateTime:
+                                            "on " +
+                                            (
+                                                "" +
+                                                obj.created_at +
+                                                ""
+                                            ).substring(0, 15) +
+                                            " at " +
+                                            (
+                                                "" +
+                                                obj.created_at +
+                                                ""
+                                            ).substring(16, 24),
+                                        privateMessageDateTimeFromNow: moment(
+                                            obj.created_at
+                                        ).fromNow(),
+                                    })
+                                );
+                                /* console.log(
+                                    "newRows: ",
+                                    mostRecentPMNotifications
+                                ); */
+
+                                for (const key in socketToIds) {
+                                    //if (socketToIds[key] == recipientIdNotifications) {
+                                    if (socketToIds[key] == recipientIdPM) {
+                                        console.log("ONLINE");
+                                        recipientOnlinePM = true;
+                                        io.sockets.emit(
+                                            "most recent PM notifications",
+                                            mostRecentPMNotifications
+                                        );
+                                        // sends a notification to a specific socket
+                                        /* io.sockets.sockets
+                                            .get(key)
+                                            .emit(
+                                                "most recent PM notifications",
+                                                mostRecentPMNotifications
+                                            ); */
+                                    } else if (recipientOnlinePM == false) {
+                                        /* console.log(
+                                            "Info(recipientOnlinePM == false): recipient not online when PM sent: socket.emit()"
+                                        ); */
+                                        socket.emit(
+                                            "most recent PM notifications",
+                                            mostRecentPMNotifications
+                                        );
+                                    }
+                                }
+                                // message to a specific socket
+                                /* for (const key in socketToIds) {
+                                    //console.log("key: ", key);
+                                    if (socketToIds[key] == recipientIdPM) {
+                                        io.sockets.sockets
+                                            .get(key)
+                                            .emit(
+                                                "most recent PM notifications",
+                                                newRows
+                                            );
+                                    }
+                                } */
+                            }
+                        );
+
+                        // Frienship notifications
+                        db.getFriendshipRequestNotifications(
+                            recipientIdNotifications
+                        )
+                            .then(({ rows }) => {
+                                if (rows[0]) {
+                                    createdAtFromNowFR = moment(
+                                        rows[0].created_at
+                                    ).fromNow();
+                                    if (rows[0].sender_id) {
+                                        const senderIdFriendshipNotification =
+                                            rows[0].sender_id;
+
+                                        db.getUserProfile(
+                                            senderIdFriendshipNotification
+                                        ).then(({ rows }) => {
+                                            io.sockets.emit(
+                                                "most recent friendship notifications",
+                                                {
+                                                    senderIdFriendshipNotification,
+
+                                                    senderProfile_picFriendshipNotification:
+                                                        rows[0].profile_pic,
+                                                    name:
+                                                        rows[0].first +
+                                                        " " +
+                                                        rows[0].last,
+                                                    friendshipRequestFromNow: createdAtFromNowFR,
+                                                }
+                                            );
+                                        });
+                                    } else {
+                                        console.log(
+                                            "no rows.sender_id getFriendshipRequestNotifications"
+                                        );
+                                    }
+                                } else {
+                                    console.log(
+                                        "no rows getFriendshipRequestNotifications"
+                                    );
+                                }
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    `error in socket.on db.getFriendshipRequestNotifications catch: `,
+                                    err
+                                );
+                            });
+                    })
+                    .catch((err) => {
+                        console.error(
+                            `error in socket.on db.getMostRecentPrivateMessages catch: `,
+                            err
+                        );
+                    });
+            } catch (err) {
+                console.error(
+                    `error in socket.on("get most recent notifications") catch: `,
+                    err
+                );
+            }
+        }
+    );
 
     socket.on("delete private message", async (privateMessageIdDateTime) => {
         //console.log("Server DELETE PM :", privateMessageIdDateTime);

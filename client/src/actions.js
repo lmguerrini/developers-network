@@ -74,11 +74,11 @@ export async function deletePrivateMessage(privateMessageId) {
     };
 }
 
-export async function addMostRecentMessages(tenMostRecentMessages) {
+export async function addMostRecentMessages(mostRecentChatMessages) {
     //console.log("Action getMostRecentMessages!");
     return {
         type: "ADD_TEN_MOST_RECENT_MESSAGES",
-        messages: tenMostRecentMessages,
+        messages: mostRecentChatMessages,
     };
 }
 
@@ -91,13 +91,22 @@ export async function getOnlineUsersList(onlineUsers) {
 }
 
 export async function postNewPrivateMessage(newPrivateMessage) {
-    console.log("Action postNewPrivateMessages!");
+    //console.log("Action postNewPrivateMessages!");
 
     return {
         type: "POST_NEW_PRIVATE_MESSAGE",
         privateMessage: newPrivateMessage,
     };
 }
+
+/* export async function postNewPrivateMessageNotification(newPMNotification) {
+    console.log("Action postNewPrivateMessageNotification!", newPMNotification);
+
+    return {
+        type: "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION",
+        privateMessageNotification: newPMNotification,
+    };
+} */
 
 /* export async function addMostRecentPrivateMessages(mostRecentPrivateMessages) {
     //console.log("Action addMostRecentPrivateMessages!");
@@ -112,7 +121,7 @@ export async function postNewPrivateMessage(newPrivateMessage) {
 } */
 
 export async function addMostRecentPrivateMessages(mostRecentPrivateMessages) {
-    console.log("Action addMostRecentPrivateMessages!");
+    //console.log("Action addMostRecentPrivateMessages!");
 
     //const { data } = await axios.get(`/privatemessage/${id}`);
     //console.log("Action GET /privatemessage/:id data.newRows: ", data.newRows);
@@ -137,6 +146,32 @@ export async function postNewPrivateMessage(message, otherUserId) {
         privateMessage: data.newRows,
     };
 } */
+
+export async function addmostRecentPMNotifications(mostRecentPMNotifications) {
+    /* console.log(
+        "Action addMostRecentPrivateMessages!",
+        mostRecentPMNotifications
+    ); */
+
+    return {
+        type: "ADD_MOST_RECENT_PM_NOTIFICATIONS",
+        notificationPM: mostRecentPMNotifications,
+    };
+}
+
+export async function addmostRecentFriendshipRequestNotifications(
+    mostRecentFriendshipRequestNotifications
+) {
+    /* console.log(
+        "Action addmostRecentFriendshipRequestNotifications!",
+        mostRecentFriendshipRequestNotifications
+    ); */
+
+    return {
+        type: "ADD_MOST_RECENT_FRIENDSHIP_REQUEST_NOTIFICATIONS",
+        notificationFriendshipRequest: mostRecentFriendshipRequestNotifications,
+    };
+}
 
 export async function getWallPosts(id) {
     //console.log("Action addMostRecentPrivateMessages!");

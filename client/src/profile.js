@@ -1,8 +1,8 @@
 import ProfilePic from "./profilepic";
 import BioEditor from "./bioeditor";
 import Wall from "./wall";
-import EditProfile from "./editprofile";
-import { Link } from "react-router-dom";
+//import EditProfile from "./editprofile";
+//import { Link } from "react-router-dom";
 
 /* 
 NB: The Profile component will be responsible for laying out the content we want to show: 

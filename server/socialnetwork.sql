@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS chat_messages;
 DROP TABLE IF EXISTS private_messages;
 DROP TABLE IF EXISTS wall;
-DROP TABLE IF EXISTS wall_comments;
+--DROP TABLE IF EXISTS wall_comments;
 
 CREATE TABLE users(
       id SERIAL PRIMARY KEY,
@@ -41,6 +41,7 @@ CREATE TABLE friendships(
   --sender_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
   recipient_id INT REFERENCES users(id) NOT NULL,
   --recipient_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   accepted BOOLEAN DEFAULT false
 );
 

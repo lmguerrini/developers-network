@@ -6,10 +6,14 @@ import {
     deleteMessage,
     getOnlineUsersList,
     postNewPrivateMessage,
+    //postNewPrivateMessageNotification,
     addMostRecentPrivateMessages,
     deletePrivateMessage,
+    addmostRecentPMNotifications,
+    addmostRecentFriendshipRequestNotifications,
 } from "./actions";
 import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 import { MdNotificationsActive } from "react-icons/md";
 
 export let socket;
@@ -29,10 +33,10 @@ export const init = (store) => {
 
     // this file will RECEIVE messaged from the server
     socket.on("new message and user profile", (mostRecenteMessage) => {
-        console.log("Socket new message and user profile!");
+        //console.log("Socket new message and user profile!");
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
-        //console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
+        console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "mostRecenteMessage": name of my action creator
     });
 
@@ -65,36 +69,39 @@ export const init = (store) => {
         store.dispatch(deleteMessage(chatMessageIdToDelete));
     });
 
-    socket.on("notification delete chat message", (notificationDeleteChatMessage) => {
-        console.log(
-            'socket.io "notification delete private message :',
-            notificationDeleteChatMessage
-        );
-        const pushNotificationText1 = `✅ You have just successfully deleted the Chat Message written`;
-        const pushNotificationText2 = ` ${notificationDeleteChatMessage.chatMessageDateTime}, `;
-        const senderName = `${notificationDeleteChatMessage.senderName}.`;
-        const pushNotification = (
-            <>
-                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
-                &emsp;
-                <span className="pushNotificationFriendRequestText">
-                    {pushNotificationText1}
-                    {pushNotificationText2}
-                    <b>{senderName}</b>
-                </span>
-            </>
-        );
+    socket.on(
+        "notification delete chat message",
+        (notificationDeleteChatMessage) => {
+            console.log(
+                'socket.io "notification delete chat message :',
+                notificationDeleteChatMessage.chatMessageDateTime
+            );
+            const pushNotificationText1 = `✅ You have just successfully deleted the Chat Message written`;
+            const pushNotificationText2 = ` ${notificationDeleteChatMessage.chatMessageDateTime}, `;
+            const senderName = `${notificationDeleteChatMessage.senderName}.`;
+            const pushNotification = (
+                <>
+                    <MdNotificationsActive id="pushNotificationFriendRequestBell" />
+                    &emsp;
+                    <span className="pushNotificationFriendRequestText">
+                        {pushNotificationText1}
+                        {pushNotificationText2}
+                        <b>{senderName}</b>
+                    </span>
+                </>
+            );
 
-        toaster.notify(pushNotification, {
-            duration: 5000,
-        });
-    });
+            toaster.notify(pushNotification, {
+                duration: 5000,
+            });
+        }
+    );
 
-    socket.on("10 most recent messages", (tenMostRecentMessages) => {
+    socket.on("most recent chat messages", (mostRecentChatMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
         //console.log("socket.js tenMostRecentMessages: ", tenMostRecentMessages);
-        store.dispatch(addMostRecentMessages(tenMostRecentMessages.reverse()));
+        store.dispatch(addMostRecentMessages(mostRecentChatMessages.reverse()));
     });
 
     socket.on("new private message and users profiles", (newPrivateMessage) => {
@@ -124,16 +131,24 @@ export const init = (store) => {
             toaster.notify(pushNotification, {
                 duration: 5000,
             });
+
+            /* console.log(
+                "socket.js postNewPrivateMessageNotification: ",
+                notificationNewChatMessage
+            ); */
+            /* store.dispatch(
+                postNewPrivateMessageNotification(notificationNewChatMessage)
+            ); */
         }
     );
 
     socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-        /* console.log(
+        console.log(
             "socket.js mostRecentPrivateMessages: ",
             mostRecentPrivateMessages
-        ); */
+        );
         store.dispatch(addMostRecentPrivateMessages(mostRecentPrivateMessages));
     });
 
@@ -157,7 +172,10 @@ export const init = (store) => {
         const senderName = `${notificationDeletePM.senderNamePM}.`;
         const pushNotification = (
             <>
-                <MdNotificationsActive className="pushNotificationFriendRequestBell" />
+                <MdNotificationsActive
+                    className="pushNotificationFriendRequestBell"
+                    id="bellSize"
+                />
                 &emsp;
                 <span className="pushNotificationFriendRequestText">
                     {pushNotificationText1}
@@ -238,6 +256,29 @@ export const init = (store) => {
             duration: 5000,
         });
     });
+
+    socket.on("most recent PM notifications", (mostRecentPMNotifications) => {
+        /* console.log(
+            "socket.js mostRecentPMNotifications: ",
+            mostRecentPMNotifications
+        ); */
+        store.dispatch(addmostRecentPMNotifications(mostRecentPMNotifications));
+    });
+
+    socket.on(
+        "most recent friendship notifications",
+        (mostRecentFriendshipRequestNotifications) => {
+            /* console.log(
+            "socket.js mostRecentPMNotifications: ",
+            mostRecentPMNotifications
+        ); */
+            store.dispatch(
+                addmostRecentFriendshipRequestNotifications(
+                    mostRecentFriendshipRequestNotifications
+                )
+            );
+        }
+    );
 
     socket.on("notification friend request", (notificationFriendRequest) => {
         const pushNotificationText = `You have just got a new friend request from `;

@@ -37,7 +37,7 @@ export default class OtherProfile extends Component {
         axios
             .get(`/other-user/info/${this.props.match.params.id}`)
             .then(({ data }) => {
-                console.log("OtherProfile componentDidMount data: ", data[0]);
+                //console.log("OtherProfile componentDidMount data: ", data[0]);
                 /* console.log(
                     "data.requestedInvalidId: ",
                     data[0].requestedInvalidId

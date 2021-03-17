@@ -50,6 +50,7 @@ ReactDOM.render(elem, document.querySelector("main"));
                 - ProfilPic
                 - BioEditor
                 - Wall
+            - Uploader (child)
             - EditProfile (child)
             - OtherProfile (child)
                 - ProfilPic
@@ -58,7 +59,7 @@ ReactDOM.render(elem, document.querySelector("main"));
             - Friends (child)
             _ Chat (child)
                 _ OnlineUsers
-            - Uploader (child)
+            _ Notifications (child)
             
 ****************************************************************/
 

@@ -16,8 +16,6 @@ export default function PrivateMessages(props) {
     const privateChatMessages = useSelector(
         (state) => state && state.privateMessages
     );
-    console.log("private chatMessages: ", privateChatMessages);
-    console.log("private chatMessages PROPS: ", props);
 
     //const dispatch = useDispatch(); // delete PM
     const recipientId = props.match.params.id;
@@ -93,7 +91,7 @@ export default function PrivateMessages(props) {
                         {/* <OnlineUsers></OnlineUsers> */}
 
                         <div className="wallPostsGlassOverlayWrap">
-                            <div className="wallPostsGlassOverlay">
+                            <div className="wallPostsGlassOverlay visible">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
                                     &nbsp;
@@ -198,22 +196,22 @@ export default function PrivateMessages(props) {
                                                                           message.privateMessageDateTime,
                                                                   }
                                                               )
-                                                            : */ window.confirm(
+                                                            : */ /* window.confirm(
                                                             `[PM DELETION] \nAre your sure you want to delete the Private Message ` +
                                                                 ` written ` +
                                                                 `${message.privateMessageDateTime}` +
                                                                 `? \n\nNote: there is no going back! Please be certain.`
-                                                        ) &&
-                                                            socket.emit(
-                                                                "delete private message",
-                                                                {
-                                                                    privateMessageId: Number(
-                                                                        message.privateMessageId
-                                                                    ),
-                                                                    privateMessageDateTime:
-                                                                        message.privateMessageDateTime,
-                                                                }
-                                                            );
+                                                        ) && */
+                                                        socket.emit(
+                                                            "delete private message",
+                                                            {
+                                                                privateMessageId: Number(
+                                                                    message.privateMessageId
+                                                                ),
+                                                                privateMessageDateTime:
+                                                                    message.privateMessageDateTime,
+                                                            }
+                                                        );
                                                     }}
                                                 />
                                             </p>
@@ -223,11 +221,10 @@ export default function PrivateMessages(props) {
                                                 id="chat-messages"
                                                 ref={elemRef}
                                             >
-                                                <pre className="prettyprint">
-                                                    <code className="language-javascript">
-                                                        {message.privateMessage.startsWith(
-                                                            "https://"
-                                                        ) ? (
+                                                {message.privateMessage.startsWith(
+                                                    "https://"
+                                                ) ? (
+                                                        <pre>
                                                             <a
                                                                 href={
                                                                     message.privateMessage
@@ -239,18 +236,19 @@ export default function PrivateMessages(props) {
                                                                     message.privateMessage
                                                                 }
                                                             </a>
-                                                        ) : (
-                                                            <span>
-                                                                {
-                                                                    message.privateMessage
-                                                                }
-                                                            </span>
-                                                        )}
-                                                        {/* {message.privateMessage} */}
-                                                    </code>
-
-                                                    {/* {message.message} */}
-                                                </pre>
+                                                        </pre>
+                                                    ) : (
+                                                        <pre className="prettyprint">
+                                                            <code className="language-javascript">
+                                                                <span>
+                                                                    {
+                                                                        message.privateMessage
+                                                                    }
+                                                                </span>
+                                                            </code>
+                                                        </pre>
+                                                    )}
+                                                {/* {message.privateMessage} */}
                                             </div>
                                         </div>
                                     </div>
