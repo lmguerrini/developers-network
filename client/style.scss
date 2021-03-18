@@ -2368,13 +2368,35 @@ li.L9 {
 
 #noNotificationsTextWrap p {
     justify-content: center;
-     padding: 20px;
+    padding: 20px;
 }
 
 #notificationsFlex {
     display: flex;
     align-items: center;
     //border: 3px solid lime;
+}
+
+.notificationsFR {
+    //margin-top: 10px;
+    height: 60px;
+    //width
+    //border: 3px solid lime;
+    display: flex;
+    justify-content: center;
+    //align-items: center;
+}
+
+.notificationsFR > div {
+    //border: 3px solid red;
+    width: 100%;
+    
+}
+
+.notificationsFR > div > p {
+    justify-content: center;
+    height: 100%;
+    font-size: 1.1em;
 }
 
 /* ----section(Uploader)---- */

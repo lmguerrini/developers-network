@@ -19,7 +19,6 @@ const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 const { BUTTON_TEXT } = require("../shared-datas/button-friendships-text");
 const moment = require("moment");
-//const { Last } = require("react-bootstrap/esm/PageItem");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {

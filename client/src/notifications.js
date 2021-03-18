@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux"; // useDispatch
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { socket } from "./socket";
 import { Link } from "react-router-dom";
+import { getFriendsWannabesList } from "./actions";
 
 export default function Notification(props) {
     const chatMessages = useSelector((state) => state && state.messages);
@@ -11,6 +12,22 @@ export default function Notification(props) {
     const notificationsFR = useSelector(
         (state) => state && state.notificationsFR
     );
+
+    const wannabes = useSelector(
+        (state) =>
+            state.friendsWannabesList &&
+            state.friendsWannabesList.filter((user) => user.accepted == false)
+    );
+
+    let wannabesNames = [];
+    let wannabesNumber;
+
+    if (wannabes !== undefined) {
+        wannabesNumber = Number(wannabes.length);
+        for (let i = 0; i < wannabes.length; i++) {
+            wannabesNames.push(wannabes[i].first + " " + wannabes[i].last);
+        }
+    }
 
     const recipientId = props.id;
     const recipientFirst = props.name.split(" ")[0];
@@ -26,6 +43,8 @@ export default function Notification(props) {
         }
     }
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         let abort;
         (async () => {
@@ -38,6 +57,7 @@ export default function Notification(props) {
                         Number(recipientId)
                     );
                 }
+                dispatch(getFriendsWannabesList());
             }
         })();
         return () => {
@@ -250,7 +270,7 @@ export default function Notification(props) {
                                     </p>
                                 </div>
                             )}
-                            {notificationsFR &&
+                            {/* {notificationsFR &&
                                 !senderFR &&
                                 notificationsFR
                                     .map((notificationsFR, index) => (
@@ -307,7 +327,53 @@ export default function Notification(props) {
                                             </div>
                                         </div>
                                     ))
-                                    .slice(0, 5)}
+                                    .slice(0, 5)} */}
+                            {wannabesNumber !== 0 &&
+                                (wannabesNumber < 2 ? (
+                                    <div className="notificationsFR">
+                                        <div>
+                                            <p
+                                                className="messageDateTimeDeleteBtnWrap"
+                                                id="notificationsFlex"
+                                            >
+                                                <span>
+                                                    You have &nbsp;
+                                                    <small id="uploaderSigns">
+                                                        ❮
+                                                    </small>{" "}
+                                                    <b id="messageName">
+                                                        &nbsp;
+                                                        {wannabesNumber}
+                                                        &emsp;
+                                                    </b>{" "}
+                                                    <small id="uploaderSigns">
+                                                        ❯
+                                                    </small>
+                                                    &emsp; Friend Request
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <p
+                                        className="messageDateTimeDeleteBtnWrap"
+                                        id="notificationsFlex"
+                                    >
+                                        <span>
+                                            You have &nbsp;
+                                            <small id="uploaderSigns">
+                                                ❮
+                                            </small>{" "}
+                                            <b id="messageName">
+                                                &nbsp;
+                                                {wannabesNumber}
+                                                &emsp;
+                                            </b>{" "}
+                                            <small id="uploaderSigns">❯</small>
+                                            &emsp; Friend Requests
+                                        </span>
+                                    </p>
+                                ))}
                         </div>
                         <div>
                             <textarea id="textAreaHidden" rows="1" cols="101" />
