@@ -99,14 +99,14 @@ export async function postNewPrivateMessage(newPrivateMessage) {
     };
 }
 
-/* export async function postNewPrivateMessageNotification(newPMNotification) {
+export async function postNewPrivateMessageNotification(newPMNotification) {
     console.log("Action postNewPrivateMessageNotification!", newPMNotification);
 
     return {
         type: "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION",
         privateMessageNotification: newPMNotification,
     };
-} */
+}
 
 /* export async function addMostRecentPrivateMessages(mostRecentPrivateMessages) {
     //console.log("Action addMostRecentPrivateMessages!");

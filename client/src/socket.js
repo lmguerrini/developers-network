@@ -6,7 +6,7 @@ import {
     deleteMessage,
     getOnlineUsersList,
     postNewPrivateMessage,
-    //postNewPrivateMessageNotification,
+    postNewPrivateMessageNotification,
     addMostRecentPrivateMessages,
     deletePrivateMessage,
     addmostRecentPMNotifications,
@@ -136,19 +136,19 @@ export const init = (store) => {
                 "socket.js postNewPrivateMessageNotification: ",
                 notificationNewChatMessage
             ); */
-            /* store.dispatch(
+            store.dispatch(
                 postNewPrivateMessageNotification(notificationNewChatMessage)
-            ); */
+            );
         }
     );
 
     socket.on("most recent private messages", (mostRecentPrivateMessages) => {
         // this runs when a new user connects (logs in)
         // and see the messages already there on the page
-        console.log(
+        /* console.log(
             "socket.js mostRecentPrivateMessages: ",
             mostRecentPrivateMessages
-        );
+        ); */
         store.dispatch(addMostRecentPrivateMessages(mostRecentPrivateMessages));
     });
 
@@ -330,6 +330,6 @@ export const init = (store) => {
     );
 };
 
-// socket.io is not only for the chat room but it's available (potentially) for the site's functionalities
+//NB: this all file we could have written in chat.js etc, but like that looks more organized.
+//    socket.io is not only for the chat room but it's available (potentially) for the site's functionalities.
 
-//NB: this all file we could have written in chat.js, but like that looks more organized

@@ -40,6 +40,7 @@ export default class App extends Component {
             bio: "",
             uploaderIsVisible: false,
             settingsIsVisible: false,
+            notifications: 0,
             //active: false,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -49,6 +50,9 @@ export default class App extends Component {
         this.setImage = this.setImage.bind(this);
         this.toggleModalSettings = this.toggleModalSettings.bind(this);
         this.editBio = this.editBio.bind(this);
+        this.callbackFunction = (childData) => {
+            this.setState({ notifications: childData });
+        };
     }
 
     // componentDidMount = Vue's "mounted" function
@@ -249,6 +253,7 @@ export default class App extends Component {
                                             /* className="loginLink" */
                                         >
                                             {/* Notification */}
+                                            {/* Notification Count: {this.state.notifications} */}
                                             <GrNotification />
                                         </Link>
                                     </p>
@@ -392,6 +397,9 @@ export default class App extends Component {
                                                 key={props.match.url}
                                                 history={props.history}
                                                 name={`${this.state.first} ${this.state.last}`}
+                                                parentCallback={
+                                                    this.callbackFunction
+                                                }
                                             />
                                         </section>
                                     )}

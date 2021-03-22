@@ -158,27 +158,23 @@ export function reducer(state = {}, action) {
         };
     }
 
-    /* if (action.type == "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION") {
-        console.log("Reducer POST_NEW_PRIVATE_MESSAGE_NOTIFICATION");
-        console.log("Reducer Array.isArray(state) :", Array.isArray(state));
-        console.log("Reducer typeof(state) :", typeof state);
-        console.log("Reducer PM_NOTIFICATION B state :", state);
+    if (action.type == "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION") {
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE_NOTIFICATION :", state);
 
         state = {
             ...state,
             privateMessageNotifications: action.privateMessageNotification,
         };
         console.log("Reducer PM_NOTIFICATION A state :", state);
-    } */
+    }
 
     if (action.type == "ADD_MOST_RECENT_PM_NOTIFICATIONS") {
-        console.log("Reducer ADD_MOST_RECENT_PM_NOTIFICATIONS B:", state);
+        //console.log("Reducer ADD_MOST_RECENT_PM_NOTIFICATIONS :", state);
 
         state = {
             ...state,
             notificationsPM: action.notificationPM,
         };
-        console.log("Reducer ADD_MOST_RECENT_PM_NOTIFICATIONS A:", state);
     }
 
     if (action.type == "ADD_MOST_RECENT_FRIENDSHIP_REQUEST_NOTIFICATIONS") {

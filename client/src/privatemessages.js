@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"; // useDispatch
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { socket } from "./socket";
 import { Link } from "react-router-dom";
 /* import {
@@ -13,6 +13,7 @@ import { RiGitRepositoryPrivateLine } from "react-icons/ri";
 
 export default function PrivateMessages(props) {
     //console.log("PrivateMessages props: ", props);
+    const [count, setCount] = useState(0);
     const privateChatMessages = useSelector(
         (state) => state && state.privateMessages
     );
@@ -20,6 +21,30 @@ export default function PrivateMessages(props) {
     //const dispatch = useDispatch(); // delete PM
     const recipientId = props.match.params.id;
     //console.log("PrivateMessages recipientId: ", recipientId);
+    let newPMNum = [];
+
+    //console.log(" privateChatMessagesNum: ", privateChatMessagesNum);
+    if (
+        privateChatMessages /* &&
+        privateChatMessagesNum != isNaN &&
+        privateChatMessagesNum != undefined */
+    ) {
+        /* const count = 0;
+        newPMNum =
+            privateChatMessages.length - (privateChatMessages.length - 1);
+        console.log("privateChatMessagesNum: ", newPMNum); */
+        //console.log(" privateChatMessagesNum: ", privateChatMessagesNum);
+        console.log("PrivateMessages length: ", privateChatMessages.length);
+    }
+    if (privateChatMessages && newPMNum < privateChatMessages.length) {
+        console.log("new, all: ", newPMNum, privateChatMessages.length);
+    }
+
+    //console.log("PrivateMessages props: ", props);
+    /* const sendDataToParent = () => {
+        console.log("PM length", newPMNum);
+        props.parentCallback(newPMNum);
+    }; */
     //var socket = io.connect("/privatemessage", { query: otherUserId });
 
     useEffect(() => {
@@ -32,6 +57,7 @@ export default function PrivateMessages(props) {
                     "get most recent private messages",
                     Number(recipientId)
                 );
+
                 //dispatch(addMostRecentPrivateMessages(recipientId));
             }
         })();
@@ -50,12 +76,29 @@ export default function PrivateMessages(props) {
 
             // socket.emit will send a message to the server
             //socket.emit("new private message", message, otherUserId);
+            console.log("notificationCount B :", notificationCount, count);
+            const notificationCount = setCount(count + 1);
+            console.log("notificationCount A :", notificationCount);
             socket.emit("new private message", {
                 message,
                 //senderId: userId,
                 recipientId,
+                newNotificationPM: count + 1,
             });
             //dispatch(postNewPrivateMessage(message, otherUserId));
+
+            /* newPMNum.push(1);
+            console.log("(newPMNum += 1) :", newPMNum);
+            if (newPMNum > 1) {
+                //props.parentCallback(newPMNum + 1);
+                //sendDataToParent();
+                console.log("count B :", count);
+                props.parentCallback(setCount(count + 1));
+                console.log("count A :", count);
+            }
+            console.log("count B :", count);
+            props.parentCallback(setCount(count + 1));
+            console.log("count A :", count); */
             e.target.value = "";
         }
     };
@@ -224,30 +267,30 @@ export default function PrivateMessages(props) {
                                                 {message.privateMessage.startsWith(
                                                     "https://"
                                                 ) ? (
-                                                        <pre>
-                                                            <a
-                                                                href={
-                                                                    message.privateMessage
-                                                                }
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                            >
+                                                    <pre>
+                                                        <a
+                                                            href={
+                                                                message.privateMessage
+                                                            }
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            {
+                                                                message.privateMessage
+                                                            }
+                                                        </a>
+                                                    </pre>
+                                                ) : (
+                                                    <pre className="prettyprint">
+                                                        <code className="language-javascript">
+                                                            <span>
                                                                 {
                                                                     message.privateMessage
                                                                 }
-                                                            </a>
-                                                        </pre>
-                                                    ) : (
-                                                        <pre className="prettyprint">
-                                                            <code className="language-javascript">
-                                                                <span>
-                                                                    {
-                                                                        message.privateMessage
-                                                                    }
-                                                                </span>
-                                                            </code>
-                                                        </pre>
-                                                    )}
+                                                            </span>
+                                                        </code>
+                                                    </pre>
+                                                )}
                                                 {/* {message.privateMessage} */}
                                             </div>
                                         </div>

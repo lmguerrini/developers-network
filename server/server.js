@@ -1334,6 +1334,7 @@ io.on("connection", (socket) => {
         const messagePM = message.message;
         const senderIdPM = userId;
         const recipientIdPM = message.recipientId;
+        const newNotificationPM = message.newNotificationPM;
         db.insertNewPrivateMessage(senderIdPM, recipientIdPM, messagePM)
             .then(({ rows }) => {
                 const created_atStringify = "" + rows[0].created_at + "";
@@ -1419,7 +1420,7 @@ io.on("connection", (socket) => {
                                 recipientIdPM
                             ); */
                             if (socketToIds[key] == recipientIdPM) {
-                                console.log(
+                                /* console.log(
                                     "new private message :",
                                     senderIdPM,
                                     recipientIdPM,
@@ -1428,7 +1429,7 @@ io.on("connection", (socket) => {
                                     createdAt,
                                     name,
                                     rows[0].profile_pic
-                                );
+                                ); */
                                 recipientOnlinePM = true;
                                 io.sockets.emit(
                                     "new private message and users profiles",
@@ -1447,7 +1448,7 @@ io.on("connection", (socket) => {
                                     }
                                 );
                                 // sends a notification to a specific socket
-                                /* io.sockets.sockets
+                                io.sockets.sockets
                                     .get(key)
                                     .emit(
                                         "notification new private chat message",
@@ -1456,11 +1457,14 @@ io.on("connection", (socket) => {
                                             senderIdPM:
                                                 socket.request.session.userId,
                                             senderNamePM: name,
-                                            privateMessageDateTimeFromNow: createdAtFromNow,
+                                            privateMessageDateTimeFromNow: moment(
+                                                rows[0].created_at
+                                            ).fromNow(),
                                             senderProfile_picPM:
                                                 rows[0].profile_pic,
+                                            newNotificationPM,
                                         }
-                                    ); */
+                                    );
                             } else if (recipientOnlinePM == false) {
                                 /* console.log(
                                     "Info(recipientOnlinePM == false): recipient not online when PM sent: socket.emit()"
@@ -1606,7 +1610,7 @@ io.on("connection", (socket) => {
                                 for (const key in socketToIds) {
                                     //if (socketToIds[key] == recipientIdNotifications) {
                                     if (socketToIds[key] == recipientIdPM) {
-                                        console.log("ONLINE");
+                                        //console.log("ONLINE");
                                         recipientOnlinePM = true;
                                         io.sockets.emit(
                                             "most recent PM notifications",
