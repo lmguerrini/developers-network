@@ -1048,6 +1048,155 @@ button {
 } */
 
 /* ----section(Profile)---- */
+
+/* test START----------------------------------------------- */
+.container {
+    //border: 3px solid lime;
+    width: 700px;
+    height: 1000px;
+    border-radius: 20px;
+    position: relative;
+    -webkit-transition: 1.5s ease-in-out;
+    transition: 1.5s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.side {
+    position: absolute;
+    text-align: center;
+    width: 600px;
+    height: 100%;
+    //padding: 20px 50px;
+    color: #fff;
+    //transform-style: preserve-3d;
+    //backface-visibility: hidden;
+    border-radius: 20px;
+}
+
+.front {
+    transition: 2s;
+    z-index: 2;
+    left: 50px;
+}
+
+.front-move {
+    transition: 1s;
+    transform: translateX(-22.5vw);
+}
+
+.back {
+    transition: 2s;
+    visibility: hidden;
+    background-color: transparent;
+    //transform: rotateY(180deg);
+    z-index: 0;
+    width: 100%;
+    //height: 250%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &:hover {
+        //transform: translateX(100px);
+    }
+    //background-image: url(https://userscontent2.emaze.com/images/f9538183-0ff9-478f-b964-c8ab90421e3b/3d28e192fda5c17250f96a2779c84475.jpg);
+}
+
+.back-move {
+    transition: 1s;
+    visibility: visible;
+    transform: translateX(22.5vw);
+    //transform: translateY(955px);
+}
+.front-back {
+    //-webkit-transform: rotateY(180deg);
+    //transform: rotateY(180deg);
+    height: 1600px;
+    .front {
+        //transition: 0.85s;
+        //visibility: hidden;
+        transition: 1s;
+        transform: translateX(-20vw);
+    }
+    .back {
+        transition: 1s;
+        visibility: visible;
+        transform: translateX(20vw);
+        //transform: translateY(955px);
+    }
+}
+/* .container:hover {
+    //-webkit-transform: rotateY(180deg);
+    //transform: rotateY(180deg);
+    height: 1600px;
+    .front {
+        //transition: 0.85s;
+        //visibility: hidden;
+        transition: 1s;
+        transform: translateX(-20vw);
+    }
+    .back {
+        transition: 1s;
+        visibility: visible;
+        transform: translateX(20vw);
+        //transform: translateY(955px);
+    }
+} */
+
+.white-mode:hover {
+    background-color: #fff;
+    color: #122;
+}
+
+.profileMoreBtnTrue {
+    font-size: 2.3em;
+    //color: red;
+    border: 1px solid black;
+    outline: none;
+    //color: violet;
+
+    &:hover {
+        cursor: pointer;
+        color: lime;
+
+        .front {
+            //transition: 0.85s;
+            //visibility: hidden;
+            transition: 1s;
+            transform: translateX(-22.5vw);
+        }
+        .back {
+            transition: 1s;
+            visibility: visible;
+            transform: translateX(22.5vw);
+            //transform: translateY(955px);
+        }
+    }
+}
+
+.profileMoreBtnFalse {
+    transition: 1s;
+    font-size: 2.2em;
+    border: 1px solid black;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+        color: red;
+    }
+}
+
+.invisible {
+    transition: 1s;
+    //visibility: hidden;
+    display: none;
+}
+
+/* test END -----------------------------------------*/
+
 .sectionProfile {
     display: flex;
     justify-content: center;
@@ -1093,6 +1242,11 @@ button {
 
 #toggleModalSettings {
     cursor: pointer;
+
+    &:hover {
+        transition: 0.5s;
+        color: white;
+    }
 }
 
 .cardContainer {
@@ -1115,11 +1269,13 @@ button {
     -width: 500px;
     -height: 250;
     position: relative;
-    background-color: #000000d5;
+    //background-color: #000000d5;
+    background-color: #000000;
     color: whitesmoke;
     margin: 20px;
     border-radius: 7.5px;
     width: 700px;
+    //min-height: 900px;
     -height: 700px;
     -max-width: 750px;
     //min-height: 300px;
@@ -1139,6 +1295,7 @@ button {
 .profile_picBigContainer img {
     margin-left: 1%;
     height: auto;
+    //height: 700px;
     width: 700px;
     //margin-left: 15px;
     -object-fit: scale-down;
@@ -1148,6 +1305,10 @@ button {
     -border-top-right-radius: 5px;
     border: 0;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+    /* &:hover {
+        height: 700px;
+    } */
 }
 
 #introTitle {
@@ -1193,8 +1354,21 @@ button {
 .bioEditor {
     background-color: #000000c9;
     padding: 10px 20px 20px 20px;
+    //border: 2px solid red;
     //background-color: rgba(252, 118, 0, 0.253);
 }
+
+#bioeditorTextarea textarea {
+    outline: none;
+    
+    &:focus {
+        border: 2px solid lime;
+    }
+}
+
+/* #bioeditorTextarea p {
+    font-size: 3.1em;
+} */
 
 #bioEditorIsVisible p {
     font-size: 1.1em;
@@ -1206,18 +1380,37 @@ button {
     -text-align: justify;
     -text-justify: inter-word;
     text-align: justify;
+
+    &:hover {
+        #bioeditBtn {
+            //display: initial;
+            visibility: visible;
+            transition: 1s;
+            font-size: 1.2em;
+            //margin: 20px 40% 20px 42%;
+            outline: none;
+            width: 100px;
+        }
+    }
 }
 
 #bioeditBtn {
-    //margin-left: 45%;
+    //display: none;
+    /* height: 0.1px;
+    margin: 0 40% 0 42%;
+    visibility: hidden; */
+    transition: 1s;
     font-size: 1.2em;
-    margin: 20px 45% 20px 45%;
+    margin: 20px 40% 20px 42%;
     outline: none;
     width: 100px;
-}
+    //width: 50%;
 
-#bioeditBtn:hover {
-    border: 1px solid lime;
+    &:hover {
+        cursor: pointer;
+        //border: 1px solid lime;
+        color: lime;
+    }
 }
 
 #saveBackBtnWrap {
@@ -1228,6 +1421,69 @@ button {
 #saveBackBtnWrap button {
     margin-left: 65px;
     margin-right: 65px;
+}
+
+#extraInfoTitle {
+    display: flex;
+    //border: 2px solid lime;
+    padding: 15px 20px;
+    //height: 40px;
+}
+
+.locationEditorIsVisible {
+    display: flex;
+    //border: 2px solid yellow;
+    width: 500px;
+}
+
+.locationEditorIsVisible p {
+    //width: 110%;
+    width: 400px;
+    //border: 2px solid blue;
+    font-size: 1.2em;
+    margin: 0 10% 0 10px;
+}
+
+.addEditBtn {
+    //width: 100%;
+    width: 250px;
+    height: 25px;
+    font-size: 1em;
+    //margin-left: 100px;
+
+    &:hover{
+        transition: 0.85s;
+        color: lime;
+        cursor: pointer;
+    }
+}
+
+.locationEditorIsVisible textarea {
+    outline: none;
+    margin-left: 10px;
+
+    &:focus {
+        border: 2px solid lime;
+    }
+}
+
+.savebackBtn {
+    //width: 50%;
+    font-size: 1em;
+    margin: 10px 60px 0 90px;
+    width: 100px;
+    //margin-left: 20px;
+
+    &:hover{
+        transition: 0.85s;
+        color: lime;
+        cursor: pointer;
+    }
+}
+
+#separationLine {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.521);
+    margin: 0 15% 5px 15%;
 }
 
 /* ----section(OtherProfile)---- */

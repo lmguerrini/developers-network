@@ -86,17 +86,18 @@ export default function FriendButton({ id }) {
             </div> */}
             <div className="friendButtonContainer">
                 <button className="friendButton" onClick={handleClick}>
-                    {buttonText == "Cancel Friend Request" ? (
-                        <p
-                            style={{
-                                color: "red",
-                            }}
-                        >
-                            {buttonText}
-                        </p>
-                    ) : (
-                        buttonText
-                    )}
+                    {buttonText == "Cancel Friend Request" ||
+                    buttonText == "Unfriend" ? (
+                            <p
+                                style={{
+                                    color: "red",
+                                }}
+                            >
+                                {buttonText}
+                            </p>
+                        ) : (
+                            buttonText
+                        )}
                 </button>
             </div>
             <div className="registrationError">

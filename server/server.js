@@ -362,9 +362,28 @@ app.post("/reset/password/verify", (req, res) => {
 app.get("/user/info", async (req, res) => {
     try {
         const id = req.session.userId;
-        let result = await db.getUserProfile(id);
-        //console.log("result: ", result.rows[0]);
-        res.json(result.rows[0]);
+        //let result = await db.getUserProfile(id);
+        const [result1, result2] = await Promise.all([
+            db.getUserProfile(id),
+            db.getUserProfileExtraInfos(id),
+        ]);
+        if (result2.rows.length > 0) {
+            if (result2.rows[0].github != undefined) {
+                result2.rows[0].gitHub = result2.rows[0].github;
+                delete result2.rows[0].github;
+            }
+            if (result2.rows[0].linkedin != undefined) {
+                result2.rows[0].linkedIn = result2.rows[0].linkedin;
+                delete result2.rows[0].linkedin;
+            }
+        }
+
+        const finalResult = {
+            ...result1.rows[0],
+            ...result2.rows[0],
+        };
+        //res.json(result.rows[0]);
+        res.json(finalResult);
     } catch (err) {
         console.error("error in GET/upload db.getUserProfile catch: ", err);
         res.json({ error: true });
@@ -608,8 +627,10 @@ app.post("/delete", s3.delete, (req, res) => {
 });
 
 app.post("/edit/bio", (req, res) => {
+    console.log("server bio body :", req.body);
     const id = req.session.userId;
     const { draftBio } = req.body;
+    console.log("íd, draftLocation :", id, draftBio);
     db.updateBio(id, draftBio)
         .then(() => {
             //console.log("post(/edit/bio rows[0].bio:", rows[0].bio);
@@ -618,6 +639,348 @@ app.post("/edit/bio", (req, res) => {
         .catch((err) => {
             console.error("error in POST/edit/bio db.updateBio catch: ", err);
             //res.json({ error: true });
+        });
+});
+
+app.post("/edit/location", (req, res) => {
+    const id = req.session.userId;
+    const { draftLocation } = req.body;
+    //console.log("íd, draftLocation :", id, draftLocation);
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateLocation(id, draftLocation)
+                    .then(() => {
+                        res.json({ error: false, location: draftLocation });
+                        console.log("new location updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/location db.updateLocation catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertLocation(id, draftLocation)
+                    .then((rows) => {
+                        //console.log("post(/edit/location rows:", rows);
+                        console.log("post(/edit/location rows[0]:", rows[0]);
+                        res.json({ error: false, location: draftLocation });
+                        console.log("location inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/location db.insertLocation catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+
+            console.log(userExtraInfos);
+            //res.json({ error: false, location: draftLocation });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/location db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/education", (req, res) => {
+    const id = req.session.userId;
+    const { draftEducation } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateEducation(id, draftEducation)
+                    .then(() => {
+                        res.json({ error: false, education: draftEducation });
+                        console.log("new education updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/education db.updateEducation catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertEducation(id, draftEducation)
+                    .then(() => {
+                        res.json({ error: false, education: draftEducation });
+                        console.log("education inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/education db.insertEducation catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/education db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/skills", (req, res) => {
+    const id = req.session.userId;
+    const { draftSkills } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateSkills(id, draftSkills)
+                    .then(() => {
+                        res.json({ error: false, skills: draftSkills });
+                        console.log("new skills updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/skills db.updateSkills catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertSkills(id, draftSkills)
+                    .then(() => {
+                        res.json({ error: false, skills: draftSkills });
+                        console.log("skills inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/skills db.insertSkills catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/skills db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/work", (req, res) => {
+    const id = req.session.userId;
+    const { draftWork } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateWork(id, draftWork)
+                    .then(() => {
+                        res.json({ error: false, work: draftWork });
+                        console.log("new work updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/work db.updateWork catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertWork(id, draftWork)
+                    .then(() => {
+                        res.json({ error: false, work: draftWork });
+                        console.log("work inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/work db.insertWork catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/work db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/gitHub", (req, res) => {
+    const id = req.session.userId;
+    const { draftGitHub } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateGitHub(id, draftGitHub)
+                    .then(() => {
+                        res.json({ error: false, gitHub: draftGitHub });
+                        console.log("new GitHub link updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/gitHub db.updateGitHub catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertGitHub(id, draftGitHub)
+                    .then(() => {
+                        res.json({ error: false, gitHub: draftGitHub });
+                        console.log("GitHub link inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/gitHub db.insertGitHub catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/gitHub db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/linkedIn", (req, res) => {
+    const id = req.session.userId;
+    const { draftLinkedIn } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateLinkedIn(id, draftLinkedIn)
+                    .then(() => {
+                        res.json({ error: false, linkedIn: draftLinkedIn });
+                        console.log("new LinkedIn link updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/linkedIn db.updateLinkedIn catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertLinkedIn(id, draftLinkedIn)
+                    .then(() => {
+                        res.json({ error: false, linkedIn: draftLinkedIn });
+                        console.log("LinkedIn link inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/linkedIn db.insertLinkedIn catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/linkedIn db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
+app.post("/edit/languages", (req, res) => {
+    const id = req.session.userId;
+    const { draftLanguages } = req.body;
+    let userExtraInfos = 0;
+
+    db.getUserProfileExtraInfos(id)
+        .then((rows) => {
+            for (const obj of rows.rows) {
+                if (obj) userExtraInfos++;
+            }
+
+            if (userExtraInfos > 0) {
+                db.updateLanguages(id, draftLanguages)
+                    .then(() => {
+                        res.json({ error: false, languages: draftLanguages });
+                        console.log("new languages updated!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/languages db.updateLanguages catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.insertLanguages(id, draftLanguages)
+                    .then(() => {
+                        res.json({ error: false, languages: draftLanguages });
+                        console.log("languages inserted!");
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/edit/languages db.insertLanguages catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/edit/languages db.getUserProfileExtraInfos catch: ",
+                err
+            );
+            res.json({ error: true });
         });
 });
 

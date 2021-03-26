@@ -1,25 +1,17 @@
 import ProfilePic from "./profilepic";
 import BioEditor from "./bioeditor";
+import { ProfileMoreBtnFront } from "./profilemorebtn";
+import { ProfileLessBtnBack } from "./profilemorebtn";
+import { LocationEditor } from "./extraprofileinfos";
+import { EducationEditor } from "./extraprofileinfos";
+import { SkillsEditor } from "./extraprofileinfos";
+import { WorkEditor } from "./extraprofileinfos";
+import { GitHubEditor } from "./extraprofileinfos";
+import { LinkedInEditor } from "./extraprofileinfos";
+import { LanguagesEditor } from "./extraprofileinfos";
 import Wall from "./wall";
 //import EditProfile from "./editprofile";
 //import { Link } from "react-router-dom";
-
-/* 
-NB: The Profile component will be responsible for laying out the content we want to show: 
-    the user's name, profile picture, and bio.
-*/
-
-/* export default function ProfilePic(props) {
-    console.log("Profile props: ", props);
-    return (
-        <>
-            <h1>User Profile Component</h1>
-            <h3>
-                Hello my name is {props.first} {props.last}
-            </h3>
-        </>
-    );
-} */
 
 // destructuring it, it's just a personal preference
 export default function Profile({
@@ -29,6 +21,20 @@ export default function Profile({
     profile_pic,
     bio,
     editBio,
+    location,
+    editLocation,
+    education,
+    editEducation,
+    skills,
+    editSkills,
+    work,
+    editWork,
+    gitHub,
+    editGitHub,
+    linkedIn,
+    editLinkedIn,
+    languages,
+    editLanguages,
     toggleModalUploader,
     toggleModalSettings,
 }) {
@@ -40,7 +46,21 @@ export default function Profile({
         profile_pic,
         bio,
         editBio,
-        toggleModalUploader,
+        location,
+        editLocation,
+        education,
+        editEducation,
+        skills,
+        editSkills,
+        work,
+        editWork,
+        gitHub,
+        editGitHub,
+        linkedIn,
+        editLinkedIn,
+        languages,
+        editLanguages,
+        toggleModalUploader
     ); */
 
     return (
@@ -53,7 +73,10 @@ export default function Profile({
                             to="/edit/profile"
                             style={{ textDecoration: "none" }}
                         > */}
-                        <p id="toggleModalSettings" onClick={toggleModalSettings}>
+                        <p
+                            id="toggleModalSettings"
+                            onClick={toggleModalSettings}
+                        >
                             {" "}
                             <b>
                                 Welcome back&nbsp;
@@ -64,42 +87,143 @@ export default function Profile({
                         {/* </Link> */}
                     </div>
                     {/* <div className="profileContainer"> */}
-                    <div className="cardContainer">
-                        <div className="card">
-                            {/* <h1>Profile=-ProfilePic</h1> */}
-                            <div className="profile_picBigContainer">
-                                {/* <h1>Profile=-ProfilePic</h1> */}
-                                {/* <h1>
-                            {first} {last}&#39;s profile page!
-                            </h1> */}
-                                <ProfilePic
-                                    toggleModalUploader={toggleModalUploader}
-                                    profile_pic={profile_pic}
-                                    /* <img className="profile_picBig" src={profile_pic} /> */
-                                />
-                            </div>
 
-                            {/* <h1>Profile=-BioEditor</h1> */}
-                            <div className="bioEditor">
-                                <p id="introTitle">
-                                    <b>Intro</b>
-                                </p>
-                                <BioEditor bio={bio} editBio={editBio} />
+                    <div className="container">
+                        <div className="front side">
+                            <div className="content">
+                                <div className="cardContainer">
+                                    <div className="card">
+                                        {/* <h1>Profile=-ProfilePic</h1> */}
+                                        <div className="profile_picBigContainer">
+                                            {/* <h1>Profile=-ProfilePic</h1> */}
+                                            {/* <h1>
+                                                {first} {last}&#39;s profile
+                                                page!
+                                            </h1> */}
+                                            <ProfilePic
+                                                toggleModalUploader={
+                                                    toggleModalUploader
+                                                }
+                                                profile_pic={profile_pic}
+                                                /* <img className="profile_picBig" src={profile_pic} /> */
+                                            />
+                                        </div>
+                                        {/* <h1>Profile=-BioEditor</h1> */}
+                                        <div className="bioEditor">
+                                            <p id="introTitle">
+                                                <b>Intro</b>
+                                            </p>
+                                            <BioEditor
+                                                bio={bio}
+                                                editBio={editBio}
+                                            />
+                                        </div>
+                                        {/* <div className="more">MORE</div> */}
+                                        <ProfileMoreBtnFront />
+
+                                        {/* <div className="modalUploaderWrapper">
+                                            <EditProfile
+                                                toggleModalSettings={
+                                                    toggleModalSettings
+                                                }
+                                            />
+                                        </div> */}
+                                    </div>
+                                </div>
                             </div>
-                            {/* <div className="modalUploaderWrapper">
-                                <EditProfile
-                                    toggleModalSettings={toggleModalSettings}
-                                    
-                                />
-                            </div> */}
+                        </div>
+
+                        <div className="back side">
+                            <div className="content">
+                                <div className="cardContainer">
+                                    <div className="card">
+                                        <div id="privateChatPaddingTop"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>Location:</b>
+                                            </p>
+                                            <LocationEditor
+                                                location={location}
+                                                editLocation={editLocation}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>Education:</b>
+                                            </p>
+                                            <EducationEditor
+                                                education={education}
+                                                editEducation={editEducation}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>Skills:</b>
+                                            </p>
+                                            <SkillsEditor
+                                                skills={skills}
+                                                editSkills={editSkills}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>Work:</b>
+                                            </p>
+                                            <WorkEditor
+                                                work={work}
+                                                editWork={editWork}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>GitHub:</b>
+                                            </p>
+                                            <GitHubEditor
+                                                gitHub={gitHub}
+                                                editGitHub={editGitHub}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>LinkedIn:</b>
+                                            </p>
+                                            <LinkedInEditor
+                                                linkedIn={linkedIn}
+                                                editLinkedIn={editLinkedIn}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+                                        <div id="extraInfoTitle">
+                                            <p>
+                                                <b>Languages:</b>
+                                            </p>
+                                            <LanguagesEditor
+                                                languages={languages}
+                                                editLanguages={editLanguages}
+                                            />
+                                        </div>
+                                        <div id="separationLine"></div>
+
+                                        <div id="privateChatPaddingTop"></div>
+                                        <ProfileLessBtnBack /* className="profileMoreBtnBack" */
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     {/* </div> */}
                 </div>
             </div>
             <div className="wallOuterContainer">
                 <Wall id={id} myWall={true} />
-            </div> 
+            </div>
         </>
     );
 }

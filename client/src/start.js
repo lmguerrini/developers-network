@@ -49,6 +49,7 @@ ReactDOM.render(elem, document.querySelector("main"));
             - Profile (child)
                 - ProfilPic
                 - BioEditor
+                - ExtraProfileInfos
                 - Wall
             - Uploader (child)
             - EditProfile (child)

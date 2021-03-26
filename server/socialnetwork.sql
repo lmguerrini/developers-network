@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users_extra_infos;
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS chat_messages;
@@ -22,6 +23,24 @@ CREATE TABLE users(
 -- DELETE FROM users WHERE id  = 1;
 -- UPDATE users SET profile_pic = null WHERE id  = 1;
 -- DELETE * FROM users;
+
+CREATE TABLE users_extra_infos(
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id),
+      location VARCHAR (255),
+      education VARCHAR (255),
+      skills VARCHAR (255),
+      work VARCHAR (255),
+      github VARCHAR (255),
+      linkedin VARCHAR (255),
+      languages VARCHAR (255),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- SELECT * FROM users_extra_infos;
+-- SELECT * FROM users_extra_infos WHERE id  = 1;
+-- DELETE FROM users_extra_infos WHERE id  = 1;
+-- UPDATE users_extra_infos SET location = null WHERE id  = 1;
+-- DELETE * FROM users_extra_infos;
 
 
 CREATE TABLE reset_codes(

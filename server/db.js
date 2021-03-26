@@ -102,6 +102,12 @@ module.exports.getUserProfile = (id) => {
     return db.query(q, [id]);
 };
 
+module.exports.getUserProfileExtraInfos = (id) => {
+    const q = `SELECT location, education, skills, work, github, linkedin, languages
+    FROM users_extra_infos WHERE user_id = ($1)`;
+    return db.query(q, [id]);
+};
+
 module.exports.updateProfilePic = (id, url) => {
     const q = `UPDATE users
     SET profile_pic = ($2) WHERE id = ($1)
@@ -115,6 +121,99 @@ module.exports.updateBio = (id, bio) => {
     const q = `UPDATE users
     SET bio = ($2) WHERE id = ($1) RETURNING id, bio`;
     const params = [id, bio];
+    return db.query(q, params);
+};
+
+// edit extra profile infos
+
+module.exports.insertLocation = (id, location) => {
+    const q = `INSERT INTO users_extra_infos (user_id, location)
+    VALUES (($1), ($2)) RETURNING id, user_id, location`;
+    const params = [id, location];
+    return db.query(q, params);
+};
+module.exports.updateLocation = (id, location) => {
+    const q = `UPDATE users_extra_infos
+    SET location = ($2) WHERE user_id = ($1) RETURNING id, user_id, location`;
+    const params = [id, location];
+    return db.query(q, params);
+};
+
+module.exports.insertEducation = (id, education) => {
+    const q = `INSERT INTO users_extra_infos (user_id, education)
+    VALUES (($1), ($2)) RETURNING id, user_id, education`;
+    const params = [id, education];
+    return db.query(q, params);
+};
+module.exports.updateEducation = (id, education) => {
+    const q = `UPDATE users_extra_infos
+    SET education = ($2) WHERE user_id = ($1) RETURNING id, user_id, education`;
+    const params = [id, education];
+    return db.query(q, params);
+};
+
+module.exports.insertSkills = (id, skills) => {
+    const q = `INSERT INTO users_extra_infos (user_id, skills)
+    VALUES (($1), ($2)) RETURNING id, user_id, skills`;
+    const params = [id, skills];
+    return db.query(q, params);
+};
+module.exports.updateSkills = (id, skills) => {
+    const q = `UPDATE users_extra_infos
+    SET skills = ($2) WHERE user_id = ($1) RETURNING id, user_id, skills`;
+    const params = [id, skills];
+    return db.query(q, params);
+};
+
+module.exports.insertWork = (id, work) => {
+    const q = `INSERT INTO users_extra_infos (user_id, work)
+    VALUES (($1), ($2)) RETURNING id, user_id, work`;
+    const params = [id, work];
+    return db.query(q, params);
+};
+module.exports.updateWork = (id, work) => {
+    const q = `UPDATE users_extra_infos
+    SET work = ($2) WHERE user_id = ($1) RETURNING id, user_id, work`;
+    const params = [id, work];
+    return db.query(q, params);
+};
+
+module.exports.insertGitHub = (id, gitHub) => {
+    const q = `INSERT INTO users_extra_infos (user_id, github)
+    VALUES (($1), ($2)) RETURNING id, user_id, github AS gitHub`;
+    const params = [id, gitHub];
+    return db.query(q, params);
+};
+module.exports.updateGitHub = (id, gitHub) => {
+    const q = `UPDATE users_extra_infos
+    SET github = ($2) WHERE user_id = ($1) RETURNING id, user_id, github AS gitHub`;
+    const params = [id, gitHub];
+    return db.query(q, params);
+};
+
+module.exports.insertLinkedIn = (id, linkedIn) => {
+    const q = `INSERT INTO users_extra_infos (user_id, linkedin)
+    VALUES (($1), ($2)) RETURNING id, user_id, linkedin AS linkedIn`;
+    const params = [id, linkedIn];
+    return db.query(q, params);
+};
+module.exports.updateLinkedIn = (id, linkedIn) => {
+    const q = `UPDATE users_extra_infos
+    SET linkedin = ($2) WHERE user_id = ($1) RETURNING id, user_id, linkedin AS linkedIn`;
+    const params = [id, linkedIn];
+    return db.query(q, params);
+};
+
+module.exports.insertLanguages = (id, languages) => {
+    const q = `INSERT INTO users_extra_infos (user_id, languages)
+    VALUES (($1), ($2)) RETURNING id, user_id, languages`;
+    const params = [id, languages];
+    return db.query(q, params);
+};
+module.exports.updateLanguages = (id, languages) => {
+    const q = `UPDATE users_extra_infos
+    SET languages = ($2) WHERE user_id = ($1) RETURNING id, user_id, languages`;
+    const params = [id, languages];
     return db.query(q, params);
 };
 
@@ -319,4 +418,3 @@ module.exports.getFriendshipRequestNotifications = (recipientId) => {
     const params = [recipientId];
     return db.query(q, params);
 };
-

@@ -38,6 +38,13 @@ export default class App extends Component {
             email: "",
             profile_pic: "",
             bio: "",
+            location: "",
+            education: "",
+            skills: "",
+            work: "",
+            gitHub: "",
+            linkedIn: "",
+            languages: "",
             uploaderIsVisible: false,
             settingsIsVisible: false,
             notifications: 0,
@@ -50,6 +57,13 @@ export default class App extends Component {
         this.setImage = this.setImage.bind(this);
         this.toggleModalSettings = this.toggleModalSettings.bind(this);
         this.editBio = this.editBio.bind(this);
+        this.editLocation = this.editLocation.bind(this);
+        this.editEducation = this.editEducation.bind(this);
+        this.editSkills = this.editSkills.bind(this);
+        this.editWork = this.editWork.bind(this);
+        this.editGitHub = this.editGitHub.bind(this);
+        this.editLinkedIn = this.editLinkedIn.bind(this);
+        this.editLanguages = this.editLanguages.bind(this);
         this.callbackFunction = (childData) => {
             this.setState({ notifications: childData });
         };
@@ -153,10 +167,53 @@ export default class App extends Component {
         });
     }
 
+    // edit user infos
     editBio(newBio) {
-        console.log("editBio worked!");
+        //console.log("editBio worked!", newBio);
         this.setState({
             bio: newBio, // update bio w/ new newBio
+        });
+    }
+    editLocation(newLocation) {
+        //console.log("editLocation worked!", newLocation);
+        this.setState({
+            location: newLocation,
+        });
+    }
+    editEducation(newEducation) {
+        //console.log("editEducation worked!", newEducation);
+        this.setState({
+            education: newEducation,
+        });
+    }
+    editSkills(newSkills) {
+        //console.log("editSkills worked!", newSkills);
+        this.setState({
+            skills: newSkills,
+        });
+    }
+    editWork(newWork) {
+        //console.log("editWork worked!", newWork);
+        this.setState({
+            work: newWork,
+        });
+    }
+    editGitHub(newGitHub) {
+        //console.log("editGitHub worked!", newGitHub);
+        this.setState({
+            gitHub: newGitHub,
+        });
+    }
+    editLinkedIn(newLinkedIn) {
+        //console.log("editLinkedIn worked!", newLinkedIn);
+        this.setState({
+            linkedIn: newLinkedIn,
+        });
+    }
+    editLanguages(newLanguages) {
+        //console.log("editLinkedIn worked!", newLanguages);
+        this.setState({
+            languages: newLanguages,
         });
     }
 
@@ -328,6 +385,36 @@ export default class App extends Component {
                                                     }
                                                     bio={this.state.bio}
                                                     editBio={this.editBio}
+                                                    location={
+                                                        this.state.location
+                                                    }
+                                                    editLocation={
+                                                        this.editLocation
+                                                    }
+                                                    education={
+                                                        this.state.education
+                                                    }
+                                                    editEducation={
+                                                        this.editEducation
+                                                    }
+                                                    skills={this.state.skills}
+                                                    editSkills={this.editSkills}
+                                                    work={this.state.work}
+                                                    editWork={this.editWork}
+                                                    gitHub={this.state.gitHub}
+                                                    editGitHub={this.editGitHub}
+                                                    linkedIn={
+                                                        this.state.linkedIn
+                                                    }
+                                                    editLinkedIn={
+                                                        this.editLinkedIn
+                                                    }
+                                                    languages={
+                                                        this.state.languages
+                                                    }
+                                                    editLanguages={
+                                                        this.editLanguages
+                                                    }
                                                 />
                                             </div>
                                         </section>
