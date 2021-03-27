@@ -82,18 +82,26 @@ export default function EditProfile({
                     type="password"
                 />
                 <div className="saveCancelContainer">
-                    <button id="saveChanges" onClick={handleSubmit}>
+                    <button
+                        id="saveChanges"
+                        className="backgroundTransparent"
+                        onClick={handleSubmit}
+                    >
                         Save Changes
                     </button>
                     {/* <Link to="/"> */}
-                    <button id="cancelChanges" onClick={toggleModalSettings}>
+                    <button
+                        id="cancelChanges"
+                        className="backgroundTransparent"
+                        onClick={toggleModalSettings}
+                    >
                         Back
                     </button>
                     {/* </Link> */}
                 </div>
                 {/* </div> */}
                 <div className="logoutDeleteContainer">
-                    <button>
+                    <button className="backgroundTransparent">
                         <Link
                             to="/logout"
                             className="logoutLink"
@@ -106,8 +114,8 @@ export default function EditProfile({
                             onClick={logout}
                         >
                             <span>Log Out</span>
-                            <br />
-                            <FiLogOut />
+                            {/* <br /> */}
+                            <FiLogOut id="logoutEPIcon" />
                         </Link>
                     </button>
                     <button
@@ -120,8 +128,8 @@ export default function EditProfile({
                         }}
                     >
                         <span>Delete Account</span>
-                        <br />
-                        <AiOutlineUserDelete />
+                        {/* <br /> */}
+                        <AiOutlineUserDelete id="logoutEPIcon" />
                     </button>
                 </div>
             </div>

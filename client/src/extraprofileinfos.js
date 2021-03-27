@@ -3,6 +3,7 @@ import axios from "./axios";
 
 export const LocationEditor = (props) => {
     //console.log("LocationEditor props :", props);
+    const myProfile = props.myProfile;
     const [draftLocation, setDraftLocation] = useState("");
     const [locationEditorIsVisible, setLocationEditorIsVisible] = useState(
         false
@@ -71,7 +72,7 @@ export const LocationEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {/* {props.location} */}
                                 {props.location ? (
@@ -82,13 +83,40 @@ export const LocationEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={locationToggleTextarea}
-                        >
-                            {!props.location ? "Add location" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1.3em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {/* {props.location} */}
+                                {props.location ? (
+                                    props.location
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no location entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={locationToggleTextarea}
+                            >
+                                {!props.location ? "Add location" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={locationToggleTextarea}
+                            >
+                                {!props.location ? "Add location" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -97,6 +125,7 @@ export const LocationEditor = (props) => {
 };
 
 export const EducationEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftEducation, setDraftEducation] = useState("");
     const [educationEditorIsVisible, setEducationEditorIsVisible] = useState(
         false
@@ -162,7 +191,7 @@ export const EducationEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.education ? (
                                     props.education
@@ -172,13 +201,39 @@ export const EducationEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={educationToggleTextarea}
-                        >
-                            {!props.education ? "Add education" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.education ? (
+                                    props.education
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no education entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={educationToggleTextarea}
+                            >
+                                {!props.education ? "Add education" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={educationToggleTextarea}
+                            >
+                                {!props.education ? "Add education" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -187,6 +242,7 @@ export const EducationEditor = (props) => {
 };
 
 export const SkillsEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftSkills, setDraftSkills] = useState("");
     const [skillsEditorIsVisible, setSkillsEditorIsVisible] = useState(false);
     const [error, setError] = useState(false);
@@ -250,7 +306,7 @@ export const SkillsEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.skills ? (
                                     props.skills
@@ -260,13 +316,39 @@ export const SkillsEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={skillsToggleTextarea}
-                        >
-                            {!props.skills ? "Add skills" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.skills ? (
+                                    props.skills
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no skills entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={skillsToggleTextarea}
+                            >
+                                {!props.skills ? "Add skills" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={skillsToggleTextarea}
+                            >
+                                {!props.skills ? "Add skills" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -275,6 +357,7 @@ export const SkillsEditor = (props) => {
 };
 
 export const WorkEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftWork, setDraftWork] = useState("");
     const [workEditorIsVisible, setWorkEditorIsVisible] = useState(false);
     const [error, setError] = useState(false);
@@ -335,7 +418,7 @@ export const WorkEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.work ? (
                                     props.work
@@ -345,13 +428,40 @@ export const WorkEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={workToggleTextarea}
-                        >
-                            {!props.work ? "Add work" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    //textAlign: "center",
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.work ? (
+                                    props.work
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no work entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={workToggleTextarea}
+                            >
+                                {!props.work ? "Add work" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={workToggleTextarea}
+                            >
+                                {!props.work ? "Add work" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -360,6 +470,7 @@ export const WorkEditor = (props) => {
 };
 
 export const GitHubEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftGitHub, setDraftGitHub] = useState("");
     const [gitHubEditorIsVisible, setGitHubEditorIsVisible] = useState(false);
     const [error, setError] = useState(false);
@@ -424,7 +535,7 @@ export const GitHubEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.gitHub ? (
                                     props.gitHub.startsWith(
@@ -447,13 +558,52 @@ export const GitHubEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={gitHubToggleTextarea}
-                        >
-                            {!props.gitHub ? "Add GitHub link" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.gitHub ? (
+                                    props.gitHub.startsWith(
+                                        "https://github.com/"
+                                    ) ? (
+                                        <a
+                                            href={props.gitHub}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="gitHubLink"
+                                        >
+                                            {props.gitHub}
+                                        </a>
+                                    ) : (
+                                        <span>{props.gitHub}</span>
+                                    )
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no gitHub entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={gitHubToggleTextarea}
+                            >
+                                {!props.gitHub ? "Add GitHub link" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={gitHubToggleTextarea}
+                            >
+                                {!props.gitHub ? "Add GitHub link" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -462,6 +612,7 @@ export const GitHubEditor = (props) => {
 };
 
 export const LinkedInEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftLinkedIn, setDraftLinkedIn] = useState("");
     const [linkedInEditorIsVisible, setLinkedInEditorIsVisible] = useState(
         false
@@ -528,7 +679,7 @@ export const LinkedInEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.linkedIn ? (
                                     props.linkedIn.startsWith(
@@ -551,13 +702,52 @@ export const LinkedInEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={linkedInToggleTextarea}
-                        >
-                            {!props.linkedIn ? "Add LinkedIn link" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.linkedIn ? (
+                                    props.linkedIn.startsWith(
+                                        "https://linkedin.com/in/"
+                                    ) ? (
+                                        <a
+                                            href={props.linkedIn}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="gitHubLink"
+                                        >
+                                            {props.linkedIn}
+                                        </a>
+                                    ) : (
+                                        <span>{props.linkedIn}</span>
+                                    )
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no linkedIn entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={linkedInToggleTextarea}
+                            >
+                                {!props.linkedIn ? "Add LinkedIn link" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={linkedInToggleTextarea}
+                            >
+                                {!props.linkedIn ? "Add LinkedIn link" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -566,6 +756,7 @@ export const LinkedInEditor = (props) => {
 };
 
 export const LanguagesEditor = (props) => {
+    const myProfile = props.myProfile;
     const [draftLanguages, setDraftLanguages] = useState("");
     const [languagesEditorIsVisible, setLanguagesEditorIsVisible] = useState(
         false
@@ -631,7 +822,7 @@ export const LanguagesEditor = (props) => {
                     </div>
                 ) : (
                     <div className="locationEditorIsVisible">
-                        {
+                        {myProfile ? (
                             <p>
                                 {props.languages ? (
                                     props.languages
@@ -641,13 +832,39 @@ export const LanguagesEditor = (props) => {
                                     </span>
                                 )}
                             </p>
-                        }
-                        <button
-                            className="addEditBtn"
-                            onClick={languagesToggleTextarea}
-                        >
-                            {!props.languages ? "Add languages" : "Edit"}
-                        </button>
+                        ) : (
+                            <p
+                                style={{
+                                    width: "425px",
+                                    //fontSize: "1em",
+                                    transform: "translateY(-20px)",
+                                }}
+                            >
+                                {props.languages ? (
+                                    props.languages
+                                ) : (
+                                    <span id="uploaderSigns">
+                                        (no languages entered)
+                                    </span>
+                                )}
+                            </p>
+                        )}
+                        {myProfile ? (
+                            <button
+                                className="addEditBtn"
+                                onClick={languagesToggleTextarea}
+                            >
+                                {!props.languages ? "Add languages" : "Edit"}
+                            </button>
+                        ) : (
+                            <button
+                                style={{ display: "none" }}
+                                className="addEditBtn"
+                                onClick={languagesToggleTextarea}
+                            >
+                                {!props.languages ? "Add languages" : "Edit"}
+                            </button>
+                        )}
                     </div>
                 )}
             </div>

@@ -9,6 +9,8 @@ import { WorkEditor } from "./extraprofileinfos";
 import { GitHubEditor } from "./extraprofileinfos";
 import { LinkedInEditor } from "./extraprofileinfos";
 import { LanguagesEditor } from "./extraprofileinfos";
+import { BiCodeCurly } from "react-icons/bi";
+//import { SiCodefactor } from "react-icons/si";
 import Wall from "./wall";
 //import EditProfile from "./editprofile";
 //import { Link } from "react-router-dom";
@@ -88,7 +90,7 @@ export default function Profile({
                     </div>
                     {/* <div className="profileContainer"> */}
 
-                    <div className="container">
+                    <div className="frontBackCardsWrap">
                         <div className="front side">
                             <div className="content">
                                 <div className="cardContainer">
@@ -137,12 +139,20 @@ export default function Profile({
                             <div className="content">
                                 <div className="cardContainer">
                                     <div className="card">
-                                        <div id="privateChatPaddingTop"></div>
+                                        {/* <div id="privateChatPaddingTop"></div> */}
+                                        <div
+                                            id="introTitle"
+                                            className="listExtraInfos"
+                                        >
+                                            {/*  <SiCodefactor /> */}
+                                            <BiCodeCurly />
+                                        </div>
                                         <div id="extraInfoTitle">
                                             <p>
                                                 <b>Location:</b>
                                             </p>
                                             <LocationEditor
+                                                myProfile={true}
                                                 location={location}
                                                 editLocation={editLocation}
                                             />
@@ -153,6 +163,7 @@ export default function Profile({
                                                 <b>Education:</b>
                                             </p>
                                             <EducationEditor
+                                                myProfile={true}
                                                 education={education}
                                                 editEducation={editEducation}
                                             />
@@ -163,6 +174,7 @@ export default function Profile({
                                                 <b>Skills:</b>
                                             </p>
                                             <SkillsEditor
+                                                myProfile={true}
                                                 skills={skills}
                                                 editSkills={editSkills}
                                             />
@@ -173,6 +185,7 @@ export default function Profile({
                                                 <b>Work:</b>
                                             </p>
                                             <WorkEditor
+                                                myProfile={true}
                                                 work={work}
                                                 editWork={editWork}
                                             />
@@ -183,6 +196,7 @@ export default function Profile({
                                                 <b>GitHub:</b>
                                             </p>
                                             <GitHubEditor
+                                                myProfile={true}
                                                 gitHub={gitHub}
                                                 editGitHub={editGitHub}
                                             />
@@ -193,6 +207,7 @@ export default function Profile({
                                                 <b>LinkedIn:</b>
                                             </p>
                                             <LinkedInEditor
+                                                myProfile={true}
                                                 linkedIn={linkedIn}
                                                 editLinkedIn={editLinkedIn}
                                             />
@@ -203,6 +218,7 @@ export default function Profile({
                                                 <b>Languages:</b>
                                             </p>
                                             <LanguagesEditor
+                                                myProfile={true}
                                                 languages={languages}
                                                 editLanguages={editLanguages}
                                             />

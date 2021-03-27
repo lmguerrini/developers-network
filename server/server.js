@@ -984,7 +984,7 @@ app.post("/edit/languages", (req, res) => {
         });
 });
 
-app.get("/other-user/info/:id", (req, res) => {
+/* app.get("/other-user/info/:id", (req, res) => {
     const id = req.session.userId;
     const requestedId = req.params.id;
     if (requestedId == id) {
@@ -1001,6 +1001,41 @@ app.get("/other-user/info/:id", (req, res) => {
             );
             res.json({ error: true });
         });
+}); */
+
+// asyn fn
+app.get("/other-user/info/:id", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const otherUserId = req.params.id;
+        if (otherUserId == userId) {
+            res.json({ requestedInvalidId: true, error: true });
+        }
+        const [result1, result2] = await Promise.all([
+            db.getOtherUserInfo(otherUserId),
+            db.getUserProfileExtraInfos(otherUserId),
+        ]);
+        if (result2.rows.length > 0) {
+            if (result2.rows[0].github != undefined) {
+                result2.rows[0].gitHub = result2.rows[0].github;
+                delete result2.rows[0].github;
+            }
+            if (result2.rows[0].linkedin != undefined) {
+                result2.rows[0].linkedIn = result2.rows[0].linkedin;
+                delete result2.rows[0].linkedin;
+            }
+        }
+
+        const finalResult = {
+            ...result1.rows[0],
+            ...result2.rows[0],
+        };
+        //res.json(result.rows[0]);
+        res.json(finalResult);
+    } catch (err) {
+        console.error("error in GET/upload db.getUserProfile catch: ", err);
+        res.json({ error: true });
+    }
 });
 
 app.get("/users/latest", (req, res) => {

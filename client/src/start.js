@@ -56,6 +56,7 @@ ReactDOM.render(elem, document.querySelector("main"));
             - OtherProfile (child)
                 - ProfilPic
                 - FriendButton
+                - Wall
             - FindPeople (child)
             - Friends (child)
             _ Chat (child)

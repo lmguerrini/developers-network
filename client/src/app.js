@@ -18,6 +18,7 @@ import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
+import { RiNotification2Line } from "react-icons/ri";
 import { GrNotification } from "react-icons/gr";
 //import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
@@ -311,7 +312,8 @@ export default class App extends Component {
                                         >
                                             {/* Notification */}
                                             {/* Notification Count: {this.state.notifications} */}
-                                            <GrNotification />
+                                            {/* <GrNotification /> */}
+                                            <RiNotification2Line />
                                         </Link>
                                     </p>
 

@@ -4,7 +4,9 @@ import { BiCodeAlt } from "react-icons/bi";
 
 export const ProfileMoreBtnFront = () => {
     const [profileMoreBtn /* , setProfileMoreBtn */] = useState(true);
-    const frontBackCards = document.getElementsByClassName("container");
+    const frontBackCards = document.getElementsByClassName(
+        "frontBackCardsWrap"
+    );
     const frontBtn = document.getElementsByClassName("profileMoreBtnTrue");
 
     const handleClick = () => {
@@ -73,7 +75,9 @@ export const ProfileMoreBtnFront = () => {
 };
 
 export const ProfileLessBtnBack = () => {
-    const frontBackCards = document.getElementsByClassName("container");
+    const frontBackCards = document.getElementsByClassName(
+        "frontBackCardsWrap"
+    );
     const frontBtn = document.getElementsByClassName("profileMoreBtnTrue");
 
     const handleClick = () => {

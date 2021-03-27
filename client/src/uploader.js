@@ -32,7 +32,7 @@ export default class Uploader extends Component {
                             data.profile_pic
                         );
                         this.props.setImage(data.profile_pic);
-                        
+
                         //this.props.toggleUploader();
                     }
                 })
@@ -108,7 +108,7 @@ export default class Uploader extends Component {
                     </p> */}
                     <input
                         name="image"
-                        id="image"
+                        id="imageInput"
                         type="file"
                         accept="image/*"
                         onChange={this.handleChange}
@@ -116,24 +116,30 @@ export default class Uploader extends Component {
                     {/* <h1 onClick={() => this.handleClick()}>Upload</h1> */}
                     <button
                         id="uploaderUploadBtn"
+                        /* className="backgroundTransparent" */
                         onClick={this.handleUpdateImage}
                     >
                         Upload
                     </button>
                     {this.props.profile_pic && (
                         <p>
-                            <small id="uploaderSigns">❮</small> or{" "}
+                            <span id="orIt">
+                                <small id="uploaderSigns">❮</small> or
+                            </span>{" "}
                             <button
                                 id="uploaderDeleteBtn"
                                 onClick={this.handleDeleteImage}
                             >
                                 Delete
                             </button>{" "}
-                            it <small id="uploaderSigns">❯</small>
+                            <span id="orIt">
+                                it <small id="uploaderSigns">❯</small>
+                            </span>
                         </p>
                     )}
                     <button
                         id="uploaderCloseBtn"
+                        /* className="backgroundTransparent" */
                         onClick={this.props.toggleModalUploader}
                     >
                         Close

@@ -3,7 +3,8 @@ import { getWallPosts, postWallPost } from "./actions";
 import useStatefulFields from "./customhooks/use-stateful-fields";
 import { useState, useEffect } from "react";
 
-export default function Wall({ id, myWall }) {
+export default function Wall({ id, myWall, name }) {
+    console.log("-------", id, myWall, name);
     const dispatch = useDispatch();
     const [fields, handleChange] = useStatefulFields(); // => customhooks
     const [fileLabel, setFileLabel] = useState("Choose an image (< 2mb): ");
@@ -57,7 +58,7 @@ export default function Wall({ id, myWall }) {
                                         <p id="noPostsYet">It seems you haven't post anything yet</p>
                                     )} */}
 
-                                    {myWall && (
+                                    {myWall ? (
                                         <div className="wallPostsGlassOverlayWrap">
                                             <div className="wallPostsGlassOverlay">
                                                 {/* <h1>Wall posts</h1> */}
@@ -116,6 +117,24 @@ export default function Wall({ id, myWall }) {
                                                             )}
                                                         </div>
                                                     </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="wallPostsGlassOverlayWrap">
+                                            <div className="wallPostsGlassOverlay">
+                                                <div>
+                                                    <p
+                                                        id="wallTitle"
+                                                        className="onHoverNoCursor"
+                                                        style={{
+                                                            fontSize: "1.7em",
+                                                            marginTop: "21px",
+                                                            //color: "lime",
+                                                        }}
+                                                    >
+                                                        {name} wall_
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
