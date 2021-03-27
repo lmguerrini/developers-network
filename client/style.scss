@@ -1049,7 +1049,7 @@ button {
 
 /* ----section(Profile)---- */
 
-/* test START----------------------------------------------- */
+/* card-animation START */
 .container {
     //border: 3px solid lime;
     width: 700px;
@@ -1086,7 +1086,7 @@ button {
 
 .back {
     transition: 2s;
-    visibility: hidden;
+    //visibility: hidden;
     background-color: transparent;
     //transform: rotateY(180deg);
     z-index: 0;
@@ -1098,11 +1098,6 @@ button {
     &::-webkit-scrollbar {
         display: none;
     }
-
-    &:hover {
-        //transform: translateX(100px);
-    }
-    //background-image: url(https://userscontent2.emaze.com/images/f9538183-0ff9-478f-b964-c8ab90421e3b/3d28e192fda5c17250f96a2779c84475.jpg);
 }
 
 .back-move {
@@ -1195,7 +1190,7 @@ button {
     display: none;
 }
 
-/* test END -----------------------------------------*/
+/* card-animation END */
 
 .sectionProfile {
     display: flex;
@@ -1360,7 +1355,7 @@ button {
 
 #bioeditorTextarea textarea {
     outline: none;
-    
+
     &:focus {
         border: 2px solid lime;
     }
@@ -1424,34 +1419,61 @@ button {
 }
 
 #extraInfoTitle {
-    display: flex;
+    /* display: flex;
     //border: 2px solid lime;
     padding: 15px 20px;
-    //height: 40px;
+    //height: 40px; */
+
+    display: grid;
+    //grid-template-columns: 200px 1fr 0.5fr;
+    grid-template-columns: 110px 40px 2px;
+    grid-template-rows: auto;
+    justify-items: start;
+    margin: 25px 10px 25px 20px;
+    text-shadow: 2.5px 2.5px 2.5px rgba(255, 255, 255, 0.329);
+    //column-gap: 10px;
+    //border: 1px solid red;
+    font-size: 0.9em;
 }
 
 .locationEditorIsVisible {
-    display: flex;
+    /* display: flex;
     //border: 2px solid yellow;
-    width: 500px;
+    width: 500px; */
+
+    display: grid;
+    //border: 1px solid lime;
+    grid-template-columns: 350px 180px;
+    grid-template-rows: auto;
+    text-align: left;
+    margin-bottom: 8.5px;
 }
 
 .locationEditorIsVisible p {
     //width: 110%;
-    width: 400px;
+    //width: 400px;
     //border: 2px solid blue;
     font-size: 1.2em;
-    margin: 0 10% 0 10px;
+    //margin: 0 10% 0 10px;
+    justify-items: center;
+    padding: 20px 10px;
+    margin: 0 10px;
+    color: rgb(0, 210, 0);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.278);
+    background: rgba(255, 255, 255, 0.073);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.278);
 }
 
 .addEditBtn {
     //width: 100%;
-    width: 250px;
-    height: 25px;
+    //width: 250px;
+    height: 30px;
     font-size: 1em;
+    align-self: center;
     //margin-left: 100px;
+    //border: 1px solid blue;
 
-    &:hover{
+    &:hover {
         transition: 0.85s;
         color: lime;
         cursor: pointer;
@@ -1461,6 +1483,9 @@ button {
 .locationEditorIsVisible textarea {
     outline: none;
     margin-left: 10px;
+    background: rgba(255, 255, 255, 0.155);
+    color: white;
+    padding: 10px;
 
     &:focus {
         border: 2px solid lime;
@@ -1470,23 +1495,63 @@ button {
 .savebackBtn {
     //width: 50%;
     font-size: 1em;
-    margin: 10px 60px 0 90px;
+    margin: 10px 15% 0 15%;
     width: 100px;
     //margin-left: 20px;
+    //border: 2px solid lime;
 
-    &:hover{
+    &:hover {
         transition: 0.85s;
         color: lime;
         cursor: pointer;
     }
 }
 
-#separationLine {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.521);
-    margin: 0 15% 5px 15%;
+#backExtraInfoBtn {
+    &:hover {
+        transition: 0.5s;
+        color: rgba(255, 255, 255, 0.788);
+    }
 }
 
+.savebackBtnWrap {
+    //border: 2px solid red;
+    //grid-column: 1 / span 2;
+    width: 500px;
+}
+
+.gitHubLink {
+    color: rgb(0, 210, 0);
+    
+
+    &:hover {
+        color: rgb(0, 155, 0);
+        text-decoration: none;
+        //text-decoration: underline;
+    }
+}
+
+/* #separationLine {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.521);
+    margin: 0 15% 5px 15%;
+} */
+
 /* ----section(OtherProfile)---- */
+
+.otherProfileContainer {
+    text-align: center;
+    padding-left: 8%;
+    /* text-align: center;
+    display: flex;
+    -flex-direction: row-reverse;
+    -flex-direction: column;
+    -justify-content: space-between;
+    align-items: center;
+    -width: 1000px;
+    -align-self: center;
+    border: 3px solid red;
+    -padding-left: 10%; */
+}
 /* .otherProfileContainer {
     margin-left: 200px;
     display: flex;
@@ -1499,22 +1564,6 @@ button {
     width: 600px;
     -align-content: center;
 } */
-
-.otherProfileContainer {
-    /* text-align: center;
-    display: flex;
-    -flex-direction: row-reverse;
-    -flex-direction: column;
-    -justify-content: space-between;
-    align-items: center;
-    -width: 1000px;
-    -align-self: center;
-    border: 3px solid red;
-    -padding-left: 10%; */
-
-    text-align: center;
-    padding-left: 8%;
-}
 
 #otherProfileBioeditor {
     font-size: 1.25em;

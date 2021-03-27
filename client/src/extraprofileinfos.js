@@ -53,9 +53,10 @@ export const LocationEditor = (props) => {
                             defaultValue={props.location}
                             onChange={locationHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={locationToggleTextarea}
                             >
                                 Back
@@ -143,9 +144,10 @@ export const EducationEditor = (props) => {
                             defaultValue={props.education}
                             onChange={educationHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={educationToggleTextarea}
                             >
                                 Back
@@ -230,9 +232,10 @@ export const SkillsEditor = (props) => {
                             defaultValue={props.skills}
                             onChange={skillsHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={skillsToggleTextarea}
                             >
                                 Back
@@ -317,9 +320,10 @@ export const WorkEditor = (props) => {
                             defaultValue={props.work}
                             onChange={workHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={workToggleTextarea}
                             >
                                 Back
@@ -398,12 +402,14 @@ export const GitHubEditor = (props) => {
                             name="draftGitHub"
                             rows="3"
                             cols="60"
+                            placeholder="https://github.com/.."
                             defaultValue={props.gitHub}
                             onChange={gitHubHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={gitHubToggleTextarea}
                             >
                                 Back
@@ -421,7 +427,20 @@ export const GitHubEditor = (props) => {
                         {
                             <p>
                                 {props.gitHub ? (
-                                    props.gitHub
+                                    props.gitHub.startsWith(
+                                        "https://github.com/"
+                                    ) ? (
+                                        <a
+                                            href={props.gitHub}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="gitHubLink"
+                                        >
+                                            {props.gitHub}
+                                        </a>
+                                    ) : (
+                                        <span>{props.gitHub}</span>
+                                    )
                                 ) : (
                                     <span id="uploaderSigns">
                                         (no gitHub entered)
@@ -487,12 +506,14 @@ export const LinkedInEditor = (props) => {
                             name="draftLinkedIn"
                             rows="3"
                             cols="60"
+                            placeholder="https://linkedin.com/in/.."
                             defaultValue={props.linkedIn}
                             onChange={linkedInHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={linkedInToggleTextarea}
                             >
                                 Back
@@ -510,7 +531,20 @@ export const LinkedInEditor = (props) => {
                         {
                             <p>
                                 {props.linkedIn ? (
-                                    props.linkedIn
+                                    props.linkedIn.startsWith(
+                                        "https://linkedin.com/in/"
+                                    ) ? (
+                                        <a
+                                            href={props.linkedIn}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="gitHubLink"
+                                        >
+                                            {props.linkedIn}
+                                        </a>
+                                    ) : (
+                                        <span>{props.linkedIn}</span>
+                                    )
                                 ) : (
                                     <span id="uploaderSigns">
                                         (no linkedIn entered)
@@ -579,9 +613,10 @@ export const LanguagesEditor = (props) => {
                             defaultValue={props.languages}
                             onChange={languagesHandleChange}
                         />
-                        <div>
+                        <div className="savebackBtnWrap">
                             <button
                                 className="savebackBtn"
+                                id="backExtraInfoBtn"
                                 onClick={languagesToggleTextarea}
                             >
                                 Back
