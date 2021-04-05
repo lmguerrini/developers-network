@@ -225,7 +225,7 @@ export default function Profile({
                                         </div>
                                         <div id="separationLine"></div>
 
-                                        <div id="privateChatPaddingTop"></div>
+                                        <div id="extraProfilePaddingBottom"></div>
                                         <ProfileLessBtnBack /* className="profileMoreBtnBack" */
                                         />
                                     </div>

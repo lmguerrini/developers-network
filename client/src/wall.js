@@ -4,7 +4,6 @@ import useStatefulFields from "./customhooks/use-stateful-fields";
 import { useState, useEffect } from "react";
 
 export default function Wall({ id, myWall, name }) {
-    console.log("-------", id, myWall, name);
     const dispatch = useDispatch();
     const [fields, handleChange] = useStatefulFields(); // => customhooks
     const [fileLabel, setFileLabel] = useState("Choose an image (< 2mb): ");

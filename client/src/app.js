@@ -115,6 +115,20 @@ export default class App extends Component {
         const { data } = await axios.get("/user/info");
         //console.log("data async componentDidMount: ", data);
         this.setState({ ...data });
+
+        //current location
+        if (this.state.location == "") {
+            axios
+                .get(
+                    "https://geolocation-db.com/json/c0593a60-4159-11eb-80cd-db15f946225f"
+                )
+                .then(({ data }) => {
+                    console.log("APP-data geolocation: ", data);
+                    /*  this.setState({
+                        location: data.city + ", " + data.country_name,
+                    }); */
+                });
+        }
     }
 
     async deleteUser() {
@@ -176,7 +190,7 @@ export default class App extends Component {
         });
     }
     editLocation(newLocation) {
-        //console.log("editLocation worked!", newLocation);
+        console.log("editLocation worked!", newLocation);
         this.setState({
             location: newLocation,
         });
