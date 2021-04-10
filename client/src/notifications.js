@@ -111,7 +111,7 @@ export default function Notification(props) {
                                         className="messageDateTimeDeleteBtnWrap"
                                         id="notificationsFlex"
                                     >
-                                        You don&apos;t have any F.R. at the
+                                        You don&apos;t have any requests at the
                                         moment, {recipientFirst}
                                     </p>
                                 </div>

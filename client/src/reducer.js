@@ -1,6 +1,14 @@
 // not "export default" if we decide to import {reducer} [in start.js]
 export function reducer(state = {}, action) {
-    // we will deal with the actions here..
+    if (action.type == "ERROR") {
+        //console.log("Reducer (general) ERROR", state);
+        state = {
+            ...state,
+            error: action.error,
+        };
+        //console.log("Reducer ERROR A", state);
+    }
+
     if (action.type == "GET_FRIENDS_WANNABES_LIST") {
         state = {
             ...state,
@@ -190,12 +198,13 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "GET_WALL_POSTS") {
-        //console.log("Reducer GET_WALL_POSTS");
+        //console.log("Reducer GET_WALL_POSTS!");
 
         state = {
             ...state,
             wallPosts: action.wallPost,
         };
+
         //console.log("reducer GET wall posts state: ", state);
     }
 
@@ -207,6 +216,55 @@ export function reducer(state = {}, action) {
             wallPosts: [action.wallPost, ...state.wallPosts],
         };
         //console.log("reducer POST new wall post state: ", state);
+    }
+
+    if (action.type == "GET_WALL_POST_COMMENTS") {
+        //console.log("Reducer GET_WALL_POST_COMMENTS!");
+
+        state = {
+            ...state,
+            wallPostComments: action.wallPostComment,
+        };
+        //console.log("reducer GET wall post comments state: ", state);
+    }
+
+    if (action.type == "POST_WALL_POST_COMMENT") {
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE", state);
+
+        state = {
+            ...state,
+            wallPostComments: [
+                ...state.wallPostComments,
+                action.newWallPostComment,
+            ],
+            newWallPostCommentError: false,
+        };
+        //console.log("Reducer POST_NEW_PRIVATE_MESSAGE (A)", state);
+    }
+
+    if (action.type == "POST_WALL_POST_COMMENT_ERROR") {
+        //console.log("Reducer POST_WALL_POST_COMMENT_ERROR", state);
+        state = {
+            ...state,
+            newWallPostCommentError: action.newWallPostCommentError,
+        };
+        //console.log("Reducer POST_WALL_POST_COMMENT_ERROR A", state);
+    }
+
+    if (action.type == "DELETE_COMMENT") {
+        console.log("Reducer DELETE_COMMENT");
+
+        state = {
+            ...state,
+            wallPostComments: state.wallPostComments.filter(
+                (deletewallPostComment) => {
+                    return (
+                        deletewallPostComment.commentId !=
+                        action.wallPostCommentToDelete
+                    );
+                }
+            ),
+        };
     }
 
     return state;

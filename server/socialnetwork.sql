@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS chat_messages;
 DROP TABLE IF EXISTS private_messages;
 DROP TABLE IF EXISTS wall;
---DROP TABLE IF EXISTS wall_comments;
+DROP TABLE IF EXISTS wall_comments;
 
 CREATE TABLE users(
       id SERIAL PRIMARY KEY,
@@ -114,8 +114,28 @@ CREATE TABLE wall(
 
 -- SELECT * FROM wall;
 -- SELECT * FROM wall WHERE id  = 1;
+-- SELECT * FROM wall WHERE user_id  = 220;
 -- DELETE FROM wall WHERE id  = 1; 'undefined'
 -- DELETE * FROM wall;
 -- INSERT INTO wall (user_id, url, description) VALUES ('236', 'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg', 'This photo brings back so many great memories.') RETURNING *;
 
+CREATE TABLE wall_comments(
+    id SERIAL PRIMARY KEY,
+    user_wall_id INTEGER REFERENCES users(id),
+    --user_wall_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    author_id INTEGER REFERENCES users(id),
+    --author_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    post_id INTEGER NOT NULL REFERENCES wall(id),
+    --post_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    comment TEXT NOT NULL CHECK (comment != ''),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- SELECT * FROM wall_comments;
+-- SELECT * FROM wall_comments WHERE id  = 1;
+-- DELETE FROM wall_comments WHERE post_id  = 1;
+-- DELETE * FROM wall_comments;
+-- INSERT INTO wall_comments (user_wall_id, author_id, post_id, comment) VALUES ('220', '220', '104', 'comment test 1') RETURNING *;
+-- INSERT INTO wall_comments (user_wall_id, author_id, post_id, comment) VALUES ('220', '220', '104', 'comment test 2') RETURNING id, created_at;
+-- INSERT INTO wall_comments (user_wall_id, author_id, post_id, comment) VALUES ('220', '220', '105', 'comment test 1(105)') RETURNING *;
 

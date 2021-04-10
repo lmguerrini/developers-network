@@ -238,7 +238,7 @@ export default function Profile({
                 </div>
             </div>
             <div className="wallOuterContainer">
-                <Wall id={id} myWall={true} />
+                <Wall id={id} myWall={true} name={`${first} ${last}`} />
             </div>
         </>
     );

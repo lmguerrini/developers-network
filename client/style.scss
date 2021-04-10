@@ -1664,7 +1664,7 @@ button {
     margin-left: 25%;
     margin-right: 25%;
     -border-radius: 10px;
-    border: 1px solid yellow;
+    //border: 1px solid yellow;
 }
 
 /* .friendButtonContainer {
@@ -1702,9 +1702,14 @@ button {
     justify-content: space-between;
     height: 65px;
     align-items: center;
-    margin-top: 55px;
+    margin-top: 100px;
     font-family: Dejavu Sans, monospace;
     z-index: 1;
+    //border: 1px solid yellow;
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+    padding: 20px;
+    transition: 1s;
 }
 
 #RiUserSearchFill {
@@ -2210,6 +2215,7 @@ li.L9 {
 
     &:hover {
         color: lime;
+        cursor: pointer;
     }
 
     &:focus {
@@ -2499,15 +2505,16 @@ li.L9 {
 
 #postWallBtn {
     font-size: 1em;
-}
 
-#postWallBtn:hover {
-    color: lime;
-}
+    &:hover {
+        color: lime;
+        cursor: pointer;
+    }
 
-#postWallBtn:focus {
-    outline: none;
-    border: 1px solid white;
+    &:focus {
+        outline: none;
+        border: 1px solid white;
+    }
 }
 
 .wallPostsPicContainer {
@@ -2555,6 +2562,82 @@ li.L9 {
 
 #titleTimestampWrap > p > b > p {
     margin-bottom: 15px;
+}
+
+.commentWrap {
+    //border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    align-items: center;
+    width: 700px;
+}
+
+.commentConteiner {
+    //border: 1px solid rgba(0, 255, 0, 0.224);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    width: 700px;
+}
+
+#commentNameDateTime {
+    color: rgba(0, 255, 0, 0.795);
+}
+
+#comment {
+    padding: 5px;
+    //border: 1px solid rgba(0, 26, 255, 0.224);
+    overflow: scroll;
+
+    &:hover {
+        color: yellow;
+        cursor: none;
+        /* #commentDelete {
+            visibility: visible;
+            color: yellow;
+        } */
+    }
+}
+
+#comment::-webkit-scrollbar {
+  display: none;
+}
+
+#commentDelete {
+    //visibility: hidden;
+    //display: none;
+    color: rgba(255, 0, 0, 0.562);
+    font-size: "1.5em";
+
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
+}
+
+#commentAddError {
+    padding: 5px;
+    font-size: 1em;
+}
+
+#commentButtonWrap button {
+    font-size: 1em;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    -border: 1px solid whitesmoke;
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.226);
+
+    &:hover {
+        color: lime;
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: none;
+        border: 1px solid lime;
+    }
 }
 
 /* ----section(Notification)---- */
@@ -3257,6 +3340,7 @@ html.darkMode {
 
     .opsNoFriendsNorRequestsSecondtWrap {
         color: rgba(255, 255, 255, 0.813);
+        transition: 1.25s;
     }
 }
 

@@ -257,6 +257,7 @@ export default class App extends Component {
                                         </ParallaxProvider> */}
                                     </div>
                                     <img
+                                        title="DN Logo"
                                         className="theDeveloperNetworkLogo"
                                         src="/img/theDeveloperNetworkLogo.png"
                                         alt="The Developer Network Logo"
@@ -277,6 +278,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/"
+                                            title="Profile"
                                             id="profileIcon"
                                             className="bounce" /* className="loginLink" */
                                         >
@@ -287,6 +289,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/friends"
+                                            title="My Developer friends / friend requests"
                                             id="friendsIcon"
                                             className="bounce"
                                             /* className="loginLink" */
@@ -298,6 +301,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/users"
+                                            title="Find Developers"
                                             id="navIcons"
                                             className="bounce"
                                             /* className="loginLink" */
@@ -309,6 +313,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/chat"
+                                            title="Developer Chat"
                                             id="chatIcon"
                                             className="bounce"
                                             /* className="loginLink" */
@@ -320,6 +325,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/notifications"
+                                            title="Notifications"
                                             id="notificationIcon"
                                             className="bounce"
                                             /* className="loginLink" */
@@ -344,6 +350,7 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/logout"
+                                            title="Logout"
                                             className="logoutLink"
                                             id="logout"
                                             /* onClick={(e) => {
@@ -359,6 +366,7 @@ export default class App extends Component {
                                     </p>
                                     <p
                                         id="deleteAccount"
+                                        title="Delete Account"
                                         className="logoutLink"
                                         onClick={(e) => {
                                             window.confirm(
@@ -370,7 +378,10 @@ export default class App extends Component {
                                         <AiOutlineUserDelete />
                                     </p>
                                     <div id="darkModeWrap">
-                                        <div id="darkModeContainer">
+                                        <div
+                                            id="darkModeContainer"
+                                            title="Dark Mode"
+                                        >
                                             <DarkMode />
                                         </div>
                                         <div id="darkModeCheckHiderWrap">

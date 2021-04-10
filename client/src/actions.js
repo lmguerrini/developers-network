@@ -3,6 +3,9 @@ Action creator is just a function that returns an object.
 The object that gets returned is the action. */
 import axios from "./axios";
 import { BUTTON_TEXT } from "../../shared-datas/button-friendships-text";
+import toaster from "toasted-notes";
+import { MdNotificationsActive } from "react-icons/md";
+import moment from "moment";
 
 export async function getFriendsWannabesList() {
     const { data } = await axios.get("/friends-wannabes");
@@ -174,7 +177,7 @@ export async function addmostRecentFriendshipRequestNotifications(
 }
 
 export async function getWallPosts(id) {
-    //console.log("Action addMostRecentPrivateMessages!");
+    //console.log("Action getWallPosts!", id);
     const { data } = await axios.get(`/wall/posts/${id}`);
     //console.log("Action GET /wall/posts/:id data: ", data.newRows);
 
@@ -192,5 +195,71 @@ export async function postWallPost(formData) {
     return {
         type: "POST_WALL_POST",
         wallPost: data.newRows,
+    };
+}
+
+export async function getWallPostComments(id) {
+    //console.log("Action getWallPostComments!", id);
+    const { data } = await axios.get(`/wall/post/comments/${id}`);
+    //console.log("Action GET /wall/post/comments/:id data: ", data);
+
+    return {
+        type: "GET_WALL_POST_COMMENTS",
+        wallPostComment: data,
+    };
+}
+
+export async function postWallPostComment(newWallPostComment, id, postId) {
+    //console.log("Action postWallPostComment!", newWallPostComment);
+    const { data } = await axios.post("/wall/post/comments", {
+        newWallPostComment,
+        id,
+        postId,
+    });
+    if (data.error) {
+        //console.log("Action POST /wall/post/comments data.error: ", data.error);
+        return {
+            type: "POST_WALL_POST_COMMENT_ERROR",
+            newWallPostCommentError: data.error,
+        };
+    } else {
+        //console.log("Action POST /wall/post/comments data[0]: ", data[0]);
+
+        return {
+            type: "POST_WALL_POST_COMMENT",
+            newWallPostComment: data[0],
+        };
+    }
+}
+
+export async function deleteComment(commentId) {
+    //console.log("Action deleteComment!", commentId);
+    const { data } = await axios.post("/comment/delete", {
+        commentId,
+    });
+    //console.log("Action POST /comment/delete data: ", data[0]);
+
+    // notification comment deletion
+    const commentTextDeleted = data[0].comment;
+    const commentDateTimeFromNowDeleted = moment(data[0].created_at).fromNow();
+    const pushNotificationText1 = `✅ You have just successfully deleted the comment with the text '`;
+    const pushNotification = (
+        <>
+            <MdNotificationsActive id="pushNotificationFriendRequestBell" />
+            &emsp;
+            <span className="pushNotificationFriendRequestText">
+                {pushNotificationText1}
+                {commentTextDeleted}&apos; written
+                {commentDateTimeFromNowDeleted}.
+            </span>
+        </>
+    );
+    toaster.notify(pushNotification, {
+        duration: 5000,
+    });
+
+    return {
+        type: "DELETE_COMMENT",
+        wallPostCommentToDelete: commentId,
     };
 }

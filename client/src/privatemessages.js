@@ -54,7 +54,6 @@ export default function PrivateMessages(props) {
             e.preventDefault();
             const message = e.target.value;
 
-            // socket.emit will send a message to the server
             //socket.emit("new private message", message, otherUserId);
             const notificationCount = setCount(count + 1);
             console.log("notificationCount :", notificationCount, count);
@@ -235,30 +234,30 @@ export default function PrivateMessages(props) {
                                                 {message.privateMessage.startsWith(
                                                     "https://"
                                                 ) ? (
-                                                        <pre>
-                                                            <a
-                                                                href={
-                                                                    message.privateMessage
-                                                                }   
-                                                                target="_blank"
-                                                                rel="noreferrer"
-                                                            >
+                                                    <pre>
+                                                        <a
+                                                            href={
+                                                                message.privateMessage
+                                                            }
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                        >
+                                                            {
+                                                                message.privateMessage
+                                                            }
+                                                        </a>
+                                                    </pre>
+                                                ) : (
+                                                    <pre className="prettyprint">
+                                                        <code className="language-javascript">
+                                                            <span>
                                                                 {
                                                                     message.privateMessage
                                                                 }
-                                                            </a>
-                                                        </pre>
-                                                    ) : (
-                                                        <pre className="prettyprint">
-                                                            <code className="language-javascript">
-                                                                <span>
-                                                                    {
-                                                                        message.privateMessage
-                                                                    }
-                                                                </span>
-                                                            </code>
-                                                        </pre>
-                                                    )}
+                                                            </span>
+                                                        </code>
+                                                    </pre>
+                                                )}
                                                 {/* {message.privateMessage} */}
                                             </div>
                                         </div>

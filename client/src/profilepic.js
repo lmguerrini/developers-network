@@ -25,7 +25,7 @@ export default function ProfilePic({
                 {/* Profile Picture Component */}
                 {/* Profile Picture: {first} {last} */}
             </h1>
-            <div>
+            <div title="Change your profile picture">
                 {profile_pic ? (
                     <img
                         /* className="profile_picBig" */

@@ -1294,8 +1294,9 @@ app.get("/wall/posts/:id", function (req, res) {
                     ("" + obj.created_at + "").substring(0, 15) +
                     " at " +
                     ("" + obj.created_at + "").substring(16, 24),
+                dateTime: obj.created_at,
             }));
-            //console.log("POST newRows: ", newRows);
+            //console.log("GET wall posts newRows: ", newRows);
             res.json({ newRows });
         })
         .catch((err) => {
@@ -1350,6 +1351,120 @@ app.post("/wall/posts", uploader.single("image"), s3.upload, (req, res) => {
     } else {
         res.json({ error: true });
     }
+});
+
+//app.get("/wall/post/comments/:id/:postid", (req, res) => {
+app.get("/wall/post/comments/:id", (req, res) => {
+    const userWallId = Number(req.params.id);
+
+    db.getWallPostComments()
+        .then(({ rows: firstRows }) => {
+            //console.log("firstRows: ", firstRows.slice(0, 5));
+            db.getWallPostCommentsUserId().then(({ rows: secondRows }) => {
+                //console.log("secondRows: ", secondRows.slice(0, 5));
+
+                let thirdRows = firstRows.map((item, i) =>
+                    Object.assign({}, item, secondRows[i])
+                );
+                /* let thirdRows = [];
+
+                for (let i = 0; i < firstRows.length; i++) {
+                    thirdRows.push({
+                        ...secondRows[i],
+                        ...firstRows[i],
+                    });
+                } */
+                //console.log("thirdRows: ", thirdRows.slice(0, 5));
+
+                const newRows = thirdRows
+                    .map((obj) => ({
+                        userWallId: obj.userid,
+                        commentPostId: obj.post_id,
+                        commentAuthorId: userWallId,
+                        commentAuthorName: obj.first + " " + obj.last,
+                        commentAuthorProfile_pic: obj.profile_pic,
+                        commentId: obj.id,
+                        comment: obj.comment,
+                        commentTimeStamp:
+                            "on " +
+                            ("" + obj.created_at + "").substring(0, 15) +
+                            " at " +
+                            ("" + obj.created_at + "").substring(16, 24),
+                        createdAtFromNow: moment(obj.created_at).fromNow(),
+                        commentDateTime: obj.created_at,
+                    }))
+                    .reverse();
+                //console.log("newRows: ", newRows.slice(0, 3));
+
+                res.json(newRows);
+            });
+        })
+        .catch((err) => {
+            console.error(`error in GET db.getWallPostComments catch: `, err);
+        });
+});
+
+app.post("/wall/post/comments", (req, res) => {
+    const userWallId = req.body.id;
+    const newComment = req.body.newWallPostComment;
+    const authorId = req.session.userId;
+    const postId = req.body.postId;
+
+    db.addWallPostComment(userWallId, authorId, postId, newComment)
+        .then(({ rows }) => {
+            //console.log("POST new comment rows: ", rows);
+            const newRows = rows.map((obj) => ({
+                commentId: obj.id,
+                commentPostId: obj.post_id,
+                commentAuthorId: obj.author_id,
+                comment: obj.comment,
+                commentTimeStamp:
+                    "on " +
+                    ("" + obj.created_at + "").substring(0, 15) +
+                    " at " +
+                    ("" + obj.created_at + "").substring(16, 24),
+                commentDateTime: obj.created_at,
+            }));
+            //console.log("POST new comment newRows: ", newRows);
+            //res.json(newRows);
+
+            db.getUserProfile(authorId)
+                .then(({ rows }) => {
+                    //console.log("rows: ", rows);
+                    const finalRows = newRows.map((obj) => ({
+                        ...obj,
+                        commentAuthorName: rows[0].first + " " + rows[0].last,
+                    }));
+                    //console.log("POST post comment finalRows: ", finalRows);
+                    res.json(finalRows);
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in POST/wall/post/comments db.getUserProfile catch: ",
+                        err
+                    );
+                    res.json({ error: true });
+                });
+        })
+        .catch((err) => {
+            console.error(`error in POST db.addWallPostComment catch: `, err);
+            res.json({ error: true });
+        });
+});
+
+app.post("/comment/delete", function (req, res) {
+    const commentId = req.body.commentId;
+    db.deleteWallPostComment(commentId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/comment/delete db.deleteWallPostComment catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
 });
 
 app.get("/logout", (req, res) => {
