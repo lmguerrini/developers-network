@@ -139,3 +139,23 @@ CREATE TABLE wall_comments(
 -- INSERT INTO wall_comments (user_wall_id, author_id, post_id, comment) VALUES ('220', '220', '104', 'comment test 2') RETURNING id, created_at;
 -- INSERT INTO wall_comments (user_wall_id, author_id, post_id, comment) VALUES ('220', '220', '105', 'comment test 1(105)') RETURNING *;
 
+CREATE TABLE wall_comments_replies(
+    id SERIAL PRIMARY KEY,
+    user_wall_id INTEGER REFERENCES users(id),
+    --user_wall_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    post_id INTEGER NOT NULL REFERENCES wall(id),
+    --post_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    author_id INTEGER REFERENCES users(id),
+    --author_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    comment_id INTEGER NOT NULL REFERENCES wall_comments(id),
+    --post_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    reply TEXT NOT NULL CHECK (reply != ''),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- SELECT * FROM wall_comments_replies;
+-- SELECT * FROM wall_comments_replies WHERE id  = 1;
+-- DELETE FROM wall_comments_replies WHERE post_id  = 1;
+-- DELETE * FROM wall_comments_replies;
+-- INSERT INTO wall_comments_replies (user_wall_id, author_id, post_id, comment_id, reply) VALUES ('220', '220', '106', 'reply test 1') RETURNING *;
+-- INSERT INTO wall_comments_replies (user_wall_id, author_id, post_id, comment_id, reply) VALUES ('220', '11', '106', '62', 'reply test (220/11/106/62)') RETURNING *;

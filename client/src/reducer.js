@@ -223,7 +223,7 @@ export function reducer(state = {}, action) {
 
         state = {
             ...state,
-            wallPostComments: action.wallPostComment,
+            wallPostComments: action.wallPostComments,
         };
         //console.log("reducer GET wall post comments state: ", state);
     }
@@ -265,6 +265,59 @@ export function reducer(state = {}, action) {
                 }
             ),
         };
+    }
+
+    if (action.type == "GET_WALL_POST_COMMENTS_REPLIES") {
+        //console.log("Reducer GET_WALL_POST_COMMENTS_REPLIES!", state);
+
+        state = {
+            ...state,
+            wallPostCommentsReplies: action.getWallPostCommentsReplies,
+        };
+
+        //console.log("reducer GET wall post comments replies state: ", state);
+    }
+
+    if (action.type == "POST_WALL_POST_COMMENT_REPLY") {
+        //console.log("Reducer POST_WALL_POST_COMMENT_REPLY", state);
+
+        state = {
+            ...state,
+            /* wallPostCommentsReplies: [
+                ...state.wallPostCommentsReplies,
+                action.newWallPostCommentReply,
+            ], */
+            wallPostCommentsReplies: [action.newWallPostCommentReply],
+
+            newWallPostCommentReplyError: false,
+        };
+        //console.log("Reducer POST_WALL_POST_COMMENT_REPLY (A)", state);
+    }
+
+    if (action.type == "POST_WALL_POST_COMMENT_REPLY_ERROR") {
+        //console.log("Reducer POST_WALL_POST_COMMENT_REPLY_ERROR", state);
+        state = {
+            ...state,
+            newWallPostCommentReplyError: action.newWallPostCommentReplyError,
+        };
+        //console.log("Reducer POST_WALL_POST_COMMENT_REPLY_ERROR A", state);
+    }
+
+    if (action.type == "DELETE_COMMENT_REPLY") {
+        //console.log("Reducer DELETE_COMMENT_REPLY", state);
+
+        state = {
+            ...state,
+            wallPostCommentsReplies: state.wallPostCommentsReplies.filter(
+                (deletewallPostCommentReply) => {
+                    return (
+                        deletewallPostCommentReply.replyId !=
+                        action.wallPostCommentReplyToDelete
+                    );
+                }
+            ),
+        };
+        //console.log("Reducer DELETE_COMMENT_REPLY (A)", state);
     }
 
     return state;

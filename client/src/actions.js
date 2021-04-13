@@ -202,18 +202,30 @@ export async function getWallPostComments(id) {
     //console.log("Action getWallPostComments!", id);
     const { data } = await axios.get(`/wall/post/comments/${id}`);
     //console.log("Action GET /wall/post/comments/:id data: ", data);
+    let newData = [];
+    if (Array.isArray(data)) {
+        newData = data.map((obj) => ({
+            ...obj,
+            replies: [],
+        }));
+    }
+    //console.log("newData: ", newData);
 
     return {
         type: "GET_WALL_POST_COMMENTS",
-        wallPostComment: data,
+        wallPostComments: newData,
     };
 }
 
-export async function postWallPostComment(newWallPostComment, id, postId) {
+export async function postWallPostComment(
+    newWallPostComment,
+    userWallId,
+    postId
+) {
     //console.log("Action postWallPostComment!", newWallPostComment);
     const { data } = await axios.post("/wall/post/comments", {
         newWallPostComment,
-        id,
+        userWallId,
         postId,
     });
     if (data.error) {
@@ -233,7 +245,7 @@ export async function postWallPostComment(newWallPostComment, id, postId) {
 }
 
 export async function deleteComment(commentId) {
-    //console.log("Action deleteComment!", commentId);
+    console.log("Action deleteComment!", commentId);
     const { data } = await axios.post("/comment/delete", {
         commentId,
     });
@@ -261,5 +273,77 @@ export async function deleteComment(commentId) {
     return {
         type: "DELETE_COMMENT",
         wallPostCommentToDelete: commentId,
+    };
+}
+
+export async function getWallPostCommentsReplies(userWallId) {
+    //console.log("Action getWallPostCommentsReplies!", id);
+    const { data } = await axios.get(
+        `/wall/post/comments-replies/${userWallId}`
+    );
+    //console.log("Action GET /wall/post/comments-replies/:id data: ", data);
+
+    return {
+        type: "GET_WALL_POST_COMMENTS_REPLIES",
+        getWallPostCommentsReplies: data,
+    };
+}
+
+export async function postWallPostCommentReply(
+    newWallPostCommentReply,
+    userWallId,
+    postId,
+    commentId
+) {
+    const { data } = await axios.post("/wall/post/comments-replies", {
+        newWallPostCommentReply,
+        userWallId,
+        postId,
+        commentId,
+    });
+    if (data.error) {
+        return {
+            type: "POST_WALL_POST_COMMENT_REPLY_ERROR",
+            newWallPostCommentReplyError: data.error,
+        };
+    } else {
+        return {
+            type: "POST_WALL_POST_COMMENT_REPLY",
+            newWallPostCommentReply: data[0],
+        };
+    }
+}
+
+export async function deleteCommentReply(replyId) {
+    console.log("Action deleteCommentReply!", replyId);
+    const { data } = await axios.post("/comment-reply/delete", {
+        replyId,
+    });
+    //console.log("Action POST /comment-reply/delete data: ", data[0]);
+
+    // notification comment-reply deletion
+    const commentReplyTextDeleted = data[0].reply;
+    const commentReplyDateTimeFromNowDeleted = moment(
+        data[0].created_at
+    ).fromNow();
+    const pushNotificationText1 = `✅ You have just successfully deleted the comment reply with the text '`;
+    const pushNotification = (
+        <>
+            <MdNotificationsActive id="pushNotificationFriendRequestBell" />
+            &emsp;
+            <span className="pushNotificationFriendRequestText">
+                {pushNotificationText1}
+                {commentReplyTextDeleted}&apos; written
+                {commentReplyDateTimeFromNowDeleted}.
+            </span>
+        </>
+    );
+    toaster.notify(pushNotification, {
+        duration: 5000,
+    });
+
+    return {
+        type: "DELETE_COMMENT_REPLY",
+        wallPostCommentReplyToDelete: replyId,
     };
 }

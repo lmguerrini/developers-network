@@ -2443,6 +2443,17 @@ li.L9 {
     width: 100%;
 } */
 
+#noPostOnWall {
+    color: rgba(255, 255, 255, 0.31);
+    font-size: 1.4em;
+    font-family: Dejavu Sans, monospace;
+    //border: 1px solid lime;
+    margin-top: 60%;
+    margin-left: 11%;
+    //text-align: center;
+    //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
+}
+
 .wallPostsGlassOverlayWrap {
     position: absolute;
     width: 100%;
@@ -2564,7 +2575,7 @@ li.L9 {
     margin-bottom: 15px;
 }
 
-.commentWrap {
+.commentsWrap {
     //border: 1px solid red;
     display: flex;
     flex-direction: column;
@@ -2574,26 +2585,43 @@ li.L9 {
 }
 
 .commentConteiner {
-    //border: 1px solid rgba(0, 255, 0, 0.224);
+    border: 1px solid rgba(0, 255, 0, 0.224);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+
     padding: 5px;
     width: 700px;
 }
 
+.commentProfPic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 15px;
+    align-self: center;
+    transform: translateY(8px);
+}
+
 #commentNameDateTime {
-    color: rgba(0, 255, 0, 0.795);
+    //color: rgba(0, 255, 0, 0.795);
+    align-self: center;
 }
 
 #comment {
     padding: 5px;
-    //border: 1px solid rgba(0, 26, 255, 0.224);
+    //border: 1px solid yellow;
     overflow: scroll;
+    /* display: flex;
+    //flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px; */
 
     &:hover {
-        color: yellow;
-        cursor: none;
+        //color: yellow;
+        //cursor: none;
         /* #commentDelete {
             visibility: visible;
             color: yellow;
@@ -2601,19 +2629,58 @@ li.L9 {
     }
 }
 
+.replyConteiner {
+    display: none;
+    //border: 1px solid yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+    width: 700px;
+}
+
+.displayNone {
+    display: none;
+    //border: 1px solid red;
+}
+
+#replyNameDateTime {
+    color: rgb(random(255), random(255), random(255));
+    align-self: center;
+}
+
 #comment::-webkit-scrollbar {
-  display: none;
+    display: none;
+}
+
+#commentReply {
+    color: rgba(0, 255, 0, 0.503);
+    margin-right: 20px;
+    transform: translateY(4px);
+    font-size: 1em;
+
+    &:hover {
+        color: lime;
+        cursor: pointer;
+    }
 }
 
 #commentDelete {
     //visibility: hidden;
     //display: none;
     color: rgba(255, 0, 0, 0.562);
-    font-size: "1.5em";
+    font-size: 1em;
+    margin-left: 20px;
+    transform: translateY(4px);
 
     &:hover {
         color: red;
         cursor: pointer;
+        /* font-size: 1.3em;
+        transition: 0.5s;
+        transform: translateY(7px); */
     }
 }
 
@@ -2638,6 +2705,16 @@ li.L9 {
         outline: none;
         border: 1px solid lime;
     }
+}
+
+#endWall {
+    color: rgba(255, 255, 255, 0.938);
+    font-size: 1.4em;
+    font-family: Dejavu Sans, monospace;
+    //border: 1px solid lime;
+    margin-top: 10%;
+    margin-left: 42%;
+    //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
 }
 
 /* ----section(Notification)---- */

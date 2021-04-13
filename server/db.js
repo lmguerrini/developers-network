@@ -422,6 +422,44 @@ module.exports.deleteWallPostComment = (commentId) => {
     return db.query(q, params);
 };
 
+module.exports.getWallPostCommentsReplies = () => {
+    const q = `SELECT users.id, users.first, users.last, users.profile_pic, 
+    wall_comments_replies.id, user_wall_id, post_id, author_id, comment_id, reply, wall_comments_replies.created_at
+    FROM wall_comments_replies
+    JOIN users
+    ON (wall_comments_replies.author_id = users.id)
+    ORDER BY wall_comments_replies.created_at DESC
+    LIMIT 155`;
+    return db.query(q);
+};
+module.exports.getWallPostCommentsRepliesUserId = () => {
+    const q = `SELECT users.id as userid FROM users
+    JOIN wall_comments_replies
+    ON (wall_comments_replies.user_wall_id = users.id)
+    ORDER BY wall_comments_replies.created_at DESC
+    LIMIT 155`;
+    return db.query(q);
+};
+
+module.exports.addWallPostCommentReply = (
+    userWallId,
+    authorId,
+    postId,
+    commentId,
+    reply
+) => {
+    const q = `INSERT INTO wall_comments_replies (user_wall_id, author_id, post_id, comment_id, reply) 
+    VALUES (($1), ($2), ($3), ($4), ($5)) RETURNING *;`;
+    const params = [userWallId, authorId, postId, commentId, reply];
+    return db.query(q, params);
+};
+
+module.exports.deleteWallPostCommentReply = (replyId) => {
+    const q = `DELETE FROM wall_comments_replies WHERE id = ($1) RETURNING *;`;
+    const params = [replyId];
+    return db.query(q, params);
+};
+
 // notifications
 module.exports.getMostRecentPMNotifications = (recipientId) => {
     const q = `SELECT users.id, first, last, profile_pic, message, private_messages.id, private_messages.created_at
