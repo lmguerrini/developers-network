@@ -27,9 +27,11 @@ export default function Chat() {
             socket.emit("new chat message", e.target.value);
             e.target.value = "";
             socket.emit("notification new chat message");
-        } else if (e.key) {
+        } else if (e.key != "Backspace") {
             message = e.target.value + e.key;
             //e.target.value = "";
+        } else if (e.key == "Backspace") {
+            message = message.slice(0, -1);
         }
     };
 

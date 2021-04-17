@@ -237,7 +237,7 @@ export async function postWallPostComment(
 }
 
 export async function deleteComment(commentId) {
-    console.log("Action deleteComment!", commentId);
+    //console.log("Action deleteComment!", commentId);
     const { data } = await axios.post("/comment/delete", {
         commentId,
     });

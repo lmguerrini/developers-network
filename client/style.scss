@@ -2575,6 +2575,11 @@ li.L9 {
     margin-bottom: 15px;
 }
 
+#commentsOrNoComments {
+    font-style: italic;
+    color: rgba(0, 255, 0, 0.662);
+}
+
 .commentsWrap {
     //border: 1px solid red;
     display: flex;
@@ -2585,7 +2590,7 @@ li.L9 {
 }
 
 .commentConteiner {
-    border: 1px solid rgba(0, 255, 0, 0.224);
+    //border: 1px solid rgba(0, 255, 0, 0.224);
     display: flex;
     flex-direction: column;
     justify-content: center;

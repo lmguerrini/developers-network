@@ -49,7 +49,6 @@ export default function Wall({ id, myWall, name }) {
         wallPostCommentsReplies != undefined &&
         wallPostCommentsReplies.length > 0
     ) {
-        //console.log("wallPostCommentsR: ", wallPostCommentsNoReplies);
         wallPostComments = wallPostCommentsNoReplies.map((obj) => ({
             ...obj,
             replies: [],
@@ -109,26 +108,63 @@ export default function Wall({ id, myWall, name }) {
         setFileLabel(target.files[0].name); // name file to upload
     };
 
+    // Post new post's comment
     let newComment = "";
-    const handlekeyDownComment = (e) => {
-        //e.preventDefault();
-        if (e.key !== "Enter" && e.key !== "Shift" && e.key !== "Backspace") {
-            newComment += e.key;
-        } else if (e.key === "Backspace") {
+    let newCommentPostId = "";
+    const handlekeyDownComment = (e, postId) => {
+        //console.log("e: ", e.target.value, postId);
+        newCommentPostId = postId;
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+            dispatch(postWallPostComment(e.target.value, userWallId, postId));
+            e.target.value = "";
+        } else if (e.key != "Backspace") {
+            newComment = e.target.value + e.key;
+        } else if (e.key == "Backspace") {
             newComment = newComment.slice(0, -1);
-            //newComment = newComment.substring(0, newComment.length - 1);
         }
     };
+    const postNewCommentBtn = () => {
+        dispatch(postWallPostComment(newComment, userWallId, newCommentPostId));
+    };
 
+    // Post new comment's reply
     let newReply = "";
-    const handlekeyDownReply = (e) => {
-        //e.preventDefault();
-        if (e.key !== "Enter" && e.key !== "Shift" && e.key !== "Backspace") {
-            newReply += e.key;
-        } else if (e.key === "Backspace") {
+    let newReplyPostId = "";
+    let newReplyCommentId = "";
+    const handlekeyDownReply = (e, postId, commentId) => {
+        //console.log("e: ", e.target.value, postId, commentId);
+        newReplyPostId = postId;
+        newReplyCommentId = commentId;
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+            dispatch(postWallPostComment(e.target.value, userWallId, postId));
+            dispatch(
+                postWallPostCommentReply(
+                    e.target.value,
+                    userWallId,
+                    postId,
+                    commentId
+                )
+            );
+            e.target.value = "";
+        } else if (e.key != "Backspace") {
+            newReply = e.target.value + e.key;
+        } else if (e.key == "Backspace") {
             newReply = newReply.slice(0, -1);
-            //newReply = newReply.substring(0, newReply.length - 1);
         }
+    };
+    const postNewReplyBtn = () => {
+        dispatch(
+            postWallPostCommentReply(
+                newReply,
+                userWallId,
+                newReplyPostId,
+                newReplyCommentId
+            )
+        );
     };
 
     //const [showHideReplies, setShowHideReplies] = useState(true);
@@ -313,13 +349,13 @@ export default function Wall({ id, myWall, name }) {
                                                                 )} */}
                                                             </p>
                                                             <div className="commentsWrap">
-                                                                {post.id}
-                                                                <p>
+                                                                {/* {post.id} */}
+                                                                <p id="commentsOrNoComments">
                                                                     {post
                                                                         .comments
                                                                         .length >
                                                                     0
-                                                                        ? "COMMENTS ("
+                                                                        ? "Comments ("
                                                                         : "This post has no comments yet. Be the first to leave a comment!"}
                                                                     {post
                                                                         .comments
@@ -397,9 +433,6 @@ export default function Wall({ id, myWall, name }) {
                                                                                     {
                                                                                         comments.comment
                                                                                     }
-                                                                                    {
-                                                                                        comments.commentId
-                                                                                    }
                                                                                     &nbsp;
                                                                                     <small id="uploaderSigns">
                                                                                         ≫
@@ -436,7 +469,7 @@ export default function Wall({ id, myWall, name }) {
                                                                                         .replies
                                                                                         .length >
                                                                                         0 &&
-                                                                                    "REPLIES ("}
+                                                                                    "Replies ("}
                                                                                 {comments.replies &&
                                                                                     comments
                                                                                         .replies
@@ -544,11 +577,6 @@ export default function Wall({ id, myWall, name }) {
                                                                                                         {
                                                                                                             commentReply.reply
                                                                                                         }
-
-                                                                                                        -
-                                                                                                        {
-                                                                                                            commentReply.replyId
-                                                                                                        }
                                                                                                         &nbsp;
                                                                                                         <small id="uploaderSigns">
                                                                                                             ≫
@@ -575,8 +603,17 @@ export default function Wall({ id, myWall, name }) {
                                                                                         rows="1"
                                                                                         cols="70"
                                                                                         placeholder="Enter your reply here.."
-                                                                                        onKeyDown={
+                                                                                        /* onKeyDown={
                                                                                             handlekeyDownReply
+                                                                                        } */
+                                                                                        onKeyDown={(
+                                                                                            e
+                                                                                        ) =>
+                                                                                            handlekeyDownReply(
+                                                                                                e,
+                                                                                                post.id,
+                                                                                                comments.commentId
+                                                                                            )
                                                                                         }
                                                                                     />
                                                                                 </div>
@@ -601,7 +638,7 @@ export default function Wall({ id, myWall, name }) {
                                                                                 </div>
                                                                                 <div id="commentButtonWrap">
                                                                                     <button
-                                                                                        onClick={() =>
+                                                                                        /* onClick={() =>
                                                                                             dispatch(
                                                                                                 postWallPostCommentReply(
                                                                                                     newReply,
@@ -610,6 +647,9 @@ export default function Wall({ id, myWall, name }) {
                                                                                                     comments.commentId
                                                                                                 )
                                                                                             )
+                                                                                        } */
+                                                                                        onClick={
+                                                                                            postNewReplyBtn
                                                                                         }
                                                                                     >
                                                                                         Add
@@ -627,8 +667,16 @@ export default function Wall({ id, myWall, name }) {
                                                                     rows="1"
                                                                     cols="80"
                                                                     placeholder="Enter your comment here.."
-                                                                    onKeyDown={
+                                                                    /* onKeyDown={
                                                                         handlekeyDownComment
+                                                                    } */
+                                                                    onKeyDown={(
+                                                                        e
+                                                                    ) =>
+                                                                        handlekeyDownComment(
+                                                                            e,
+                                                                            post.id
+                                                                        )
                                                                     }
                                                                 />
                                                             </div>
@@ -651,17 +699,8 @@ export default function Wall({ id, myWall, name }) {
                                                             </div>
                                                             <div id="commentButtonWrap">
                                                                 <button
-                                                                    /* onClick={
-                                                                            handleClickDown
-                                                                        } */
-                                                                    onClick={() =>
-                                                                        dispatch(
-                                                                            postWallPostComment(
-                                                                                newComment,
-                                                                                userWallId,
-                                                                                post.id
-                                                                            )
-                                                                        )
+                                                                    onClick={
+                                                                        postNewCommentBtn
                                                                     }
                                                                 >
                                                                     Add comment

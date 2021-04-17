@@ -252,7 +252,7 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "DELETE_COMMENT") {
-        console.log("Reducer DELETE_COMMENT");
+        //console.log("Reducer DELETE_COMMENT");
 
         state = {
             ...state,
