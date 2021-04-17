@@ -416,6 +416,17 @@ module.exports.addWallPostComment = (userWallId, authorId, postId, comment) => {
     return db.query(q, params);
 };
 
+module.exports.getWallPostCommentsRepliesByCommentId = (commentId) => {
+    const q = `SELECT * FROM wall_comments_replies WHERE (comment_id = ($1))
+    ORDER BY wall_comments_replies.created_at DESC`;
+    const params = [commentId];
+    return db.query(q, params);
+};
+module.exports.deleteAllWallPostCommentsRepliesByCommentId = (commentId) => {
+    const q = `DELETE FROM wall_comments_replies WHERE comment_id = ($1) RETURNING *;`;
+    const params = [commentId];
+    return db.query(q, params);
+};
 module.exports.deleteWallPostComment = (commentId) => {
     const q = `DELETE FROM wall_comments WHERE id = ($1) RETURNING *;`;
     const params = [commentId];

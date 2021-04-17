@@ -283,11 +283,10 @@ export function reducer(state = {}, action) {
 
         state = {
             ...state,
-            /* wallPostCommentsReplies: [
+            wallPostCommentsReplies: [
                 ...state.wallPostCommentsReplies,
                 action.newWallPostCommentReply,
-            ], */
-            wallPostCommentsReplies: [action.newWallPostCommentReply],
+            ],
 
             newWallPostCommentReplyError: false,
         };

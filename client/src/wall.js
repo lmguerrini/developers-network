@@ -31,7 +31,7 @@ export default function Wall({ id, myWall, name }) {
         (state) => state && state.newWallPostCommentReplyError
     );
     const wallPosts = useSelector((state) => state && state.wallPosts);
-    const wallPostComments = useSelector(
+    const wallPostCommentsNoReplies = useSelector(
         (state) => state && state.wallPostComments
     );
     const wallPostCommentsReplies = useSelector(
@@ -39,16 +39,22 @@ export default function Wall({ id, myWall, name }) {
     );
 
     let neWallPosts = [];
-    //let neWallPostsComments = [];
+    let wallPostComments = [];
     if (
-        wallPostComments &&
-        wallPostComments != undefined &&
-        wallPostComments.length > 0 &&
+        wallPostCommentsNoReplies &&
+        wallPostCommentsNoReplies != undefined &&
+        Array.isArray(wallPostCommentsNoReplies) &&
+        wallPostCommentsNoReplies.length > 0 &&
         wallPostCommentsReplies &&
         wallPostCommentsReplies != undefined &&
         wallPostCommentsReplies.length > 0
     ) {
-        //console.log("----- B: ", wallPostComments);
+        //console.log("wallPostCommentsR: ", wallPostCommentsNoReplies);
+        wallPostComments = wallPostCommentsNoReplies.map((obj) => ({
+            ...obj,
+            replies: [],
+        }));
+
         for (let c in wallPostComments) {
             for (let r in wallPostCommentsReplies) {
                 if (
@@ -366,7 +372,7 @@ export default function Wall({ id, myWall, name }) {
                                                                                     {
                                                                                         comments.commentTimeStamp
                                                                                     }{" "}
-                                                                                    wrote:
+                                                                                    commented:
                                                                                     &nbsp;&nbsp;
                                                                                     <small id="uploaderSigns">
                                                                                         ❯
@@ -504,6 +510,16 @@ export default function Wall({ id, myWall, name }) {
                                                                                                             ❮
                                                                                                         </small>
                                                                                                         &nbsp;&nbsp;
+                                                                                                        <img
+                                                                                                            //className="profile_pic"
+                                                                                                            className="commentReplyProfPic"
+                                                                                                            src={
+                                                                                                                commentReply.replyAuthorProfile_pic
+                                                                                                            }
+                                                                                                            alt={
+                                                                                                                commentReply.replyAuthorName
+                                                                                                            }
+                                                                                                        />
                                                                                                         {
                                                                                                             commentReply.replyAuthorName
                                                                                                         }{" "}

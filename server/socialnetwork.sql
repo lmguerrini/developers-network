@@ -144,11 +144,11 @@ CREATE TABLE wall_comments_replies(
     user_wall_id INTEGER REFERENCES users(id),
     --user_wall_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     post_id INTEGER NOT NULL REFERENCES wall(id),
-    --post_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    --post_id  INTEGER NOT NULL REFERENCES wall(id) ON DELETE CASCADE,
     author_id INTEGER REFERENCES users(id),
     --author_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     comment_id INTEGER NOT NULL REFERENCES wall_comments(id),
-    --post_id  INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    --comment_id  INTEGER NOT NULL REFERENCES wall_comments(id) ON DELETE CASCADE,
     reply TEXT NOT NULL CHECK (reply != ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

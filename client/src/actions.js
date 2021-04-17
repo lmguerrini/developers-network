@@ -202,18 +202,10 @@ export async function getWallPostComments(id) {
     //console.log("Action getWallPostComments!", id);
     const { data } = await axios.get(`/wall/post/comments/${id}`);
     //console.log("Action GET /wall/post/comments/:id data: ", data);
-    let newData = [];
-    if (Array.isArray(data)) {
-        newData = data.map((obj) => ({
-            ...obj,
-            replies: [],
-        }));
-    }
-    //console.log("newData: ", newData);
 
     return {
         type: "GET_WALL_POST_COMMENTS",
-        wallPostComments: newData,
+        wallPostComments: data,
     };
 }
 

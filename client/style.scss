@@ -2596,12 +2596,12 @@ li.L9 {
 }
 
 .commentProfPic {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 15px;
     align-self: center;
-    transform: translateY(8px);
+    transform: translateY(11px);
 }
 
 #commentNameDateTime {
@@ -2644,6 +2644,15 @@ li.L9 {
 .displayNone {
     display: none;
     //border: 1px solid red;
+}
+
+.commentReplyProfPic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 15px;
+    align-self: center;
+    transform: translateY(8px);
 }
 
 #replyNameDateTime {

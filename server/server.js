@@ -1455,13 +1455,61 @@ app.post("/wall/post/comments", (req, res) => {
 
 app.post("/comment/delete", function (req, res) {
     const commentId = req.body.commentId;
-    db.deleteWallPostComment(commentId)
+    let commentHasReplies = false;
+
+    db.getWallPostCommentsRepliesByCommentId(commentId)
         .then(({ rows }) => {
-            res.json(rows);
+            //console.log("commentHasReplies rows: ", rows);
+            if (rows.length > 0) {
+                commentHasReplies = true;
+            }
+
+            if (commentHasReplies) {
+                db.deleteAllWallPostCommentsRepliesByCommentId(commentId)
+                    .then(({ rows }) => {
+                        console.log(
+                            "deleteAllWallPostCommentsRepliesByCommentId rows: ",
+                            rows
+                        );
+
+                        db.deleteWallPostComment(commentId)
+                            .then(({ rows }) => {
+                                console.log("comment delte rows: ", rows);
+                                res.json(rows);
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    "error in POST/comment/delete db.deleteWallPostComment catch: ",
+                                    err
+                                );
+                                res.json({ error: true });
+                            });
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/comment/delete db.deleteAllWallPostCommentsRepliesByCommentId catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            } else {
+                db.deleteWallPostComment(commentId)
+                    .then(({ rows }) => {
+                        console.log("comment delete rows: ", rows);
+                        res.json(rows);
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in POST/comment/delete db.deleteWallPostComment catch: ",
+                            err
+                        );
+                        res.json({ error: true });
+                    });
+            }
         })
         .catch((err) => {
             console.error(
-                "error in POST/comment/delete db.deleteWallPostComment catch: ",
+                "error in POST/comment/delete db.getWallPostCommentsRepliesByCommentId catch: ",
                 err
             );
             res.json({ error: true });
