@@ -125,7 +125,6 @@ module.exports.updateBio = (id, bio) => {
 };
 
 // edit extra profile infos
-
 module.exports.insertLocation = (id, location) => {
     const q = `INSERT INTO users_extra_infos (user_id, location)
     VALUES (($1), ($2)) RETURNING id, user_id, location`;
@@ -388,6 +387,34 @@ module.exports.postWallPost = (userId, url, description) => {
     const q = `INSERT INTO wall (user_id, url, description) 
     VALUES (($1), ($2), ($3)) RETURNING *;`;
     const params = [userId, url, description];
+    return db.query(q, params);
+};
+
+module.exports.getWallPostCommentsRepliesByPostId = (postId) => {
+    const q = `SELECT * FROM wall_comments_replies WHERE (post_id = ($1))
+    ORDER BY wall_comments_replies.created_at DESC`;
+    const params = [postId];
+    return db.query(q, params);
+};
+module.exports.getWallPostCommentsByPostId = (postId) => {
+    const q = `SELECT * FROM wall_comments WHERE (post_id = ($1))
+    ORDER BY wall_comments.created_at DESC`;
+    const params = [postId];
+    return db.query(q, params);
+};
+module.exports.deleteAllWallPostCommentsRepliesByPostId = (postId) => {
+    const q = `DELETE FROM wall_comments_replies WHERE post_id = ($1) RETURNING *;`;
+    const params = [postId];
+    return db.query(q, params);
+};
+module.exports.deleteWallPostCommentsByPostId = (postId) => {
+    const q = `DELETE FROM wall_comments WHERE post_id = ($1) RETURNING *;`;
+    const params = [postId];
+    return db.query(q, params);
+};
+module.exports.deleteWallPostByPostId = (postId) => {
+    const q = `DELETE FROM wall WHERE id = ($1) RETURNING *;`;
+    const params = [postId];
     return db.query(q, params);
 };
 

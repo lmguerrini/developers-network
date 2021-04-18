@@ -1353,6 +1353,140 @@ app.post("/wall/posts", uploader.single("image"), s3.upload, (req, res) => {
     }
 });
 
+app.post("/post/delete", function (req, res) {
+    const postId = req.body.postId;
+    let postHasReplies = false;
+    let postHasComments = false;
+
+    db.getWallPostCommentsRepliesByPostId(postId)
+        .then(({ rows: postReplies }) => {
+            console.log("postReplies rows: ", postReplies);
+            console.log("postReplies rows: ", postReplies.length);
+            if (postReplies.length > 0) {
+                postHasReplies = true;
+            }
+
+            db.getWallPostCommentsByPostId(postId)
+                .then(({ rows: postComments }) => {
+                    console.log("postComments rows: ", postComments);
+                    console.log("postComments rows: ", postComments.length);
+                    if (postComments.length > 0) {
+                        postHasComments = true;
+                    }
+
+                    if (postHasReplies) {
+                        // Delete replies
+                        db.deleteAllWallPostCommentsRepliesByPostId(postId)
+                            .then(({ rows }) => {
+                                console.log(
+                                    "replie(s) deleted: ",
+                                    rows
+                                );
+                                // Delete comments
+                                db.deleteWallPostCommentsByPostId(postId)
+                                    .then(({ rows }) => {
+                                        console.log(
+                                            "comment(s) deleted: ",
+                                            rows
+                                        );
+                                        res.json(rows);
+                                        // Delete post
+                                        db.deleteWallPostByPostId(postId)
+                                            .then(({ rows }) => {
+                                                console.log(
+                                                    "post deleted: ",
+                                                    rows
+                                                );
+                                                res.json(rows);
+                                            })
+                                            .catch((err) => {
+                                                console.error(
+                                                    "error in POST/post/delete db.deleteWallPostByPostId catch: ",
+                                                    err
+                                                );
+                                                res.json({ error: true });
+                                            });
+                                    })
+                                    .catch((err) => {
+                                        console.error(
+                                            "error in POST/post/delete db.deleteWallPostCommentsByPostId catch: ",
+                                            err
+                                        );
+                                        res.json({ error: true });
+                                    });
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    "error in POST/post/delete db.deleteAllWallPostCommentsRepliesByPostId catch: ",
+                                    err
+                                );
+                                res.json({ error: true });
+                            });
+                    } else if (postHasComments) {
+                        // Delete comments
+                        db.deleteWallPostCommentsByPostId(postId)
+                            .then(({ rows }) => {
+                                console.log(
+                                    "comment(s) deleted: ",
+                                    rows
+                                );
+                                // Delete post
+                                db.deleteWallPostByPostId(postId)
+                                    .then(({ rows }) => {
+                                        console.log(
+                                            "post deleted: ",
+                                            rows
+                                        );
+                                        res.json(rows);
+                                    })
+                                    .catch((err) => {
+                                        console.error(
+                                            "error in POST/post/delete db.deleteWallPostByPostId catch: ",
+                                            err
+                                        );
+                                        res.json({ error: true });
+                                    });
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    "error in POST/post/delete db.deleteWallPostCommentsByPostId catch: ",
+                                    err
+                                );
+                                res.json({ error: true });
+                            });
+                    } else {
+                        // Delete post
+                        db.deleteWallPostByPostId(postId)
+                            .then(({ rows }) => {
+                                console.log("post deleted: ", rows);
+                                res.json(rows);
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    "error in POST/post/delete db.deleteWallPostByPostId catch: ",
+                                    err
+                                );
+                                res.json({ error: true });
+                            });
+                    }
+                })
+                .catch((err) => {
+                    console.error(
+                        "error in POST/post/delete db.getWallPostCommentsByPostId catch: ",
+                        err
+                    );
+                    res.json({ error: true });
+                });
+        })
+        .catch((err) => {
+            console.error(
+                "error in POST/post/delete db.getWallPostCommentsRepliesByPostId catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 //app.get("/wall/post/comments/:id/:postid", (req, res) => {
 app.get("/wall/post/comments/:id", (req, res) => {
     const userWallId = Number(req.params.id);

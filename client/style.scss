@@ -2550,6 +2550,16 @@ li.L9 {
         0 0 20px rgba(255, 255, 255, 0.301);
 }
 
+.deleteWallPostBtn {
+    color: white;
+    transform: scale(1.5, 1);
+
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
+}
+
 #titleTimestampWrap {
     -text-align: center;
     display: flex;
@@ -2574,6 +2584,34 @@ li.L9 {
 #titleTimestampWrap > p > b > p {
     margin-bottom: 15px;
 }
+
+/* .showMore {
+    color: red;
+} */
+
+.showCommentBtn {
+    color: rgba(255, 255, 255, 0.759);
+    font-size: 2em;
+    //transform: scaleX(1.8);
+    transform: scale(2.5, 1.5);
+
+    &:hover {
+        cursor: pointer;
+        color: rgb(0, 204, 0);
+    }
+}
+
+/* .showCommentBtn {
+    color: rgba(255, 255, 255, 0.759);
+    font-size: 2em;
+    //transform: scaleX(1.8);
+    transform: scale(2.5, 1.5);
+
+    &:hover {
+        cursor: pointer;
+        color: lime;
+    }
+} */
 
 #commentsOrNoComments {
     font-style: italic;
@@ -2616,13 +2654,16 @@ li.L9 {
 
 #comment {
     padding: 5px;
-    //border: 1px solid yellow;
+    //border: 1px solid rgba(255, 255, 255, 0.476);
+    border-top: none;
     overflow: scroll;
-    /* display: flex;
+    font-style: italic;
+    font-size: 0.9em;
+    display: flex;
     //flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 700px; */
+    width: 600px;
 
     &:hover {
         //color: yellow;
@@ -2641,6 +2682,7 @@ li.L9 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    //background-color: red;
 
     padding: 5px;
     width: 700px;
@@ -2663,6 +2705,38 @@ li.L9 {
 #replyNameDateTime {
     color: rgb(random(255), random(255), random(255));
     align-self: center;
+    //border: 1px solid rgba(255, 255, 255, 0.476);
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    padding-bottom: 2.5px;
+}
+
+#reply {
+    padding: 5px;
+    //border: 1px solid rgb(random(255), random(255), random(255));
+    box-shadow: 0 0 100px rgba(255, 255, 255, 0.303),
+        0 0 75px rgba(255, 255, 255, 0.221);
+    border-top: none;
+    font-style: italic;
+    font-size: 0.9em;
+    display: flex;
+    //flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    //background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.083);
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+
+    &:hover {
+        //color: yellow;
+        //cursor: none;
+        /* #commentDelete {
+            visibility: visible;
+            color: yellow;
+        } */
+    }
 }
 
 #comment::-webkit-scrollbar {

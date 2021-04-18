@@ -218,6 +218,20 @@ export function reducer(state = {}, action) {
         //console.log("reducer POST new wall post state: ", state);
     }
 
+    if (action.type == "DELETE_POST") {
+        //console.log("Reducer DELETE_POST");
+
+        state = {
+            ...state,
+            wallPosts: state.wallPosts.filter((deletewallPost) => {
+                return (
+                    deletewallPost.id !=
+                    action.wallPostToDelete
+                );
+            }),
+        };
+    }
+
     if (action.type == "GET_WALL_POST_COMMENTS") {
         //console.log("Reducer GET_WALL_POST_COMMENTS!");
 

@@ -198,6 +198,36 @@ export async function postWallPost(formData) {
     };
 }
 
+export async function deletePost(postId) {
+    //console.log("Action deletePost!", postId);
+    const { data } = await axios.post("/post/delete", {
+        postId,
+    });
+    //console.log("Action POST /post/delete data: ", data[0]);
+
+    // notification post deletion
+    const pushNotificationText1 = `✅ You have just successfully deleted the Post you uploaded `;
+    const postDateTimeFromNowDeleted = moment(data[0].created_at).fromNow();
+    const pushNotification = (
+        <>
+            <MdNotificationsActive id="pushNotificationFriendRequestBell" />
+            &emsp;
+            <span className="pushNotificationFriendRequestText">
+                {pushNotificationText1}
+                {postDateTimeFromNowDeleted}.
+            </span>
+        </>
+    );
+    toaster.notify(pushNotification, {
+        duration: 5000,
+    });
+
+    return {
+        type: "DELETE_POST",
+        wallPostToDelete: postId,
+    };
+}
+
 export async function getWallPostComments(id) {
     //console.log("Action getWallPostComments!", id);
     const { data } = await axios.get(`/wall/post/comments/${id}`);

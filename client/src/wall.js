@@ -2,11 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import useStatefulFields from "./customhooks/use-stateful-fields";
 import { useState, useEffect } from "react";
 import { BiShowAlt } from "react-icons/bi";
+import { MdExpandMore } from "react-icons/md";
+import { MdExpandLess } from "react-icons/md";
 import { BsFillReplyFill } from "react-icons/bs";
 import { RiDeleteBinLine } from "react-icons/ri";
 import {
     getWallPosts,
     postWallPost,
+    deletePost,
     getWallPostComments,
     postWallPostComment,
     deleteComment,
@@ -178,8 +181,13 @@ export default function Wall({ id, myWall, name }) {
         );
     };
 
-    //const [showHideReplies, setShowHideReplies] = useState(true);
-    /* const onClickShowHideReplies = () => {
+    const [showHideComments, setShowHideComments] = useState(false);
+    const onClickShowHideComments = () => {
+        setShowHideComments(!showHideComments);
+    };
+
+    /* const [showHideReplies, setShowHideReplies] = useState(true);
+    const onClickShowHideReplies = () => {
         setShowHideReplies(!showHideReplies);
     }; */
 
@@ -304,6 +312,21 @@ export default function Wall({ id, myWall, name }) {
                                                             className="bioEditor"
                                                             id="titleTimestampWrap"
                                                         >
+                                                            {myWall && (
+                                                                <p
+                                                                    className="deleteWallPostBtn"
+                                                                    title="Delete Post"
+                                                                    onClick={() =>
+                                                                        dispatch(
+                                                                            deletePost(
+                                                                                post.id
+                                                                            )
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    X
+                                                                </p>
+                                                            )}
                                                             <p>
                                                                 <b id="messageName">
                                                                     {post.title ==
@@ -358,113 +381,124 @@ export default function Wall({ id, myWall, name }) {
                                                                         Comment
                                                                     </>
                                                                 )} */}
+                                                                {!showHideComments ? (
+                                                                    <MdExpandMore
+                                                                        /* style={{
+                                                                        color:
+                                                                            "lime",
+                                                                    }} */
+                                                                        className="showCommentBtn"
+                                                                        //id="commentDelete"
+                                                                        title="Show Comment"
+                                                                        onClick={
+                                                                            onClickShowHideComments
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <MdExpandLess
+                                                                        className="showCommentBtn"
+                                                                        //id="commentDelete"
+                                                                        title="Hide Comment"
+                                                                        onClick={
+                                                                            onClickShowHideComments
+                                                                        }
+                                                                    />
+                                                                )}
                                                             </p>
-                                                            <div className="commentsWrap">
-                                                                {/* {post.id} */}
-                                                                <p id="commentsOrNoComments">
-                                                                    {post
-                                                                        .comments
-                                                                        .length >
-                                                                    0
-                                                                        ? "Comments ("
-                                                                        : "This post has no comments yet. Be the first to leave a comment!"}
-                                                                    {post
-                                                                        .comments
-                                                                        .length >
-                                                                        0 &&
+                                                            {showHideComments && (
+                                                                <div className="commentsWrap">
+                                                                    {/* {post.id} */}
+                                                                    <p id="commentsOrNoComments">
+                                                                        {post
+                                                                            .comments
+                                                                            .length >
+                                                                        0
+                                                                            ? "Comments ("
+                                                                            : "This post has no comments yet. Be the first to leave a comment!"}
+                                                                        {post
+                                                                            .comments
+                                                                            .length >
+                                                                            0 &&
+                                                                            post
+                                                                                .comments
+                                                                                .length}
+                                                                        {post
+                                                                            .comments
+                                                                            .length >
+                                                                            0 &&
+                                                                            "):"}
+                                                                    </p>
+                                                                    {post.comments !=
+                                                                        undefined &&
                                                                         post
                                                                             .comments
-                                                                            .length}
-                                                                    {post
-                                                                        .comments
-                                                                        .length >
-                                                                        0 &&
-                                                                        "):"}
-                                                                </p>
-                                                                {post.comments !=
-                                                                    undefined &&
-                                                                    post
-                                                                        .comments
-                                                                        .length >
-                                                                        0 &&
-                                                                    post.comments.map(
-                                                                        (
-                                                                            comments,
-                                                                            index
-                                                                        ) => (
-                                                                            <div
-                                                                                className="commentConteiner"
-                                                                                key={
-                                                                                    index
-                                                                                }
-                                                                            >
-                                                                                <p id="commentNameDateTime">
-                                                                                    <small id="uploaderSigns">
-                                                                                        ❮
-                                                                                    </small>
-                                                                                    &nbsp;&nbsp;
-                                                                                    <img
-                                                                                        //className="profile_pic"
-                                                                                        className="commentProfPic"
-                                                                                        src={
-                                                                                            comments.commentAuthorProfile_pic
-                                                                                        }
-                                                                                        alt={
+                                                                            .length >
+                                                                            0 &&
+                                                                        post.comments.map(
+                                                                            (
+                                                                                comments,
+                                                                                index
+                                                                            ) => (
+                                                                                <div
+                                                                                    className="commentConteiner"
+                                                                                    key={
+                                                                                        index
+                                                                                    }
+                                                                                >
+                                                                                    <p id="commentNameDateTime">
+                                                                                        <small id="uploaderSigns">
+                                                                                            ❮
+                                                                                        </small>
+                                                                                        &nbsp;&nbsp;
+                                                                                        <img
+                                                                                            //className="profile_pic"
+                                                                                            className="commentProfPic"
+                                                                                            src={
+                                                                                                comments.commentAuthorProfile_pic
+                                                                                            }
+                                                                                            alt={
+                                                                                                comments.commentAuthorName
+                                                                                            }
+                                                                                        />
+                                                                                        {
                                                                                             comments.commentAuthorName
+                                                                                        }{" "}
+                                                                                        {
+                                                                                            comments.commentTimeStamp
+                                                                                        }{" "}
+                                                                                        commented:
+                                                                                        &nbsp;&nbsp;
+                                                                                        <small id="uploaderSigns">
+                                                                                            ❯
+                                                                                        </small>
+                                                                                    </p>
+                                                                                    <p id="comment">
+                                                                                        <small id="uploaderSigns">
+                                                                                            ≪
+                                                                                        </small>
+                                                                                        &nbsp;
+                                                                                        {
+                                                                                            comments.comment
                                                                                         }
-                                                                                    />
-                                                                                    {
-                                                                                        comments.commentAuthorName
-                                                                                    }{" "}
-                                                                                    {
-                                                                                        comments.commentTimeStamp
-                                                                                    }{" "}
-                                                                                    commented:
-                                                                                    &nbsp;&nbsp;
-                                                                                    <small id="uploaderSigns">
-                                                                                        ❯
-                                                                                    </small>
-                                                                                </p>
-                                                                                <p id="comment">
-                                                                                    <BsFillReplyFill
-                                                                                        id="commentReply"
-                                                                                        title="Reply"
-                                                                                        /* onClick={() =>
+                                                                                        &nbsp;
+                                                                                        <small id="uploaderSigns">
+                                                                                            ≫
+                                                                                        </small>
+                                                                                    </p>
+                                                                                    <div>
+                                                                                        <BsFillReplyFill
+                                                                                            id="commentReply"
+                                                                                            title="Reply"
+                                                                                            /* onClick={() =>
                                                                                             dispatch(
                                                                                                 replyComment(
                                                                                                     comments.commentId
                                                                                                 )
                                                                                             )
                                                                                         } */
-                                                                                    />
-                                                                                    <small id="uploaderSigns">
-                                                                                        ≪
-                                                                                    </small>
-                                                                                    &nbsp;
-                                                                                    {
-                                                                                        comments.comment
-                                                                                    }
-                                                                                    &nbsp;
-                                                                                    <small id="uploaderSigns">
-                                                                                        ≫
-                                                                                    </small>
-                                                                                    {myWall ? (
-                                                                                        <RiDeleteBinLine
-                                                                                            id="commentDelete"
-                                                                                            title="Delete Comment"
-                                                                                            onClick={() =>
-                                                                                                dispatch(
-                                                                                                    deleteComment(
-                                                                                                        comments.commentId
-                                                                                                    )
-                                                                                                )
-                                                                                            }
                                                                                         />
-                                                                                    ) : (
-                                                                                        activeUserName !=
-                                                                                            undefined &&
-                                                                                        activeUserName ==
-                                                                                            comments.commentAuthorName && (
+                                                                                        &nbsp;
+                                                                                        {myWall ? (
                                                                                             <RiDeleteBinLine
                                                                                                 id="commentDelete"
                                                                                                 title="Delete Comment"
@@ -476,51 +510,67 @@ export default function Wall({ id, myWall, name }) {
                                                                                                     )
                                                                                                 }
                                                                                             />
-                                                                                        )
-                                                                                    )}
-                                                                                </p>
-                                                                                {/* <div> */}
-                                                                                {comments.replies &&
-                                                                                    comments
-                                                                                        .replies
-                                                                                        .length >
-                                                                                        0 && (
-                                                                                        <BiShowAlt
-                                                                                            id="commentReply"
-                                                                                            className="showMore"
-                                                                                            title="Show Replies"
-                                                                                            /* onClick={
+                                                                                        ) : (
+                                                                                            activeUserName !=
+                                                                                                undefined &&
+                                                                                            activeUserName ==
+                                                                                                comments.commentAuthorName && (
+                                                                                                <RiDeleteBinLine
+                                                                                                    id="commentDelete"
+                                                                                                    title="Delete Comment"
+                                                                                                    onClick={() =>
+                                                                                                        dispatch(
+                                                                                                            deleteComment(
+                                                                                                                comments.commentId
+                                                                                                            )
+                                                                                                        )
+                                                                                                    }
+                                                                                                />
+                                                                                            )
+                                                                                        )}
+                                                                                    </div>
+                                                                                    {/* <div> */}
+                                                                                    {comments.replies &&
+                                                                                        comments
+                                                                                            .replies
+                                                                                            .length >
+                                                                                            0 && (
+                                                                                            <BiShowAlt
+                                                                                                id="commentReply"
+                                                                                                className="showMore"
+                                                                                                title="Show Replies"
+                                                                                                /* onClick={
                                                                                                 onClickShowHideReplies
                                                                                             } */
-                                                                                        />
-                                                                                    )}
-                                                                                {comments.replies &&
-                                                                                    comments
-                                                                                        .replies
-                                                                                        .length >
-                                                                                        0 &&
-                                                                                    "Replies ("}
-                                                                                {comments.replies &&
-                                                                                    comments
-                                                                                        .replies
-                                                                                        .length >
-                                                                                        0 &&
-                                                                                    comments
-                                                                                        .replies
-                                                                                        .length}
-                                                                                {comments.replies &&
-                                                                                    comments
-                                                                                        .replies
-                                                                                        .length >
-                                                                                        0 &&
-                                                                                    /* (comments
+                                                                                            />
+                                                                                        )}
+                                                                                    {comments.replies &&
+                                                                                        comments
+                                                                                            .replies
+                                                                                            .length >
+                                                                                            0 &&
+                                                                                        "Replies ("}
+                                                                                    {comments.replies &&
+                                                                                        comments
+                                                                                            .replies
+                                                                                            .length >
+                                                                                            0 &&
+                                                                                        comments
+                                                                                            .replies
+                                                                                            .length}
+                                                                                    {comments.replies &&
+                                                                                        comments
+                                                                                            .replies
+                                                                                            .length >
+                                                                                            0 &&
+                                                                                        /* (comments
                                                                                             .replies
                                                                                             .length ==
                                                                                         1
                                                                                             ? ") "
                                                                                             : " replies) ") */ ") "}
-                                                                                {/* </div> */}
-                                                                                {/* <span
+                                                                                    {/* </div> */}
+                                                                                    {/* <span
                                                                                     onClick={() =>
                                                                                         dispatch(
                                                                                             deleteComment(
@@ -532,7 +582,7 @@ export default function Wall({ id, myWall, name }) {
                                                                                     Delete
                                                                                     comment
                                                                                 </span> */}
-                                                                                {/* <RiDeleteBinLine
+                                                                                    {/* <RiDeleteBinLine
                                                                                     id="commentDelete"
                                                                                     title="Delete Comment"
                                                                                     onClick={() =>
@@ -543,91 +593,78 @@ export default function Wall({ id, myWall, name }) {
                                                                                         )
                                                                                     }
                                                                                 /> */}
-                                                                                {/* <div
+                                                                                    {/* <div
                                                                                     className={
                                                                                         !showHideReplies
                                                                                             ? "displayNone"
                                                                                             : null
                                                                                     }
                                                                                 > */}
-                                                                                {
-                                                                                    /* showHideReplies && */
-                                                                                    comments.replies &&
-                                                                                        comments
-                                                                                            .replies
-                                                                                            .length >
-                                                                                            0 &&
-                                                                                        comments.replies.map(
-                                                                                            (
-                                                                                                commentReply,
-                                                                                                index
-                                                                                            ) => (
-                                                                                                <div
-                                                                                                    className="replyConteiner"
-                                                                                                    key={
-                                                                                                        index
-                                                                                                    }
-                                                                                                >
-                                                                                                    <p id="replyNameDateTime">
-                                                                                                        <small id="uploaderSigns">
-                                                                                                            ❮
-                                                                                                        </small>
-                                                                                                        &nbsp;&nbsp;
-                                                                                                        <img
-                                                                                                            //className="profile_pic"
-                                                                                                            className="commentReplyProfPic"
-                                                                                                            src={
-                                                                                                                commentReply.replyAuthorProfile_pic
-                                                                                                            }
-                                                                                                            alt={
+                                                                                    {
+                                                                                        /* showHideReplies && */
+                                                                                        comments.replies &&
+                                                                                            comments
+                                                                                                .replies
+                                                                                                .length >
+                                                                                                0 &&
+                                                                                            comments.replies.map(
+                                                                                                (
+                                                                                                    commentReply,
+                                                                                                    index
+                                                                                                ) => (
+                                                                                                    <div
+                                                                                                        className="replyConteiner"
+                                                                                                        key={
+                                                                                                            index
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <p id="replyNameDateTime">
+                                                                                                            <small id="uploaderSigns">
+                                                                                                                ❮
+                                                                                                            </small>
+                                                                                                            &nbsp;&nbsp;
+                                                                                                            <img
+                                                                                                                //className="profile_pic"
+                                                                                                                className="commentReplyProfPic"
+                                                                                                                src={
+                                                                                                                    commentReply.replyAuthorProfile_pic
+                                                                                                                }
+                                                                                                                alt={
+                                                                                                                    commentReply.replyAuthorName
+                                                                                                                }
+                                                                                                            />
+                                                                                                            {
                                                                                                                 commentReply.replyAuthorName
-                                                                                                            }
-                                                                                                        />
-                                                                                                        {
-                                                                                                            commentReply.replyAuthorName
-                                                                                                        }{" "}
-                                                                                                        {
+                                                                                                            }{" "}
+                                                                                                            {/* {
                                                                                                             commentReply.replyTimeStamp
-                                                                                                        }{" "}
-                                                                                                        replied:
-                                                                                                        &nbsp;&nbsp;
-                                                                                                        <small id="uploaderSigns">
-                                                                                                            ❯
-                                                                                                        </small>
-                                                                                                    </p>
-                                                                                                    <p id="comment">
-                                                                                                        {/* <BsFillReplyFill
+                                                                                                        }{" "} */}
+                                                                                                            {
+                                                                                                                commentReply.createdAtFromNow
+                                                                                                            }{" "}
+                                                                                                            replied:
+                                                                                                            &nbsp;&nbsp;
+                                                                                                            <small id="uploaderSigns">
+                                                                                                                ❯
+                                                                                                            </small>
+                                                                                                        </p>
+                                                                                                        <p id="reply">
+                                                                                                            {/* <BsFillReplyFill
                                                                                                         id="commentReply"
                                                                                                         title="Reply to Comment"
                                                                                                     /> */}
-                                                                                                        <small id="uploaderSigns">
-                                                                                                            ≪
-                                                                                                        </small>
-                                                                                                        &nbsp;
-                                                                                                        {
-                                                                                                            commentReply.reply
-                                                                                                        }
-                                                                                                        &nbsp;
-                                                                                                        <small id="uploaderSigns">
-                                                                                                            ≫
-                                                                                                        </small>
-                                                                                                        {myWall ? (
-                                                                                                            <RiDeleteBinLine
-                                                                                                                id="commentDelete"
-                                                                                                                title="Delete Reply"
-                                                                                                                onClick={() =>
-                                                                                                                    dispatch(
-                                                                                                                        deleteCommentReply(
-                                                                                                                            commentReply.replyId
-                                                                                                                        )
-                                                                                                                    )
-                                                                                                                }
-                                                                                                            />
-                                                                                                        ) : (
-                                                                                                            activeUserName !=
-                                                                                                                undefined &&
-                                                                                                            activeUserName ==
-                                                                                                                commentReply.replyAuthorName && (
+                                                                                                            <small id="uploaderSigns">
+                                                                                                                ≪
+                                                                                                            </small>
+                                                                                                            &nbsp;
+                                                                                                            {
+                                                                                                                commentReply.reply
+                                                                                                            }
+                                                                                                            &nbsp;
+                                                                                                            <small id="uploaderSigns">
+                                                                                                                ≫
+                                                                                                            </small>
+                                                                                                            {myWall ? (
                                                                                                                 <RiDeleteBinLine
                                                                                                                     id="commentDelete"
                                                                                                                     title="Delete Reply"
@@ -639,55 +676,71 @@ export default function Wall({ id, myWall, name }) {
                                                                                                                         )
                                                                                                                     }
                                                                                                                 />
-                                                                                                            )
-                                                                                                        )}
-                                                                                                    </p>
-                                                                                                </div>
+                                                                                                            ) : (
+                                                                                                                activeUserName !=
+                                                                                                                    undefined &&
+                                                                                                                activeUserName ==
+                                                                                                                    commentReply.replyAuthorName && (
+                                                                                                                    <RiDeleteBinLine
+                                                                                                                        id="commentDelete"
+                                                                                                                        title="Delete Reply"
+                                                                                                                        onClick={() =>
+                                                                                                                            dispatch(
+                                                                                                                                deleteCommentReply(
+                                                                                                                                    commentReply.replyId
+                                                                                                                                )
+                                                                                                                            )
+                                                                                                                        }
+                                                                                                                    />
+                                                                                                                )
+                                                                                                            )}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                )
                                                                                             )
-                                                                                        )
-                                                                                }
-                                                                                <div className="chatTextareaContainer">
-                                                                                    <textarea
-                                                                                        id="chatTextarea"
-                                                                                        rows="1"
-                                                                                        cols="70"
-                                                                                        placeholder="Enter your reply here.."
-                                                                                        /* onKeyDown={
+                                                                                    }
+                                                                                    <div className="chatTextareaContainer">
+                                                                                        <textarea
+                                                                                            id="chatTextarea"
+                                                                                            rows="1"
+                                                                                            cols="70"
+                                                                                            placeholder="Enter your reply here.."
+                                                                                            /* onKeyDown={
                                                                                             handlekeyDownReply
                                                                                         } */
-                                                                                        onKeyDown={(
-                                                                                            e
-                                                                                        ) =>
-                                                                                            handlekeyDownReply(
-                                                                                                e,
-                                                                                                post.id,
-                                                                                                comments.commentId
-                                                                                            )
-                                                                                        }
-                                                                                    />
-                                                                                </div>
-                                                                                <div
-                                                                                    className="registrationError"
-                                                                                    id="commentAddError"
-                                                                                >
-                                                                                    {newWallPostCommentReplyError && (
-                                                                                        <span>
-                                                                                            Ops,
-                                                                                            it
-                                                                                            seems
-                                                                                            you
-                                                                                            haven&apos;t
-                                                                                            entered
-                                                                                            any
-                                                                                            comment
-                                                                                            reply
-                                                                                            yet!
-                                                                                        </span>
-                                                                                    )}
-                                                                                </div>
-                                                                                <div id="commentButtonWrap">
-                                                                                    <button
-                                                                                        /* onClick={() =>
+                                                                                            onKeyDown={(
+                                                                                                e
+                                                                                            ) =>
+                                                                                                handlekeyDownReply(
+                                                                                                    e,
+                                                                                                    post.id,
+                                                                                                    comments.commentId
+                                                                                                )
+                                                                                            }
+                                                                                        />
+                                                                                    </div>
+                                                                                    <div
+                                                                                        className="registrationError"
+                                                                                        id="commentAddError"
+                                                                                    >
+                                                                                        {newWallPostCommentReplyError && (
+                                                                                            <span>
+                                                                                                Ops,
+                                                                                                it
+                                                                                                seems
+                                                                                                you
+                                                                                                haven&apos;t
+                                                                                                entered
+                                                                                                any
+                                                                                                comment
+                                                                                                reply
+                                                                                                yet!
+                                                                                            </span>
+                                                                                        )}
+                                                                                    </div>
+                                                                                    <div id="commentButtonWrap">
+                                                                                        <button
+                                                                                            /* onClick={() =>
                                                                                             dispatch(
                                                                                                 postWallPostCommentReply(
                                                                                                     newReply,
@@ -697,89 +750,98 @@ export default function Wall({ id, myWall, name }) {
                                                                                                 )
                                                                                             )
                                                                                         } */
-                                                                                        onClick={
-                                                                                            postNewReplyBtn
-                                                                                        }
-                                                                                    >
-                                                                                        Add
-                                                                                        reply
-                                                                                    </button>
+                                                                                            onClick={
+                                                                                                postNewReplyBtn
+                                                                                            }
+                                                                                        >
+                                                                                            Add
+                                                                                            reply
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    {/* </div> */}
                                                                                 </div>
-                                                                                {/* </div> */}
-                                                                            </div>
-                                                                        )
-                                                                    )}
-                                                            </div>
-                                                            <div className="chatTextareaContainer">
-                                                                <textarea
-                                                                    id="chatTextarea"
-                                                                    rows="1"
-                                                                    cols="80"
-                                                                    placeholder="Enter your comment here.."
-                                                                    /* onKeyDown={
+                                                                            )
+                                                                        )}
+                                                                </div>
+                                                            )}
+                                                            {showHideComments && (
+                                                                <>
+                                                                    <div className="chatTextareaContainer">
+                                                                        <textarea
+                                                                            id="chatTextarea"
+                                                                            rows="1"
+                                                                            cols="80"
+                                                                            placeholder="Enter your comment here.."
+                                                                            /* onKeyDown={
                                                                         handlekeyDownComment
                                                                     } */
-                                                                    onKeyDown={(
-                                                                        e
-                                                                    ) =>
-                                                                        handlekeyDownComment(
-                                                                            e,
-                                                                            post.id
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </div>
-                                                            <div
-                                                                className="registrationError"
-                                                                id="commentAddError"
-                                                            >
-                                                                {newWallPostCommentError && (
-                                                                    <span>
-                                                                        Ops, it
-                                                                        seems
-                                                                        you
-                                                                        haven&apos;t
-                                                                        entered
-                                                                        any
-                                                                        comment
-                                                                        yet!
-                                                                    </span>
-                                                                )}
-                                                            </div>
-                                                            <div id="commentButtonWrap">
-                                                                <button
-                                                                    onClick={
-                                                                        postNewCommentBtn
-                                                                    }
-                                                                >
-                                                                    Add comment
-                                                                </button>
-                                                            </div>
+                                                                            onKeyDown={(
+                                                                                e
+                                                                            ) =>
+                                                                                handlekeyDownComment(
+                                                                                    e,
+                                                                                    post.id
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                    <div
+                                                                        className="registrationError"
+                                                                        id="commentAddError"
+                                                                    >
+                                                                        {newWallPostCommentError && (
+                                                                            <span>
+                                                                                Ops,
+                                                                                it
+                                                                                seems
+                                                                                you
+                                                                                haven&apos;t
+                                                                                entered
+                                                                                any
+                                                                                comment
+                                                                                yet!
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    <div id="commentButtonWrap">
+                                                                        <button
+                                                                            onClick={
+                                                                                postNewCommentBtn
+                                                                            }
+                                                                        >
+                                                                            Add
+                                                                            comment
+                                                                        </button>
+                                                                    </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))}
-                                        <div>
-                                            <h1
-                                                id="endWall"
-                                                className="glitchMainTitle"
-                                                data-text="end Wall_"
-                                            >
-                                                end Wall_
-                                            </h1>
-                                        </div>
-                                        {wallPosts == undefined &&
+                                        {neWallPosts && neWallPosts.length > 0 && (
+                                            <div>
+                                                <h1
+                                                    id="endWall"
+                                                    className="glitchMainTitle"
+                                                    data-text="end Wall_"
+                                                >
+                                                    end Wall_
+                                                </h1>
+                                            </div>
+                                        )}
+                                        {wallPosts != undefined &&
                                             (myWall ? (
                                                 <h1
                                                     id="noPostOnWall"
                                                     className="glitchMainTitle"
                                                     data-text="It seems you
                                                     haven't uploaded any Wall™️
-                                                    posts yet.."
+                                                    posts yet"
                                                 >
                                                     It seems you haven&#39;t
                                                     uploaded any Wall™️ posts
-                                                    yet..
+                                                    yet
                                                 </h1>
                                             ) : (
                                                 <h1
