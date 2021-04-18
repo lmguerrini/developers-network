@@ -13,6 +13,7 @@ import {
     getWallPostCommentsReplies,
     postWallPostCommentReply,
     deleteCommentReply,
+    getActiveUserInfos,
 } from "./actions";
 
 export default function Wall({ id, myWall, name }) {
@@ -30,6 +31,15 @@ export default function Wall({ id, myWall, name }) {
     const newWallPostCommentReplyError = useSelector(
         (state) => state && state.newWallPostCommentReplyError
     );
+    const activeUserInfos = useSelector(
+        (state) => state && state.activeUserInfos
+    );
+    let activeUserName;
+    if (activeUserInfos) {
+        activeUserName =
+            activeUserInfos[0].first + " " + activeUserInfos[0].last;
+    }
+
     const wallPosts = useSelector((state) => state && state.wallPosts);
     const wallPostCommentsNoReplies = useSelector(
         (state) => state && state.wallPostComments
@@ -89,6 +99,7 @@ export default function Wall({ id, myWall, name }) {
     }
 
     useEffect(() => {
+        dispatch(getActiveUserInfos());
         dispatch(getWallPosts(userWallId));
         dispatch(getWallPostComments(userWallId));
         dispatch(getWallPostCommentsReplies(userWallId));
@@ -437,17 +448,36 @@ export default function Wall({ id, myWall, name }) {
                                                                                     <small id="uploaderSigns">
                                                                                         ≫
                                                                                     </small>
-                                                                                    <RiDeleteBinLine
-                                                                                        id="commentDelete"
-                                                                                        title="Delete Comment"
-                                                                                        onClick={() =>
-                                                                                            dispatch(
-                                                                                                deleteComment(
-                                                                                                    comments.commentId
+                                                                                    {myWall ? (
+                                                                                        <RiDeleteBinLine
+                                                                                            id="commentDelete"
+                                                                                            title="Delete Comment"
+                                                                                            onClick={() =>
+                                                                                                dispatch(
+                                                                                                    deleteComment(
+                                                                                                        comments.commentId
+                                                                                                    )
                                                                                                 )
-                                                                                            )
-                                                                                        }
-                                                                                    />
+                                                                                            }
+                                                                                        />
+                                                                                    ) : (
+                                                                                        activeUserName !=
+                                                                                            undefined &&
+                                                                                        activeUserName ==
+                                                                                            comments.commentAuthorName && (
+                                                                                            <RiDeleteBinLine
+                                                                                                id="commentDelete"
+                                                                                                title="Delete Comment"
+                                                                                                onClick={() =>
+                                                                                                    dispatch(
+                                                                                                        deleteComment(
+                                                                                                            comments.commentId
+                                                                                                        )
+                                                                                                    )
+                                                                                                }
+                                                                                            />
+                                                                                        )
+                                                                                    )}
                                                                                 </p>
                                                                                 {/* <div> */}
                                                                                 {comments.replies &&
@@ -581,17 +611,36 @@ export default function Wall({ id, myWall, name }) {
                                                                                                         <small id="uploaderSigns">
                                                                                                             ≫
                                                                                                         </small>
-                                                                                                        <RiDeleteBinLine
-                                                                                                            id="commentDelete"
-                                                                                                            title="Delete Reply"
-                                                                                                            onClick={() =>
-                                                                                                                dispatch(
-                                                                                                                    deleteCommentReply(
-                                                                                                                        commentReply.replyId
+                                                                                                        {myWall ? (
+                                                                                                            <RiDeleteBinLine
+                                                                                                                id="commentDelete"
+                                                                                                                title="Delete Reply"
+                                                                                                                onClick={() =>
+                                                                                                                    dispatch(
+                                                                                                                        deleteCommentReply(
+                                                                                                                            commentReply.replyId
+                                                                                                                        )
                                                                                                                     )
-                                                                                                                )
-                                                                                                            }
-                                                                                                        />
+                                                                                                                }
+                                                                                                            />
+                                                                                                        ) : (
+                                                                                                            activeUserName !=
+                                                                                                                undefined &&
+                                                                                                            activeUserName ==
+                                                                                                                commentReply.replyAuthorName && (
+                                                                                                                <RiDeleteBinLine
+                                                                                                                    id="commentDelete"
+                                                                                                                    title="Delete Reply"
+                                                                                                                    onClick={() =>
+                                                                                                                        dispatch(
+                                                                                                                            deleteCommentReply(
+                                                                                                                                commentReply.replyId
+                                                                                                                            )
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                />
+                                                                                                            )
+                                                                                                        )}
                                                                                                     </p>
                                                                                                 </div>
                                                                                             )

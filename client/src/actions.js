@@ -339,3 +339,14 @@ export async function deleteCommentReply(replyId) {
         wallPostCommentReplyToDelete: replyId,
     };
 }
+
+export async function getActiveUserInfos() {
+    //console.log("Action getActiveUserInfos!");
+    const { data } = await axios.get(`/active/user/infos`);
+    //console.log("Action GET /active/user/infos data: ", data);
+
+    return {
+        type: "GET_ACTIVE_USER_INFOS",
+        getActiveUserInfos: data,
+    };
+}

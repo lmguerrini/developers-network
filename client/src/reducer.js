@@ -319,6 +319,17 @@ export function reducer(state = {}, action) {
         //console.log("Reducer DELETE_COMMENT_REPLY (A)", state);
     }
 
+    if (action.type == "GET_ACTIVE_USER_INFOS") {
+        //console.log("Reducer GET_ACTIVE_USER_INFOS!", state);
+
+        state = {
+            ...state,
+            activeUserInfos: action.getActiveUserInfos,
+        };
+
+        //console.log("reducer GET active user infos state: ", state);
+    }
+
     return state;
 }
 

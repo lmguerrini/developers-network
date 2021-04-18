@@ -1648,6 +1648,23 @@ app.post("/comment-reply/delete", function (req, res) {
         });
 });
 
+app.get("/active/user/infos", (req, res) => {
+    const activeUserId = req.session.userId;
+
+    db.getUserProfile(activeUserId)
+        .then(({ rows }) => {
+            //console.log("rows[0]: ", rows[0]);
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.error(
+                "error in GET/active/user/infos db.getUserProfile catch: ",
+                err
+            );
+            res.json({ error: true });
+        });
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.sendStatus(200);
