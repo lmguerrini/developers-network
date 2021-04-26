@@ -11,6 +11,8 @@ html {
     margin: 0;
     left: 0;
     //margin: 0.01px;
+    //transform: scale(0.98);
+    zoom: 0.985;
 }
 
 body {
@@ -591,6 +593,8 @@ button {
     /* -background-color: ghostwhite;
     background-color: rgba(255, 255, 255, 0.984);
     -background-color: black; */
+    //border: 5px solid red;
+    height: 106vh;
     background: var(--primaryBackgroundColor);
 
     -webkit-transition: background 1s linear;
@@ -619,7 +623,7 @@ button {
     top: 0;
     left: 0;
     //background-color: red;
-    width: 100vw;
+    //width: 100vw;
     height: 160px;
     transition: height 0.5s ease-in-out;
     //height: 100%;
@@ -869,7 +873,7 @@ button {
     background-color: rgba(255, 255, 255, 0);
     padding: 0 20px;
     -border-radius: 50%;
-    font-size: 1.4em;
+    font-size: 1.35em;
 
     &:hover {
         color: rgb(0, 212, 0);
@@ -1094,6 +1098,9 @@ button {
     //height: 250%;
     overflow-y: scroll;
     overflow-x: hidden;
+    //border: 10px solid blue;
+    padding: 0 50px;
+    transform: translateX(-55px);
 
     &::-webkit-scrollbar {
         display: none;
@@ -1202,7 +1209,9 @@ button {
 .sectionProfile {
     display: flex;
     justify-content: center;
-    //background-color: red;
+    transition: 1.13s ease-in-out;
+    background: var(--primaryBackgroundColor);
+    //border: 3px solid lime;
 }
 .profileContainer {
     display: flex;
@@ -1210,10 +1219,12 @@ button {
     align-items: center;
     justify-content: space-evenly;
     margin: 20px;
-    min-height: 600px;
+    margin-bottom: 200px;
+    //min-height: 600px;
     //min-height: 8000px;
     max-width: 900px;
     align-content: center;
+    //border: 3px solid blue;
 }
 
 .profileContainer p {
@@ -1302,7 +1313,8 @@ button {
     margin-left: 1%;
     height: auto;
     //height: 700px;
-    width: 700px;
+    //width: 700px;
+    width: 744px;
     //margin-left: 15px;
     -object-fit: scale-down;
     -object-fit: contain;
@@ -1377,7 +1389,7 @@ button {
 } */
 
 #bioEditorIsVisible p {
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 #bioeditorTextarea {
@@ -1599,7 +1611,7 @@ button {
     margin: 70px;
     //margin: 7.5vh;
     border-radius: 7.5px;
-    width: 700px;
+    width: 689px;
     //min-height: 900px;
     -height: 700px;
     -max-width: 750px;
@@ -1628,6 +1640,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    //border: 1px solid lime;
     //background-color: hotpink;
 }
 
@@ -1664,7 +1677,7 @@ button {
     margin-left: 25%;
     margin-right: 25%;
     -border-radius: 10px;
-    //border: 1px solid yellow;
+    //border: 15px solid yellow;
 }
 
 /* .friendButtonContainer {
@@ -1841,6 +1854,15 @@ button {
     transform: translate(-35px, -5px);
 }
 
+.acceptRefuseUnfriendBtn {
+    &:hover {
+        cursor: pointer;
+        border: 1px solid lime;
+        padding: 6px;
+        transition: 0.5s;
+    }
+}
+
 /* ----section(FindPeople)---- */
 
 .friendsSearchGlassOverlay {
@@ -1943,11 +1965,19 @@ button {
     margin-right: 20%; */
     //box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     box-shadow: 25px 15px 55px rgba(0, 0, 0, 0.826);
+
+    /* &:hover {
+        .onlineUsersHidden {
+            transition: 1s;
+            visibility: visible;
+        }
+    } */
 }
 
 .chatHistoryContainer {
     overflow: scroll;
-    height: 750px;
+    //height: 750px;
+    height: 56vh;
     width: auto;
     overflow-x: hidden;
     background-color: #000000df;
@@ -2226,6 +2256,11 @@ li.L9 {
 
 /* ----section(OnlineUsers)---- */
 
+/* .onlineUsersHidden {
+    transition: 1s;
+    visibility: hidden;
+} */
+
 .onlineUsersTitleWrap {
     background-color: black;
     border-right: 6.5px solid white;
@@ -2324,8 +2359,10 @@ li.L9 {
     //margin-top: 500px;
     display: flex;
     justify-content: center;
-    -height: auto;
+    height: auto;
     -align-items: center;
+    background: var(--primaryBackgroundColor);
+    //border: 3px solid blue;
 }
 
 .wallContainer {
@@ -2340,14 +2377,17 @@ li.L9 {
 .cardWallWrapper {
     margin-top: 95px;
     background: var(--primaryBackgroundColor);
-    width: 100vw;
+    //width: 120vw;
+    width: 123.7%;
     z-index: 1;
-    -border: 10px solid blue;
+    //border: 10px solid blue;
 }
 
 .cardWallWrapperZindex {
+    //width: 100vw;
+    //border: 1px solid red;
     background: var(--primaryBackgroundColor);
-    -background: rgba(51, 51, 51, 0.199);
+    //background: rgba(51, 51, 51, 0.199);
     margin-top: 5%;
 }
 
@@ -2355,9 +2395,9 @@ li.L9 {
     margin-left: 100px;
     margin-top: 50px;
     margin-bottom: 50px;
+    padding: 0 30px 0 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 0 30px 0 30px;
     -grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     justify-content: space-around;
@@ -2372,13 +2412,16 @@ li.L9 {
     color: whitesmoke;
     margin: 20px;
     border-radius: 5px;
-    max-width: 70vw;
-    min-width: 700px;
+    width: 100vw;
+    height: 117vh;
+    margin-bottom: 55px;
+    //max-width: 70vw;
+    //min-width: 700px;
     -moz-animation-direction: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
     -box-shadow: 0 0 20px white, 0 0 5px white;
     box-shadow: 45px 45px 55px rgba(0, 0, 0, 0.826);
-    -border: 10px solid yellow;
+    //border: 10px solid yellow;
 
     &:hover {
         .wallPostsGlassOverlayWrap {
@@ -2405,8 +2448,9 @@ li.L9 {
     overflow: auto;
     -height: 750px;
     -height: auto;
-    height: 90vh;
-    width: 70vw;
+    //height: 90vh;
+    height: 100%;
+    //width: 70vw;
     //max-width: 80vw;
     //min-width: 700px;
     -width: 750px;
@@ -2420,6 +2464,7 @@ li.L9 {
     //padding-top: 20px;
     top: 0;
     border-radius: 5px;
+    //border: 5px solid red;
 }
 
 .wallHistoryContainer::-webkit-scrollbar {
@@ -2450,11 +2495,10 @@ li.L9 {
     //border: 1px solid lime;
     margin-top: 35%;
     margin-bottom: 40%;
-    margin-left: 27%;
+    margin-left: 30vw;
     //text-align: center;
     //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
 }
-
 
 .wallPostsGlassOverlayWrap {
     position: absolute;
@@ -2583,7 +2627,7 @@ li.L9 {
 #titleTimestampWrap > p {
     text-align: center;
     padding-top: 15px;
-    font-size: 0.9em;
+    font-size: 1.2em;
 }
 
 #titleTimestampWrap > p > b > p {
@@ -2630,18 +2674,23 @@ li.L9 {
     }
 } */
 
-#commentsOrNoComments {
-    font-style: italic;
-    color: rgb(56, 142, 80);
-}
-
 .commentsWrap {
     //border: 1px solid red;
     display: flex;
     flex-direction: column;
     //justify-content: space-between;
     align-items: center;
-    width: 700px;
+    //width: 700px;
+    width: 100%;
+}
+
+.commentsWrap > p {
+    font-size: 1.15em;
+}
+
+#commentsOrNoComments {
+    font-style: italic;
+    color: rgb(56, 142, 80);
 }
 
 .commentConteiner {
@@ -2650,9 +2699,10 @@ li.L9 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     padding: 5px;
-    width: 700px;
+    //width: 700px;
+    //min-width: 50%;
+    max-width: 60%;
 }
 
 .commentProfPic {
@@ -2665,8 +2715,12 @@ li.L9 {
 }
 
 #commentNameDateTime {
+    //border: 1px solid rgba(0, 251, 255, 0.531);
     //color: rgba(0, 255, 0, 0.795);
     align-self: center;
+    text-align: center;
+    font-size: 1.1em;
+    width: 100%;
 }
 
 #comment {
@@ -2675,12 +2729,12 @@ li.L9 {
     border-top: none;
     overflow: scroll;
     font-style: italic;
-    font-size: 0.9em;
+    font-size: 1em;
     display: flex;
     //flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 600px;
+    //width: 600px;
     text-align: justify;
 
     &:hover {
@@ -2696,7 +2750,7 @@ li.L9 {
 
 .replyConteiner {
     display: none;
-    //border: 1px solid yellow;
+    //border: 1px solid rgba(255, 255, 0, 0.255);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2704,7 +2758,7 @@ li.L9 {
     //background-color: red;
 
     padding: 5px;
-    width: 700px;
+    width: 600px;
 }
 
 .displayNone {
@@ -2753,6 +2807,7 @@ li.L9 {
     backdrop-filter: blur(5px);
     border-radius: 5px;
     padding-bottom: 2.5px;
+    font-size: 1.05em;
 }
 
 .commentReplySignsSx {
@@ -2771,12 +2826,12 @@ li.L9 {
         0 0 75px rgba(255, 255, 255, 0.221);
     border-top: none;
     font-style: italic;
-    font-size: 0.9em;
+    font-size: 0.95em;
     display: flex;
     //flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 400px;
+    //width: 400px;
     //background-color: transparent;
     background-color: rgba(255, 255, 255, 0.083);
     backdrop-filter: blur(5px);
@@ -2860,8 +2915,8 @@ li.L9 {
     font-family: Dejavu Sans, monospace;
     //border: 1px solid lime;
     margin-top: 50%;
-    margin-bottom: 40%;
-    margin-left: 47%;
+    margin-bottom: 36%;
+    margin-left: 46%;
     /* padding-top: 25vh;
     padding-bottom: 45vh; */
     //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
@@ -3072,8 +3127,9 @@ li.L9 {
 /* ----section(Uploader)---- */
 
 .modalUploaderWrapper {
-    width: 98.5vw;
-    height: 85vh;
+    //width: 98.5vw;
+    width: 99.15%;
+    height: 65%;
     -width: 760px;
     -height: 504px;
     position: absolute;
@@ -3175,8 +3231,8 @@ li.L9 {
 /* ----section(EditProfile)---- */
 
 .modalsettingsWrapper {
-    width: 98.5vw;
-    height: 100vh;
+    width: 99.15%;
+    height: 80%;
     -width: 760px;
     -height: 504px;
     position: absolute;
@@ -3420,11 +3476,16 @@ footer {
 #footerApp {
     margin-left: 10px;
     color: black;
+    width: 100vw;
+    height: 5px;
+    //background-color: lime;
+    //transform: translateY(50px);
+    transform: translateY(8vh);
     -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
 
 .glitchFooterApp {
-    font-size: 1em;
+    font-size: 0.9em;
     padding-bottom: 15px;
     //background-color: black;
 }
@@ -3523,7 +3584,9 @@ html.darkMode {
     #darkModeCheckHiderWrap,
     #darkModeCheckHider,
     .cardWallWrapperZindex,
-    .cardWallWrapper {
+    .cardWallWrapper,
+    .sectionProfile,
+    .wallWrapper {
         background: var(--secondaryBackgroundColor);
     }
 
@@ -3557,7 +3620,7 @@ html.darkMode {
     .card,
     .otherProfileCard,
     .cardChat {
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.915), 0 0 15px white;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.807), 0 0 15px white;
     }
 
     .cardWall {

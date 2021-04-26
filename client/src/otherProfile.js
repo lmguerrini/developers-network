@@ -246,7 +246,6 @@ export default class OtherProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <section>

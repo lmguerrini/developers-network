@@ -219,7 +219,7 @@ export default function Wall({ id, myWall, name }) {
                                                 {/* <h1>Wall posts</h1> */}
                                                 <div>
                                                     {/* <p id="noPostsYet">No posts yet</p> */}
-                                                    <p id="wallTitle">
+                                                    <p id="wallTitle" style={{ fontSize: '1.6em'}}>
                                                         Here you can upload
                                                         something on your wall_
                                                     </p>
@@ -330,7 +330,7 @@ export default function Wall({ id, myWall, name }) {
                                                                 </p>
                                                             )}
                                                             <p>
-                                                                <b id="messageName">
+                                                                <b>
                                                                     {post.title ==
                                                                     "undefined"
                                                                         ? null
@@ -462,9 +462,11 @@ export default function Wall({ id, myWall, name }) {
                                                                                                 comments.commentAuthorName
                                                                                             }
                                                                                         />
-                                                                                        {
-                                                                                            comments.commentAuthorName
-                                                                                        }{" "}
+                                                                                        <b>
+                                                                                            {
+                                                                                                comments.commentAuthorName
+                                                                                            }{" "}
+                                                                                        </b>
                                                                                         {
                                                                                             comments.commentTimeStamp
                                                                                         }{" "}

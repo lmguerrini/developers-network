@@ -37,7 +37,7 @@ export const ProfileMoreBtnFront = () => {
                 onClick={handleClick}
             >
                 {" "}
-                <div>
+                <div title="Show More">
                     <BiCode />
                 </div>
             </button>
@@ -93,7 +93,7 @@ export const ProfileLessBtnBack = () => {
         <>
             <button className="profileMoreBtnFalse" onClick={handleClick}>
                 {" "}
-                <div>
+                <div title="Hide">
                     <BiCodeAlt />
                 </div>
             </button>

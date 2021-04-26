@@ -267,9 +267,9 @@ export default function PrivateMessages(props) {
                         <div className="chatTextareaContainer">
                             <textarea
                                 id="chatTextarea"
-                                rows="5"
-                                cols="101"
-                                placeholder="Enter your message here.."
+                                rows="3"
+                                cols="93"
+                                placeholder="Enter your private message here.."
                                 onKeyDown={handlekeyDownPrivate}
                             />
                         </div>

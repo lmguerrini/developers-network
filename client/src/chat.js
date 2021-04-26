@@ -219,8 +219,8 @@ export default function Chat() {
                         <div className="chatTextareaContainer">
                             <textarea
                                 id="chatTextarea"
-                                rows="5"
-                                cols="101"
+                                rows="3"
+                                cols="93"
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDown}
                             />

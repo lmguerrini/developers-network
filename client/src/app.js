@@ -16,11 +16,12 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
 import { RiUserSearchFill } from "react-icons/ri";
-import { FaUserFriends } from "react-icons/fa";
+//import { IoMdGitNetwork } from "react-icons/io";
+import { BiNetworkChart } from "react-icons/bi";
+//import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiNotification2Line } from "react-icons/ri";
 import { GrNotification } from "react-icons/gr";
-//import { FaRegEdit } from "react-icons/fa";
 import { DarkMode } from "./darkmode";
 import ParticlesApp from "../public/anim/App[p]/particlesApp";
 import { ParallaxProvider } from "react-scroll-parallax";
@@ -289,13 +290,16 @@ export default class App extends Component {
                                     <p>
                                         <Link
                                             to="/friends"
-                                            title="My Developer friends / friend requests"
+                                            title="My Developers Network"
+                                            /* title="My Developer friends / friend requests" */
                                             id="friendsIcon"
                                             className="bounce"
                                             /* className="loginLink" */
                                         >
                                             {/* Friends */}
-                                            <FaUserFriends />
+                                            {/* <FaUserFriends /> */}
+                                            <BiNetworkChart />
+                                            {/* <IoMdGitNetwork /> */}
                                         </Link>
                                     </p>
                                     <p>
@@ -333,6 +337,7 @@ export default class App extends Component {
                                             {/* Notification */}
                                             {/* Notification Count: {this.state.notifications} */}
                                             {/* <GrNotification /> */}
+                                            {/* <RiNotification2Line /> */}
                                             <RiNotification2Line />
                                         </Link>
                                     </p>
@@ -584,9 +589,9 @@ export default class App extends Component {
                         <footer
                             id="footerApp"
                             className="glitchFooterApp"
-                            data-text="Copyright © 2021 Neo, Inc. All rights reserved."
+                            data-text="Copyright © 2021 DN, Inc. All rights reserved."
                         >
-                            Copyright © 2021 Neo, Inc. All rights reserved.
+                            Copyright © 2021 DN, Inc. All rights reserved.
                         </footer>
                     </div>
                 </div>

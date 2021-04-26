@@ -13,7 +13,7 @@ export default function OnlineUsers() {
             {/* <div>Online Users</div> */}
 
             {onlineUsers && (
-                <div className="onlineUsersTitleWrap">
+                <div className="onlineUsersTitleWrap onlineUsersHidden">
                     <p id="findpeopleTitles">
                         These people <small id="uploaderSigns">❮&nbsp;</small>
                         <small>☟</small>
@@ -22,7 +22,7 @@ export default function OnlineUsers() {
                     </p>
                 </div>
             )}
-            <div className="onlineUserContainerWrap">
+            <div className="onlineUserContainerWrap onlineUsersHidden">
                 <div className="onlineUsersGlassOverlay">
                     {onlineUsers &&
                         onlineUsers.map((onlineUser) => (

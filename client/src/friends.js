@@ -113,6 +113,7 @@ export default function Friends() {
                                                 </p>
                                             </Link>
                                             <button
+                                                className="acceptRefuseUnfriendBtn"
                                                 onClick={() =>
                                                     dispatch(
                                                         deleteFriendship(
@@ -154,6 +155,7 @@ export default function Friends() {
 
                                             <div className="acceptBtnWrapper">
                                                 <button
+                                                    className="acceptRefuseUnfriendBtn"
                                                     id="acceptBtn"
                                                     onClick={() =>
                                                         dispatch(
@@ -169,6 +171,7 @@ export default function Friends() {
 
                                             <div className="refuseBtnWrapper">
                                                 <button
+                                                    className="acceptRefuseUnfriendBtn"
                                                     onClick={() =>
                                                         dispatch(
                                                             deleteFriendship(
