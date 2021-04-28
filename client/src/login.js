@@ -10,6 +10,7 @@ export default class Login extends Component {
             password: "",
             //error: false, // => general error
             error: "", // => specific errors
+            mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -60,8 +61,23 @@ export default class Login extends Component {
     render() {
         return (
             <section className="sectionR-L-RP_Container">
-                <div className="sectionR-L-RP">
-                    <h1 id="titles">Log in</h1>
+                <div
+                    className={
+                        !this.state.mediaQuery1024px.matches
+                            ? "sectionR-L-RP"
+                            : "sectionR-L-RP sectionR-L-RP1024"
+                    }
+                >
+                    <h1
+                        id="titles"
+                        className={
+                            !this.state.mediaQuery1024px.matches
+                                ? null
+                                : "titleLogin1024"
+                        }
+                    >
+                        Log in
+                    </h1>
                     <div className="registrationError">
                         {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>

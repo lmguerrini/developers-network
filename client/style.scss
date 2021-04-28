@@ -13,9 +13,11 @@ html {
     //margin: 0.01px;
     //transform: scale(0.98);
     zoom: 0.985;
+    //border: 1px solid red;
 }
 
 body {
+    //border: 1px solid red;
     //background-color: ghostwhite;
     background-color: black;
     overflow-x: hidden;
@@ -23,7 +25,7 @@ body {
 
 .parentContainer {
     position: relative;
-    min-height: 100vh;
+    min-height: 104vh;
     //background-color: black;
     //background-color: ghostwhite;
 }
@@ -341,6 +343,7 @@ h2 {
 /* ----container(Registration-Login-ResetPsw)---- */
 
 .sectionRegistrationContainer {
+    //border: 1px solid red;
     top: 340px;
     display: flex;
     justify-content: center;
@@ -359,6 +362,7 @@ h2 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    //border: 1px solid red;
     opacity: 0;
     visibility: hidden;
     animation: 14s fadeOut;
@@ -407,6 +411,7 @@ button {
 }
 
 .sectionR-L-RP_Container {
+    //border: 1px solid blue;
     -position: absolute;
     -text-align: center;
     top: 350px;
@@ -417,6 +422,7 @@ button {
 }
 
 .sectionR-L-RP {
+    //border: 1px solid lime;
     -text-align: center;
     -margin: 0 auto;
     background-color: rgba(7, 7, 7, 0.5);
@@ -426,7 +432,7 @@ button {
     //height: 350px;
     //padding: 55px 25px 35px 25px;
     //height: 400px;
-    height: 30vh;
+    height: 35vh;
     padding: 55px 25px 26vh 25px;
     //padding-bottom: 200px;
     display: flex;
@@ -3419,9 +3425,15 @@ footer {
     font-family: Dejavu Sans, monospace;
 }
 
+#footerWelcome {
+    margin-left: 10px;
+    width: 100vw;
+    height: 5px;
+    //transform: translateY(4.5vh);
+}
+
 .glitchFooter {
     font-size: 1em;
-
     //background-color: black;
 }
 
@@ -3653,3 +3665,103 @@ html.darkMode {
 /* ***********************************************************************
         ************************ MEDIA QUERIES ************************
 *********************************************************************** */
+
+// tablet-vertical
+@media screen and (max-width: 1024px) {
+    /**********************************
+        ********* WELCOME *********
+    **********************************/
+    .childrenContainer1024 {
+        //border: 1px solid blue;
+        //width: 130%;
+        //height: 125vh;
+        height: 100vh;
+    }
+    .headerWelcome1024 {
+        padding-top: 6em;
+        height: 300px;
+    }
+    .WelcometoDN1024Wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .Welcometo1024 {
+        font-family: Dejavu Sans, monospace;
+        font-size: 1.7em;
+        color: white;
+        align-self: center;
+    }
+    .glitchMainTitle1024 {
+        font-size: 1.5em;
+    }
+    .animationConatiner {
+        //width: 870px;
+        width: 1000px;
+    }
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            //width: 870px;
+            width: 1000px;
+        }
+    }
+    .slider-wrapper1024 {
+        //font-size: 25px;
+        font-size: 1.7em;
+    }
+    .titleRegistration1024 {
+        font-size: 1.7em;
+        transform: translateY(50px);
+    }
+    .matrixCodeContainer1024 {
+        //transform: rotate(90deg);
+        transform: scale(1.7, 1.3);
+        margin-top: 130px;
+        //width: 90vw;
+        //margin-top: 300px;
+        //margin-left: 120px;
+        //transform: translateY(100px);
+        //border: 1px solid yellow;
+    }
+    // Registration
+    .sectionRegistration1024 {
+        //border: 1px solid lime;
+        //margin-top: 50px;
+        height: 50vh;
+        transform: translateY(-55px);
+        padding-top: 80px;
+        padding-bottom: 250px;
+        zoom: 1.1;
+    }
+    //Login
+    .sectionR-L-RP1024{
+        //border: 1px solid lime;
+        height: 40vh;
+    }
+    .titleLogin1024 {
+        font-size: 2em;
+        transform: translateY(25px);
+    }
+    //resetPsw
+    .resetPswComponents1024 {
+        height: 30vh;
+        //zoom: 1.2;
+    }
+    .titleResetPsw1024 {
+        font-size: 2em;
+        transform: translateY(25px);
+    }
+    // Footer
+    .glitchFooter1024 {
+        font-size: 1.1em;
+        margin-left: 15px;
+        //margin-top: 5px;
+        //transform: translateY(-75px);
+    }
+}
+    
+    

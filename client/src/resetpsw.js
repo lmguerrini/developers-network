@@ -11,6 +11,7 @@ export default class ResetPassword extends Component {
             password: "",
             error: false,
             component: 1,
+            mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleResetPassword = this.handleResetPassword.bind(this);
@@ -61,9 +62,24 @@ export default class ResetPassword extends Component {
     render() {
         return (
             <section className="sectionR-L-RP_Container">
-                <div className="sectionR-L-RP">
+                <div
+                    className={
+                        !this.state.mediaQuery1024px.matches
+                            ? "sectionR-L-RP"
+                            : "sectionR-L-RP sectionR-L-RP1024"
+                    }
+                >
                     <div className="sectionResetPsw">
-                        <h1 id="titles">Reset Password</h1>
+                        <h1
+                            id="titles"
+                            className={
+                                !this.state.mediaQuery1024px.matches
+                                    ? null
+                                    : "titleResetPsw1024"
+                            }
+                        >
+                            Reset Password
+                        </h1>
                         <br></br>
                         <div className="registrationError">
                             {this.state.error && (
@@ -72,7 +88,13 @@ export default class ResetPassword extends Component {
                         </div>
                         <div>
                             {this.state.component === 1 && (
-                                <div className="resetPswComponents">
+                                <div
+                                    className={
+                                        !this.state.mediaQuery1024px.matches
+                                            ? "resetPswComponents"
+                                            : "resetPswComponents resetPswComponents1024"
+                                    }
+                                >
                                     <h4>Please enter your email</h4>
                                     <input
                                         /* onChange={(e) => this.handleChange(e)} */
@@ -99,7 +121,13 @@ export default class ResetPassword extends Component {
                         </div>
                         <div>
                             {this.state.component === 2 && (
-                                <div className="resetPswComponents">
+                                <div
+                                    className={
+                                        !this.state.mediaQuery1024px.matches
+                                            ? "resetPswComponents"
+                                            : "resetPswComponents resetPswComponents1024"
+                                    }
+                                >
                                     <h4 id="enterEmail">
                                         Please enter the code you received by
                                         email
@@ -134,7 +162,13 @@ export default class ResetPassword extends Component {
                         </div>
                         <div>
                             {this.state.component === 3 && (
-                                <div className="resetPswComponents">
+                                <div
+                                    className={
+                                        !this.state.mediaQuery1024px.matches
+                                            ? "resetPswComponents"
+                                            : "resetPswComponents resetPswComponents1024"
+                                    }
+                                >
                                     <h3>Success!</h3>
                                     <p
                                         id="enterEmail"

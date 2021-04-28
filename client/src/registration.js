@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "./axios"; // because it's not available globally like in Vue!
 import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 // ["pseudo code"]:
 // 1. render 4 input fields, button, and an error message if there is one
@@ -25,15 +26,11 @@ export default class Registration extends Component {
             password: "",
             //error: false, // => general error
             error: "", // => specific errors
+            mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
         };
 
-        // this "this" refers to Registration
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        // but then:
-        // onChange={this.handleChange}
-        // not:
-        // onChange={(e) => this.handleChange(e)}
     }
 
     handleChange(e) {
@@ -54,8 +51,6 @@ export default class Registration extends Component {
 
     handleClick() {
         //console.log("Registration/ handleClick working!");
-        //console.log("this: ", this);
-        //console.log("this.state: ", this.state);
 
         // 1. send off user input to server using axios!
         axios
@@ -109,8 +104,23 @@ export default class Registration extends Component {
     render() {
         return (
             <section className="sectionRegistrationContainer">
-                <div className="sectionRegistration">
-                    <h1 id="titles">Registration</h1>
+                <div
+                    className={
+                        !this.state.mediaQuery1024px.matches
+                            ? "sectionRegistration"
+                            : "sectionRegistration sectionRegistration1024"
+                    }
+                >
+                    <h1
+                        id="titles"
+                        className={
+                            !this.state.mediaQuery1024px.matches
+                                ? null
+                                : "titleRegistration1024"
+                        }
+                    >
+                        Registration
+                    </h1>
                     <div className="registrationError">
                         {/* {this.state.error && (
                         <span>Ops, something went wrong!</span>
