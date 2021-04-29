@@ -1,8 +1,12 @@
 import Particles from "react-particles-js";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function ParticlesApp() {
+    const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
     return (
-        <div className="ParticlesApp">
+        <div
+            className={!mediaQuery1550px ? "ParticlesApp" : "ParticlesApp1550"}
+        >
             <Particles
                 params={{
                     particles: {

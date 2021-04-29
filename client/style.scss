@@ -1082,6 +1082,18 @@ button {
     //backface-visibility: hidden;
     border-radius: 20px;
 }
+.side1550 {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 70%;
+    padding: 20px 50px;
+    color: #fff;
+    transform-style: preserve-3d;
+    //backface-visibility: hidden;
+    border-radius: 20px;
+    margin-top: 20px;
+}
 
 .front {
     transition: 2s;
@@ -1112,6 +1124,13 @@ button {
         display: none;
     }
 }
+.back1550 {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    z-index: -1;
+    margin-top: -20px;
+    margin-left: -55px;
+}
 
 .op {
     margin-left: 120px;
@@ -1139,6 +1158,19 @@ button {
         visibility: visible;
         transform: translateX(20vw);
         //transform: translateY(955px);
+    }
+}
+.front-back1550 {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    height: 1600px;
+    .front {
+        z-index: -1;
+    }
+    .back {
+        padding-top: 50px;
+        transition: 1s;
+        visibility: visible;
     }
 }
 /* .frontBackCardsWrap:hover {
@@ -1215,7 +1247,7 @@ button {
 .sectionProfile {
     display: flex;
     justify-content: center;
-    transition: 1.13s ease-in-out;
+    transition: 1.3s ease-out;
     background: var(--primaryBackgroundColor);
     //border: 3px solid lime;
 }
@@ -3560,8 +3592,14 @@ html.darkMode {
     }
 
     .ParticlesApp {
-        //margin-top: 226px;
-        margin-top: 180px;
+        margin-top: 240px;
+        transform: scale(1.1, 1.1);
+        transition: margin-top 2s ease-in-out;
+    }
+    // Profile flip cards
+    .ParticlesApp1550 {
+        margin-top: 290px;
+        transform: scale(1.2, 1.2);
         transition: margin-top 2s ease-in-out;
     }
 
@@ -3666,7 +3704,7 @@ html.darkMode {
         ************************ MEDIA QUERIES ************************
 *********************************************************************** */
 
-// tablet-vertical
+// Tablets
 @media screen and (max-width: 1024px) {
     /**********************************
         ********* WELCOME *********
@@ -3738,7 +3776,7 @@ html.darkMode {
         zoom: 1.1;
     }
     //Login
-    .sectionR-L-RP1024{
+    .sectionR-L-RP1024 {
         //border: 1px solid lime;
         height: 40vh;
     }
@@ -3763,5 +3801,3 @@ html.darkMode {
         //transform: translateY(-75px);
     }
 }
-    
-    

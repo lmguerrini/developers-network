@@ -13,7 +13,6 @@ export default function Welcome() {
         <>
             <div className="parentContainer">
                 <div
-                    /* className="childrenContainer" */
                     className={
                         !mediaQuery1024px
                             ? "childrenContainer"
@@ -56,7 +55,6 @@ export default function Welcome() {
                                 <div className="animationConatiner">
                                     <h1>
                                         <b
-                                            /* className="glitchMainTitle" */
                                             className={
                                                 !mediaQuery1024px
                                                     ? "glitchMainTitle"
@@ -162,7 +160,6 @@ export default function Welcome() {
 
                 <footer
                     id="footerWelcome"
-                    /* className="glitchFooter" */
                     className={
                         !mediaQuery1024px
                             ? "glitchFooter"

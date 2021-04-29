@@ -247,15 +247,15 @@ export default class App extends Component {
                                         className="headerAppGlass matrixCodeContainer matrixCode"
                                         id="particlesApp-js"
                                     >
-                                        <ParallaxProvider>
+                                        {/* <ParallaxProvider>
                                             <Parallax
                                                 className="custom-class"
-                                                y={[-0.5, 10]}
+                                                y={[-0.1, 10]}
                                                 tagOuter="figure"
                                             >
                                                 <ParticlesApp />
                                             </Parallax>
-                                        </ParallaxProvider>
+                                        </ParallaxProvider> */}
                                     </div>
                                     <img
                                         title="DN Logo"

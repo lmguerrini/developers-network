@@ -14,6 +14,7 @@ import { BiCodeCurly } from "react-icons/bi";
 import Wall from "./wall";
 //import EditProfile from "./editprofile";
 //import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 // destructuring it, it's just a personal preference
 export default function Profile({
@@ -64,6 +65,7 @@ export default function Profile({
         editLanguages,
         toggleModalUploader
     ); */
+    const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
 
     return (
         <>
@@ -122,7 +124,6 @@ export default function Profile({
                                         </div>
                                         {/* <div className="more">MORE</div> */}
                                         <ProfileMoreBtnFront />
-
                                         {/* <div className="modalUploaderWrapper">
                                             <EditProfile
                                                 toggleModalSettings={
@@ -135,7 +136,13 @@ export default function Profile({
                             </div>
                         </div>
 
-                        <div className="back side">
+                        <div
+                            className={
+                                !mediaQuery1550px
+                                    ? "back side"
+                                    : "back1550  side1550"
+                            }
+                        >
                             <div className="content">
                                 <div className="cardContainer">
                                     <div className="card">
