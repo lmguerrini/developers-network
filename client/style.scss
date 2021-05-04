@@ -1090,6 +1090,7 @@ button {
     padding: 20px 50px;
     color: #fff;
     transform-style: preserve-3d;
+    //border: 10px solid limegreen;
     //backface-visibility: hidden;
     border-radius: 20px;
     margin-top: 20px;
@@ -1116,7 +1117,7 @@ button {
     //height: 250%;
     overflow-y: scroll;
     overflow-x: hidden;
-    //border: 10px solid blue;
+    //border: 10px solid limegreen;
     padding: 0 50px;
     transform: translateX(-55px);
 
@@ -1129,7 +1130,7 @@ button {
     transform: scaleX(-1);
     z-index: -1;
     margin-top: -20px;
-    margin-left: -55px;
+    margin-left: -50px;
 }
 
 .op {
@@ -1357,9 +1358,10 @@ button {
     -object-fit: scale-down;
     -object-fit: contain;
     border-radius: 5px;
-    -border-top-left-radius: 5px;
-    -border-top-right-radius: 5px;
+    border-top-left-radius: 7.5px;
+    border-top-right-radius: 7.5px;
     border: 0;
+    //border: 3px solid red;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
     /* &:hover {
@@ -2953,7 +2955,7 @@ li.L9 {
     font-family: Dejavu Sans, monospace;
     //border: 1px solid lime;
     margin-top: 50%;
-    margin-bottom: 36%;
+    margin-bottom: 50%;
     margin-left: 46%;
     /* padding-top: 25vh;
     padding-bottom: 45vh; */
@@ -3524,13 +3526,14 @@ footer {
     height: 5px;
     //background-color: lime;
     //transform: translateY(50px);
-    transform: translateY(8vh);
+    transform: translateY(3.5vh);
     -box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
 }
 
 .glitchFooterApp {
     font-size: 0.9em;
     padding-bottom: 15px;
+    //border: 5px solid red;
     //background-color: black;
 }
 
@@ -3706,6 +3709,16 @@ html.darkMode {
 
 // Tablets
 @media screen and (max-width: 1024px) {
+    * {
+        zoom: 0.996;
+    }
+    .parentContainer {
+        min-height: 90vh;
+    }
+    .appParentWrapper {
+        height: 102vh;
+    }
+
     /**********************************
         ********* WELCOME *********
     **********************************/
@@ -3799,5 +3812,33 @@ html.darkMode {
         margin-left: 15px;
         //margin-top: 5px;
         //transform: translateY(-75px);
+    }
+
+    /**********************************
+        ********* APP *********
+    **********************************/
+    // Profile
+    .profile_picBigContainer img {
+        width: 712px;
+    }
+    .cardWall {
+        height: 100vh;
+        margin-bottom: 50px;
+    }
+    #endWall {
+        margin-bottom: 70%;
+    }
+    // Developer Network
+    .cardContainer {
+        zoom: 1.1;
+    }
+    // Chat
+    .chatHistoryContainer {
+        height: 45vh;
+    }
+    // Footer
+    #footerApp {
+        //transform: translateY(-5vh);
+        transform: translateY(12vh);
     }
 }
