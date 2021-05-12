@@ -159,9 +159,9 @@ export default class Registration extends Component {
                     <button id="registerBtn" onClick={this.handleClick}>
                         Register
                     </button>
-                    <p>
+                    <p id="alreadyAmember">
                         Already a member? ☞{" "}
-                        <Link to="/login" className="loginLink">
+                        <Link to="/login" className="loginLink loginLinkMobileR">
                             Log in!
                         </Link>
                     </p>

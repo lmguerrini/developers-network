@@ -144,7 +144,7 @@ export const ProfileLessBtnBack = () => {
                 {" "}
                 <div title="Hide">
                     {/* <BiCodeAlt /> */}
-                    {!mediaQuery1550px ? <BiCode /> : <CgEditFlipH />}
+                    {!mediaQuery1550px ? <BiCodeAlt /> : <CgEditFlipH />}
                 </div>
             </button>
         </>

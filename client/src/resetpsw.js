@@ -30,7 +30,7 @@ export default class ResetPassword extends Component {
         axios
             .post("/reset/password", this.state)
             .then(({ data }) => {
-                //console.log("ResetPassword-data: ", data);
+                console.log("ResetPassword-data: ", data);
                 this.setState({
                     error: data.error, // t/f
                     component: data.component, // 1/2
@@ -61,7 +61,7 @@ export default class ResetPassword extends Component {
 
     render() {
         return (
-            <section className="sectionR-L-RP_Container">
+            <section className="sectionR-L-RP_Container resetPswContainer">
                 <div
                     className={
                         !this.state.mediaQuery1024px.matches
@@ -110,9 +110,12 @@ export default class ResetPassword extends Component {
                                     >
                                         Submit
                                     </button>
-                                    <p>
+                                    <p id="alreadyAmember">
                                         Remember your password? ☞{" "}
-                                        <Link to="/login" className="loginLink">
+                                        <Link
+                                            to="/login"
+                                            className="loginLink loginLinkMobileR"
+                                        >
                                             Log in!
                                         </Link>
                                     </p>
@@ -172,7 +175,7 @@ export default class ResetPassword extends Component {
                                     <h3>Success!</h3>
                                     <p
                                         id="enterEmail"
-                                        className="component3Link"
+                                        className="component3Link backgroundTransparent"
                                     >
                                         You can now{" "}
                                         <Link

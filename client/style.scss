@@ -224,6 +224,80 @@ h2 {
     letter-spacing: 0.04em;
 }
 
+.slider-text1-mobile {
+    //margin-left: -35%;
+    animation: slide-left-mobile 12s linear;
+    margin-top: 30px;
+    margin-left: -15%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    letter-spacing: 0.04em;
+}
+
+.slider-text1-mobile p {
+    font-size: 0.9em;
+    letter-spacing: 0.35em;
+    text-decoration: none;
+    background-size: 120% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -ms-background-clip: text;
+    -ms-text-fill-color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.531),
+        white,
+        white
+    );
+    animation: 0.8s slider-texts-mobile-shake infinite alternate;
+}
+.slider-text2-mobile p {
+    font-size: 0.9em;
+    letter-spacing: 0.35em;
+    text-decoration: none;
+    background-size: 120% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -ms-background-clip: text;
+    -ms-text-fill-color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.531),
+        rgba(255, 255, 255, 0.786),
+        white,
+        white
+    );
+    animation: 1s slider-texts-mobile-shake infinite linear;
+}
+
+@keyframes slider-texts-mobile-shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+
 .slider-text1 p {
     background: rgba(51, 51, 51, 0.052);
 }
@@ -245,6 +319,13 @@ h2 {
 .slider-text2 {
     animation: slide-right 8.5s linear;
     margin-right: -15%;
+    margin-top: 10px;
+    letter-spacing: 0.045em;
+}
+
+.slider-text2-mobile {
+    margin-right: -15%;
+    animation: slide-right-mobile 14s linear;
     margin-top: 10px;
     letter-spacing: 0.045em;
 }
@@ -278,6 +359,20 @@ h2 {
         margin-left: -15%;
     }
 }
+@keyframes slide-left-mobile {
+    0% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -200%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
 
 @keyframes slide-right {
     0% {
@@ -285,6 +380,20 @@ h2 {
     }
     75% {
         margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@keyframes slide-right-mobile {
+    0% {
+        margin-right: -200%;
+    }
+    75% {
+        margin-right: -200%;
     }
     85% {
         margin-right: -25%;
@@ -309,18 +418,48 @@ h2 {
     -z-index: -1;
     //background-color: red;
 }
-
 .matrixCode {
     width: 100%;
     -z-index: -1;
-    /* opacity: 0;
+    opacity: 0;
     visibility: hidden;
     animation: 15s fadeIn;
-    animation-fill-mode: forwards; */
+    animation-fill-mode: forwards;
     -animation-delay: 5s;
     //background-color: black;
     -transition-delay: 3s;
     -transition: opacity 3s linear, visibility 3s linear;
+}
+
+.matrixCodeContainer375 {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transform: scale(2);
+}
+.matrixCode375 {
+    //border: 5px solid yellow;
+    transform: rotate(90deg);
+    //zoom: 1.5;
+    //transform: scale(2);
+}
+.particles1 {
+    //border: 2px solid yellow;
+    transform: scale(3.8, 4.2);
+    margin-top: 80%;
+    //opacity: 0.5;
+    opacity: 0;
+    visibility: hidden;
+    animation: 25s fadeIn-mobile;
+    animation-fill-mode: forwards;
+}
+.particles2 {
+    //border: 2px solid red;
+    transform: scale(4.2);
+    margin-top: 302%;
+    opacity: 0;
+    visibility: hidden;
+    animation: 25s fadeIn-mobile;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -338,6 +477,15 @@ h2 {
     /* 100% {
         opacity: 0.85;
     } */
+}
+@keyframes fadeIn-mobile {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 0.7;
+    }
 }
 
 /* ----container(Registration-Login-ResetPsw)---- */
@@ -3708,7 +3856,8 @@ html.darkMode {
 *********************************************************************** */
 
 // Tablets
-@media screen and (max-width: 1024px) {
+//@media screen and (max-width: 1024px) {
+@media screen and (min-device-width: 376px) and (max-device-width: 1024px) {
     * {
         zoom: 0.996;
     }
@@ -3769,8 +3918,7 @@ html.darkMode {
         transform: translateY(50px);
     }
     .matrixCodeContainer1024 {
-        //transform: rotate(90deg);
-        transform: scale(1.7, 1.3);
+        //transform: scale(1.7, 1.3);
         margin-top: 130px;
         //width: 90vw;
         //margin-top: 300px;
@@ -3778,6 +3926,7 @@ html.darkMode {
         //transform: translateY(100px);
         //border: 1px solid yellow;
     }
+
     // Registration
     .sectionRegistration1024 {
         //border: 1px solid lime;
@@ -3840,5 +3989,216 @@ html.darkMode {
     #footerApp {
         //transform: translateY(-5vh);
         transform: translateY(12vh);
+    }
+}
+
+// Mobiles
+@media screen and (max-device-width: 375px) {
+    //@media all and (max-width: 375px) {
+    * {
+        zoom: 1.19;
+    }
+
+    body {
+        //border: 2px solid rgb(157, 44, 15);
+        width: 110vw;
+    }
+
+    /**********************************
+        ********* WELCOME *********
+    **********************************/
+    .Welcometo1024 {
+        font-size: 2em;
+    }
+    
+    .Welcometo375 {
+        /* color: white;
+        font-family: Dejavu Sans, monospace; */
+        font-size: 1.5rem;
+        margin-top: 5vh;
+        //margin-bottom: 2.5vh;
+    }
+
+    // mobile-typing animation
+    .mobile-typingIntro {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+        margin-left: 3.5px;
+        //border: 1px solid rgba(0, 255, 0, 0.2);
+        align-items: center;
+        font-size: 2em;
+    }
+    .mobile-typingIntro p {
+        background: transparent;
+        border-right: 0.15em solid rgb(56, 142, 80);
+        font-family: Dejavu Sans, monospace;
+        margin-bottom: 2.5vh;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .mobile-typingIntro p:nth-child(1) {
+        width: 6.5em;
+        color: white;
+        opacity: 0;
+        -webkit-animation: type-mobile 2s steps(15, end), blink-mobile 0.5s step-end infinite;
+        animation: type-mobile 2s steps(15, end), blink-mobile 0.5s step-end infinite;
+        //-webkit-animation-delay: 2s;
+        //animation-delay: 2s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    .mobile-typingIntro p:nth-child(2) {
+        width: 2em;
+        color: white;
+        opacity: 0;
+        -webkit-animation: type-mobile 0.5s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 1s steps(40, end), blink-mobile 0.35s step-end infinite;
+        -webkit-animation-delay: 2s;
+        animation-delay: 2s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    .mobile-typingIntro p:nth-child(3) {
+        width: 6.5em;
+        color: white;
+        opacity: 0;
+        -webkit-animation: type-mobile 2s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 2s steps(40, end), blink-mobile 0.35s step-end infinite;
+        -webkit-animation-delay: 3.5s;
+        animation-delay: 3.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    .mobile-typingIntro p:nth-child(4) {
+        width: 5em;
+        color: white;
+        opacity: 0;
+        -webkit-animation: type-mobile 2s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 2s steps(40, end), blink-mobile 0.35s step-end infinite;
+        -webkit-animation-delay: 5.5s;
+        animation-delay: 5.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    .mobile-typingIntro p:nth-child(5) {
+        width: 1.35em;
+        color: rgba(255, 255, 255, 0.29);
+        opacity: 0;
+        -webkit-animation: typeEnd-mobile 0.5s steps(20, end),
+            blink-mobile 0.35s step-end infinite alternate;
+        animation: typeEnd-mobile 0.5s steps(20, end),
+            blink-mobile 0.35s step-end infinite alternate;
+        -webkit-animation-delay: 7.5s;
+        animation-delay: 7.5s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes type-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        99.9% {
+            border-right: 0.15em solid rgb(56, 142, 80);
+        }
+        100% {
+            opacity: 1;
+            border: none;
+        }
+    }
+    @-webkit-keyframes type-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        99.9% {
+            border-right: 0.15em solid rgb(56, 142, 80);
+        }
+        100% {
+            opacity: 1;
+            border: none;
+        }
+    }
+
+    @keyframes typeEnd-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes typeEnd-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes blink-mobile {
+        50% {
+            border-color: transparent;
+        }
+    }
+    @-webkit-keyframes blink-mobile {
+        50% {
+            border-color: tranparent;
+        }
+    }
+
+    .slider-wrapper375 {
+        //border: 1 solid red;
+        font-size: 0.8em;
+        height: 15vh;
+    }
+
+    #alreadyAmember {
+        color: rgba(255, 255, 255, 0.483);
+        font-size: 0.9em;
+        background: transparent;
+    }
+
+    .loginLinkMobileR {
+        font-size: 0.9em;
+        background: transparent;
+    }
+
+    .loginBtnContainerMobile p {
+        color: rgba(255, 255, 255, 0.483);
+        background: transparent;
+    }
+
+    .loginBtnContainerMobile p,
+    .loginLinkMobile {
+        font-size: 0.75em;
+        background: transparent;
+    }
+
+    .glitchFooter375 {
+        font-size: 1.35em;
+        color: rgba(255, 255, 255, 0.552);
+    }
+
+    .resetPswContainer {
+        zoom: 0.75;
     }
 }
