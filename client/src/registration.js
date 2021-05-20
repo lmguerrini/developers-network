@@ -103,7 +103,7 @@ export default class Registration extends Component {
 
     render() {
         return (
-            <section className="sectionRegistrationContainer">
+            <section className="sectionRegistrationContainer sectionR-L-RP375">
                 <div
                     className={
                         !this.state.mediaQuery1024px.matches
@@ -161,7 +161,10 @@ export default class Registration extends Component {
                     </button>
                     <p id="alreadyAmember">
                         Already a member? ☞{" "}
-                        <Link to="/login" className="loginLink loginLinkMobileR">
+                        <Link
+                            to="/login"
+                            className="loginLink loginLinkMobileR"
+                        >
                             Log in!
                         </Link>
                     </p>

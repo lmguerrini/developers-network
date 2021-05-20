@@ -6,6 +6,7 @@ import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
 import { BsFillReplyFill } from "react-icons/bs";
 import { RiDeleteBinLine, RiSdCardFill } from "react-icons/ri";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {
     getWallPosts,
     postWallPost,
@@ -28,6 +29,7 @@ export default function Wall({ id, myWall, name }) {
     const [file, setFile] = useState();
     //const [error, setError] = useState(false);
     const generalError = useSelector((state) => state && state.error);
+    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
     const newWallPostCommentError = useSelector(
         (state) => state && state.newWallPostCommentError
     );
@@ -219,7 +221,12 @@ export default function Wall({ id, myWall, name }) {
                                                 {/* <h1>Wall posts</h1> */}
                                                 <div>
                                                     {/* <p id="noPostsYet">No posts yet</p> */}
-                                                    <p id="wallTitle" style={{ fontSize: '1.6em'}}>
+                                                    <p
+                                                        id="wallTitle"
+                                                        style={{
+                                                            fontSize: "1.6em",
+                                                        }}
+                                                    >
                                                         Here you can upload
                                                         something on your wall_
                                                     </p>
@@ -311,7 +318,7 @@ export default function Wall({ id, myWall, name }) {
                                                             />
                                                         </div>
                                                         <div
-                                                            className="bioEditor"
+                                                            className="bioEditor walPostTitleDateMobile"
                                                             id="titleTimestampWrap"
                                                         >
                                                             {myWall && (
@@ -467,9 +474,13 @@ export default function Wall({ id, myWall, name }) {
                                                                                                 comments.commentAuthorName
                                                                                             }{" "}
                                                                                         </b>
-                                                                                        {
-                                                                                            comments.commentTimeStamp
-                                                                                        }{" "}
+                                                                                        {!mediaQuery375px
+                                                                                            ? comments.commentTimeStamp
+                                                                                            : "on" +
+                                                                                              comments.commentTimeStamp.slice(
+                                                                                                  6,
+                                                                                                  -11
+                                                                                              )}{" "}
                                                                                         commented:
                                                                                         &nbsp;&nbsp;
                                                                                         <small id="uploaderSigns">
@@ -739,7 +750,7 @@ export default function Wall({ id, myWall, name }) {
                                                             )}
                                                             {showHideComments && (
                                                                 <>
-                                                                    <div className="chatTextareaContainer">
+                                                                    <div className="chatTextareaContainer commentTextareaContainer375">
                                                                         <textarea
                                                                             id="chatTextarea"
                                                                             rows="1"
@@ -796,14 +807,15 @@ export default function Wall({ id, myWall, name }) {
                                             <div>
                                                 <h1
                                                     id="endWall"
-                                                    className="glitchMainTitle"
+                                                    className="glitchMainTitle endWallMobile"
                                                     data-text="end Wall_"
                                                 >
                                                     end Wall_
                                                 </h1>
                                             </div>
                                         )}
-                                        {neWallPosts != undefined &&
+                                        {!mediaQuery375px &&
+                                            neWallPosts != undefined &&
                                             neWallPosts.length == 0 &&
                                             (myWall ? (
                                                 <h1

@@ -37,7 +37,6 @@ body {
 /******************************************
     ************** WELCOME **************
 *******************************************/
-
 .ParticlesApp {
     transition: margin-top 2s ease-in-out;
     //margin-top: 230px;
@@ -750,7 +749,6 @@ button {
     //border: 5px solid red;
     height: 106vh;
     background: var(--primaryBackgroundColor);
-
     -webkit-transition: background 1s linear;
     -ms-transition: background 1s linear;
     transition: background 1s linear;
@@ -1235,7 +1233,7 @@ button {
     text-align: center;
     width: 100%;
     height: 70%;
-    padding: 20px 50px;
+    padding: 20px 45px;
     color: #fff;
     transform-style: preserve-3d;
     //border: 10px solid limegreen;
@@ -1322,6 +1320,10 @@ button {
         visibility: visible;
     }
 }
+.front-back375 {
+    height: 1600px;
+}
+
 /* .frontBackCardsWrap:hover {
     //-webkit-transform: rotateY(180deg);
     //transform: rotateY(180deg);
@@ -1576,6 +1578,12 @@ button {
     font-size: 3.1em;
 } */
 
+#bioEditorIsVisible {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #bioEditorIsVisible p {
     font-size: 1.15em;
 }
@@ -1605,11 +1613,14 @@ button {
     /* height: 0.1px;
     margin: 0 40% 0 42%;
     visibility: hidden; */
-    transition: 1s;
+    //transition: 1s;
     font-size: 1.2em;
-    margin: 20px 40% 20px 42%;
+    //margin: 20px 40% 20px 42%;
+    align-self: center;
     outline: none;
-    width: 100px;
+    width: 125px;
+    border-radius: 5px;
+    margin-top: 10px;
     //width: 50%;
 
     &:hover {
@@ -1673,6 +1684,7 @@ button {
     //width: 400px;
     //border: 2px solid blue;
     font-size: 1.2em;
+    transform: translateY(10px);
     //margin: 0 10% 0 10px;
     justify-items: center;
     padding: 20px 10px;
@@ -3749,8 +3761,8 @@ html.darkMode {
     }
     // Profile flip cards
     .ParticlesApp1550 {
-        margin-top: 290px;
-        transform: scale(1.2, 1.2);
+        margin-top: 500px;
+        transform: scale(1.2, 2.07);
         transition: margin-top 2s ease-in-out;
     }
 
@@ -3964,7 +3976,7 @@ html.darkMode {
     }
 
     /**********************************
-        ********* APP *********
+        *********** APP ***********
     **********************************/
     // Profile
     .profile_picBigContainer img {
@@ -3994,7 +4006,6 @@ html.darkMode {
 
 // Mobiles
 @media screen and (max-device-width: 375px) {
-    //@media all and (max-width: 375px) {
     * {
         zoom: 1.19;
     }
@@ -4010,7 +4021,7 @@ html.darkMode {
     .Welcometo1024 {
         font-size: 2em;
     }
-    
+
     .Welcometo375 {
         /* color: white;
         font-family: Dejavu Sans, monospace; */
@@ -4043,8 +4054,10 @@ html.darkMode {
         width: 6.5em;
         color: white;
         opacity: 0;
-        -webkit-animation: type-mobile 2s steps(15, end), blink-mobile 0.5s step-end infinite;
-        animation: type-mobile 2s steps(15, end), blink-mobile 0.5s step-end infinite;
+        -webkit-animation: type-mobile 2s steps(15, end),
+            blink-mobile 0.5s step-end infinite;
+        animation: type-mobile 2s steps(15, end),
+            blink-mobile 0.5s step-end infinite;
         //-webkit-animation-delay: 2s;
         //animation-delay: 2s;
         -webkit-animation-fill-mode: forwards;
@@ -4056,7 +4069,8 @@ html.darkMode {
         opacity: 0;
         -webkit-animation: type-mobile 0.5s steps(40, end),
             blink-mobile 0.35s step-end infinite;
-        animation: type-mobile 1s steps(40, end), blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 1s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
         -webkit-animation-delay: 2s;
         animation-delay: 2s;
         -webkit-animation-fill-mode: forwards;
@@ -4068,7 +4082,8 @@ html.darkMode {
         opacity: 0;
         -webkit-animation: type-mobile 2s steps(40, end),
             blink-mobile 0.35s step-end infinite;
-        animation: type-mobile 2s steps(40, end), blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 2s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
         -webkit-animation-delay: 3.5s;
         animation-delay: 3.5s;
         -webkit-animation-fill-mode: forwards;
@@ -4080,7 +4095,8 @@ html.darkMode {
         opacity: 0;
         -webkit-animation: type-mobile 2s steps(40, end),
             blink-mobile 0.35s step-end infinite;
-        animation: type-mobile 2s steps(40, end), blink-mobile 0.35s step-end infinite;
+        animation: type-mobile 2s steps(40, end),
+            blink-mobile 0.35s step-end infinite;
         -webkit-animation-delay: 5.5s;
         animation-delay: 5.5s;
         -webkit-animation-fill-mode: forwards;
@@ -4167,14 +4183,21 @@ html.darkMode {
 
     .slider-wrapper375 {
         //border: 1 solid red;
-        font-size: 0.8em;
-        height: 15vh;
+        font-size: 0.75em;
+        letter-spacing: 0.1em;
+        transform: translateY(-40px);
+    }
+
+    .sectionRegistrationContainer,
+    .sectionR-L-RP_Container {
+        zoom: 0.95;
     }
 
     #alreadyAmember {
         color: rgba(255, 255, 255, 0.483);
         font-size: 0.9em;
         background: transparent;
+        //transform: translateY(-45px);
     }
 
     .loginLinkMobileR {
@@ -4185,20 +4208,365 @@ html.darkMode {
     .loginBtnContainerMobile p {
         color: rgba(255, 255, 255, 0.483);
         background: transparent;
+        font-size: 0.7em;
     }
 
-    .loginBtnContainerMobile p,
     .loginLinkMobile {
-        font-size: 0.75em;
+        font-size: 0.9em;
         background: transparent;
     }
 
+    .sectionR-L-RP375 h1 {
+        transform: translateY(50px);
+    }
+
     .glitchFooter375 {
-        font-size: 1.35em;
+        font-size: 1.15em;
         color: rgba(255, 255, 255, 0.552);
     }
 
     .resetPswContainer {
         zoom: 0.75;
+    }
+
+    /**********************************
+        *********** APP ***********
+    **********************************/
+
+    .appParentWrapper {
+        //zoom: 4.19;
+        * {
+            zoom: 0.95;
+        }
+    }
+
+    .headerApp {
+        //width: 87.2vw;
+        width: 87.5vw;
+        height: 20vh;
+        justify-content: center;
+        //border: 5px solid yellow;
+    }
+
+    .matrixCode375app {
+        //display: flex;
+        //border: 5px solid red;
+        //width: 100vw;
+        height: 30vh;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        //position: absolute;
+        -z-index: -1;
+        //flex-grow: 4;
+        transform: rotate(360deg);
+        transform: scale(2);
+    }
+
+    .profile_pic375 {
+        width: 40vw;
+        height: 40vw;
+        //border-radius: 50%;
+        //object-fit: cover;
+        //margin: 20px;
+        //border: 8px solid rgba(53, 53, 53, 0.724);
+        border: 10px solid rgba(255, 255, 255, 0.166);
+        transform: translateY(150px);
+    }
+
+    .profileContainer375 {
+        margin-bottom: 0;
+    }
+
+    /* SideMenuAnimationMobile START */
+    .sideMenuContainer {
+        display: flex;
+    }
+    /* .sideMenu {
+        background: black;
+    } */
+    .bm-overlay {
+        backdrop-filter: blur(4px);
+        //border: 2px solid lime;
+    }
+    .bm-item-list {
+        color: rgb(255, 255, 255);
+        padding: 0.8em;
+    }
+    .bm-morph-shape {
+        fill: rgb(0, 0, 0);
+        //backdrop-filter: blur(5px);
+        border-top: 4px solid rgba(255, 255, 255, 0);
+        border-left: 4px solid rgba(255, 255, 255, 0);
+    }
+    .bm-menu {
+        //background: lime;
+        padding: 3.5em 1.5em 0;
+        font-size: 1em;
+    }
+    .bm-burger-button {
+        position: absolute;
+        width: 30px;
+        height: 25px;
+        left: 30px;
+        top: 30px;
+    }
+    .bm-burger-bars {
+        background: rgba(255, 255, 255, 0.8);
+    }
+    .bm-cross {
+        background: rgba(255, 255, 255, 0.8);
+        left: 20px;
+        top: 5px;
+        zoom: 1.5;
+        -moz-animation: appear 2s linear;
+        -o-animation: appear 2s linear;
+        -webkit-animation: appear 2s linear;
+        animation: appear 2s linear;
+    }
+    .menuIconsMarginTop {
+        margin-top: 20px;
+    }
+    .sideMenuContainer p {
+        color: white;
+        font-size: 1.5em;
+    }
+    .profileIconWrap {
+        //border: 1px solid red;
+        display: flex;
+        transform: translateX(-5px);
+    }
+    #profileIcon {
+        color: white;
+        font-size: 0.5em;
+        padding: 0 10px 0 0;
+    }
+    #profileIconText {
+        font-size: 0.6em;
+        margin-top: 5px;
+        color: rgba(255, 255, 255, 0.5);
+        background: transparent;
+        -moz-animation: appear 2s linear;
+        -o-animation: appear 2s linear;
+        -webkit-animation: appear 2s linear;
+        animation: appear 2s linear;
+    }
+    .iconTextTranslate {
+        transform: translateY(3px);
+    }
+    .logoutIconBorderTop {
+        border-top: 1px solid rgba(255, 255, 255, 0.51);
+        margin-top: 10px;
+        padding-top: 10px;
+        -moz-animation: appear 2s linear;
+        -o-animation: appear 2s linear;
+        -webkit-animation: appear 2s linear;
+        animation: appear 2s linear;
+    }
+    #deleteIcon {
+        color: white;
+        font-size: 1em;
+        padding: 5px 10px 0 0;
+    }
+    .deleteIconText {
+        font-size: 0.6em;
+        color: rgba(255, 255, 255, 0.8);
+        background: transparent;
+        -moz-animation: appear 2s linear;
+        -o-animation: appear 2s linear;
+        -webkit-animation: appear 2s linear;
+        animation: appear 2s linear;
+    }
+    @keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    /* SideMenuAnimationMobile END */
+    #darkModeWrap {
+        //border: 2px solid red;
+        z-index: 1;
+        zoom: 3;
+        left: 115px;
+        bottom: 135px;
+    }
+    #darkModeContainer {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    // Profile
+    .welcomeBack375 {
+        zoom: 2;
+    }
+
+    .profile_picBigContainer img {
+        display: none;
+    }
+
+    .cardProfile375 {
+        zoom: 1.6;
+        margin-bottom: 0;
+        transform: translateX(10px);
+    }
+
+    .cardProfileBack375 {
+        zoom: 1.6;
+        transform: translateX(10px);
+    }
+
+    #introTitle {
+        margin-top: 10px;
+        font-size: 2.4em;
+    }
+
+    #bioEditorIsVisible p {
+        font-size: 1.8em;
+    }
+
+    #bioeditBtn {
+        margin-top: 15px;
+        font-size: 1.8em;
+        border: 2px solid rgba(255, 255, 255, 0.476);
+        border-bottom: hidden;
+        border-right: hidden;
+        width: 150px;
+    }
+
+    .showMoreBtn {
+        transform: scale(5, 2);
+        color: rgba(255, 255, 255, 0.462);
+        padding: 5px 0;
+    }
+
+    .cardBackExtraInfo {
+        background: lime;
+        transform: translateX(50px);
+    }
+
+    .side375 {
+        transition: 2s;
+        //transform: translate(50px, 550px);
+        margin-top: 450px;
+        transform: rotateY(360deg);
+        left: 50px;
+        .frontBackCardsWrap {
+            height: 550px;
+        }
+    }
+    .marginBottomProfileCards {
+        margin-bottom: 650px;
+    }
+
+    #extraInfoTitle p {
+        font-size: 2em;
+    }
+    .locationEditorIsVisible {
+        font-size: 0.96em;
+        //transform: translateY(5px);
+    }
+    .locationEditorIsVisible button {
+        font-size: 2em;
+        //height: 100%;
+        transform: translateX(70px);
+    }
+
+    // Wall
+    .wallWrapper {
+        margin-top: 100px;
+    }
+
+    .wallContainer {
+        transform: translateX(-10px);
+        z-index: 1;
+    }
+
+    .cardWallWrapper {
+        zoom: 1.25;
+        //transform: translateX(-10px);
+        transform: translateY(-700px);
+    }
+
+    .wallHistoryContainer {
+        height: 110vh;
+    }
+
+    .cardWall {
+        height: 105vh;
+    }
+
+    .walPostTitleDateMobile {
+        //zoom: 2;
+        width: 115vw;
+        transform: translateX(-110px);
+        //margin-right: 50px;
+    }
+
+    .walPostTitleDateMobile > p {
+        //transform: translateX(-50px);
+        zoom: 2.25;
+    }
+
+    #commentsOrNoComments {
+        zoom: 2.3;
+        margin-bottom: 10px;
+    }
+
+    #commentNameDateTime {
+        zoom: 2.35;
+        width: 600px;
+        transform: translateY(-10px);
+        //margin-bottom: 10px;
+    }
+
+    .commentConteiner {
+        border: 2px solid rgba(255, 255, 255, 0.531);
+        border-top: hidden;
+        max-width: 90%;
+        font-size: 1em;
+        margin-bottom: 35px;
+        z-index: 2;
+    }
+
+    .replyConteiner {
+        border: 2px solid rgba(0, 255, 0, 0.428);
+        border-top: hidden;
+        width: 100vw;
+        font-size: 1em;
+        color: red;
+    }
+
+    #replyNameDateTime {
+        zoom: 2.35;
+        width: 490px;
+        transform: translateY(-10px);
+        text-align: center;
+        //margin-bottom: 10px;
+    }
+
+    .commentTextareaContainer375 textarea {
+        width: 1200px;
+        font-size: 3em;
+        text-align: center;
+    }
+
+    #commentButtonWrap {
+        zoom: 2.5;
+    }
+
+    .replyTextareaContainer textarea {
+        width: 1000px;
+        font-size: 4em;
+        color: white;
+        border: 3px solid rgb(56, 142, 80);
+    }
+    .endWallMobile {
+        zoom: 3;
+        transform: translateX(-35px);
+        color: rgba(255, 255, 255, 0.786);
     }
 }

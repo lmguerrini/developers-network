@@ -11,6 +11,7 @@ export default class Login extends Component {
             //error: false, // => general error
             error: "", // => specific errors
             mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
+            mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -22,7 +23,7 @@ export default class Login extends Component {
             [e.target.name]: e.target.value,
         });
     }
-
+    
     handleClick() {
         //console.log("Login/ handleClick working!");
         axios
@@ -60,7 +61,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <section className="sectionR-L-RP_Container">
+            <section className="sectionR-L-RP_Container sectionR-L-RP375">
                 <div
                     className={
                         !this.state.mediaQuery1024px.matches

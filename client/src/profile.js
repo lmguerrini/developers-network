@@ -66,13 +66,19 @@ export default function Profile({
         toggleModalUploader
     ); */
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
 
     return (
         <>
             <div className="sectionProfile">
                 <div className="profileContainer">
                     {/* <h1>User Profile Component(P)</h1> */}
-                    <div id="welcomeBack">
+                    <div
+                        id="welcomeBack"
+                        className={
+                            mediaQuery375px ? "welcomeBack375" : undefined
+                        }
+                    >
                         {/* <Link
                             to="/edit/profile"
                             style={{ textDecoration: "none" }}
@@ -82,10 +88,16 @@ export default function Profile({
                             onClick={toggleModalSettings}
                         >
                             {" "}
-                            <b>
-                                Welcome back&nbsp;
-                                {first} {last}!
-                            </b>
+                            {!mediaQuery375px ? (
+                                <b>
+                                    Welcome back&nbsp;
+                                    {first} {last}!
+                                </b>
+                            ) : (
+                                <b>
+                                    {first} {last}
+                                </b>
+                            )}
                             {/* &#39;s profile page! */}
                         </p>
                         {/* </Link> */}
@@ -96,7 +108,7 @@ export default function Profile({
                         <div className="front side">
                             <div className="content">
                                 <div className="cardContainer">
-                                    <div className="card">
+                                    <div className="card cardProfile375">
                                         {/* <h1>Profile=-ProfilePic</h1> */}
                                         <div className="profile_picBigContainer">
                                             {/* <h1>Profile=-ProfilePic</h1> */}
@@ -138,14 +150,16 @@ export default function Profile({
 
                         <div
                             className={
-                                !mediaQuery1550px
-                                    ? "back side"
-                                    : "back1550  side1550"
+                                !mediaQuery375px
+                                    ? !mediaQuery1550px
+                                        ? "back side"
+                                        : "back1550  side1550"
+                                    : "side back375 displayNone"
                             }
                         >
                             <div className="content">
-                                <div className="cardContainer">
-                                    <div className="card">
+                                <div className="cardContainer cardContainerBackExtraInfo">
+                                    <div className="card cardProfileBack375">
                                         {/* <div id="privateChatPaddingTop"></div> */}
                                         <div
                                             id="introTitle"

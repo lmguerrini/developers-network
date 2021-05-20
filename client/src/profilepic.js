@@ -20,7 +20,7 @@ export default function ProfilePic({
     //console.log("props in ProfilePic: ", first, last, profile_pic, toggleModalUploader);
     return (
         // ProfilePic=> its job is to display the profile pic
-        <div className="profilePicContiner">
+        <div className="profilePicContiner profileContainer375">
             <h1>
                 {/* Profile Picture Component */}
                 {/* Profile Picture: {first} {last} */}
@@ -29,7 +29,7 @@ export default function ProfilePic({
                 {profile_pic ? (
                     <img
                         /* className="profile_picBig" */
-                        className="profile_pic"
+                        className="profile_pic profile_pic375"
                         src={profile_pic}
                         alt={`${first} ${last}`}
                         onClick={toggleModalUploader}

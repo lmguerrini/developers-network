@@ -12,6 +12,7 @@ import Chat from "./chat";
 import PrivateMessages from "./privatemessages";
 import Uploader from "./uploader";
 import Notifications from "./notifications";
+import { bubble as Menu } from "react-burger-menu";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { RiWechatLine } from "react-icons/ri";
@@ -51,6 +52,8 @@ export default class App extends Component {
             settingsIsVisible: false,
             notifications: 0,
             //active: false,
+            menuOpen: false,
+            mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
@@ -233,131 +236,141 @@ export default class App extends Component {
         });
     }
 
+    handleStateChangeSideMenu(state) {
+        this.setState({ menuOpen: state.isOpen });
+    }
+    closeMenu() {
+        this.setState({ menuOpen: false });
+    }
+    /* showSettings(e) {
+        e.preventDefault();
+    } */
+
     render() {
         //console.log("App/render/this.state: ", this.state);
         return (
             <>
-                <div className="appParentWrapper">
-                    <div className="parentContainer">
-                        <div className="childrenContainer">
+                {this.state.mediaQuery375px.matches && (
+                    <div className="sideMenuContainer">
+                        <Menu
+                            width={"50%"}
+                            style={{ transform: `rotate(45deg)` }}
+                            className="sideMenu"
+                            isOpen={this.state.menuOpen}
+                            onStateChange={(state) =>
+                                this.handleStateChangeSideMenu(state)
+                            }
+                        >
                             <BrowserRouter>
-                                <header className="headerApp">
-                                    {/* <h1>App -L-</h1> */}
-                                    <div
-                                        className="headerAppGlass matrixCodeContainer matrixCode"
-                                        id="particlesApp-js"
-                                    >
-                                        {/* <ParallaxProvider>
-                                            <Parallax
-                                                className="custom-class"
-                                                y={[-0.1, 10]}
-                                                tagOuter="figure"
-                                            >
-                                                <ParticlesApp />
-                                            </Parallax>
-                                        </ParallaxProvider> */}
-                                    </div>
-                                    <img
-                                        title="DN Logo"
-                                        className="theDeveloperNetworkLogo"
-                                        src="/img/theDeveloperNetworkLogo.png"
-                                        alt="The Developer Network Logo"
-                                    />
-                                    {
-                                        <ProfilePic
-                                            /* firstName={this.state.first} */
-                                            first={this.state.first}
-                                            last={this.state.last}
-                                            profile_pic={this.state.profile_pic}
-                                            toggleModalUploader={
-                                                this.toggleModalUploader
-                                            }
-                                        />
-                                    }
-                                </header>
-                                <nav className="navApp">
+                                <div className="profileIconWrap menuIconsMarginTop">
                                     <p>
                                         <Link
                                             to="/"
                                             title="Profile"
                                             id="profileIcon"
-                                            className="bounce" /* className="loginLink" */
+                                            className="bounce"
                                         >
-                                            {/* Profile */}
-                                            <AiOutlineUser />
+                                            <AiOutlineUser
+                                                onClick={() => this.closeMenu()}
+                                            />
                                         </Link>
                                     </p>
+                                    <p
+                                        id="profileIconText"
+                                        className=" iconTextTranslate"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Profile{" "}
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap">
                                     <p>
                                         <Link
                                             to="/friends"
                                             title="My Developers Network"
-                                            /* title="My Developer friends / friend requests" */
-                                            id="friendsIcon"
+                                            id="profileIcon"
                                             className="bounce"
-                                            /* className="loginLink" */
                                         >
-                                            {/* Friends */}
-                                            {/* <FaUserFriends /> */}
-                                            <BiNetworkChart />
-                                            {/* <IoMdGitNetwork /> */}
+                                            <BiNetworkChart
+                                                onClick={() => this.closeMenu()}
+                                            />
                                         </Link>
                                     </p>
+                                    <p
+                                        id="profileIconText"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        My Developers Network{" "}
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap">
                                     <p>
                                         <Link
                                             to="/users"
                                             title="Find Developers"
-                                            id="navIcons"
+                                            id="profileIcon"
                                             className="bounce"
-                                            /* className="loginLink" */
                                         >
-                                            {/* Find Devs */}
-                                            <RiUserSearchFill />
+                                            <RiUserSearchFill
+                                                onClick={() => this.closeMenu()}
+                                            />
                                         </Link>
                                     </p>
+                                    <p
+                                        id="profileIconText"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Find Developers{" "}
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap">
                                     <p>
                                         <Link
                                             to="/chat"
                                             title="Developer Chat"
-                                            id="chatIcon"
+                                            id="profileIcon"
                                             className="bounce"
-                                            /* className="loginLink" */
                                         >
-                                            {/* Chatroom */}
-                                            <RiWechatLine />
+                                            <RiWechatLine
+                                                onClick={() => this.closeMenu()}
+                                            />
                                         </Link>
                                     </p>
+                                    <p
+                                        id="profileIconText"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Developers Chat
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap">
                                     <p>
                                         <Link
                                             to="/notifications"
                                             title="Notifications"
-                                            id="notificationIcon"
+                                            id="profileIcon"
                                             className="bounce"
-                                            /* className="loginLink" */
                                         >
-                                            {/* Notification */}
-                                            {/* Notification Count: {this.state.notifications} */}
-                                            {/* <GrNotification /> */}
-                                            {/* <RiNotification2Line /> */}
-                                            <RiNotification2Line />
+                                            <RiNotification2Line
+                                                onClick={() => this.closeMenu()}
+                                            />
                                         </Link>
                                     </p>
-
-                                    {/* <div id="menuLine"></div> */}
-                                    {/* <p>
-                                        <Link
-                                            to="/edit/profile"
-                                            id="chatIcon"
-                                            className="bounce"
-                                        >
-                                            <FaRegEdit />
-                                        </Link>
-                                    </p> */}
+                                    <p
+                                        id="profileIconText"
+                                        className=" iconTextTranslate"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Notifications
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap logoutIconBorderTop">
                                     <p>
                                         <Link
                                             to="/logout"
                                             title="Logout"
                                             className="logoutLink"
-                                            id="logout"
+                                            id="profileIcon"
                                             /* onClick={(e) => {
                                                 window.confirm(
                                                     "[LOGOUT] \nAre you sure you want to logout?"
@@ -365,35 +378,250 @@ export default class App extends Component {
                                             }} */
                                             onClick={this.logout}
                                         >
-                                            {/* Log Out */}
                                             <FiLogOut />
                                         </Link>
                                     </p>
                                     <p
-                                        id="deleteAccount"
+                                        id="profileIconText"
+                                        className=" iconTextTranslate"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Logout
+                                    </p>
+                                </div>
+                                <div className="profileIconWrap">
+                                    <p
                                         title="Delete Account"
-                                        className="logoutLink"
+                                        className="logoutLink deleteIconText"
+                                        id="deleteIcon"
                                         onClick={(e) => {
                                             window.confirm(
                                                 "[ACCOUNT DELETION] \nAre your sure you want to delete your account and all related data? \nNote: there is no going back! Please be certain."
                                             ) && this.deleteUser(e);
                                         }}
                                     >
-                                        {/* Delete Account */}
                                         <AiOutlineUserDelete />
                                     </p>
-                                    <div id="darkModeWrap">
+                                    <p
+                                        id="profileIconText"
+                                        onClick={() => this.closeMenu()}
+                                    >
+                                        Delete Account
+                                    </p>
+                                </div>
+                            </BrowserRouter>
+                        </Menu>
+                    </div>
+                )}
+                <div className="appParentWrapper">
+                    <div className="parentContainer">
+                        <div className="childrenContainer">
+                            <BrowserRouter>
+                                {!this.state.mediaQuery375px.matches ? (
+                                    <header className="headerApp">
+                                        {/* <h1>App -L-</h1> */}
                                         <div
-                                            id="darkModeContainer"
-                                            title="Dark Mode"
+                                            className="headerAppGlass matrixCodeContainer matrixCode"
+                                            id="particlesApp-js"
                                         >
-                                            <DarkMode />
+                                            <ParallaxProvider>
+                                                <Parallax
+                                                    className="custom-class"
+                                                    y={[-0.1, 10]}
+                                                    tagOuter="figure"
+                                                >
+                                                    <ParticlesApp />
+                                                </Parallax>
+                                            </ParallaxProvider>
                                         </div>
-                                        <div id="darkModeCheckHiderWrap">
-                                            <div id="darkModeCheckHider"></div>
+                                        <img
+                                            title="DN Logo"
+                                            className="theDeveloperNetworkLogo"
+                                            src="/img/theDeveloperNetworkLogo.png"
+                                            alt="The Developer Network Logo"
+                                        />
+                                        {
+                                            <ProfilePic
+                                                /* firstName={this.state.first} */
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                profile_pic={
+                                                    this.state.profile_pic
+                                                }
+                                                toggleModalUploader={
+                                                    this.toggleModalUploader
+                                                }
+                                            />
+                                        }
+                                    </header>
+                                ) : (
+                                    <header className="headerApp">
+                                        {/* <h1>App -L-</h1> */}
+                                        <div
+                                            className="headerAppGlass matrixCode375 matrixCode375app"
+                                            id="particlesApp-js"
+                                        >
+                                            <ParallaxProvider>
+                                                <Parallax
+                                                    className="custom-class"
+                                                    y={[-0.1, 10]}
+                                                    tagOuter="figure"
+                                                >
+                                                    <ParticlesApp />
+                                                </Parallax>
+                                            </ParallaxProvider>
                                         </div>
-                                    </div>
-                                </nav>
+                                        {
+                                            <ProfilePic
+                                                /* firstName={this.state.first} */
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                profile_pic={
+                                                    this.state.profile_pic
+                                                }
+                                                toggleModalUploader={
+                                                    this.toggleModalUploader
+                                                }
+                                            />
+                                        }
+                                    </header>
+                                )}
+
+                                {!this.state.mediaQuery375px.matches ? (
+                                    <nav className="navApp">
+                                        <p>
+                                            <Link
+                                                to="/"
+                                                title="Profile"
+                                                id="profileIcon"
+                                                className="bounce" /* className="loginLink" */
+                                            >
+                                                {/* Profile */}
+                                                <AiOutlineUser />
+                                            </Link>
+                                        </p>
+                                        <p>
+                                            <Link
+                                                to="/friends"
+                                                title="My Developers Network"
+                                                /* title="My Developer friends / friend requests" */
+                                                id="friendsIcon"
+                                                className="bounce"
+                                                /* className="loginLink" */
+                                            >
+                                                {/* Friends */}
+                                                {/* <FaUserFriends /> */}
+                                                <BiNetworkChart />
+                                                {/* <IoMdGitNetwork /> */}
+                                            </Link>
+                                        </p>
+                                        <p>
+                                            <Link
+                                                to="/users"
+                                                title="Find Developers"
+                                                id="navIcons"
+                                                className="bounce"
+                                                /* className="loginLink" */
+                                            >
+                                                {/* Find Devs */}
+                                                <RiUserSearchFill />
+                                            </Link>
+                                        </p>
+                                        <p>
+                                            <Link
+                                                to="/chat"
+                                                title="Developer Chat"
+                                                id="chatIcon"
+                                                className="bounce"
+                                                /* className="loginLink" */
+                                            >
+                                                {/* Chatroom */}
+                                                <RiWechatLine />
+                                            </Link>
+                                        </p>
+                                        <p>
+                                            <Link
+                                                to="/notifications"
+                                                title="Notifications"
+                                                id="notificationIcon"
+                                                className="bounce"
+                                                /* className="loginLink" */
+                                            >
+                                                {/* Notification */}
+                                                {/* Notification Count: {this.state.notifications} */}
+                                                {/* <GrNotification /> */}
+                                                {/* <RiNotification2Line /> */}
+                                                <RiNotification2Line />
+                                            </Link>
+                                        </p>
+
+                                        {/* <div id="menuLine"></div> */}
+                                        {/* <p>
+                                            <Link
+                                                to="/edit/profile"
+                                                id="chatIcon"
+                                                className="bounce"
+                                            >
+                                                <FaRegEdit />
+                                            </Link>
+                                        </p> */}
+                                        <p>
+                                            <Link
+                                                to="/logout"
+                                                title="Logout"
+                                                className="logoutLink"
+                                                id="logout"
+                                                /* onClick={(e) => {
+                                                window.confirm(
+                                                    "[LOGOUT] \nAre you sure you want to logout?"
+                                                ) && this.logout(e);
+                                            }} */
+                                                onClick={this.logout}
+                                            >
+                                                {/* Log Out */}
+                                                <FiLogOut />
+                                            </Link>
+                                        </p>
+                                        <p
+                                            id="deleteAccount"
+                                            title="Delete Account"
+                                            className="logoutLink"
+                                            onClick={(e) => {
+                                                window.confirm(
+                                                    "[ACCOUNT DELETION] \nAre your sure you want to delete your account and all related data? \nNote: there is no going back! Please be certain."
+                                                ) && this.deleteUser(e);
+                                            }}
+                                        >
+                                            {/* Delete Account */}
+                                            <AiOutlineUserDelete />
+                                        </p>
+                                        <div id="darkModeWrap">
+                                            <div
+                                                id="darkModeContainer"
+                                                title="Dark Mode"
+                                            >
+                                                <DarkMode />
+                                            </div>
+                                            <div id="darkModeCheckHiderWrap">
+                                                <div id="darkModeCheckHider"></div>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                ) : (
+                                    <nav className="navApp">
+                                        <div id="darkModeWrap">
+                                            <div
+                                                id="darkModeContainer"
+                                                title="Dark Mode"
+                                            >
+                                                <DarkMode />
+                                            </div>
+                                            <div id="darkModeCheckHiderWrap">
+                                                <div id="darkModeCheckHider"></div>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                )}
 
                                 <Route
                                     exact
