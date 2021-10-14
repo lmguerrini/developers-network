@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import useStatefulFields from "./customhooks/use-stateful-fields";
 import { useState, useEffect } from "react";
-import { BiShowAlt } from "react-icons/bi";
+// import { BiShowAlt } from "react-icons/bi";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
-import { BsFillReplyFill } from "react-icons/bs";
-import { RiDeleteBinLine, RiSdCardFill } from "react-icons/ri";
+// import { BsFillReplyFill } from "react-icons/bs";
+import { RiDeleteBinLine } from "react-icons/ri";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {
     getWallPosts,
@@ -81,10 +81,8 @@ export default function Wall({ id, myWall, name }) {
                 }
             }
         }
-        //console.log("----- A: ", wallPostComments);
     }
     if (wallPosts) {
-        //console.log("----------: ", wallPosts);
         neWallPosts = wallPosts.map((obj) => ({
             ...obj,
             comments: [],
@@ -103,7 +101,7 @@ export default function Wall({ id, myWall, name }) {
                     }
                 }
             }
-            console.log("neWallPosts: ", neWallPosts);
+            //console.log("neWallPosts: ", neWallPosts);
         }
     }
 
@@ -151,12 +149,12 @@ export default function Wall({ id, myWall, name }) {
 
     // Post new comment's reply
     let newReply = "";
-    let newReplyPostId = "";
-    let newReplyCommentId = "";
+    // let newReplyPostId = "";
+    // let newReplyCommentId = "";
     const handlekeyDownReply = (e, postId, commentId) => {
         //console.log("e: ", e.target.value, postId, commentId);
-        newReplyPostId = postId;
-        newReplyCommentId = commentId;
+        // newReplyPostId = postId;
+        // newReplyCommentId = commentId;
 
         if (e.key === "Enter") {
             e.preventDefault();
@@ -176,7 +174,7 @@ export default function Wall({ id, myWall, name }) {
             newReply = newReply.slice(0, -1);
         }
     };
-    const postNewReplyBtn = () => {
+    /* const postNewReplyBtn = () => {
         dispatch(
             postWallPostCommentReply(
                 newReply,
@@ -185,7 +183,7 @@ export default function Wall({ id, myWall, name }) {
                 newReplyCommentId
             )
         );
-    };
+    }; */
 
     const [showHideComments, setShowHideComments] = useState(false);
     const onClickShowHideComments = () => {
@@ -804,41 +802,45 @@ export default function Wall({ id, myWall, name }) {
                                                 </div>
                                             ))}
                                         {neWallPosts && neWallPosts.length > 0 && (
-                                            <div>
+                                            <div className="noPostOnWallWrap">
                                                 <h1
                                                     id="endWall"
-                                                    className="glitchMainTitle endWallMobile"
+                                                    className="glitchMainTitle endWallMobile noPostOnWallWrap"
                                                     data-text="end Wall_"
                                                 >
                                                     end Wall_
                                                 </h1>
                                             </div>
                                         )}
-                                        {!mediaQuery375px &&
-                                            neWallPosts != undefined &&
+                                        {neWallPosts != undefined &&
                                             neWallPosts.length == 0 &&
                                             (myWall ? (
-                                                <h1
-                                                    id="noPostOnWall"
-                                                    className="glitchMainTitle"
-                                                    data-text="It seems you
+                                                <div className="noPostOnWallWrap">
+                                                    <h1
+                                                        id="noPostOnWall"
+                                                        className="glitchMainTitle noPostOnWallWrap"
+                                                        data-text="It seems you
                                                     haven't uploaded any Wall™️
                                                     posts yet"
-                                                >
-                                                    It seems you haven&#39;t
-                                                    uploaded any Wall™️ posts
-                                                    yet
-                                                </h1>
+                                                    >
+                                                        It seems you haven&#39;t
+                                                        uploaded any Wall™️
+                                                        posts yet
+                                                    </h1>
+                                                </div>
                                             ) : (
-                                                <h1
-                                                    id="noPostOnWall"
-                                                    className="glitchMainTitle"
-                                                    data-text={`It seems ${name} hasn't
+                                                <div className="noPostOnWallWrap">
+                                                    <h1
+                                                        id="noPostOnWall"
+                                                        className="glitchMainTitle noPostOnWallWrap"
+                                                        data-text={`It seems ${name} hasn't
                                                     uploaded any posts yet..`}
-                                                >
-                                                    It seems {name} hasn&#39;t
-                                                    uploaded any posts yet..
-                                                </h1>
+                                                    >
+                                                        It seems {name}{" "}
+                                                        hasn&#39;t uploaded any
+                                                        posts yet..
+                                                    </h1>
+                                                </div>
                                             ))}
                                     </div>
                                 </div>

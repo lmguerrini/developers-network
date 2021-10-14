@@ -78,7 +78,20 @@ export default function PrivateMessages(props) {
         (async () => {
             if (!abort && elemRef.current) {
                 // "scrollIntoView" shouldn't happen until "elemRef" exists
-                elemRef.current.scrollIntoView({ behavior: "smooth" });
+                elemRef.current.scrollIntoView({
+                    block: "end",
+                    inline: "nearest",
+                    behavior: "smooth",
+                });
+                setTimeout(function () {
+                    if (window.scrollY > 0) {
+                        window.scroll({
+                            top: 0,
+                            left: 0,
+                            behavior: "smooth",
+                        });
+                    }
+                }, 1500);
             }
         })();
         return () => {
@@ -96,12 +109,14 @@ export default function PrivateMessages(props) {
             {" "}
             {/* <h1>Private Messages between you and {otherUserId}</h1> */}
             <div className="sectionWrapper">
-                <div className="cardContainer" /* ref={elemRef} */>
+                <div
+                    className="cardContainer cardContainerPM" /* ref={elemRef} */
+                >
                     <div className="cardChat">
                         {/* <OnlineUsers></OnlineUsers> */}
 
                         <div className="wallPostsGlassOverlayWrap">
-                            <div className="wallPostsGlassOverlay visible">
+                            <div className="wallPostsGlassOverlay visible wallPostsGlassOverlayPM">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
                                     &nbsp;
@@ -122,7 +137,7 @@ export default function PrivateMessages(props) {
                                             {/* <Link to={"/user/" + message.id}> */}
                                             <div className="imgNameWrap">
                                                 <img
-                                                    className="profile_pic"
+                                                    className="profile_pic profile_picChat375"
                                                     src={
                                                         message.senderProfile_picPM
                                                     }
@@ -229,6 +244,7 @@ export default function PrivateMessages(props) {
                                             {/* <p>{message.timestamp}</p> */}
                                             <div
                                                 id="chat-messages"
+                                                className="chatMessages375"
                                                 ref={elemRef}
                                             >
                                                 {message.privateMessage.startsWith(
@@ -280,7 +296,7 @@ export default function PrivateMessages(props) {
                         </div> */}
                         <div id="chatbuttonWrap">
                             <Link to={`/user/${recipientId}`}>
-                                <button className="friendButton">
+                                <button className="friendButton closeBtnPM">
                                     Close Private {/* Messages */} Chat
                                 </button>
                             </Link>

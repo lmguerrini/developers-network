@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function FindPeople() {
     const [query, setQuery] = useState("");
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(false);
+    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
 
     // componentDidMount (class) => useEffect (fn)
     useEffect(() => {
@@ -15,8 +17,6 @@ export default function FindPeople() {
         (async () => {
             const { data } = await axios.get("/users/latest");
             if (!query && !abort) {
-                //console.log("IF");
-                //console.log("data from GET users/latest: ", data);
                 return setUsers(data);
             } else if (query && !abort) {
                 const { data } = await axios.get(`/users/search/${query}`);
@@ -43,7 +43,7 @@ export default function FindPeople() {
             <div className="sectionWrapper">
                 {/* <h2>Find People</h2> */}
                 <div className="cardContainer">
-                    <div className="card">
+                    <div className="card cardFriends375">
                         {!query && (
                             <div className="friendsGlassOverlay">
                                 <p /* id="findpeopleTitles" */>
@@ -53,44 +53,81 @@ export default function FindPeople() {
                             </div>
                         )}
                         <div className="friendsWrapper">
-                            {!query &&
-                                users.map((users, index) => (
-                                    <div
-                                        id="imgLatest"
-                                        className="imgNameAlign"
-                                        key={index}
-                                    >
-                                        <Link to={"/user/" + users.id}>
-                                            {users.profile_pic ? (
-                                                <img
-                                                    /* className="profile_picBig" */
-                                                    className="profile_pic"
-                                                    src={users.profile_pic}
-                                                    alt={`${users.first} ${users.last}`}
-                                                    onClick={
-                                                        users.toggleModalUploader
-                                                    }
-                                                />
-                                            ) : (
-                                                <img
-                                                    className="profile_pic"
-                                                    src="/img/defaultProfilePic.png"
-                                                    alt="default profile_pic"
-                                                    onClick={
-                                                        users.toggleModalUploader
-                                                    }
-                                                />
-                                            )}
-                                            <p>
-                                                {users.first} {users.last}
-                                            </p>
-                                        </Link>
-                                    </div>
-                                ))}{" "}
+                            {!query && !mediaQuery375px
+                                ? users.map((users, index) => (
+                                      <div
+                                          id="imgLatest"
+                                          className="imgNameAlign"
+                                          key={index}
+                                      >
+                                          <Link to={"/user/" + users.id}>
+                                              {users.profile_pic ? (
+                                                  <img
+                                                      /* className="profile_picBig" */
+                                                      className="profile_pic"
+                                                      src={users.profile_pic}
+                                                      alt={`${users.first} ${users.last}`}
+                                                      onClick={
+                                                          users.toggleModalUploader
+                                                      }
+                                                  />
+                                              ) : (
+                                                  <img
+                                                      className="profile_pic"
+                                                      src="/img/defaultProfilePic.png"
+                                                      alt="default profile_pic"
+                                                      onClick={
+                                                          users.toggleModalUploader
+                                                      }
+                                                  />
+                                              )}
+                                              <p>
+                                                  {users.first} {users.last}
+                                              </p>
+                                          </Link>
+                                      </div>
+                                  ))
+                                : users
+                                      .map((users, index) => (
+                                          <div
+                                              id="imgLatest"
+                                              className="imgNameAlign"
+                                              key={index}
+                                          >
+                                              <Link to={"/user/" + users.id}>
+                                                  {users.profile_pic ? (
+                                                      <img
+                                                          /* className="profile_picBig" */
+                                                          className="profile_pic profile_picFriends"
+                                                          src={
+                                                              users.profile_pic
+                                                          }
+                                                          alt={`${users.first} ${users.last}`}
+                                                          onClick={
+                                                              users.toggleModalUploader
+                                                          }
+                                                      />
+                                                  ) : (
+                                                      <img
+                                                          className="profile_pic"
+                                                          src="/img/defaultProfilePic.png"
+                                                          alt="default profile_pic"
+                                                          onClick={
+                                                              users.toggleModalUploader
+                                                          }
+                                                      />
+                                                  )}
+                                                  <p>
+                                                      {users.first} {users.last}
+                                                  </p>
+                                              </Link>
+                                          </div>
+                                      ))
+                                      .slice(0, 4)}{" "}
                         </div>
                         {!query && (
                             <div className="friendsSearchGlassOverlay">
-                                <p /* id="findpeopleTitles" */>
+                                <p id="findpeopleQ">
                                     Are you looking for a developer in
                                     particular?
                                 </p>
@@ -98,9 +135,9 @@ export default function FindPeople() {
                         )}
                         {/* <input defaultValue={users.first} omChange={onChange} /> */}
                         {/* <input
-                    defaultValue={users.first}
-                    omChange={(e) => setFirst(e.target.value)}
-                    /> */}
+                            defaultValue={users.first}
+                            omChange={(e) => setFirst(e.target.value)}
+                        /> */}
                         <div className="searchInputWrapper">
                             <input
                                 id="searchInput"
@@ -109,19 +146,19 @@ export default function FindPeople() {
                             />
                         </div>
                         <div className="friendsWrapper">
-                            {query &&
+                            {/* {query &&
                                 users.map((users, index) => (
                                     <div key={index}>
                                         <Link to={"/user/" + users.id}>
                                             {users.profile_pic ? (
-                                                <div /* className="profile_picBig" */
+                                                <div 
                                                 >
                                                     <img
-                                                        /* className="profile_picBig" */
+                                                        
                                                         className="profile_pic"
                                                         src={users.profile_pic}
                                                         alt={`${users.first} ${users.last}`}
-                                                        /* onClick={users.toggleModalUploader} */
+                                                        
                                                     />
                                                 </div>
                                             ) : (
@@ -129,7 +166,7 @@ export default function FindPeople() {
                                                     className="profile_pic"
                                                     src="/img/defaultProfilePic.png"
                                                     alt="default profile_pic"
-                                                    /* onClick={users.toggleModalUploader} */
+                                                    
                                                 />
                                             )}
                                             <p>
@@ -137,7 +174,7 @@ export default function FindPeople() {
                                             </p>
                                         </Link>
                                     </div>
-                                ))}
+                                ))} */}
                             {!users.length && query && (
                                 <div id="nothingFound">
                                     <span>

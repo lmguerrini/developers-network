@@ -59,8 +59,6 @@ export default function Notification(props) {
         let abort;
         (async () => {
             if (!abort) {
-                //console.log("PrivateMessages useEffect");
-
                 if (recipientId != 0) {
                     socket.emit(
                         "get most recent notifications",
@@ -84,7 +82,7 @@ export default function Notification(props) {
             {/* <h1>Notifications</h1> */}
             <div className="sectionWrapper">
                 <div className="cardContainer" /* ref={elemRef} */>
-                    <div className="cardChat">
+                    <div className="cardChat cardNotifications375">
                         <div className="wallPostsGlassOverlayWrap">
                             {/* <div className="wallPostsGlassOverlay visible">
                                 <h1 id="directMessages">
@@ -95,10 +93,10 @@ export default function Notification(props) {
                             </div> */}
                         </div>
 
-                        <div className="chatHistoryContainer">
+                        <div className="chatHistoryContainer notificationsHistoryContainer375">
                             {/* <div id="privateChatPaddingTop"></div> */}
                             {/* <br></br> */}
-                            <div className="wallPostsGlassOverlay">
+                            <div className="wallPostsGlassOverlay wallPostsGlassOverlay375">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
                                     &nbsp; Friendship Request Notifications{" "}
@@ -202,7 +200,7 @@ export default function Notification(props) {
                                     </div>
                                 ) : (
                                     <p
-                                        className="messageDateTimeDeleteBtnWrap"
+                                        className="messageDateTimeDeleteBtnWrap youHaveFRWrap"
                                         id="notificationsFlex"
                                     >
                                         <span>
@@ -223,7 +221,7 @@ export default function Notification(props) {
 
                             {/* <div id="privateChatPaddingTop"></div> */}
                             <br></br>
-                            <div className="wallPostsGlassOverlay">
+                            <div className="wallPostsGlassOverlay wallPostsGlassOverlay375">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
                                     &nbsp; Private Messages Notifications{" "}
@@ -370,7 +368,7 @@ export default function Notification(props) {
                                 )} */}
 
                             <br></br>
-                            <div className="wallPostsGlassOverlay">
+                            <div className="wallPostsGlassOverlay wallPostsGlassOverlay375">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
                                     &nbsp; Chat Notifications{" "}

@@ -14,7 +14,7 @@ export default function OnlineUsers() {
 
             {onlineUsers && (
                 <div className="onlineUsersTitleWrap onlineUsersHidden">
-                    <p id="findpeopleTitles">
+                    <p id="findpeopleTitles" className="findpeopleTitles375">
                         These people <small id="uploaderSigns">❮&nbsp;</small>
                         <small>☟</small>
                         <small id="uploaderSigns">&nbsp;❯&nbsp;</small>
@@ -27,14 +27,14 @@ export default function OnlineUsers() {
                     {onlineUsers &&
                         onlineUsers.map((onlineUser) => (
                             <div
-                                className="onlineUserContainer"
+                                className="onlineUserContainer onlineUserContainer375"
                                 key={onlineUser.id}
                             >
                                 <div>
                                     <Link to={"/user/" + onlineUser.id}>
                                         <img
                                             id="onlineUserProfilePic"
-                                            className="profile_pic"
+                                            className="profile_pic onlineUserProfilePic375"
                                             src={onlineUser.profile_pic}
                                             alt={onlineUser.name}
                                         />

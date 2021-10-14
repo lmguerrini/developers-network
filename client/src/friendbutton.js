@@ -91,6 +91,7 @@ export default function FriendButton({ id }) {
                             <p
                                 style={{
                                     color: "red",
+                                    fontSize: "1.1em"
                                 }}
                             >
                                 {buttonText}

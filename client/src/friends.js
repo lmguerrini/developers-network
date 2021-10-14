@@ -24,7 +24,6 @@ export default function Friends() {
             state.friendsWannabesList &&
             state.friendsWannabesList.filter((user) => user.accepted == true)
     );
-    //console.log("friends: ", friends);
 
     /* useEffect(() => {
         dispatch(getFriendsWannabesList());
@@ -41,9 +40,6 @@ export default function Friends() {
             abort = true;
         };
     }, []);
-
-    //console.log("wannabes B/A: ", wannabes);
-    //console.log("friends B/A: ", friends);
 
     if ((!friends || !friends.length) && (!wannabes || !wannabes.length)) {
         //return null;
@@ -72,7 +68,7 @@ export default function Friends() {
                 {/* {!friends && <h1>TEST</h1>} */}
 
                 <div className="cardContainer">
-                    <div className="card">
+                    <div className="card cardFriends375">
                         {friends.length > 0 && (
                             <div className="friendsGlassOverlay">
                                 <p>
@@ -89,6 +85,7 @@ export default function Friends() {
                                         fontSize: "16px",
                                         paddingLeft: "50%",
                                     }}
+                                    id="noFriendsYet375"
                                 >
                                     It seems you don&#39;t have any friends yet,
                                     but..
@@ -104,7 +101,7 @@ export default function Friends() {
                                             </p> */}
                                             <Link to={"/user/" + friend.id}>
                                                 <img
-                                                    className="profile_pic"
+                                                    className="profile_pic profile_picFriends"
                                                     src={friend.profile_pic}
                                                 />
                                                 <p id="friendsWannabesLink">
@@ -144,10 +141,13 @@ export default function Friends() {
                                         <div className="wannabesContainer">
                                             <Link to={"/user/" + wannabe.id}>
                                                 <img
-                                                    className="profile_pic"
+                                                    className="profile_pic profile_picFriends profile_picWannabes"
                                                     src={wannabe.profile_pic}
                                                 />
-                                                <p id="friendsWannabesLink">
+                                                <p
+                                                    id="friendsWannabesLink"
+                                                    className="wannabesName"
+                                                >
                                                     {wannabe.first}{" "}
                                                     {wannabe.last}
                                                 </p>

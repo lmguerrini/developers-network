@@ -67,43 +67,46 @@ export default class BioEditor extends Component {
                 <div id="bioeditorTextarea">
                     {this.state.bioEditorIsVisible
                         ? this.state.bioEditorIsVisible && (
-                            <div>
-                                {/* <h6>[editMode]</h6> */}
-                                <textarea
-                                    name="draftBio"
-                                    rows="10"
-                                    cols="76"
-                                    defaultValue={this.props.bio}
-                                    onChange={this.handleChange}
-                                />
-                                <div id="saveBackBtnWrap">
-                                    <button
-                                        id="bioeditBtn"
-                                        onClick={this.toggleTextarea}
-                                    >
-                                        Back
-                                    </button>
-                                    <button
-                                        id="bioeditBtn"
-                                        onClick={this.editBio}
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
-                        )
+                              <div>
+                                  {/* <h6>[editMode]</h6> */}
+                                  <textarea
+                                      name="draftBio"
+                                      rows="10"
+                                      cols="76"
+                                      defaultValue={this.props.bio}
+                                      onChange={this.handleChange}
+                                  />
+                                  <div id="saveBackBtnWrap">
+                                      <button
+                                          /* id="bioeditBtn" */
+                                          className="bioeditBtn"
+                                          onClick={this.toggleTextarea}
+                                      >
+                                          Back
+                                      </button>
+                                      <button
+                                          /* id="bioeditBtn" */
+                                          className="bioeditBtn"
+                                          onClick={this.editBio}
+                                      >
+                                          Save
+                                      </button>
+                                  </div>
+                              </div>
+                          )
                         : !this.state.bioEditorIsVisible && (
-                            <div id="bioEditorIsVisible">
-                                {/* <h6>[displayMode]</h6> */}
-                                {<p>{this.props.bio}</p>}
-                                <button
-                                    id="bioeditBtn"
-                                    onClick={this.toggleTextarea}
-                                >
-                                    {!this.props.bio ? "Add bio" : "Edit"}
-                                </button>
-                            </div>
-                        )}
+                              <div id="bioEditorIsVisible">
+                                  {/* <h6>[displayMode]</h6> */}
+                                  {<p>{this.props.bio}</p>}
+                                  <button
+                                      /* id="bioeditBtn" */
+                                      className="bioeditBtn"
+                                      onClick={this.toggleTextarea}
+                                  >
+                                      {!this.props.bio ? "Add bio" : "Edit"}
+                                  </button>
+                              </div>
+                          )}
                 </div>
             </>
         );

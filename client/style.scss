@@ -133,11 +133,21 @@ h2 {
 .glitchMainTitle {
     font-size: 1.2em;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 10vw;
 }
 
 .glitchMainTitle:before {
     content: attr(data-text);
     position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 0 10vw;
     left: -2px;
     text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
     top: 0;
@@ -162,6 +172,11 @@ h2 {
 .glitchMainTitle:after {
     content: attr(data-text);
     position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 0 10vw;
     left: 5px;
     text-shadow: -5px 0 rgba(68, 145, 74, 0.863);
     top: 0;
@@ -184,12 +199,10 @@ h2 {
 }
 
 .slider-wrapper {
-    -background-color: red;
+    //background-color: red;
     font-size: 30px;
     font-family: Dejavu Sans, monospace;
     color: white;
-    -font-weight: bold;
-    //text-transform: uppercase;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -889,6 +902,20 @@ button {
         top: 0;
     }
 }
+@keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
 @-moz-keyframes bounce {
     0% {
         top: 0;
@@ -1118,10 +1145,6 @@ button {
         transition: 0.35s;
         text-decoration: none;
         animation: rotateToggleDarkMode 2.5s infinite;
-
-        /* cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>☽</text></svg>")
-                16 0,
-            auto; */
     }
 
     &:active {
@@ -1240,6 +1263,12 @@ button {
     //backface-visibility: hidden;
     border-radius: 20px;
     margin-top: 20px;
+    //visibility: hidden;
+}
+
+.opacityClass {
+    transition: 5s;
+    opacity: 0.1;
 }
 
 .front {
@@ -1265,15 +1294,17 @@ button {
     overflow-x: hidden;
     //border: 10px solid limegreen;
     padding: 0 50px;
-    transform: translateX(-55px);
+    // transform: translateX(-55px);
+    // -webkit-transform: scaleX(-1);
+    // transform: scaleX(-1);
 
     &::-webkit-scrollbar {
         display: none;
     }
 }
 .back1550 {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+    // -webkit-transform: scaleX(-1);
+    // transform: scaleX(-1);
     z-index: -1;
     margin-top: -20px;
     margin-left: -50px;
@@ -1282,6 +1313,18 @@ button {
 .op {
     margin-left: 120px;
     //transform: translateX(120px);
+}
+.mirror {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    // border: 3px solid red;
+    // transform: translateX(-200px);
+}
+.marginLeft-150 {
+    margin-left: -150px;
+}
+.paddingRight60 {
+    padding-right: 60px;
 }
 
 .back-move {
@@ -1308,7 +1351,7 @@ button {
     }
 }
 .front-back1550 {
-    -webkit-transform: rotateY(180deg);
+    //-webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     height: 1600px;
     .front {
@@ -1322,6 +1365,9 @@ button {
 }
 .front-back375 {
     height: 1600px;
+}
+.front-back375op {
+    height: 2300px;
 }
 
 /* .frontBackCardsWrap:hover {
@@ -1349,10 +1395,8 @@ button {
 
 .profileMoreBtnTrue {
     font-size: 2.3em;
-    //color: red;
     border: 1px solid black;
     outline: none;
-    //color: violet;
 
     &:hover {
         cursor: pointer;
@@ -1398,9 +1442,10 @@ button {
 .sectionProfile {
     display: flex;
     justify-content: center;
-    transition: 1.3s ease-out;
+    transition: 1.25s ease-out;
     background: var(--primaryBackgroundColor);
-    //border: 3px solid lime;
+    // border: 3px solid lime;
+    // margin-top: 80px;
 }
 .profileContainer {
     display: flex;
@@ -1546,11 +1591,21 @@ button {
     -padding: 2px;
     align-self: center;
     z-index: 1;
+
+    &:hover {
+        //animation: rotate3d 10s infinite linear;
+        cursor: pointer;
+        opacity: 50%;
+    }
 }
 
-.profile_pic:hover {
-    cursor: pointer;
-    opacity: 50%;
+@keyframes rotate3d {
+    0% {
+        transform: rotate3d(0);
+    }
+    100% {
+        transform: rotate3d(0, 1, 0, 360deg);
+    }
 }
 
 /* ----section(Profile(BioEditor)---- */
@@ -1596,7 +1651,7 @@ button {
     text-align: justify;
 
     &:hover {
-        #bioeditBtn {
+        .bioeditBtn {
             //display: initial;
             visibility: visible;
             transition: 1s;
@@ -1608,7 +1663,7 @@ button {
     }
 }
 
-#bioeditBtn {
+.bioeditBtn {
     //display: none;
     /* height: 0.1px;
     margin: 0 40% 0 42%;
@@ -1772,6 +1827,11 @@ button {
 
 /* ----section(OtherProfile)---- */
 
+.sectionOtherProfile {
+    transition: 1.25s ease-out;
+    background-color: var(--primaryBackgroundColor);
+}
+
 .otherProfileContainer {
     text-align: center;
     //padding-left: 100%;
@@ -1840,8 +1900,8 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    //border: 1px solid lime;
-    //background-color: hotpink;
+    // border: 1px solid lime;
+    // background-color: hotpink;
 }
 
 .friendButtonOtherProfWrap button {
@@ -2274,7 +2334,7 @@ button {
 }
 
 #chat-messages pre {
-    //font-size: 1.15em;
+    //font-size: 2.15em;
     -color: lime;
     -font-family: Dejavu Sans, monospace;
     border: 2px solid rgba(255, 255, 255, 0.169);
@@ -2619,6 +2679,8 @@ li.L9 {
     //min-width: 700px;
     -moz-animation-direction: 0 14px 28px rgba(0, 0, 0, 0.25),
         0 10px 10px rgba(0, 0, 0, 0.22);
+    animation-direction: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
     -box-shadow: 0 0 20px white, 0 0 5px white;
     box-shadow: 45px 45px 55px rgba(0, 0, 0, 0.826);
     //border: 10px solid yellow;
@@ -2688,6 +2750,12 @@ li.L9 {
     width: 100%;
 } */
 
+.noPostOnWallWrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #noPostOnWall {
     color: rgba(255, 255, 255, 0.31);
     font-size: 1.4em;
@@ -2695,7 +2763,7 @@ li.L9 {
     //border: 1px solid lime;
     margin-top: 35%;
     margin-bottom: 40%;
-    margin-left: 30vw;
+    // margin-left: 30vw;
     //text-align: center;
     //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
 }
@@ -2934,7 +3002,7 @@ li.L9 {
     //flex-direction: column;
     justify-content: center;
     align-items: center;
-    //width: 600px;
+    min-width: 1000px;
     text-align: justify;
 
     &:hover {
@@ -3116,7 +3184,7 @@ li.L9 {
     //border: 1px solid lime;
     margin-top: 50%;
     margin-bottom: 50%;
-    margin-left: 46%;
+    // margin-left: 46%;
     /* padding-top: 25vh;
     padding-bottom: 45vh; */
     //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
@@ -3765,6 +3833,11 @@ html.darkMode {
         transform: scale(1.2, 2.07);
         transition: margin-top 2s ease-in-out;
     }
+    .ParticlesApp375 {
+        margin-top: 300px;
+        transform: scale(1.2, 1.2);
+        transition: margin-top 2s ease-in-out;
+    }
 
     .headerApp {
         border-bottom: 6px solid white;
@@ -3799,7 +3872,9 @@ html.darkMode {
     .cardWallWrapperZindex,
     .cardWallWrapper,
     .sectionProfile,
+    .sectionOtherProfile,
     .wallWrapper {
+        transition: 1.5s;
         background: var(--secondaryBackgroundColor);
     }
 
@@ -3808,6 +3883,19 @@ html.darkMode {
         -webkit-transition: border-bottom 1s linear;
         -ms-transition: border-bottom 1s linear;
         transition: border-bottom 1s ease-in-out;
+    }
+    .navApp375 {
+        transition: 1.75s;
+        border: 2px solid rgba(0, 0, 0, 0);
+        width: 350px;
+        margin-left: 250px;
+        //-moz-box-shadow: 0px 50px 0px rgba(255, 255, 255, 0.1);
+        //-webkit-box-shadow: 0px 50px 0px rgba(255, 255, 255, 0.1);
+        //box-shadow: 0px 50px 0px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 60px 30px rgba(255, 255, 255, 0.71);
+        border-radius: 100%;
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
     }
 
     #profileIcon,
@@ -3982,9 +4070,26 @@ html.darkMode {
     .profile_picBigContainer img {
         width: 712px;
     }
+    .cardWallWrapper {
+        width: 105vw;
+    }
     .cardWall {
         height: 100vh;
         margin-bottom: 50px;
+    }
+    #noPostOnWall {
+        // margin-top: 25vh;
+        margin-left: 3vw;
+        zoom: 1.35;
+        animation: slideDown 8s linear 2s infinite;
+    }
+    @keyframes slideDown {
+        0% {
+            margin-top: 0vh;
+        }
+        100% {
+            margin-top: 70vh;
+        }
     }
     #endWall {
         margin-bottom: 70%;
@@ -4248,6 +4353,19 @@ html.darkMode {
         //border: 5px solid yellow;
     }
 
+    .navApp {
+        transition: 1.5s;
+        border: 2px solid var(--secondaryTextColor);
+        width: 350px;
+        margin-left: 250px;
+        -moz-box-shadow: 0px 50px 0px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0px 50px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 50px 0px rgba(0, 0, 0, 0.3);
+        border-radius: 100%;
+        -moz-border-radius: 100%;
+        -webkit-border-radius: 100%;
+    }
+
     .matrixCode375app {
         //display: flex;
         //border: 5px solid red;
@@ -4286,21 +4404,22 @@ html.darkMode {
     } */
     .bm-overlay {
         backdrop-filter: blur(4px);
-        //border: 2px solid lime;
+        border: 2px solid rgba(255, 255, 255, 0.322);
+        border-top-style: none;
     }
     .bm-item-list {
         color: rgb(255, 255, 255);
         padding: 0.8em;
     }
     .bm-morph-shape {
-        fill: rgb(0, 0, 0);
+        fill: rgba(0, 0, 0, 0.525);
         //backdrop-filter: blur(5px);
         border-top: 4px solid rgba(255, 255, 255, 0);
         border-left: 4px solid rgba(255, 255, 255, 0);
     }
     .bm-menu {
-        //background: lime;
-        padding: 3.5em 1.5em 0;
+        padding-top: 4em;
+        padding-left: 1.4em;
         font-size: 1em;
     }
     .bm-burger-button {
@@ -4313,11 +4432,25 @@ html.darkMode {
     .bm-burger-bars {
         background: rgba(255, 255, 255, 0.8);
     }
+    .boxUnderX {
+        position: absolute;
+        // background: var(--secondaryBackgroundColor);
+        background: rgba(0, 0, 0, 0.37);
+        left: 20px;
+        width: 25px;
+        height: 25px;
+        top: 19px;
+        -moz-animation: appear 0.5s linear;
+        -o-animation: appear 0.5s linear;
+        -webkit-animation: appear 0.5s linear;
+        animation: appear 0.5s linear;
+        border-radius: 10%;
+    }
     .bm-cross {
         background: rgba(255, 255, 255, 0.8);
-        left: 20px;
+        left: 19px;
         top: 5px;
-        zoom: 1.5;
+        zoom: 1.6;
         -moz-animation: appear 2s linear;
         -o-animation: appear 2s linear;
         -webkit-animation: appear 2s linear;
@@ -4334,24 +4467,39 @@ html.darkMode {
         //border: 1px solid red;
         display: flex;
         transform: translateX(-5px);
+        margin: 10px 0 0 0;
     }
     #profileIcon {
         color: white;
-        font-size: 0.5em;
+        font-size: 1em;
         padding: 0 10px 0 0;
+
+        &:focus {
+            color: rgb(56, 142, 80);
+        }
     }
     #profileIconText {
         font-size: 0.6em;
+        font-family: Dejavu Sans, monospace;
+        text-decoration: none;
         margin-top: 5px;
-        color: rgba(255, 255, 255, 0.5);
+        // color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.819);
         background: transparent;
         -moz-animation: appear 2s linear;
         -o-animation: appear 2s linear;
         -webkit-animation: appear 2s linear;
         animation: appear 2s linear;
+
+        &:focus {
+            color: rgb(56, 142, 80);
+        }
     }
-    .iconTextTranslate {
-        transform: translateY(3px);
+    .iconTextTranslateY2 {
+        transform: translateY(2px);
+    }
+    .iconTextTranslateY5 {
+        transform: translateY(5px);
     }
     .logoutIconBorderTop {
         border-top: 1px solid rgba(255, 255, 255, 0.51);
@@ -4387,21 +4535,50 @@ html.darkMode {
             opacity: 1;
         }
     }
+    .theDeveloperNetworkLogo375 {
+        animation-play-state: paused;
+        width: 80px;
+        height: 80px;
+        opacity: 0.3;
+    }
+    .DNLogo375 {
+        position: absolute;
+        bottom: 30px;
+        left: 27.5px;
+        transform: rotateY(45deg);
+        animation: rotate3DNLogo 10s linear infinite;
+    }
+    @keyframes rotate3DNLogo {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
     /* SideMenuAnimationMobile END */
     #darkModeWrap {
         //border: 2px solid red;
         z-index: 1;
         zoom: 3;
-        left: 115px;
+        left: 125px;
         bottom: 135px;
     }
     #darkModeContainer {
         color: rgba(255, 255, 255, 0.8);
+        &:hover {
+            animation: none;
+        }
     }
 
     // Profile
+    .sectionProfile {
+        margin-top: 90px;
+        // border: 3px solid red;
+    }
     .welcomeBack375 {
         zoom: 2;
+        transform: translateY(-25px);
     }
 
     .profile_picBigContainer img {
@@ -4428,7 +4605,7 @@ html.darkMode {
         font-size: 1.8em;
     }
 
-    #bioeditBtn {
+    .bioeditBtn {
         margin-top: 15px;
         font-size: 1.8em;
         border: 2px solid rgba(255, 255, 255, 0.476);
@@ -4450,13 +4627,27 @@ html.darkMode {
 
     .side375 {
         transition: 2s;
-        //transform: translate(50px, 550px);
-        margin-top: 450px;
+        margin-top: 500px;
         transform: rotateY(360deg);
         left: 50px;
+        /* zoom: 1.5;
+        margin-top: 300px;
+        transform: translateX(-50px); */
         .frontBackCardsWrap {
             height: 550px;
         }
+    }
+    .side375op {
+        transition: 2s;
+        // margin-top: 500px;
+        transform: rotateY(360deg);
+        // left: 50px;
+        zoom: 1.5;
+        margin-top: 300px;
+        transform: translateX(-50px);
+        /* .frontBackCardsWrap {
+            height: 500px;
+        } */
     }
     .marginBottomProfileCards {
         margin-bottom: 650px;
@@ -4474,6 +4665,115 @@ html.darkMode {
         //height: 100%;
         transform: translateX(70px);
     }
+    #uploaderSigns {
+        font-size: 0.95em;
+    }
+
+    // Uploader
+    .modalUploaderWrapper {
+        width: 903px;
+        padding-top: 45px;
+        padding-bottom: 76vh;
+    }
+    .uploaderContainer {
+        height: 46vh;
+    }
+    .uploaderContainer p {
+        font-size: 2.45em;
+        height: 50px;
+        padding-bottom: 40px;
+    }
+    #imageInput {
+        font-size: 2.4em;
+        background-color: black;
+        // margin-top: 25px;
+        margin-bottom: 30px;
+        padding: 5px 0;
+        border-radius: 5%;
+        bottom: 170px;
+    }
+    #uploaderUploadBtn {
+        font-size: 3em;
+        padding: 20px;
+        border-radius: 10%;
+    }
+    #uploaderCloseBtn {
+        font-size: 2.8em;
+        padding: 15px;
+        border-radius: 5%;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #orIt {
+        font-size: 1.2em;
+    }
+    #uploaderDeleteBtn {
+        font-size: 1.3em;
+        padding: 20px;
+        border-radius: 5%;
+    }
+
+    // Edit Profile
+    .modalsettingsWrapper {
+        padding-bottom: 58vh;
+        width: 903px;
+    }
+    .closeEditProfileX {
+        color: rgb(255, 255, 255);
+        font-size: 1.4em;
+        position: relative;
+        bottom: 300px;
+        transform: translateX(-140px);
+        opacity: 0.3;
+    }
+    .editProfileTitleDiv {
+        margin-bottom: 1000px;
+        // border: 3px solid red;
+    }
+    .editProfileContainer p {
+        position: absolute;
+        top: 280px;
+        left: 40px;
+        padding: 50px 0;
+        // border: 3px solid lime;
+    }
+    .editProfileContainer input {
+        zoom: 2;
+        margin: 20px 0;
+    }
+    #saveChanges,
+    #cancelChanges {
+        zoom: 2.3;
+        margin: 50px 0;
+    }
+    #logoutEP,
+    #deleteAccountEP {
+        zoom: 2;
+    }
+    #logoutEP {
+        color: rgba(128, 128, 128, 0.868);
+    }
+    #deleteAccountEP {
+        color: rgba(255, 0, 0, 0.861);
+    }
+
+    // Other Profile
+    .otherProfileCardContainer {
+        zoom: 1.55;
+        transform: translateX(-165px);
+    }
+    .otherProfileCardContainer p {
+        font-size: 1.6em;
+    }
+    .otherProfileCardContainer button {
+        font-size: 1.8em;
+        margin: 30px;
+    }
+    .zIndex-1 {
+        z-index: -1;
+    }
 
     // Wall
     .wallWrapper {
@@ -4487,16 +4787,46 @@ html.darkMode {
 
     .cardWallWrapper {
         zoom: 1.25;
-        //transform: translateX(-10px);
-        transform: translateY(-700px);
+        // width: 91vw;
+        width: 840px;
+        -webkit-transition: 1.25s ease-out;
+        transition: 1.25s ease-out;
+        transform: translateY(-600px);
     }
-
-    .wallHistoryContainer {
-        height: 110vh;
+    .cardWallWrapperZindex {
+        -webkit-transition: 1.25s ease-out;
+        transition: 1.25s ease-out;
     }
 
     .cardWall {
         height: 105vh;
+    }
+
+    .wallPostsGlassOverlayWrap p,
+    input {
+        margin: 5px 0;
+    }
+    .wallPostsGlassOverlay {
+        //zoom: 1.4;
+        height: 280px;
+    }
+    #wallTitle {
+        zoom: 1.65;
+        padding-left: 10px;
+    }
+    #wallForm {
+        margin-top: 10px;
+        zoom: 2.5;
+        text-align: center;
+    }
+    /* .wallPostsPicContainer img {
+        margin-top: 185px;
+    } */
+    .wallHistoryContainer {
+        &:hover {
+            transition: 2s;
+            padding-top: 210px;
+        }
     }
 
     .walPostTitleDateMobile {
@@ -4568,5 +4898,224 @@ html.darkMode {
         zoom: 3;
         transform: translateX(-35px);
         color: rgba(255, 255, 255, 0.786);
+    }
+
+    .glitchMainTitle {
+        margin: 0 15vw;
+    }
+    #noPostOnWall {
+        font-size: 2.65em;
+        animation: translateYwallTitle 8s infinite;
+    }
+    @-webkit-keyframes translateYwallTitle {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(600px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    @-moz-keyframes translateYwallTitle {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(600px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    @-o-keyframes translateYwallTitle {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(600px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    @keyframes translateYwallTitle {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(600px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    // Friends
+    .cardFriends375 {
+        zoom: 1.3;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        bottom: 0;
+        transform: translateX(-7px);
+    }
+
+    .friendsGlassOverlay p {
+        zoom: 1.43;
+    }
+
+    .friendsWrapper,
+    .wannabesWrapper {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 40px;
+        row-gap: 20px;
+        zoom: 1.8;
+        padding-left: 30px;
+    }
+
+    #noFriendsYet375 {
+        transform: translateX(-125px);
+        zoom: 0.825;
+    }
+
+    .profile_picFriends {
+        box-shadow: 5px 5px 18px rgba(255, 255, 255, 0.162),
+            5px 5px 15px rgba(255, 255, 255, 0.148);
+        border: 0;
+        zoom: 1.3;
+    }
+
+    .profile_picWannabes {
+        transform: translateX(-10px);
+    }
+
+    .wannabesContainer {
+        transform: translateX(30px);
+    }
+
+    .wannabesName {
+        //transform: translateX(-20px);
+        transform: translateX(-5px);
+    }
+
+    .glitchFooterApp {
+        zoom: 1.9;
+        /* background: white;
+        transform: translateX(100px);
+        width: 100vw;
+        //padding-left: 10px; */
+    }
+
+    // Find Developers
+    #findpeopleQ {
+        zoom: 1.5;
+    }
+
+    #searchInput {
+        zoom: 1.1;
+        font-size: 1.5em;
+        padding: 15px;
+        margin-top: 30px;
+    }
+
+    #nothingFound {
+        transform: translateX(-20px);
+        zoom: 0.9;
+    }
+
+    // Chat
+    .chatHistoryContainer {
+        height: 45vh;
+    }
+
+    .findpeopleTitles375 {
+        zoom: 1.3;
+    }
+
+    .onlineUserProfilePic375 {
+        width: 150px;
+        height: 150px;
+    }
+
+    .onlineUserNameWrap {
+        font-size: 1.7em;
+    }
+
+    .profile_picChat375 {
+        border: 2px solid rgba(255, 255, 255, 0.166);
+        zoom: 2;
+        //padding-left: 5px;
+    }
+
+    .messageDateTimeDeleteBtnWrap {
+        zoom: 1.55;
+    }
+
+    .deleteMessageBtn {
+        //transform: translateX(10px);
+        margin-left: 2px;
+    }
+
+    .chatMessages375 {
+        max-width: 890px;
+        font-size: 2.2em;
+        overflow-x: scroll;
+    }
+
+    .chatTextareaContainer > textarea {
+        max-width: 770px;
+        font-size: 1.6em;
+        padding: 15px 15px;
+    }
+
+    #chatbuttonWrap > button {
+        font-size: 1.5em;
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+
+    // Private Chat
+    .cardContainerPM {
+        zoom: 1.3;
+        transform: translateX(-7px);
+    }
+    .wallPostsGlassOverlayPM {
+        height: 100%;
+        font-size: 1.5em;
+    }
+    .messageDateTimeDeleteBtnWrapPM {
+        zoom: 1.55;
+    }
+    .closeBtnPM {
+        zoom: 1.5;
+    }
+
+    // Notifications
+    .notificationsHistoryContainer375 {
+        height: 1200px;
+    }
+    .cardNotifications375 {
+        zoom: 1.25;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        bottom: 0;
+        transform: translateX(-7px);
+        height: 95%;
+    }
+    .cardNotifications375 h1 {
+        zoom: 1.45;
+    }
+    .cardNotifications375 p {
+        zoom: 1.5;
+    }
+    .wallPostsGlassOverlay375 {
+        //zoom: 1.3;
+        height: auto;
+    }
+    .youHaveFRWrap {
+        font-size: 1.2em;
+        justify-content: center;
+        padding: 10px 0;
     }
 }

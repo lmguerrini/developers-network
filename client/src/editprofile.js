@@ -36,9 +36,18 @@ export default function EditProfile({
     return (
         <>
             {/* <div className="modalUploaderWrapper"> */}
-            <div className="uploaderContainer">
+            <div className="uploaderContainer editProfileContainer">
                 {/* <h3>Account Settings</h3> */}
-                <div id="welcomeBack">
+                <div className=" closeEditProfileX">
+                    <p
+                        id="cancelChanges"
+                        className="backgroundTransparent test"
+                        onClick={toggleModalSettings}
+                    >
+                        x
+                    </p>
+                </div>
+                <div id="welcomeBack" className="editProfileTitleDiv">
                     <p>
                         <small id="uploaderSigns">❮</small> Edit your profile
                         settings

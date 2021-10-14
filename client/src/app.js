@@ -22,7 +22,7 @@ import { BiNetworkChart } from "react-icons/bi";
 //import { FaUserFriends } from "react-icons/fa";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiNotification2Line } from "react-icons/ri";
-import { GrNotification } from "react-icons/gr";
+// import { GrNotification } from "react-icons/gr";
 import { DarkMode } from "./darkmode";
 import ParticlesApp from "../public/anim/App[p]/particlesApp";
 import { ParallaxProvider } from "react-scroll-parallax";
@@ -40,6 +40,7 @@ export default class App extends Component {
             last: "",
             email: "",
             profile_pic: "",
+            otherprofile_pic: "",
             bio: "",
             location: "",
             education: "",
@@ -70,7 +71,8 @@ export default class App extends Component {
         this.editLinkedIn = this.editLinkedIn.bind(this);
         this.editLanguages = this.editLanguages.bind(this);
         this.callbackFunction = (childData) => {
-            this.setState({ notifications: childData });
+            // this.setState({ notifications: childData });
+            this.setState({ otherprofile_pic: childData });
         };
     }
 
@@ -188,7 +190,6 @@ export default class App extends Component {
 
     // edit user infos
     editBio(newBio) {
-        //console.log("editBio worked!", newBio);
         this.setState({
             bio: newBio, // update bio w/ new newBio
         });
@@ -200,37 +201,31 @@ export default class App extends Component {
         });
     }
     editEducation(newEducation) {
-        //console.log("editEducation worked!", newEducation);
         this.setState({
             education: newEducation,
         });
     }
     editSkills(newSkills) {
-        //console.log("editSkills worked!", newSkills);
         this.setState({
             skills: newSkills,
         });
     }
     editWork(newWork) {
-        //console.log("editWork worked!", newWork);
         this.setState({
             work: newWork,
         });
     }
     editGitHub(newGitHub) {
-        //console.log("editGitHub worked!", newGitHub);
         this.setState({
             gitHub: newGitHub,
         });
     }
     editLinkedIn(newLinkedIn) {
-        //console.log("editLinkedIn worked!", newLinkedIn);
         this.setState({
             linkedIn: newLinkedIn,
         });
     }
     editLanguages(newLanguages) {
-        //console.log("editLinkedIn worked!", newLanguages);
         this.setState({
             languages: newLanguages,
         });
@@ -262,132 +257,120 @@ export default class App extends Component {
                             }
                         >
                             <BrowserRouter>
+                                <div className="boxUnderX"></div>
                                 <div className="profileIconWrap menuIconsMarginTop">
-                                    <p>
-                                        <Link
-                                            to="/"
-                                            title="Profile"
-                                            id="profileIcon"
-                                            className="bounce"
-                                        >
-                                            <AiOutlineUser
-                                                onClick={() => this.closeMenu()}
-                                            />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/"
+                                        title="Profile"
+                                        id="profileIcon"
+                                    >
+                                        <AiOutlineUser
+                                            onClick={() => this.closeMenu()}
+                                        />
+                                    </a>
+                                    <a
+                                        href="/"
                                         id="profileIconText"
                                         className=" iconTextTranslate"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Profile{" "}
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap">
-                                    <p>
-                                        <Link
-                                            to="/friends"
-                                            title="My Developers Network"
-                                            id="profileIcon"
-                                            className="bounce"
-                                        >
-                                            <BiNetworkChart
-                                                onClick={() => this.closeMenu()}
-                                            />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/friends"
+                                        title="My Developers Network"
+                                        id="profileIcon"
+                                        className="iconTextTranslateY5"
+                                    >
+                                        <BiNetworkChart
+                                            onClick={() => this.closeMenu()}
+                                        />
+                                    </a>
+                                    <a
+                                        href="/friends"
                                         id="profileIconText"
                                         onClick={() => this.closeMenu()}
                                     >
                                         My Developers Network{" "}
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap">
-                                    <p>
-                                        <Link
-                                            to="/users"
-                                            title="Find Developers"
-                                            id="profileIcon"
-                                            className="bounce"
-                                        >
-                                            <RiUserSearchFill
-                                                onClick={() => this.closeMenu()}
-                                            />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/users"
+                                        title="Find Developers"
+                                        id="profileIcon"
+                                        className="iconTextTranslateY5"
+                                    >
+                                        <RiUserSearchFill
+                                            onClick={() => this.closeMenu()}
+                                        />
+                                    </a>
+                                    <a
+                                        href="/users"
                                         id="profileIconText"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Find Developers{" "}
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap">
-                                    <p>
-                                        <Link
-                                            to="/chat"
-                                            title="Developer Chat"
-                                            id="profileIcon"
-                                            className="bounce"
-                                        >
-                                            <RiWechatLine
-                                                onClick={() => this.closeMenu()}
-                                            />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/chat"
+                                        title="Developer Chat"
+                                        id="profileIcon"
+                                        className="iconTextTranslateY5"
+                                    >
+                                        <RiWechatLine
+                                            onClick={() => this.closeMenu()}
+                                        />
+                                    </a>
+                                    <a
+                                        href="/chat"
                                         id="profileIconText"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Developers Chat
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap">
-                                    <p>
-                                        <Link
-                                            to="/notifications"
-                                            title="Notifications"
-                                            id="profileIcon"
-                                            className="bounce"
-                                        >
-                                            <RiNotification2Line
-                                                onClick={() => this.closeMenu()}
-                                            />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/notifications"
+                                        title="Notifications"
+                                        id="profileIcon"
+                                    >
+                                        <RiNotification2Line
+                                            onClick={() => this.closeMenu()}
+                                        />
+                                    </a>
+                                    <a
+                                        href="/notifications"
                                         id="profileIconText"
                                         className=" iconTextTranslate"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Notifications
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap logoutIconBorderTop">
-                                    <p>
-                                        <Link
-                                            to="/logout"
-                                            title="Logout"
-                                            className="logoutLink"
-                                            id="profileIcon"
-                                            /* onClick={(e) => {
-                                                window.confirm(
-                                                    "[LOGOUT] \nAre you sure you want to logout?"
-                                                ) && this.logout(e);
-                                            }} */
-                                            onClick={this.logout}
-                                        >
-                                            <FiLogOut />
-                                        </Link>
-                                    </p>
-                                    <p
+                                    <a
+                                        href="/logout"
+                                        title="Logout"
+                                        className="logoutLink iconTextTranslateY2"
+                                        id="profileIcon"
+                                        onClick={() => this.logout()}
+                                    >
+                                        <FiLogOut />
+                                    </a>
+                                    <a
+                                        href="/logout"
                                         id="profileIconText"
                                         className=" iconTextTranslate"
-                                        onClick={() => this.closeMenu()}
+                                        onClick={() => this.logout()}
                                     >
                                         Logout
-                                    </p>
+                                    </a>
                                 </div>
                                 <div className="profileIconWrap">
                                     <p
@@ -408,6 +391,14 @@ export default class App extends Component {
                                     >
                                         Delete Account
                                     </p>
+                                </div>
+                                <div className="DNLogo375">
+                                    <img
+                                        title="DN Logo"
+                                        className="theDeveloperNetworkLogo theDeveloperNetworkLogo375"
+                                        src="/img/theDeveloperNetworkLogo.png"
+                                        alt="The Developer Network Logo"
+                                    />
                                 </div>
                             </BrowserRouter>
                         </Menu>
@@ -471,7 +462,7 @@ export default class App extends Component {
                                                 </Parallax>
                                             </ParallaxProvider>
                                         </div>
-                                        {
+                                        {!this.state.otherprofile_pic ? (
                                             <ProfilePic
                                                 /* firstName={this.state.first} */
                                                 first={this.state.first}
@@ -483,7 +474,16 @@ export default class App extends Component {
                                                     this.toggleModalUploader
                                                 }
                                             />
-                                        }
+                                        ) : (
+                                            <ProfilePic
+                                                /* firstName={this.state.first} */
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                profile_pic={
+                                                    this.state.otherprofile_pic
+                                                }
+                                            />
+                                        )}
                                     </header>
                                 )}
 
@@ -608,7 +608,7 @@ export default class App extends Component {
                                         </div>
                                     </nav>
                                 ) : (
-                                    <nav className="navApp">
+                                    <nav className="navApp navApp375">
                                         <div id="darkModeWrap">
                                             <div
                                                 id="darkModeContainer"
@@ -687,11 +687,14 @@ export default class App extends Component {
                                     path="/user/:id"
                                     /* path="/other-user/info/:id" */
                                     render={(props) => (
-                                        <section>
+                                        <section className="sectionOtherProfile">
                                             <OtherProfile
                                                 match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
+                                                parentCallback={
+                                                    this.callbackFunction
+                                                }
                                             />
                                         </section>
                                     )}

@@ -8,11 +8,9 @@ import OnlineUsers from "./onlineusers";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function Chat() {
-    // retrieve chat messages from Redux and rendere them
+    // retrieve chat messages from Redux and render them
     const chatMessages = useSelector((state) => state && state.messages);
-
     //const dispatch = useDispatch();
-
     const elemRef = useRef(); // for function
     //this.elemRef = React.createRef(); // for Class
     let message;
@@ -21,7 +19,6 @@ export default function Chat() {
         if (e.key === "Enter") {
             //console.log("About to emit new chat msg from Chat.js..");
             e.preventDefault();
-
             // NB: we're going to send messages off using socket instead of axios
             // socket.emit will send a message to the server
             socket.emit("new chat message", e.target.value);
@@ -46,7 +43,22 @@ export default function Chat() {
         (async () => {
             if (!abort && elemRef.current) {
                 // "scrollIntoView" shouldn't happen until "elemRef" exists
-                elemRef.current.scrollIntoView({ behavior: "smooth" });
+                elemRef.current.scrollIntoView({
+                    block: "end",
+                    inline: "nearest",
+                    behavior: "smooth",
+                });
+
+                setTimeout(function () {
+                    console.log("window.scrollY--: ", window.scrollY);
+                    if (window.scrollY > 0) {
+                        window.scroll({
+                            top: 0,
+                            left: 0,
+                            behavior: "smooth",
+                        });
+                    }
+                }, 1500);
             }
         })();
         return () => {
@@ -70,7 +82,7 @@ export default function Chat() {
             {/* <h1>Chat Room</h1> */}
             <div className="sectionWrapper">
                 <div className="cardContainer" /* ref={elemRef} */>
-                    <div className="cardChat">
+                    <div className="cardChat cardFriends375">
                         <OnlineUsers></OnlineUsers>
                         <div className="chatHistoryContainer">
                             <div id="generalChatPaddingTop"></div>
@@ -88,7 +100,7 @@ export default function Chat() {
                                                     }
                                                 >
                                                     <img
-                                                        className="profile_pic"
+                                                        className="profile_pic profile_picChat375"
                                                         src={
                                                             message.profile_pic
                                                         }
@@ -171,6 +183,7 @@ export default function Chat() {
                                             {/* <p>{message.timestamp}</p> */}
                                             <div
                                                 id="chat-messages"
+                                                className="chatMessages375"
                                                 ref={elemRef}
                                             >
                                                 <pre className="prettyprint">
@@ -178,25 +191,25 @@ export default function Chat() {
                                                         {message.message.startsWith(
                                                             "https://"
                                                         ) ? (
-                                                                <a
-                                                                    href={
-                                                                        message.message
-                                                                    }
-                                                                    target="_blank"
-                                                                    rel="noreferrer"
-                                                                    className="chatLink"
-                                                                >
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </a>
-                                                            ) : (
-                                                                <span>
-                                                                    {
-                                                                        message.message
-                                                                    }
-                                                                </span>
-                                                            )}
+                                                            <a
+                                                                href={
+                                                                    message.message
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className="chatLink"
+                                                            >
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            <span>
+                                                                {
+                                                                    message.message
+                                                                }
+                                                            </span>
+                                                        )}
                                                     </code>{" "}
                                                 </pre>
 

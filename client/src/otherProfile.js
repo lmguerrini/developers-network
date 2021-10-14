@@ -32,15 +32,28 @@ export default class OtherProfile extends Component {
             gitHub: "",
             linkedIn: "",
             languages: "",
+            mediaQuery1550px: window.matchMedia("(max-device-width:1550px)"),
+            mediaQuery375px: window.matchMedia("(max-device-width:375px)"),
         };
     }
 
+    /*  sendDataToParent() {
+        console.log("----sendDataToParent", this.state.profile_pic);
+        props.parentCallback(this.state.profile_pic);
+    } */
+    /* sendDataToParent(e) {
+        console.log("----sendDataToParent", this.state.profile_pic);
+        this.props.parentCallback(this.state.profile_pic);
+        // this.props.parentCallback("Data from child");
+        e.preventDefault();
+    } */
+
     componentDidMount() {
-        console.log("OtherProfile/componentDidMount mounted!");
-        console.log(
-            "OtherProfile/componentDidMount this.props.match.params.id: ",
-            this.props.match.params.id
-        );
+        // console.log("OtherProfile/componentDidMount mounted!");
+        // console.log(
+        //     "OtherProfile/componentDidMount this.props.match.params.id: ",
+        //     this.props.match.params.id
+        // );
 
         //we should make a request to our server to get the other user's data
         // if we are viewing our own profile, we should make sure to send the user back to the "/" route
@@ -71,7 +84,12 @@ export default class OtherProfile extends Component {
                         }
                     ); */
                     this.setState({ ...data }, () => {
-                        //console.table("OtherProfile this.state: ", this.state);
+                        // console.table("OtherProfile this.state: ", this.state);
+                        // console.log(
+                        //     "OP sendDataToParent",
+                        //     this.state.profile_pic
+                        // );
+                        this.props.parentCallback(this.state.profile_pic);
                     });
                 } else {
                     //console.log("requestedId == id");
@@ -93,7 +111,10 @@ export default class OtherProfile extends Component {
         return (
             <>
                 {/* <h1>Other Profile Component</h1> */}
-                <div className="otherProfileContainer">
+                <div
+                    className="otherProfileContainer"
+                    onChange={this.sendDataToParent}
+                >
                     {/* <div id="welcomeBack">
                         <p id="toggleModalSettings">
                             <b>
@@ -102,12 +123,12 @@ export default class OtherProfile extends Component {
                         </p>
                     </div> */}
 
-                    <div className="frontBackCardsWrap">
+                    <div className="frontBackCardsWrap frontBackCardsWrapOp">
                         <div className="front side">
                             <div className="content">
                                 <div className="otherProfileCardContainer">
                                     <div className="otherProfileCard">
-                                        <div className="sectionProfileFriendbutton">
+                                        <div>
                                             {/* <h1>Profile=-ProfilePic</h1> */}
                                             <div className="profile_picBigContainer">
                                                 <ProfilePic
@@ -151,14 +172,25 @@ export default class OtherProfile extends Component {
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <ProfileMoreBtnFront />
+                                            <ProfileMoreBtnFront
+                                                otherProfilePage={true}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="back side op">
+                        {/* <div className="back side op"> */}
+                        <div
+                            className={
+                                !this.state.mediaQuery375px.matches
+                                    ? !this.state.mediaQuery1550px.matches
+                                        ? "back mirror invisible side"
+                                        : "back1550 mirror invisible side1550"
+                                    : "side back375 front-back375op back375op displayNone"
+                            }
+                        >
                             <div className="content">
                                 <div className="cardContainer">
                                     <div className="card">
@@ -240,7 +272,10 @@ export default class OtherProfile extends Component {
                                         <div id="separationLine"></div>
 
                                         <div id="privateChatPaddingTop"></div>
-                                        <ProfileLessBtnBack /* className="profileMoreBtnBack" */
+                                        <ProfileLessBtnBack
+                                            otherProfilePage={
+                                                true
+                                            } /* className="profileMoreBtnBack" */
                                         />
                                     </div>
                                 </div>
@@ -259,9 +294,3 @@ export default class OtherProfile extends Component {
         );
     }
 }
-
-/*
-    OtherProfile functions:
-    _ Displaying the other users information including their profile pic and bio.
-    _ It won't be able to edit their information!
-*/

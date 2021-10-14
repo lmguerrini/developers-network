@@ -17,7 +17,7 @@ export default function ProfilePic({
     profile_pic,
     toggleModalUploader,
 }) {
-    //console.log("props in ProfilePic: ", first, last, profile_pic, toggleModalUploader);
+    // console.log("props in ProfilePic: ", first, last, profile_pic, toggleModalUploader);
     return (
         // ProfilePic=> its job is to display the profile pic
         <div className="profilePicContiner profileContainer375">

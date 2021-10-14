@@ -135,7 +135,9 @@ export default function Profile({
                                             />
                                         </div>
                                         {/* <div className="more">MORE</div> */}
-                                        <ProfileMoreBtnFront />
+                                        <ProfileMoreBtnFront
+                                            otherProfilePage={false}
+                                        />
                                         {/* <div className="modalUploaderWrapper">
                                             <EditProfile
                                                 toggleModalSettings={
@@ -152,8 +154,8 @@ export default function Profile({
                             className={
                                 !mediaQuery375px
                                     ? !mediaQuery1550px
-                                        ? "back side"
-                                        : "back1550  side1550"
+                                        ? "back invisible side"
+                                        : "back1550 mirror invisible side1550"
                                     : "side back375 displayNone"
                             }
                         >
@@ -247,7 +249,10 @@ export default function Profile({
                                         <div id="separationLine"></div>
 
                                         <div id="extraProfilePaddingBottom"></div>
-                                        <ProfileLessBtnBack /* className="profileMoreBtnBack" */
+                                        <ProfileLessBtnBack
+                                            otherProfilePage={
+                                                false
+                                            } /* className="profileMoreBtnBack" */
                                         />
                                     </div>
                                 </div>
