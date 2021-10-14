@@ -41,7 +41,6 @@ export default class OtherProfile extends Component {
         console.log("----sendDataToParent", this.state.profile_pic);
         props.parentCallback(this.state.profile_pic);
     } */
-    
     /* sendDataToParent(e) {
         console.log("----sendDataToParent", this.state.profile_pic);
         this.props.parentCallback(this.state.profile_pic);
