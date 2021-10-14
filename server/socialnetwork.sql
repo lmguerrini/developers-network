@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS chat_messages;
 DROP TABLE IF EXISTS private_messages;
 DROP TABLE IF EXISTS wall;
 DROP TABLE IF EXISTS wall_comments;
+DROP TABLE IF EXISTS wall_comments_replies;
 
 CREATE TABLE users(
       id SERIAL PRIMARY KEY,
