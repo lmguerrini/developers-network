@@ -9,7 +9,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 export default function Welcome() {
     //const mediaQuery1024px = useMediaQuery("(min-width:1024px)");
     const mediaQuery1024px = useMediaQuery("(max-width:1024px)");
-    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
     return (
         <>
             <div className="welcomeParentWrapper">

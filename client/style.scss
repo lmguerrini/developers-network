@@ -108,7 +108,8 @@ body {
     -width: 1350px;
     margin-top: 20px;
     -height: 35px;
-    //background-color: red;
+    // background-color: red;
+    padding: 0 30px;
     font-family: Dejavu Sans, monospace;
     overflow: hidden;
     border-right: 0.85em solid lime;
@@ -5122,7 +5123,7 @@ html.darkMode {
 }
 
 // Mobiles
-@media screen and (max-device-width: 415px) {
+@media screen and (max-device-width: 430px) {
     * {
         zoom: 1.19;
     }

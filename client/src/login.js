@@ -11,7 +11,8 @@ export default class Login extends Component {
             //error: false, // => general error
             error: "", // => specific errors
             mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
-            mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
+            // mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);

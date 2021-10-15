@@ -20,7 +20,8 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
     const backCard375 = document.getElementsByClassName("back375");
     const sectionProfile = document.getElementsByClassName("sectionProfile");
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
-    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
 
     const handleClick = () => {
         if (profileMoreBtn) {
@@ -195,7 +196,8 @@ export const ProfileLessBtnBack = ({ otherProfilePage }) => {
     const backCard375 = document.getElementsByClassName("back375");
     const sectionProfile = document.getElementsByClassName("sectionProfile");
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
-    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
 
     const handleClick = () => {
         if (mediaQuery375px) {

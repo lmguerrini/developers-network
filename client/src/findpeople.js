@@ -7,7 +7,8 @@ export default function FindPeople() {
     const [query, setQuery] = useState("");
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(false);
-    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
 
     // componentDidMount (class) => useEffect (fn)
     useEffect(() => {

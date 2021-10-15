@@ -54,7 +54,8 @@ export default class App extends Component {
             notifications: 0,
             //active: false,
             menuOpen: false,
-            mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
+            // mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteUser = this.deleteUser.bind(this);

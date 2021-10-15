@@ -33,7 +33,8 @@ export default class OtherProfile extends Component {
             linkedIn: "",
             languages: "",
             mediaQuery1550px: window.matchMedia("(max-device-width:1550px)"),
-            mediaQuery375px: window.matchMedia("(max-device-width:375px)"),
+            // mediaQuery375px: window.matchMedia("(max-device-width:375px)"),
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
     }
 

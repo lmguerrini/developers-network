@@ -29,7 +29,8 @@ export default function Wall({ id, myWall, name }) {
     const [file, setFile] = useState();
     //const [error, setError] = useState(false);
     const generalError = useSelector((state) => state && state.error);
-    const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
     const newWallPostCommentError = useSelector(
         (state) => state && state.newWallPostCommentError
     );
