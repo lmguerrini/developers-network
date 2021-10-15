@@ -805,7 +805,7 @@ export default function Wall({ id, myWall, name }) {
                                             <div className="noPostOnWallWrap">
                                                 <h1
                                                     id="endWall"
-                                                    className="glitchMainTitle endWallMobile noPostOnWallWrap"
+                                                    className="glitchWallTitle endWallMobile noPostOnWallWrap"
                                                     data-text="end Wall_"
                                                 >
                                                     end Wall_
@@ -818,7 +818,7 @@ export default function Wall({ id, myWall, name }) {
                                                 <div className="noPostOnWallWrap">
                                                     <h1
                                                         id="noPostOnWall"
-                                                        className="glitchMainTitle noPostOnWallWrap"
+                                                        className="glitchWallTitle noPostOnWallWrap"
                                                         data-text="It seems you
                                                     haven't uploaded any Wall™️
                                                     posts yet"
@@ -832,7 +832,7 @@ export default function Wall({ id, myWall, name }) {
                                                 <div className="noPostOnWallWrap">
                                                     <h1
                                                         id="noPostOnWall"
-                                                        className="glitchMainTitle noPostOnWallWrap"
+                                                        className="glitchWallTitle noPostOnWallWrap"
                                                         data-text={`It seems ${name} hasn't
                                                     uploaded any posts yet..`}
                                                     >

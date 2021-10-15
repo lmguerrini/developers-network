@@ -56,8 +56,44 @@ body {
     animation: 13s fadeInOut;
     animation-fill-mode: forwards;
 }
-
+//fadeInOut
 @keyframes fadeInOut {
+    50% {
+        background-color: black;
+    }
+    100% {
+        -background-color: red;
+        background: rgba(51, 51, 51, 0.384);
+    }
+}
+@-webkit-keyframes fadeInOut {
+    50% {
+        background-color: black;
+    }
+    100% {
+        -background-color: red;
+        background: rgba(51, 51, 51, 0.384);
+    }
+}
+@-moz-keyframes fadeInOut {
+    50% {
+        background-color: black;
+    }
+    100% {
+        -background-color: red;
+        background: rgba(51, 51, 51, 0.384);
+    }
+}
+@-o-keyframes fadeInOut {
+    50% {
+        background-color: black;
+    }
+    100% {
+        -background-color: red;
+        background: rgba(51, 51, 51, 0.384);
+    }
+}
+@-ms-keyframes fadeInOut {
     50% {
         background-color: black;
     }
@@ -106,7 +142,7 @@ h2 {
     bottom: 20px;
     -background-color: rgb(255, 120, 47);
 }
-
+//typing
 @keyframes typing {
     from {
         width: 0;
@@ -118,7 +154,39 @@ h2 {
         -width: 1425px;
     }
 }
-
+@-webkit-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 1220px;
+    }
+}
+@-moz-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 1220px;
+    }
+}
+@-o-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 1220px;
+    }
+}
+@-ms-keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 1220px;
+    }
+}
+//blinking
 @keyframes blinking {
     from,
     to {
@@ -129,24 +197,60 @@ h2 {
         border-color: rgb(56, 142, 80);
     }
 }
+@-webkit-keyframes blinking {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgb(56, 142, 80);
+    }
+}
+@-moz-keyframes blinking {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgb(56, 142, 80);
+    }
+}
+@-o-keyframes blinking {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgb(56, 142, 80);
+    }
+}
+@-ms-keyframes blinking {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: rgb(56, 142, 80);
+    }
+}
 
 .glitchMainTitle {
     font-size: 1.2em;
     position: relative;
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 0 10vw;
+    margin: 0 10vw; */
 }
 
 .glitchMainTitle:before {
     content: attr(data-text);
     position: absolute;
-    width: 100%;
+    /* width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     // margin: 0 10vw;
     left: -2px;
     text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
@@ -158,8 +262,44 @@ h2 {
 
     animation: glitchMainTitle-before 1.8s infinite linear alternate-reverse;
 }
-
+//glitchMainTitle-before
 @keyframes glitchMainTitle-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchMainTitle-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchMainTitle-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchMainTitle-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchMainTitle-before {
     $steps: 25;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -172,10 +312,10 @@ h2 {
 .glitchMainTitle:after {
     content: attr(data-text);
     position: absolute;
-    width: 100%;
+    /* width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     // margin: 0 10vw;
     left: 5px;
     text-shadow: -5px 0 rgba(68, 145, 74, 0.863);
@@ -187,8 +327,44 @@ h2 {
 
     animation: glitchMainTitle-after 2s infinite linear alternate-reverse;
 }
-
+//glitchMainTitle-after
 @keyframes glitchMainTitle-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchMainTitle-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchMainTitle-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchMainTitle-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchMainTitle-after {
     $steps: 25;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -288,8 +464,88 @@ h2 {
     );
     animation: 1s slider-texts-mobile-shake infinite linear;
 }
-
+//slider-texts-mobile-shake
 @keyframes slider-texts-mobile-shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+@-webkit-keyframes slider-texts-mobile-shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+@-moz-keyframes slider-texts-mobile-shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+@-o-keyframes slider-texts-mobile-shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+    5% {
+        transform: skewX(15deg);
+    }
+    10% {
+        transform: skewX(-15deg);
+    }
+    15% {
+        transform: skewX(15deg);
+    }
+    20% {
+        transform: skewX(0deg);
+    }
+    100% {
+        transform: skewX(0deg);
+    }
+}
+@-ms-keyframes slider-texts-mobile-shake {
     0% {
         transform: skewX(-15deg);
     }
@@ -356,7 +612,7 @@ h2 {
     animation: 14s fadeOut;
     animation-fill-mode: forwards;
 }
-
+//slide-left
 @keyframes slide-left {
     0% {
         margin-left: -150%;
@@ -371,6 +627,63 @@ h2 {
         margin-left: -15%;
     }
 }
+@-webkit-keyframes slide-left {
+    0% {
+        margin-left: -150%;
+    }
+    75% {
+        margin-left: -150%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-moz-keyframes slide-left {
+    0% {
+        margin-left: -150%;
+    }
+    75% {
+        margin-left: -150%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-o-keyframes slide-left {
+    0% {
+        margin-left: -150%;
+    }
+    75% {
+        margin-left: -150%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-ms-keyframes slide-left {
+    0% {
+        margin-left: -150%;
+    }
+    75% {
+        margin-left: -150%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+//slide-left-mobile
 @keyframes slide-left-mobile {
     0% {
         margin-left: -200%;
@@ -385,7 +698,63 @@ h2 {
         margin-left: -15%;
     }
 }
-
+@-webkit-keyframes slide-left-mobile {
+    0% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -200%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-moz-keyframes slide-left-mobile {
+    0% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -200%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-o-keyframes slide-left-mobile {
+    0% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -200%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+@-ms-keyframes slide-left-mobile {
+    0% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -200%;
+    }
+    85% {
+        margin-left: -25%;
+    }
+    100% {
+        margin-left: -15%;
+    }
+}
+//slide-right
 @keyframes slide-right {
     0% {
         margin-right: -150%;
@@ -400,7 +769,120 @@ h2 {
         margin-right: -15%;
     }
 }
+@-webkit-keyframes slide-right {
+    0% {
+        margin-right: -150%;
+    }
+    75% {
+        margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-moz-keyframes slide-right {
+    0% {
+        margin-right: -150%;
+    }
+    75% {
+        margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-o-keyframes slide-right {
+    0% {
+        margin-right: -150%;
+    }
+    75% {
+        margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-ms-keyframes slide-right {
+    0% {
+        margin-right: -150%;
+    }
+    75% {
+        margin-right: -150%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+//slide-right-mobile
 @keyframes slide-right-mobile {
+    0% {
+        margin-right: -200%;
+    }
+    75% {
+        margin-right: -200%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-webkit-keyframes slide-right-mobile {
+    0% {
+        margin-right: -200%;
+    }
+    75% {
+        margin-right: -200%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-moz-keyframes slide-right-mobile {
+    0% {
+        margin-right: -200%;
+    }
+    75% {
+        margin-right: -200%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-o-keyframes slide-right-mobile {
+    0% {
+        margin-right: -200%;
+    }
+    75% {
+        margin-right: -200%;
+    }
+    85% {
+        margin-right: -25%;
+    }
+    100% {
+        margin-right: -15%;
+    }
+}
+@-ms-keyframes slide-right-mobile {
     0% {
         margin-right: -200%;
     }
@@ -473,7 +955,7 @@ h2 {
     animation: 25s fadeIn-mobile;
     animation-fill-mode: forwards;
 }
-
+//fadeIn
 @keyframes fadeIn {
     50% {
         opacity: 0;
@@ -490,7 +972,80 @@ h2 {
         opacity: 0.85;
     } */
 }
+@-webkit-keyframes fadeIn {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadeIn {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-o-keyframes fadeIn {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-ms-keyframes fadeIn {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+//fadeIn-mobile
 @keyframes fadeIn-mobile {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 0.7;
+    }
+}
+@-webkit-keyframes fadeIn-mobile {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 0.7;
+    }
+}
+@-moz-keyframes fadeIn-mobile {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 0.7;
+    }
+}
+@-o-keyframes fadeIn-mobile {
+    50% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 0.7;
+    }
+}
+@-ms-keyframes fadeIn-mobile {
     50% {
         opacity: 0;
     }
@@ -534,6 +1089,42 @@ h2 {
 }
 
 @keyframes fadeOut {
+    75% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeOut {
+    75% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-moz-keyframes fadeOut {
+    75% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-o-keyframes fadeOut {
+    75% {
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@-ms-keyframes fadeOut {
     75% {
         opacity: 0;
     }
@@ -826,7 +1417,7 @@ button {
 
     animation: rotate 30s infinite;
 }
-
+//rotate
 @keyframes rotate {
     0% {
         -ms-transform: rotate(0deg);
@@ -887,7 +1478,21 @@ button {
     animation: bounce-animation 0.5s infinite linear;
     animation-iteration-count: 3;
 }
-
+//bounce-animation
+@keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
 @-webkit-keyframes bounce-animation {
     0% {
         top: 0;
@@ -902,7 +1507,64 @@ button {
         top: 0;
     }
 }
-@keyframes bounce-animation {
+@-moz-keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-o-keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-ms-keyframes bounce-animation {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+//bounce
+/* @keyframes bounce {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: -0.2em;
+    }
+    70% {
+        top: -0.3em;
+    }
+    100% {
+        top: 0;
+    }
+}
+@-webkit-keyframes bounce {
     0% {
         top: 0;
     }
@@ -957,21 +1619,7 @@ button {
     100% {
         top: 0;
     }
-}
-@keyframes bounce {
-    0% {
-        top: 0;
-    }
-    50% {
-        top: -0.2em;
-    }
-    70% {
-        top: -0.3em;
-    }
-    100% {
-        top: 0;
-    }
-}
+} */
 
 /* bounce animation: END */
 
@@ -1601,9 +2249,17 @@ button {
 
 @keyframes rotate3d {
     0% {
-        transform: rotate3d(0);
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
+        -ms-transform: rotate3d(0, 1, 0, 360deg);
+        -moz-transform: rotate3d(0, 1, 0, 360deg);
+        -webkit-transform: rotate3d(0, 1, 0, 360deg);
+        -o-transform: rotate3d(0, 1, 0, 360deg);
         transform: rotate3d(0, 1, 0, 360deg);
     }
 }
@@ -2567,7 +3223,7 @@ li.L9 {
     filter: drop-shadow(8px 8px 10px rgba(0, 255, 0, 0.288));
     animation: border-pulsate 2.45s infinite;
 }
-
+//border-pulsate
 @keyframes border-pulsate {
     0% {
         border-color: rgba(0, 255, 0, 0.731);
@@ -2577,6 +3233,50 @@ li.L9 {
     }
     /* 50%  { border-color: rgba(0, 255, 0, 0.233); } */
     /* 50%  { border-color: rgba(255, 255, 255, 0.774); } */
+    100% {
+        border-color: rgba(0, 255, 0, 0.774);
+    }
+}
+@-webkit-keyframes border-pulsate {
+    0% {
+        border-color: rgba(0, 255, 0, 0.731);
+    }
+    50% {
+        border-color: rgba(0, 255, 0, 0);
+    }
+    100% {
+        border-color: rgba(0, 255, 0, 0.774);
+    }
+}
+@-moz-keyframes border-pulsate {
+    0% {
+        border-color: rgba(0, 255, 0, 0.731);
+    }
+    50% {
+        border-color: rgba(0, 255, 0, 0);
+    }
+    100% {
+        border-color: rgba(0, 255, 0, 0.774);
+    }
+}
+@-o-keyframes border-pulsate {
+    0% {
+        border-color: rgba(0, 255, 0, 0.731);
+    }
+    50% {
+        border-color: rgba(0, 255, 0, 0);
+    }
+    100% {
+        border-color: rgba(0, 255, 0, 0.774);
+    }
+}
+@-ms-keyframes border-pulsate {
+    0% {
+        border-color: rgba(0, 255, 0, 0.731);
+    }
+    50% {
+        border-color: rgba(0, 255, 0, 0);
+    }
     100% {
         border-color: rgba(0, 255, 0, 0.774);
     }
@@ -3190,6 +3890,54 @@ li.L9 {
     //text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
 }
 
+.glitchWallTitle {
+    font-size: 1.2em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 10vw;
+}
+
+.glitchWallTitle:before {
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 0 10vw;
+    left: -2px;
+    text-shadow: 5px 0 rgba(146, 191, 150, 0.87);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchMainTitle-before 1.8s infinite linear alternate-reverse;
+}
+
+.glitchWallTitle:after {
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 0 10vw;
+    left: 5px;
+    text-shadow: -5px 0 rgba(68, 145, 74, 0.863);
+    top: 0;
+    color: white;
+    background: black;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+
+    animation: glitchMainTitle-after 2s infinite linear alternate-reverse;
+}
+
 /* ----section(Notification)---- */
 
 .Toaster__ {
@@ -3283,22 +4031,42 @@ li.L9 {
 #bellSize {
     font-size: 8em;
 }
-
+//swing
 @keyframes swing {
     0% {
-        transform: rotateZ(0);
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     25% {
+        -ms-transform: rotateZ(25deg);
+        -moz-transform: rotateZ(25deg);
+        -webkit-transform: rotateZ(25deg);
+        -o-transform: rotateZ(25deg);
         transform: rotateZ(25deg);
     }
     50% {
+        -ms-transform: rotateZ(-15deg);
+        -moz-transform: rotateZ(-15deg);
+        -webkit-transform: rotateZ(-15deg);
+        -o-transform: rotateZ(-15deg);
         transform: rotateZ(-15deg);
     }
     75% {
+        -ms-transform: rotateZ(10deg);
+        -moz-transform: rotateZ(10deg);
+        -webkit-transform: rotateZ(10deg);
+        -o-transform: rotateZ(10deg);
         transform: rotateZ(10deg);
     }
     100% {
-        transform: rotateZ(0);
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
 }
 
@@ -3331,7 +4099,7 @@ li.L9 {
     animation: trans 3.5s ease-in-out;
     animation-duration: 0.9s;
 }
-
+//trans
 @keyframes trans {
     0% {
         top: -300px;
@@ -3345,6 +4113,38 @@ li.L9 {
     75% {
         transform: rotateZ(10deg);
     } */
+    100% {
+        top: 10px;
+    }
+}
+@-webkit-keyframes trans {
+    0% {
+        top: -300px;
+    }
+    100% {
+        top: 10px;
+    }
+}
+@-moz-keyframes trans {
+    0% {
+        top: -300px;
+    }
+    100% {
+        top: 10px;
+    }
+}
+@-o-keyframes trans {
+    0% {
+        top: -300px;
+    }
+    100% {
+        top: 10px;
+    }
+}
+@-ms-keyframes trans {
+    0% {
+        top: -300px;
+    }
     100% {
         top: 10px;
     }
@@ -3712,8 +4512,44 @@ footer {
 
     animation: glitchFooter-before 3s infinite linear alternate-reverse;
 }
-
+//glitchFooter-before
 @keyframes glitchFooter-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchFooter-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchFooter-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchFooter-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchFooter-before {
     $steps: 25;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -3736,8 +4572,44 @@ footer {
 
     animation: glitchFooter-after 4s infinite linear alternate-reverse;
 }
-
+//glitchFooter-after
 @keyframes glitchFooter-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchFooter-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchFooter-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchFooter-after {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchFooter-after {
     $steps: 25;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -3778,8 +4650,44 @@ footer {
 
     animation: glitchFooterApp-before 4.5s infinite linear alternate-reverse;
 }
-
+//glitchFooterApp-before
 @keyframes glitchFooterApp-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchFooterApp-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchFooterApp-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchFooterApp-before {
+    $steps: 25;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchFooterApp-before {
     $steps: 25;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -3802,8 +4710,44 @@ footer {
 
     animation: glitchFooterApp-after 3.5s infinite linear alternate-reverse;
 }
-
+//glitchFooterApp-after
 @keyframes glitchFooterApp-after {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-webkit-keyframes glitchFooterApp-after {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-moz-keyframes glitchFooterApp-after {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-o-keyframes glitchFooterApp-after {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(100) + px, 9999px, random(100) + px, 0);
+            animation-delay: 5s;
+        }
+    }
+}
+@-ms-keyframes glitchFooterApp-after {
     $steps: 30;
     @for $i from 0 through $steps {
         #{percentage($i*(1/$steps))} {
@@ -3957,7 +4901,7 @@ html.darkMode {
 
 // Tablets
 //@media screen and (max-width: 1024px) {
-@media screen and (min-device-width: 376px) and (max-device-width: 1024px) {
+@media screen and (min-device-width: 416px) and (max-device-width: 1024px) {
     * {
         zoom: 0.996;
     }
@@ -4000,6 +4944,7 @@ html.darkMode {
         //width: 870px;
         width: 1000px;
     }
+    //typing
     @keyframes typing {
         from {
             width: 0;
@@ -4009,6 +4954,39 @@ html.darkMode {
             width: 1000px;
         }
     }
+    @-webkit-keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 1000px;
+        }
+    }
+    @-moz-keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 1000px;
+        }
+    }
+    @-o-keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 1000px;
+        }
+    }
+    @-ms-keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 1000px;
+        }
+    }
+
     .slider-wrapper1024 {
         //font-size: 25px;
         font-size: 1.7em;
@@ -4083,6 +5061,7 @@ html.darkMode {
         zoom: 1.35;
         animation: slideDown 8s linear 2s infinite;
     }
+    //slideDown
     @keyframes slideDown {
         0% {
             margin-top: 0vh;
@@ -4091,6 +5070,39 @@ html.darkMode {
             margin-top: 70vh;
         }
     }
+    @-webkit-keyframes slideDown {
+        0% {
+            margin-top: 0vh;
+        }
+        100% {
+            margin-top: 70vh;
+        }
+    }
+    @-moz-keyframes slideDown {
+        0% {
+            margin-top: 0vh;
+        }
+        100% {
+            margin-top: 70vh;
+        }
+    }
+    @-o-keyframes slideDown {
+        0% {
+            margin-top: 0vh;
+        }
+        100% {
+            margin-top: 70vh;
+        }
+    }
+    @-ms-keyframes slideDown {
+        0% {
+            margin-top: 0vh;
+        }
+        100% {
+            margin-top: 70vh;
+        }
+    }
+
     #endWall {
         margin-bottom: 70%;
     }
@@ -4110,7 +5122,7 @@ html.darkMode {
 }
 
 // Mobiles
-@media screen and (max-device-width: 375px) {
+@media screen and (max-device-width: 415px) {
     * {
         zoom: 1.19;
     }
@@ -4220,7 +5232,7 @@ html.darkMode {
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
     }
-
+    //type-mobile
     @keyframes type-mobile {
         0% {
             width: 0;
@@ -4251,7 +5263,52 @@ html.darkMode {
             border: none;
         }
     }
-
+    @-moz-keyframes type-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        99.9% {
+            border-right: 0.15em solid rgb(56, 142, 80);
+        }
+        100% {
+            opacity: 1;
+            border: none;
+        }
+    }
+    @-o-keyframes type-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        99.9% {
+            border-right: 0.15em solid rgb(56, 142, 80);
+        }
+        100% {
+            opacity: 1;
+            border: none;
+        }
+    }
+    @-ms-keyframes type-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        99.9% {
+            border-right: 0.15em solid rgb(56, 142, 80);
+        }
+        100% {
+            opacity: 1;
+            border: none;
+        }
+    }
+    //typeEnd-mobile
     @keyframes typeEnd-mobile {
         0% {
             width: 0;
@@ -4274,7 +5331,40 @@ html.darkMode {
             opacity: 1;
         }
     }
-
+    @-moz-keyframes typeEnd-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-o-keyframes typeEnd-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-ms-keyframes typeEnd-mobile {
+        0% {
+            width: 0;
+        }
+        1% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    //blink-mobile
     @keyframes blink-mobile {
         50% {
             border-color: transparent;
@@ -4282,7 +5372,22 @@ html.darkMode {
     }
     @-webkit-keyframes blink-mobile {
         50% {
-            border-color: tranparent;
+            border-color: transparent;
+        }
+    }
+    @-moz-keyframes blink-mobile {
+        50% {
+            border-color: transparent;
+        }
+    }
+    @-o-keyframes blink-mobile {
+        50% {
+            border-color: transparent;
+        }
+    }
+    @-ms-keyframes blink-mobile {
+        50% {
+            border-color: transparent;
         }
     }
 
@@ -4524,6 +5629,7 @@ html.darkMode {
         -webkit-animation: appear 2s linear;
         animation: appear 2s linear;
     }
+    //appear
     @keyframes appear {
         0% {
             opacity: 0;
@@ -4535,6 +5641,51 @@ html.darkMode {
             opacity: 1;
         }
     }
+    @-webkit-keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-moz-keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-o-keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-ms-keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
     .theDeveloperNetworkLogo375 {
         animation-play-state: paused;
         width: 80px;
@@ -4548,6 +5699,7 @@ html.darkMode {
         transform: rotateY(45deg);
         animation: rotate3DNLogo 10s linear infinite;
     }
+    //rotate3DNLogo
     @keyframes rotate3DNLogo {
         from {
             transform: rotateY(0deg);
@@ -4556,6 +5708,39 @@ html.darkMode {
             transform: rotateY(360deg);
         }
     }
+    @-webkit-keyframes rotate3DNLogo {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+    @-moz-keyframes rotate3DNLogo {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+    @-o-keyframes rotate3DNLogo {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+    @-ms-keyframes rotate3DNLogo {
+        from {
+            transform: rotateY(0deg);
+        }
+        to {
+            transform: rotateY(360deg);
+        }
+    }
+
     /* SideMenuAnimationMobile END */
     #darkModeWrap {
         //border: 2px solid red;
@@ -4788,7 +5973,8 @@ html.darkMode {
     .cardWallWrapper {
         zoom: 1.25;
         // width: 91vw;
-        width: 840px;
+        // width: 840px;
+        width: 100vw;
         -webkit-transition: 1.25s ease-out;
         transition: 1.25s ease-out;
         transform: translateY(-600px);
@@ -4895,8 +6081,8 @@ html.darkMode {
         border: 3px solid rgb(56, 142, 80);
     }
     .endWallMobile {
-        zoom: 3;
-        transform: translateX(-35px);
+        zoom: 2;
+        // transform: translateX(-35px);
         color: rgba(255, 255, 255, 0.786);
     }
 
@@ -4906,6 +6092,18 @@ html.darkMode {
     #noPostOnWall {
         font-size: 2.65em;
         animation: translateYwallTitle 8s infinite;
+    }
+    //translateYwallTitle
+    @keyframes translateYwallTitle {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(600px);
+        }
+        100% {
+            transform: translateY(0);
+        }
     }
     @-webkit-keyframes translateYwallTitle {
         0% {
@@ -4940,7 +6138,7 @@ html.darkMode {
             transform: translateY(0);
         }
     }
-    @keyframes translateYwallTitle {
+    @-ms-keyframes translateYwallTitle {
         0% {
             transform: translateY(0);
         }
