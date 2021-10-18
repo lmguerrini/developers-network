@@ -1059,7 +1059,7 @@ h2 {
 /* ----container(Registration-Login-ResetPsw)---- */
 
 .sectionRegistrationContainer {
-    //border: 1px solid red;
+    // border: 1px solid red;
     top: 340px;
     display: flex;
     justify-content: center;
@@ -1069,6 +1069,8 @@ h2 {
 .sectionRegistration {
     //background-color: rgba(7, 7, 7, 0.5);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    filter: blur(4px);
     width: 100%;
     //height: 400px;
     height: 42vh;
@@ -4934,7 +4936,7 @@ html.darkMode {
     }
     .Welcometo1024 {
         font-family: Dejavu Sans, monospace;
-        font-size: 1.7em;
+        // font-size: 1.7em;
         color: white;
         align-self: center;
     }
@@ -5008,7 +5010,7 @@ html.darkMode {
 
     // Registration
     .sectionRegistration1024 {
-        //border: 1px solid lime;
+        // border: 1px solid lime;
         //margin-top: 50px;
         height: 50vh;
         transform: translateY(-55px);
@@ -5038,6 +5040,7 @@ html.darkMode {
     .glitchFooter1024 {
         font-size: 1.1em;
         margin-left: 15px;
+        bottom: 20px;
         //margin-top: 5px;
         //transform: translateY(-75px);
     }
