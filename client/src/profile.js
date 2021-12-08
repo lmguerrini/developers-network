@@ -15,6 +15,7 @@ import Wall from "./wall";
 //import EditProfile from "./editprofile";
 //import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useEffect } from "react";
 
 // destructuring it, it's just a personal preference
 export default function Profile({
@@ -40,6 +41,7 @@ export default function Profile({
     editLanguages,
     toggleModalUploader,
     toggleModalSettings,
+    sendDataToParent,
 }) {
     /* console.log(
         "Profile {props}: ",
@@ -68,6 +70,18 @@ export default function Profile({
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
     // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
     const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
+
+    useEffect(() => {
+        let abort;
+        (async () => {
+            if (!abort) {
+                sendDataToParent(true);
+            }
+        })();
+        return () => {
+            abort = true;
+        };
+    }, []);
 
     return (
         <>
@@ -162,7 +176,7 @@ export default function Profile({
                         >
                             <div className="content">
                                 <div className="cardContainer cardContainerBackExtraInfo">
-                                    <div className="card cardProfileBack375">
+                                    <div className="card cardProfileBack1550 cardProfileBack375">
                                         {/* <div id="privateChatPaddingTop"></div> */}
                                         <div
                                             id="introTitle"
@@ -170,6 +184,7 @@ export default function Profile({
                                         >
                                             {/*  <SiCodefactor /> */}
                                             <BiCodeCurly />
+                                            {/* <p>extra info</p> */}
                                         </div>
                                         <div id="extraInfoTitle">
                                             <p>

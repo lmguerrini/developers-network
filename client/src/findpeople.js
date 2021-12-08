@@ -3,7 +3,7 @@ import axios from "./axios";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-export default function FindPeople() {
+export default function FindPeople({ sendDataToParent }) {
     const [query, setQuery] = useState("");
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(false);
@@ -16,6 +16,7 @@ export default function FindPeople() {
         let abort;
         // NB if we wanna use an async fn we have to use it in a IIFE
         (async () => {
+            sendDataToParent(false); // App's state profilePage: false
             const { data } = await axios.get("/users/latest");
             if (!query && !abort) {
                 return setUsers(data);
@@ -43,7 +44,7 @@ export default function FindPeople() {
         <>
             <div className="sectionWrapper">
                 {/* <h2>Find People</h2> */}
-                <div className="cardContainer">
+                <div className="cardContainer cardContainer375">
                     <div className="card cardFriends375">
                         {!query && (
                             <div className="friendsGlassOverlay">

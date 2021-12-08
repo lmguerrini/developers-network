@@ -1,7 +1,7 @@
 import { Component } from "react";
 import axios from "./axios"; // because it's not available globally like in Vue!
 import { Link } from "react-router-dom";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+// import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 // ["pseudo code"]:
 // 1. render 4 input fields, button, and an error message if there is one
@@ -56,7 +56,7 @@ export default class Registration extends Component {
         axios
             .post("/registration", this.state)
             .then(({ data }) => {
-                console.log("data: ", data);
+                // console.log("data: ", data);
 
                 //if (data.error) {
                 if (!data.success) {
@@ -85,8 +85,7 @@ export default class Registration extends Component {
                         this.setState({ error: "Please enter a valid email!" });
                     } else if (data.error == "users_email_key") {
                         this.setState({
-                            error:
-                                "It seems this email already exists in our database. Please try again!",
+                            error: "It seems this email already exists in our database. Please try again!",
                         });
                     }
                 } else {
@@ -105,11 +104,12 @@ export default class Registration extends Component {
         return (
             <section className="sectionRegistrationContainer sectionR-L-RP375">
                 <div
-                    className={
+                    className="sectionRegistration"
+                    /* className={
                         !this.state.mediaQuery1024px.matches
                             ? "sectionRegistration"
-                            : "sectionRegistration sectionRegistration1024"
-                    }
+                            : "sectionRegistration"
+                    } */
                 >
                     <h1
                         id="titles"
@@ -157,7 +157,7 @@ export default class Registration extends Component {
                     />
                     {/* <button onClick={() => this.handleClick()}>Register</button> */}
                     <button id="registerBtn" onClick={this.handleClick}>
-                        Register
+                        Sign up
                     </button>
                     <p id="alreadyAmember">
                         Already a member? ☞{" "}

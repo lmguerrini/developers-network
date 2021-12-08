@@ -16,12 +16,12 @@ export function reducer(state = {}, action) {
         };
     }
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
-        console.log("ACCEPT-reducer");
+        // console.log("ACCEPT-reducer");
         state = {
             ...state,
             friendsWannabesList: state.friendsWannabesList.map((user) => {
-                console.log("user.id: ", user.id);
-                console.log("action.acceptUserId: ", action.acceptUserId);
+                // console.log("user.id: ", user.id);
+                // console.log("action.acceptUserId: ", action.acceptUserId);
                 /* user.id == action.acceptUserId &&
                     (user = {
                         ...user,
@@ -37,7 +37,7 @@ export function reducer(state = {}, action) {
         };
     }
     if (action.type == "DELETE_FRIEND") {
-        console.log("DELETE-reducer");
+        // console.log("DELETE-reducer");
         state = {
             ...state,
             friendsWannabesList: state.friendsWannabesList.filter((user) => {
@@ -71,7 +71,7 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "DELETE_PRIVATE_MESSAGE") {
-        console.log("Reducer DELETE_PRIVATE_MESSAGE");
+        // console.log("Reducer DELETE_PRIVATE_MESSAGE");
 
         /* const privateMessagesFiltered = state.privateMessages.filter(
             (deletePrivateMessage) =>
@@ -173,7 +173,7 @@ export function reducer(state = {}, action) {
             ...state,
             privateMessageNotifications: action.privateMessageNotification,
         };
-        console.log("Reducer PM_NOTIFICATION A state :", state);
+        // console.log("Reducer PM_NOTIFICATION A state :", state);
     }
 
     if (action.type == "ADD_MOST_RECENT_PM_NOTIFICATIONS") {
@@ -209,7 +209,7 @@ export function reducer(state = {}, action) {
     }
 
     if (action.type == "POST_WALL_POST") {
-        console.log("Reducer POST_WALL_POST");
+        // console.log("Reducer POST_WALL_POST");
 
         state = {
             ...state,

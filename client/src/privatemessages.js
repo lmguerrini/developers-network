@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 } from "./actions"; */
 import { RiDeleteBinLine } from "react-icons/ri";
 import { RiGitRepositoryPrivateLine } from "react-icons/ri";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+// import OtherProfile from "./otherprofile";
 //import OnlineUsers from "./onlineusers";
 
 export default function PrivateMessages(props) {
@@ -16,7 +18,12 @@ export default function PrivateMessages(props) {
     const privateChatMessages = useSelector(
         (state) => state && state.privateMessages
     );
-
+    const namerecipientPM = props.nameFromOPforPM;
+    const mediaQuery1024px = useMediaQuery("(max-device-width:1024px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
+    const matrixCodeAnimation = document.getElementsByClassName("matrixCode");
+    const appParentWrapper =
+        document.getElementsByClassName("appParentWrapper");
     //const dispatch = useDispatch(); // delete PM
     const recipientId = props.match.params.id;
     //console.log("PrivateMessages recipientId: ", recipientId);
@@ -31,6 +38,7 @@ export default function PrivateMessages(props) {
         let abort;
         (async () => {
             if (!abort) {
+                props.sendDataToParent(false); // App's state profilePage: false
                 //console.log("PrivateMessages useEffect");
 
                 socket.emit(
@@ -77,6 +85,23 @@ export default function PrivateMessages(props) {
         let abort;
         (async () => {
             if (!abort && elemRef.current) {
+                if (!window.location.hash || window.location.hash == "") {
+                    window.location = window.location + "#reloadedPM";
+                    window.location.reload();
+                } else {
+                    if (!mediaQuery1024px) {
+                        for (let a = 0; a < matrixCodeAnimation.length; a++) {
+                            matrixCodeAnimation[a].classList.add(
+                                "matrixCodeVisible"
+                            );
+                        }
+                        for (let b = 0; b < appParentWrapper.length; b++) {
+                            appParentWrapper[b].classList.add(
+                                "appParentWrapperVisible"
+                            );
+                        }
+                    }
+                }
                 // "scrollIntoView" shouldn't happen until "elemRef" exists
                 elemRef.current.scrollIntoView({
                     block: "end",
@@ -106,11 +131,14 @@ export default function PrivateMessages(props) {
 
     return (
         <>
-            {" "}
+            {/* <OtherProfile
+                dataFromOP={props}
+                // recipientNamePM={`${this.state.first} ${this.state.last}`}
+            />{" "} */}
             {/* <h1>Private Messages between you and {otherUserId}</h1> */}
-            <div className="sectionWrapper">
+            <div className="sectionWrapper sectionChatWrapper">
                 <div
-                    className="cardContainer cardContainerPM" /* ref={elemRef} */
+                    className="cardContainer cardContainerPM cardContainer375" /* ref={elemRef} */
                 >
                     <div className="cardChat">
                         {/* <OnlineUsers></OnlineUsers> */}
@@ -230,9 +258,10 @@ export default function PrivateMessages(props) {
                                                         socket.emit(
                                                             "delete private message",
                                                             {
-                                                                privateMessageId: Number(
-                                                                    message.privateMessageId
-                                                                ),
+                                                                privateMessageId:
+                                                                    Number(
+                                                                        message.privateMessageId
+                                                                    ),
                                                                 privateMessageDateTime:
                                                                     message.privateMessageDateTime,
                                                             }
@@ -279,13 +308,38 @@ export default function PrivateMessages(props) {
                                         </div>
                                     </div>
                                 ))}
+                            {privateChatMessages == 0 && (
+                                <p
+                                    style={{
+                                        zoom: "1.2",
+                                        color: "gray",
+                                        top: "40%",
+                                        paddingTop: "20vh",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    No PM has been written yet_
+                                </p>
+                            )}
                         </div>
                         <div className="chatTextareaContainer">
                             <textarea
                                 id="chatTextarea"
                                 rows="3"
-                                cols="93"
-                                placeholder="Enter your private message here.."
+                                cols={
+                                    !mediaQuery375px
+                                        ? !mediaQuery1024px
+                                            ? "93"
+                                            : "110"
+                                        : "60"
+                                }
+                                placeholder={
+                                    privateChatMessages != 0
+                                        ? "Enter your private message here.."
+                                        : namerecipientPM
+                                        ? "Say 👋🏼 to " + `${namerecipientPM}!`
+                                        : "No PM has been written yet. Be the first one to write a message!"
+                                }
                                 onKeyDown={handlekeyDownPrivate}
                             />
                         </div>

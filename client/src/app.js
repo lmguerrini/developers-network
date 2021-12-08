@@ -38,6 +38,7 @@ export default class App extends Component {
             id: "",
             first: "",
             last: "",
+            nameOPforPM: "",
             email: "",
             profile_pic: "",
             otherprofile_pic: "",
@@ -54,6 +55,7 @@ export default class App extends Component {
             notifications: 0,
             //active: false,
             menuOpen: false,
+            profilePage: false,
             // mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
             mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
@@ -71,9 +73,18 @@ export default class App extends Component {
         this.editGitHub = this.editGitHub.bind(this);
         this.editLinkedIn = this.editLinkedIn.bind(this);
         this.editLanguages = this.editLanguages.bind(this);
-        this.callbackFunction = (childData) => {
-            // this.setState({ notifications: childData });
-            this.setState({ otherprofile_pic: childData });
+        // this.callbackFunction = (childData) => {
+        //     // this.setState({ notifications: childData });
+        //     this.setState({ otherprofile_pic: childData.profile_pic, nameOPforPM: `${childData.first} ${childData.last}` });
+        // };
+        this.callbackDataFromOP = (dataFromOP) => {
+            this.setState({
+                otherprofile_pic: dataFromOP.profile_pic,
+                nameOPforPM: `${dataFromOP.first} ${dataFromOP.last}`,
+            });
+        };
+        this.callbackIsProfilePage = (isProfilePage) => {
+            this.setState({ profilePage: isProfilePage });
         };
     }
 
@@ -136,6 +147,9 @@ export default class App extends Component {
                     }); */
                 });
         }
+
+        // console.log("URL :", window.location.href);
+        // console.log("URL :", window.location.pathname);
     }
 
     async deleteUser() {
@@ -156,7 +170,7 @@ export default class App extends Component {
     }
 
     toggleModalUploader() {
-        console.log("toggleModalUploader is running!");
+        // console.log("toggleModalUploader is running!");
         /* if (!this.state.uploaderIsVisible) {
             this.setState({
                 uploaderIsVisible: true,
@@ -196,7 +210,7 @@ export default class App extends Component {
         });
     }
     editLocation(newLocation) {
-        console.log("editLocation worked!", newLocation);
+        // console.log("editLocation worked!", newLocation);
         this.setState({
             location: newLocation,
         });
@@ -292,6 +306,7 @@ export default class App extends Component {
                                     <a
                                         href="/friends"
                                         id="profileIconText"
+                                        className="myDevNet375"
                                         onClick={() => this.closeMenu()}
                                     >
                                         My Developers Network{" "}
@@ -311,6 +326,7 @@ export default class App extends Component {
                                     <a
                                         href="/users"
                                         id="profileIconText"
+                                        className="myDevNet375"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Find Developers{" "}
@@ -330,6 +346,7 @@ export default class App extends Component {
                                     <a
                                         href="/chat"
                                         id="profileIconText"
+                                        className="myDevNet375"
                                         onClick={() => this.closeMenu()}
                                     >
                                         Developers Chat
@@ -356,7 +373,7 @@ export default class App extends Component {
                                 </div>
                                 <div className="profileIconWrap logoutIconBorderTop">
                                     <a
-                                        href="/logout"
+                                        // href="/logout"
                                         title="Logout"
                                         className="logoutLink iconTextTranslateY2"
                                         id="profileIcon"
@@ -365,7 +382,7 @@ export default class App extends Component {
                                         <FiLogOut />
                                     </a>
                                     <a
-                                        href="/logout"
+                                        // href="/logout"
                                         id="profileIconText"
                                         className=" iconTextTranslate"
                                         onClick={() => this.logout()}
@@ -405,15 +422,27 @@ export default class App extends Component {
                         </Menu>
                     </div>
                 )}
-                <div className="appParentWrapper">
-                    <div className="parentContainer">
-                        <div className="childrenContainer">
+                <div className="appParentWrapper appParentWrapperVisible">
+                    <div
+                        className={
+                            !this.state.mediaQuery375px.matches
+                                ? "parentContainer"
+                                : "parentContainerApp375"
+                        }
+                    >
+                        <div
+                            className={
+                                !this.state.mediaQuery375px.matches
+                                    ? "childrenContainer"
+                                    : "childrenContainerApp375"
+                            }
+                        >
                             <BrowserRouter>
                                 {!this.state.mediaQuery375px.matches ? (
                                     <header className="headerApp">
                                         {/* <h1>App -L-</h1> */}
                                         <div
-                                            className="headerAppGlass matrixCodeContainer matrixCode"
+                                            className="headerAppGlass matrixCodeContainer matrixCodeContainer1024app matrixCode matrixCodeApp"
                                             id="particlesApp-js"
                                         >
                                             <ParallaxProvider>
@@ -450,7 +479,7 @@ export default class App extends Component {
                                     <header className="headerApp">
                                         {/* <h1>App -L-</h1> */}
                                         <div
-                                            className="headerAppGlass matrixCode375 matrixCode375app"
+                                            className=" matrixCodeContainer375app headerAppGlass375 matrixCode375app matrixCode375app"
                                             id="particlesApp-js"
                                         >
                                             <ParallaxProvider>
@@ -630,54 +659,45 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             {/* <h1>[SECTION -Profile]</h1> */}
-                                            <div className="profile-bioeditorContainer">
-                                                <Profile
-                                                    id={this.state.id}
-                                                    first={this.state.first}
-                                                    last={this.state.last}
-                                                    profile_pic={
-                                                        this.state.profile_pic
-                                                    }
-                                                    toggleModalUploader={
-                                                        this.toggleModalUploader
-                                                    }
-                                                    toggleModalSettings={
-                                                        this.toggleModalSettings
-                                                    }
-                                                    bio={this.state.bio}
-                                                    editBio={this.editBio}
-                                                    location={
-                                                        this.state.location
-                                                    }
-                                                    editLocation={
-                                                        this.editLocation
-                                                    }
-                                                    education={
-                                                        this.state.education
-                                                    }
-                                                    editEducation={
-                                                        this.editEducation
-                                                    }
-                                                    skills={this.state.skills}
-                                                    editSkills={this.editSkills}
-                                                    work={this.state.work}
-                                                    editWork={this.editWork}
-                                                    gitHub={this.state.gitHub}
-                                                    editGitHub={this.editGitHub}
-                                                    linkedIn={
-                                                        this.state.linkedIn
-                                                    }
-                                                    editLinkedIn={
-                                                        this.editLinkedIn
-                                                    }
-                                                    languages={
-                                                        this.state.languages
-                                                    }
-                                                    editLanguages={
-                                                        this.editLanguages
-                                                    }
-                                                />
-                                            </div>
+                                            {/* <div className="profile-bioeditorContainer"> */}
+                                            <Profile
+                                                id={this.state.id}
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                profile_pic={
+                                                    this.state.profile_pic
+                                                }
+                                                toggleModalUploader={
+                                                    this.toggleModalUploader
+                                                }
+                                                toggleModalSettings={
+                                                    this.toggleModalSettings
+                                                }
+                                                bio={this.state.bio}
+                                                editBio={this.editBio}
+                                                location={this.state.location}
+                                                editLocation={this.editLocation}
+                                                education={this.state.education}
+                                                editEducation={
+                                                    this.editEducation
+                                                }
+                                                skills={this.state.skills}
+                                                editSkills={this.editSkills}
+                                                work={this.state.work}
+                                                editWork={this.editWork}
+                                                gitHub={this.state.gitHub}
+                                                editGitHub={this.editGitHub}
+                                                linkedIn={this.state.linkedIn}
+                                                editLinkedIn={this.editLinkedIn}
+                                                languages={this.state.languages}
+                                                editLanguages={
+                                                    this.editLanguages
+                                                }
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
+                                            />
+                                            {/* </div> */}
                                         </section>
                                     )}
                                 />
@@ -693,9 +713,15 @@ export default class App extends Component {
                                                 match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
-                                                parentCallback={
-                                                    this.callbackFunction
+                                                callbackDataFromOP={
+                                                    this.callbackDataFromOP
                                                 }
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
+                                                // parentCallback={
+                                                //     this.callbackFunction
+                                                // }
                                             />
                                         </section>
                                     )}
@@ -706,9 +732,12 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             <FindPeople
-                                            /* match={props.match}
-                                            key={props.match.url}
-                                            history={props.history} */
+                                                /* match={props.match}
+                                                key={props.match.url}
+                                                history={props.history} */
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
                                             />
                                         </section>
                                     )}
@@ -718,9 +747,12 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             <Friends
-                                            /* match={props.match}
-                                            key={props.match.url}
-                                            history={props.history} */
+                                                /* match={props.match}
+                                                key={props.match.url}
+                                                history={props.history} */
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
                                             />
                                         </section>
                                     )}
@@ -730,11 +762,14 @@ export default class App extends Component {
                                     render={() => (
                                         <section>
                                             <Chat
-                                            /* match={props.match}
+                                                /* match={props.match}
                                                 key={props.match.url}
                                                 history={props.history}
                                                 id={this.state.id}
                                                 name={`${this.state.first} ${this.state.last}`} */
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
                                             />
                                         </section>
                                     )}
@@ -751,6 +786,12 @@ export default class App extends Component {
                                                 parentCallback={
                                                     this.callbackFunction
                                                 }
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
+                                                nameFromOPforPM={
+                                                    this.state.nameOPforPM
+                                                }
                                             />
                                         </section>
                                     )}
@@ -765,6 +806,9 @@ export default class App extends Component {
                                                 history={props.history}
                                                 name={`${this.state.first} ${this.state.last}`}
                                                 id={this.state.id}
+                                                sendDataToParent={
+                                                    this.callbackIsProfilePage
+                                                }
                                             />
                                         </section>
                                     )}
@@ -818,13 +862,16 @@ export default class App extends Component {
                             </BrowserRouter>
                         </div>
 
-                        <footer
-                            id="footerApp"
-                            className="glitchFooterApp"
-                            data-text="Copyright © 2021 DN, Inc. All rights reserved."
-                        >
-                            Copyright © 2021 DN, Inc. All rights reserved.
-                        </footer>
+                        {!this.state.profilePage && (
+                            <footer
+                                id="footerApp"
+                                className="glitchFooterApp"
+                                data-text="Copyright © 2021 DN, Inc. All rights reserved."
+                            >
+                                {/* <div className="footerAppProfileOverlay"></div> */}
+                                Copyright © 2021 DN, Inc. All rights reserved.
+                            </footer>
+                        )}
                     </div>
                 </div>
             </>

@@ -106,7 +106,7 @@ export const LocationEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={locationToggleTextarea}
                             >
-                                {!props.location ? "Add location" : "Edit"}
+                                {!props.location ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -114,7 +114,7 @@ export const LocationEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={locationToggleTextarea}
                             >
-                                {!props.location ? "Add location" : "Edit"}
+                                {!props.location ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -223,7 +223,7 @@ export const EducationEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={educationToggleTextarea}
                             >
-                                {!props.education ? "Add education" : "Edit"}
+                                {!props.education ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -231,7 +231,7 @@ export const EducationEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={educationToggleTextarea}
                             >
-                                {!props.education ? "Add education" : "Edit"}
+                                {!props.education ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -338,7 +338,7 @@ export const SkillsEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={skillsToggleTextarea}
                             >
-                                {!props.skills ? "Add skills" : "Edit"}
+                                {!props.skills ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -346,7 +346,7 @@ export const SkillsEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={skillsToggleTextarea}
                             >
-                                {!props.skills ? "Add skills" : "Edit"}
+                                {!props.skills ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -451,7 +451,7 @@ export const WorkEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={workToggleTextarea}
                             >
-                                {!props.work ? "Add work" : "Edit"}
+                                {!props.work ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -459,7 +459,7 @@ export const WorkEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={workToggleTextarea}
                             >
-                                {!props.work ? "Add work" : "Edit"}
+                                {!props.work ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -593,7 +593,7 @@ export const GitHubEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={gitHubToggleTextarea}
                             >
-                                {!props.gitHub ? "Add GitHub link" : "Edit"}
+                                {!props.gitHub ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -601,7 +601,7 @@ export const GitHubEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={gitHubToggleTextarea}
                             >
-                                {!props.gitHub ? "Add GitHub link" : "Edit"}
+                                {!props.gitHub ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -737,7 +737,7 @@ export const LinkedInEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={linkedInToggleTextarea}
                             >
-                                {!props.linkedIn ? "Add LinkedIn link" : "Edit"}
+                                {!props.linkedIn ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -745,7 +745,7 @@ export const LinkedInEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={linkedInToggleTextarea}
                             >
-                                {!props.linkedIn ? "Add LinkedIn link" : "Edit"}
+                                {!props.linkedIn ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>
@@ -854,7 +854,7 @@ export const LanguagesEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={languagesToggleTextarea}
                             >
-                                {!props.languages ? "Add languages" : "Edit"}
+                                {!props.languages ? "Add" : "Edit"}
                             </button>
                         ) : (
                             <button
@@ -862,7 +862,7 @@ export const LanguagesEditor = (props) => {
                                 className="addEditBtn"
                                 onClick={languagesToggleTextarea}
                             >
-                                {!props.languages ? "Add languages" : "Edit"}
+                                {!props.languages ? "Add" : "Edit"}
                             </button>
                         )}
                     </div>

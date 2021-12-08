@@ -322,7 +322,7 @@ export default function Wall({ id, myWall, name }) {
                                                         >
                                                             {myWall && (
                                                                 <p
-                                                                    className="deleteWallPostBtn"
+                                                                    className="deleteWallPostBtn walPosteDateMobile"
                                                                     title="Delete Post"
                                                                     onClick={() =>
                                                                         dispatch(
@@ -335,7 +335,7 @@ export default function Wall({ id, myWall, name }) {
                                                                     X
                                                                 </p>
                                                             )}
-                                                            <p>
+                                                            <p className="walPostTitleMobile">
                                                                 <b>
                                                                     {post.title ==
                                                                     "undefined"
@@ -343,7 +343,7 @@ export default function Wall({ id, myWall, name }) {
                                                                         : post.title}
                                                                 </b>{" "}
                                                             </p>
-                                                            <p>
+                                                            <p className="walPosteDateMobile">
                                                                 <small id="uploaderSigns">
                                                                     ❮
                                                                 </small>

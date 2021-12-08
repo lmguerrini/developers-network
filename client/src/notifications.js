@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import { socket } from "./socket";
 import { Link } from "react-router-dom";
 import { getFriendsWannabesList } from "./actions";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function Notification(props) {
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
     const chatMessages = useSelector((state) => state && state.messages);
 
     const notificationsPM = useSelector(
@@ -59,6 +61,7 @@ export default function Notification(props) {
         let abort;
         (async () => {
             if (!abort) {
+                props.sendDataToParent(false); // App's state profilePage: false
                 if (recipientId != 0) {
                     socket.emit(
                         "get most recent notifications",
@@ -81,7 +84,9 @@ export default function Notification(props) {
         <>
             {/* <h1>Notifications</h1> */}
             <div className="sectionWrapper">
-                <div className="cardContainer" /* ref={elemRef} */>
+                <div
+                    className="cardContainer cardContainer375" /* ref={elemRef} */
+                >
                     <div className="cardChat cardNotifications375">
                         <div className="wallPostsGlassOverlayWrap">
                             {/* <div className="wallPostsGlassOverlay visible">
@@ -268,7 +273,7 @@ export default function Notification(props) {
                                                     /> */}
                                                         {notificationsPM.senderProfile_picPM ? (
                                                             <img
-                                                                className="profile_pic visible"
+                                                                className="profile_pic visible profPicNotifications profPicNotifications375"
                                                                 src={
                                                                     notificationsPM.senderProfile_picPM
                                                                 }
@@ -278,40 +283,209 @@ export default function Notification(props) {
                                                             />
                                                         ) : (
                                                             <img
-                                                                className="profile_pic visible"
+                                                                className="profile_pic visible profPicNotifications profPicNotifications375"
                                                                 src="/img/defaultProfilePic.png"
                                                                 alt="default profile_pic"
                                                             />
                                                         )}
                                                     </Link>
-                                                    <b id="messageName">
-                                                        &nbsp;
-                                                        {
-                                                            notificationsPM.senderNamePM
-                                                        }
-                                                        &emsp;
-                                                    </b>{" "}
-                                                    <span>
-                                                        wrote you a P.M. &nbsp;
-                                                        <small id="uploaderSigns">
-                                                            ❮
-                                                        </small>
-                                                        &nbsp;
-                                                        {
-                                                            notificationsPM.privateMessageDateTimeFromNow
-                                                        }
-                                                        &nbsp;
-                                                        <small id="uploaderSigns">
-                                                            ❯
-                                                        </small>
-                                                    </span>
+                                                    {!mediaQuery375px ? (
+                                                        <div className="notificationMessContainer">
+                                                            <b id="messageName">
+                                                                &nbsp;
+                                                                {
+                                                                    notificationsPM.senderNamePM
+                                                                }
+                                                                &emsp;
+                                                            </b>{" "}
+                                                            <span>
+                                                                wrote you a P.M.
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❮
+                                                                </small>
+                                                                &nbsp;
+                                                                {
+                                                                    notificationsPM.privateMessageDateTimeFromNow
+                                                                }
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❯
+                                                                </small>
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="notificationMessContainer">
+                                                            <b
+                                                                id="messageName"
+                                                                className="messageNameNotifications"
+                                                            >
+                                                                &nbsp;
+                                                                {
+                                                                    notificationsPM.senderNamePM
+                                                                }
+                                                                &emsp;
+                                                            </b>{" "}
+                                                            <br />
+                                                            <span>
+                                                                wrote you a P.M.
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❮
+                                                                </small>
+                                                                &nbsp;
+                                                                {
+                                                                    notificationsPM.privateMessageDateTimeFromNow
+                                                                }
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❯
+                                                                </small>
+                                                            </span>
+                                                        </div>
+                                                    )}
                                                 </p>
                                             </div>
                                         </div>
                                     ))
                                     .slice(0, 2)}
 
-                            {/* <br></br>
+                            <br></br>
+                            <div className="wallPostsGlassOverlay wallPostsGlassOverlay375">
+                                <h1 id="directMessages">
+                                    <small id="uploaderSigns">❮</small>
+                                    &nbsp; Chat Notifications{" "}
+                                    <small id="uploaderSigns">❯</small>
+                                </h1>
+                            </div>
+                            {!chatMessages && (
+                                <div id="noNotificationsTextWrap">
+                                    <p
+                                        className="messageDateTimeDeleteBtnWrap"
+                                        id="notificationsFlex"
+                                    >
+                                        It seems none wrote on the general Chat
+                                        yet..
+                                    </p>
+                                </div>
+                            )}
+                            {chatMessages &&
+                                chatMessages
+                                    .map((chatMessages, index) => (
+                                        <div id="imgLatest" key={index}>
+                                            <div>
+                                                <p
+                                                    className="messageDateTimeDeleteBtnWrap"
+                                                    id="notificationsFlex"
+                                                >
+                                                    <Link
+                                                        to={
+                                                            "/user/" +
+                                                            chatMessages.senderId
+                                                        }
+                                                    >
+                                                        {/* <img
+                                                        className="profile_pic"
+                                                        src={
+                                                            chatMessages.profile_pic
+                                                        }
+                                                        alt={
+                                                            chatMessages.senderName
+                                                        }
+                                                    /> */}
+                                                        {chatMessages.profile_pic ? (
+                                                            <img
+                                                                className="profile_pic visible profPicNotifications profPicNotifications375"
+                                                                src={
+                                                                    chatMessages.profile_pic
+                                                                }
+                                                                alt={
+                                                                    chatMessages.senderName
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <img
+                                                                className="profile_pic visible profPicNotifications profPicNotifications375"
+                                                                src="/img/defaultProfilePic.png"
+                                                                alt="default profile_pic"
+                                                            />
+                                                        )}
+                                                    </Link>
+                                                    {!mediaQuery375px ? (
+                                                        <div className="notificationMessContainer">
+                                                            <b id="messageName">
+                                                                &nbsp;
+                                                                {
+                                                                    chatMessages.senderName
+                                                                }
+                                                                &emsp;
+                                                            </b>{" "}
+                                                            <span>
+                                                                wrote
+                                                                something&nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❮
+                                                                </small>
+                                                                &nbsp;
+                                                                {
+                                                                    chatMessages.createdAtFromNow
+                                                                }
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❯
+                                                                </small>
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="notificationMessContainer">
+                                                            <b
+                                                                id="messageName"
+                                                                className="messageNameNotifications"
+                                                            >
+                                                                &nbsp;
+                                                                {
+                                                                    chatMessages.senderName
+                                                                }
+                                                                &emsp;
+                                                            </b>{" "}
+                                                            <br />
+                                                            <span>
+                                                                wrote
+                                                                something&nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❮
+                                                                </small>
+                                                                &nbsp;
+                                                                {
+                                                                    chatMessages.createdAtFromNow
+                                                                }
+                                                                &nbsp;
+                                                                <small id="uploaderSigns">
+                                                                    ❯
+                                                                </small>
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))
+                                    .reverse()
+                                    .slice(0, 5)}
+                        </div>
+                        <div>
+                            <textarea id="textAreaHidden" rows="1" cols="101" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+{
+    {
+        /* <br></br>
                             <div className="wallPostsGlassOverlay">
                                 <h1 id="directMessages">
                                     <small id="uploaderSigns">❮</small>
@@ -365,103 +539,6 @@ export default function Notification(props) {
                                             </p>
                                         </div>
                                     </div>
-                                )} */}
-
-                            <br></br>
-                            <div className="wallPostsGlassOverlay wallPostsGlassOverlay375">
-                                <h1 id="directMessages">
-                                    <small id="uploaderSigns">❮</small>
-                                    &nbsp; Chat Notifications{" "}
-                                    <small id="uploaderSigns">❯</small>
-                                </h1>
-                            </div>
-                            {!chatMessages && (
-                                <div id="noNotificationsTextWrap">
-                                    <p
-                                        className="messageDateTimeDeleteBtnWrap"
-                                        id="notificationsFlex"
-                                    >
-                                        It seems none wrote on the general Chat
-                                        yet..
-                                    </p>
-                                </div>
-                            )}
-                            {chatMessages &&
-                                chatMessages
-                                    .map((chatMessages, index) => (
-                                        <div id="imgLatest" key={index}>
-                                            <div>
-                                                <p
-                                                    className="messageDateTimeDeleteBtnWrap"
-                                                    id="notificationsFlex"
-                                                >
-                                                    <Link
-                                                        to={
-                                                            "/user/" +
-                                                            chatMessages.senderId
-                                                        }
-                                                    >
-                                                        {/* <img
-                                                        className="profile_pic"
-                                                        src={
-                                                            chatMessages.profile_pic
-                                                        }
-                                                        alt={
-                                                            chatMessages.senderName
-                                                        }
-                                                    /> */}
-                                                        {chatMessages.profile_pic ? (
-                                                            <img
-                                                                className="profile_pic visible"
-                                                                src={
-                                                                    chatMessages.profile_pic
-                                                                }
-                                                                alt={
-                                                                    chatMessages.senderName
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            <img
-                                                                className="profile_pic visible"
-                                                                src="/img/defaultProfilePic.png"
-                                                                alt="default profile_pic"
-                                                            />
-                                                        )}
-                                                    </Link>
-                                                    <b id="messageName">
-                                                        &nbsp;
-                                                        {
-                                                            chatMessages.senderName
-                                                        }
-                                                        &emsp;
-                                                    </b>{" "}
-                                                    <span>
-                                                        wrote something&nbsp;
-                                                        <small id="uploaderSigns">
-                                                            ❮
-                                                        </small>
-                                                        &nbsp;
-                                                        {
-                                                            chatMessages.createdAtFromNow
-                                                        }
-                                                        &nbsp;
-                                                        <small id="uploaderSigns">
-                                                            ❯
-                                                        </small>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))
-                                    .reverse()
-                                    .slice(0, 5)}
-                        </div>
-                        <div>
-                            <textarea id="textAreaHidden" rows="1" cols="101" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+                                )} */
+    }
 }

@@ -11,20 +11,19 @@ export default class Login extends Component {
             //error: false, // => general error
             error: "", // => specific errors
             mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
-            // mediaQuery375px: window.matchMedia("(max-device-width:375px)"), // .matches(t/f)
-            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"), //375px  // .matches(t/f)
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleChange(e) {
-        // console.log("this.state in Login/ handleChange: ", this.state)
+        // console.log("this.state in Login/ handleChange: ", this.state);
         this.setState({
             [e.target.name]: e.target.value,
         });
     }
-    
+
     handleClick() {
         //console.log("Login/ handleClick working!");
         axios
@@ -73,9 +72,11 @@ export default class Login extends Component {
                     <h1
                         id="titles"
                         className={
-                            !this.state.mediaQuery1024px.matches
-                                ? null
-                                : "titleLogin1024"
+                            !this.state.mediaQuery375px.matches
+                                ? !this.state.mediaQuery1024px.matches
+                                    ? null
+                                    : "titleLogin1024"
+                                : "titleLogin375"
                         }
                     >
                         Log in
@@ -102,7 +103,11 @@ export default class Login extends Component {
                     />
                     {/* <button onClick={() => this.handleClick()}>Register</button> */}
                     <div className="loginBtnContainer loginBtnContainerMobile">
-                        <button id="registerBtn" onClick={this.handleClick}>
+                        <button
+                            id="registerBtn"
+                            className="logintBtn"
+                            onClick={this.handleClick}
+                        >
                             Log in
                         </button>
                         <p>

@@ -7,9 +7,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
     const [profileMoreBtn /* , setProfileMoreBtn */] = useState(true);
-    const frontBackCards = document.getElementsByClassName(
-        "frontBackCardsWrap"
-    );
+    const frontBackCards =
+        document.getElementsByClassName("frontBackCardsWrap");
     const frontCard = document.getElementsByClassName("front");
     const frontBtn = document.getElementsByClassName("profileMoreBtnTrue");
     //const bioeditBtn = document.getElementById("bioeditBtn");
@@ -17,8 +16,10 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
     const sideCard1550 = document.getElementsByClassName("side1550");
     //const mirrorCard = document.getElementsByClassName("mirror");
     const backCard = document.getElementsByClassName("back");
+    const backCard1550 = document.getElementsByClassName("back1550");
     const backCard375 = document.getElementsByClassName("back375");
     const sectionProfile = document.getElementsByClassName("sectionProfile");
+    const footerApp = document.getElementsByClassName("glitchFooterApp");
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
     // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
     const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
@@ -54,6 +55,9 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
                 for (let d = 0; d < backCard375.length; d++) {
                     backCard375[d].classList.remove("displayNone");
                 }
+                for (let i = 0; i < footerApp.length; i++) {
+                    footerApp[i].classList.add("displayNone");
+                }
                 //setProfileMoreBtn(false);
             } else if (!mediaQuery1550px) {
                 for (let e = 0; e < backCard.length; e++) {
@@ -81,6 +85,37 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
                 for (let h = 0; h < backCard.length; h++) {
                     backCard[h].classList.remove("invisible");
                 }
+                if (otherProfilePage) {
+                    for (let i = 0; i < backCard1550.length; i++) {
+                        backCard1550[i].classList.add("left5vw");
+                    }
+                    // setTimeout(() => {
+                    //     for (let g = 0; g < backCard.length; g++) {
+                    //         backCard[g].classList.add("marginLeft-150");
+                    //         backCard[g].classList.remove("paddingRight60");
+                    //         backCard[g].classList.remove("zoomInus");
+                    //     }
+                    // }, 725);
+                    setTimeout(() => {
+                        for (let d = 0; d < frontCard.length; d++) {
+                            frontCard[d].classList.add("invisible");
+                        }
+                        for (let g = 0; g < backCard.length; g++) {
+                            backCard[g].classList.remove("opacityClass");
+                        }
+                    }, 700);
+                } else {
+                    setTimeout(() => {
+                        for (let d = 0; d < frontCard.length; d++) {
+                            frontCard[d].classList.add("invisible");
+                        }
+                        for (let g = 0; g < backCard.length; g++) {
+                            // backCard[g].classList.add("mirror");
+                            // backCard[g].classList.add("marginLeft-150");
+                            backCard[g].classList.remove("opacityClass");
+                        }
+                    }, 800);
+                }
                 setTimeout(() => {
                     for (let e = 0; e < sideCard1550.length; e++) {
                         sideCard1550[e].classList.remove("invisible");
@@ -93,16 +128,6 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
                     }
                     //bioeditBtn.classList.add("invisible");
                 }, 725);
-                setTimeout(() => {
-                    for (let d = 0; d < frontCard.length; d++) {
-                        frontCard[d].classList.add("invisible");
-                    }
-                    for (let g = 0; g < backCard.length; g++) {
-                        // backCard[g].classList.add("mirror");
-                        backCard[g].classList.add("marginLeft-150");
-                        backCard[g].classList.remove("invisible");
-                    }
-                }, 800);
             }
         } else {
             if (mediaQuery375px) {
@@ -181,9 +206,8 @@ export const ProfileMoreBtnFront = ({ otherProfilePage }) => {
 };
 
 export const ProfileLessBtnBack = ({ otherProfilePage }) => {
-    const frontBackCards = document.getElementsByClassName(
-        "frontBackCardsWrap"
-    );
+    const frontBackCards =
+        document.getElementsByClassName("frontBackCardsWrap");
     const frontBackCardsWrapOp = document.getElementsByClassName(
         "frontBackCardsWrapOp"
     );
@@ -193,6 +217,7 @@ export const ProfileLessBtnBack = ({ otherProfilePage }) => {
     const bioeditBtn = document.getElementsByClassName("bioeditBtn");
     const sideCard1550 = document.getElementsByClassName("side1550");
     const backCard = document.getElementsByClassName("back");
+    const backCard1550 = document.getElementsByClassName("back1550");
     const backCard375 = document.getElementsByClassName("back375");
     const sectionProfile = document.getElementsByClassName("sectionProfile");
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
@@ -219,15 +244,15 @@ export const ProfileLessBtnBack = ({ otherProfilePage }) => {
                     frontBackCards[b].classList.remove("front-back375");
                 }
             }
-            /* for (let a = 0; a < backCard375.length; a++) {
-                backCard375[a].classList.remove("side375");
-            } */
+            // for (let a = 0; a < backCard375.length; a++) {
+            //     backCard375[a].classList.remove("side375");
+            // }
             for (let z = 0; z < sectionProfile.length; z++) {
                 sectionProfile[z].classList.remove("marginBottomProfileCards");
             }
-            /* for (let b = 0; b < frontBackCards.length; b++) {
-                frontBackCards[b].classList.remove("front-back375");
-            } */
+            // for (let b = 0; b < frontBackCards.length; b++) {
+            //     frontBackCards[b].classList.remove("front-back375");
+            // }
             for (let c = 0; c < frontBtn.length; c++) {
                 frontBtn[c].classList.remove("invisible");
             }
@@ -254,17 +279,29 @@ export const ProfileLessBtnBack = ({ otherProfilePage }) => {
                 frontBackCards[b].classList.remove("front-back1550");
                 // frontBackCards[b].classList.add("paddingRight60");
             }
-            for (let i = 0; i < frontBackCardsWrapOp.length; i++) {
-                frontBackCards[i].classList.add("paddingRight60");
-            }
-            for (let g = 0; g < backCard.length; g++) {
-                backCard[g].classList.remove("marginLeft-150");
-                backCard[g].classList.add("paddingRight60");
-            }
-            // for (let g = 0; g < sideCard1550.length; g++) {
-            //     sideCard1550[g].classList.remove("testMoveContainerLeft");
-            //     sideCard1550[g].classList.add("testMoveContainerRight");
+            // for (let a = 0; a < frontBackCards.length; a++) {
+            //     frontBackCards[a].classList.add("flipCard180-animation");
             // }
+            for (let i = 0; i < frontBackCardsWrapOp.length; i++) {
+                // frontBackCards[i].classList.add("paddingRight60");
+            }
+            if (otherProfilePage) {
+                for (let i = 0; i < backCard1550.length; i++) {
+                    backCard1550[i].classList.remove("left5vw");
+                }
+                // setTimeout(() => {
+                //     for (let g = 0; g < backCard.length; g++) {
+                //         backCard[g].classList.remove("marginLeft-150");
+                //         backCard[g].classList.add("paddingRight60");
+                //         backCard[g].classList.add("zoomInus");
+                //     }
+                // }, 725);
+            }
+            // setTimeout(() => {
+            //     for (let e = 0; e < frontBackCards.length; e++) {
+            //         frontBackCards[e].classList.add("flipCard180-animation2");
+            //     }
+            // }, 300);
             setTimeout(() => {
                 for (let e = 0; e < sideCard1550.length; e++) {
                     sideCard1550[e].classList.add("invisible");

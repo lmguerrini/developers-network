@@ -8,18 +8,22 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function Welcome() {
     //const mediaQuery1024px = useMediaQuery("(min-width:1024px)");
-    const mediaQuery1024px = useMediaQuery("(max-width:1024px)");
+    // const mediaQuery1024px = useMediaQuery("(max-width:1024px)");
+    const mediaQuery1366px = useMediaQuery("(max-width:1366px)"); // 1366px fpr iPad Pro 12.9 (5th gen)
     // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
     const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
     return (
         <>
             <div className="welcomeParentWrapper">
                 <div className="parentContainer">
+                    {mediaQuery375px && <div className="extraOverlay"></div>}
                     <div
                         className={
-                            !mediaQuery1024px
-                                ? "childrenContainer"
-                                : "childrenContainer1024"
+                            !mediaQuery375px
+                                ? !mediaQuery1366px
+                                    ? "childrenContainer"
+                                    : "childrenContainer1024"
+                                : "childrenContainer375"
                         }
                     >
                         {mediaQuery375px && (
@@ -40,19 +44,20 @@ export default function Welcome() {
                         )}
                         <header
                             className={
-                                !mediaQuery1024px
+                                !mediaQuery1366px
                                     ? "headerWelcome"
                                     : "headerWelcome1024"
                             }
                         >
                             {!mediaQuery375px ? (
-                                !mediaQuery1024px ? (
+                                !mediaQuery1366px ? (
                                     <div className="animationConatiner">
                                         <h1>
                                             Welcome to{" "}
                                             {/* <span>
-                                        <small>❮</small>b<small>❯</small>
-                                    </span> */}
+                                                <small>❮</small>b
+                                                <small>❯</small>
+                                            </span> */}
                                             <b
                                                 className="glitchMainTitle"
                                                 data-text="The Developers Network!"
@@ -61,8 +66,9 @@ export default function Welcome() {
                                             </b>
                                             {/* <div>The Developers Network!</div> */}
                                             {/* <span>
-                                        <small>❮</small>/b<small>❯</small>
-                                    </span>{" "} */}
+                                                <small>❮</small>/b
+                                                <small>❯</small>
+                                            </span>{" "} */}
                                             &nbsp;\n
                                         </h1>
                                         {/* <h2>made by developers, for developers</h2> */}
@@ -76,7 +82,7 @@ export default function Welcome() {
                                             <h1>
                                                 <b
                                                     className={
-                                                        !mediaQuery1024px
+                                                        !mediaQuery1366px
                                                             ? "glitchMainTitle"
                                                             : "glitchMainTitle glitchMainTitle1024"
                                                     }
@@ -118,7 +124,7 @@ export default function Welcome() {
                             <div
                                 className={
                                     !mediaQuery375px
-                                        ? !mediaQuery1024px
+                                        ? !mediaQuery1366px
                                             ? "slider-wrapper"
                                             : "slider-wrapper1024"
                                         : "slider-wrapper375"
@@ -153,15 +159,19 @@ export default function Welcome() {
                                     </div>
                                 ) : (
                                     <div className="slider">
+                                        <div className="slider-text0-mobile">
+                                            <p>made</p>
+                                        </div>
                                         <div className="slider-text1-mobile">
                                             <p>
-                                                &nbsp;made <em id="by">by</em>{" "}
+                                                {/* &nbsp;made <br></br><br></br>  */}
+                                                <em id="by375">by</em>{" "}
                                                 developers_&nbsp;
                                             </p>
                                         </div>
-                                        <div className="slider-text2-mobile">
+                                        <div className="slider-text1-mobile slider-text2-mobile">
                                             <p>
-                                                <em id="by">for</em>{" "}
+                                                <em id="by375">for</em>{" "}
                                                 developers_&nbsp;
                                                 <span></span>
                                             </p>
@@ -174,12 +184,12 @@ export default function Welcome() {
                             className="theSocialNetworkLogoBig"
                             src="/img/theSocialNetworkLogo.png"
                             alt="header-App Logo"
-                        /> */}
+                            /> */}
                         </header>
                         {!mediaQuery375px && (
                             <section
                                 className={
-                                    !mediaQuery1024px
+                                    !mediaQuery1366px
                                         ? "matrixCodeContainer matrixCode"
                                         : "matrixCodeContainer1024 matrixCode"
                                 }
@@ -190,7 +200,7 @@ export default function Welcome() {
                         )}
                         <HashRouter>
                             {/* <section className="sectionR-L-RP_Container">
-                    <div className="sectionR-L-RP"> */}
+                            <div className="sectionR-L-RP"> */}
                             <Route exact path="/" component={Registration} />
                             <Route path="/login" component={Login} />
                             <Route
@@ -198,7 +208,7 @@ export default function Welcome() {
                                 component={ResetPassword}
                             />
                             {/* </div>
-                </section> */}
+                            </section> */}
                         </HashRouter>
                     </div>
 
@@ -206,7 +216,7 @@ export default function Welcome() {
                         id="footerWelcome"
                         className={
                             !mediaQuery375px
-                                ? !mediaQuery1024px
+                                ? !mediaQuery1366px
                                     ? "glitchFooter"
                                     : "glitchFooter glitchFooter1024"
                                 : "glitchFooter glitchFooter375"

@@ -103,7 +103,7 @@ export async function postNewPrivateMessage(newPrivateMessage) {
 }
 
 export async function postNewPrivateMessageNotification(newPMNotification) {
-    console.log("Action postNewPrivateMessageNotification!", newPMNotification);
+    // console.log("Action postNewPrivateMessageNotification!", newPMNotification);
 
     return {
         type: "POST_NEW_PRIVATE_MESSAGE_NOTIFICATION",
@@ -337,7 +337,7 @@ export async function postWallPostCommentReply(
 }
 
 export async function deleteCommentReply(replyId) {
-    console.log("Action deleteCommentReply!", replyId);
+    // console.log("Action deleteCommentReply!", replyId);
     const { data } = await axios.post("/comment-reply/delete", {
         replyId,
     });

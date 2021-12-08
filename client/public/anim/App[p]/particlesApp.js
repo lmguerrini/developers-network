@@ -3,19 +3,20 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function ParticlesApp() {
     const mediaQuery1550px = useMediaQuery("(max-width:1550px)");
-    // const mediaQuery375px = useMediaQuery("(max-device-width:375px)");
-    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)"); //375px
+
     return (
         <div
             className={
                 !mediaQuery375px
                     ? !mediaQuery1550px
                         ? "ParticlesApp"
-                        : "ParticlesApp1550"
-                    : "ParticlesApp375"
+                        : "ParticlesApp ParticlesApp1550dark"
+                    : "ParticlesApp375 ParticlesApp375dark"
             }
         >
             <Particles
+                className={mediaQuery1550px ? "ParticlesApp1550" : null}
                 params={{
                     particles: {
                         number: {

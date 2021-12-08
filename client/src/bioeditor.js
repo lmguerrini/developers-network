@@ -10,6 +10,8 @@ export default class BioEditor extends Component {
             draftBio: "", // what user is typing before to submit (onChange)
             bioEditorIsVisible: false,
             error: false,
+            mediaQuery1550px: window.matchMedia("(max-device-width:1550px)"),
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
         this.editBio = this.editBio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -71,7 +73,13 @@ export default class BioEditor extends Component {
                                   {/* <h6>[editMode]</h6> */}
                                   <textarea
                                       name="draftBio"
-                                      rows="10"
+                                      rows={
+                                          !this.state.mediaQuery1550px
+                                              .matches ||
+                                          this.state.mediaQuery375px.matches
+                                              ? "10"
+                                              : "5"
+                                      }
                                       cols="76"
                                       defaultValue={this.props.bio}
                                       onChange={this.handleChange}

@@ -12,6 +12,7 @@ export default class ResetPassword extends Component {
             error: false,
             component: 1,
             mediaQuery1024px: window.matchMedia("(max-width:1024px)"), // .matches(t/f)
+            mediaQuery375px: window.matchMedia("(max-device-width:430px)"),
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleResetPassword = this.handleResetPassword.bind(this);
@@ -73,9 +74,11 @@ export default class ResetPassword extends Component {
                         <h1
                             id="titles"
                             className={
-                                !this.state.mediaQuery1024px.matches
-                                    ? null
-                                    : "titleResetPsw1024"
+                                !this.state.mediaQuery375px.matches
+                                    ? !this.state.mediaQuery1024px.matches
+                                        ? null
+                                        : "titleResetPsw1024"
+                                    : "titleResetPsw375"
                             }
                         >
                             Reset Password
@@ -155,7 +158,7 @@ export default class ResetPassword extends Component {
                                     {/* <button onClick={() => this.handleResetPassword()}>Submit</button> */}
                                     <button
                                         id="registerBtn"
-                                        className="component2btn"
+                                        className="component2btn submitBtn"
                                         onClick={this.handleVerifyPassword}
                                     >
                                         Submit

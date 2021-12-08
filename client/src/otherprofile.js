@@ -50,6 +50,8 @@ export default class OtherProfile extends Component {
     } */
 
     componentDidMount() {
+        this.props.sendDataToParent(true); // App's state profilePage: false
+
         // console.log("OtherProfile/componentDidMount mounted!");
         // console.log(
         //     "OtherProfile/componentDidMount this.props.match.params.id: ",
@@ -86,11 +88,10 @@ export default class OtherProfile extends Component {
                     ); */
                     this.setState({ ...data }, () => {
                         // console.table("OtherProfile this.state: ", this.state);
-                        // console.log(
-                        //     "OP sendDataToParent",
-                        //     this.state.profile_pic
-                        // );
-                        this.props.parentCallback(this.state.profile_pic);
+
+                        this.props.callbackDataFromOP(this.state); // send data to App (parent) for PM (child)
+                        // this.props.parentCallback(this.state.profile_pic);
+                        // this.props.callbackNameFromOPforPM(`${this.state.first} ${this.state.last}`);
                     });
                 } else {
                     //console.log("requestedId == id");
@@ -124,7 +125,13 @@ export default class OtherProfile extends Component {
                         </p>
                     </div> */}
 
-                    <div className="frontBackCardsWrap frontBackCardsWrapOp">
+                    <div
+                        className={
+                            !this.state.mediaQuery375px
+                                ? "frontBackCardsWrap frontBackCardsWrapOp"
+                                : "frontBackCardsWrap "
+                        }
+                    >
                         <div className="front side">
                             <div className="content">
                                 <div className="otherProfileCardContainer">
@@ -167,7 +174,7 @@ export default class OtherProfile extends Component {
                                                                 `${this.state.last}`,
                                                         }}
                                                     >
-                                                        <button className="friendButton">
+                                                        <button className="friendButton friendButtonOp">
                                                             Private Chat
                                                         </button>
                                                     </Link>

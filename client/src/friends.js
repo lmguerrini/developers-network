@@ -9,7 +9,7 @@ import {
     deleteFriendship,
 } from "./actions";
 
-export default function Friends() {
+export default function Friends({ sendDataToParent }) {
     //console.log("Friends component mounted!");
     const dispatch = useDispatch();
 
@@ -32,6 +32,7 @@ export default function Friends() {
         let abort;
         (async () => {
             if (!abort) {
+                sendDataToParent(false); // App's state profilePage: false
                 dispatch(getFriendsWannabesList());
             }
         })();
@@ -67,7 +68,7 @@ export default function Friends() {
                 {/* <h1>FRIENDS COMPONENT</h1> */}
                 {/* {!friends && <h1>TEST</h1>} */}
 
-                <div className="cardContainer">
+                <div className="cardContainer cardContainer375">
                     <div className="card cardFriends375">
                         {friends.length > 0 && (
                             <div className="friendsGlassOverlay">
@@ -110,7 +111,7 @@ export default function Friends() {
                                                 </p>
                                             </Link>
                                             <button
-                                                className="acceptRefuseUnfriendBtn"
+                                                className="acceptRefuseUnfriendBtn unfriendBtn"
                                                 onClick={() =>
                                                     dispatch(
                                                         deleteFriendship(
@@ -138,10 +139,10 @@ export default function Friends() {
                             {wannabes &&
                                 wannabes.map((wannabe) => (
                                     <div key={wannabe.id}>
-                                        <div className="wannabesContainer">
+                                        <div className="imgNameAlign">
                                             <Link to={"/user/" + wannabe.id}>
                                                 <img
-                                                    className="profile_pic profile_picFriends profile_picWannabes"
+                                                    className="profile_pic profile_picFriends"
                                                     src={wannabe.profile_pic}
                                                 />
                                                 <p
@@ -153,37 +154,37 @@ export default function Friends() {
                                                 </p>
                                             </Link>
 
-                                            <div className="acceptBtnWrapper">
-                                                <button
-                                                    className="acceptRefuseUnfriendBtn"
-                                                    id="acceptBtn"
-                                                    onClick={() =>
-                                                        dispatch(
-                                                            acceptFriendshipRequest(
-                                                                wannabe.id
-                                                            )
+                                            {/* <div className="acceptBtnWrapper"> */}
+                                            <button
+                                                className="acceptRefuseUnfriendBtn"
+                                                id="acceptBtn"
+                                                onClick={() =>
+                                                    dispatch(
+                                                        acceptFriendshipRequest(
+                                                            wannabe.id
                                                         )
-                                                    }
-                                                >
-                                                    {BUTTON_TEXT.ACCEPT_REQUEST}
-                                                </button>
-                                            </div>
+                                                    )
+                                                }
+                                            >
+                                                {BUTTON_TEXT.ACCEPT_REQUEST}
+                                            </button>
+                                            {/* </div> */}
 
-                                            <div className="refuseBtnWrapper">
-                                                <button
-                                                    className="acceptRefuseUnfriendBtn"
-                                                    onClick={() =>
-                                                        dispatch(
-                                                            deleteFriendship(
-                                                                wannabe.id
-                                                            )
+                                            {/* <div className="refuseBtnWrapper"> */}
+                                            <button
+                                                className="acceptRefuseUnfriendBtn"
+                                                onClick={() =>
+                                                    dispatch(
+                                                        deleteFriendship(
+                                                            wannabe.id
                                                         )
-                                                    }
-                                                >
-                                                    Refuse Friend Requesst{" "}
-                                                    {/* <p>Friend Request</p> */}
-                                                </button>
-                                            </div>
+                                                    )
+                                                }
+                                            >
+                                                Refuse Friend Request{" "}
+                                                {/* <p>Friend Request</p> */}
+                                            </button>
+                                            {/* </div> */}
                                         </div>
                                     </div>
                                 ))}

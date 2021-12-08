@@ -78,7 +78,7 @@ socket &&
         console.log("data: ", data);
     });
 
-socket.emit("another cool message", ["andrea", "david", "oli"]);
+socket.emit("another message", ["andrea", "david", "oli"]);
 
 ReactDOM.render(<HelloWolrd />, document.querySelector("main"));
 

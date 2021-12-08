@@ -8,7 +8,12 @@ const CLASS_DARK = "darkMode";
 
 export const DarkMode = () => {
     //const [isDark, setIsDark] = useState(true);
+    const matrixCodeAnimation1550 =
+        document.getElementsByClassName("ParticlesApp1550");
+    // const matrixCodeAnimation375 =
+    //     document.getElementsByClassName("ParticlesApp375");
     const handleDarkChange = ({ target }) => {
+        // console.log(target);
         setIsDark(target.checked);
     };
 
@@ -29,18 +34,49 @@ export const DarkMode = () => {
         if (isDark) {
             document.documentElement.classList.add(CLASS_DARK);
             document.getElementById("darkModeContainer").scrollTop = 0;
+            setTimeout(function () {
+                for (let a = 0; a < matrixCodeAnimation1550.length; a++) {
+                    matrixCodeAnimation1550[a].classList.add(
+                        "ParticlesApp1550h"
+                    );
+                }
+            }, 700);
+            // setTimeout(function () {
+            //     for (let a = 0; a < matrixCodeAnimation375.length; a++) {
+            //         matrixCodeAnimation375[a].classList.add("ParticlesApp375h");
+            //     }
+            // }, 700);
         } else {
             document.documentElement.classList.remove(CLASS_DARK);
             document.getElementById("darkModeContainer").scrollTop = 0;
+            setTimeout(function () {
+                for (let a = 0; a < matrixCodeAnimation1550.length; a++) {
+                    matrixCodeAnimation1550[a].classList.remove(
+                        "ParticlesApp1550h"
+                    );
+                }
+            }, 700);
+            // setTimeout(function () {
+            //     for (let a = 0; a < matrixCodeAnimation375.length; a++) {
+            //         matrixCodeAnimation375[a].classList.remove(
+            //             "ParticlesApp375h"
+            //         );
+            //     }
+            // }, 700);
         }
     }, [isDark]);
 
     return (
         <DarkModeToggle
-            /* id="darkMode" */
+            id="darkMode"
+            // className="darkMode375"
+            className={isDark ? "darkMode375isDark" : null}
             checked={isDark}
             onChange={handleDarkChange}
-            icons={{ checked: "☯" }}
+            /* icons={{ checked: "☯" }} */
+            icons={{ checked: "◐", unchecked: null }}
+            // icons={isDark? {checked: "◐"} : {checked: "◑"}}
+            // className={isDark? "darkModeTablet" : "darkModeTablet9"}
         />
     );
 };

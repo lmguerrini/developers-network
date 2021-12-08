@@ -38,7 +38,7 @@ export default function EditProfile({
             {/* <div className="modalUploaderWrapper"> */}
             <div className="uploaderContainer editProfileContainer">
                 {/* <h3>Account Settings</h3> */}
-                <div className=" closeEditProfileX">
+                <div className="closeEditProfileX">
                     <p
                         id="cancelChanges"
                         className="backgroundTransparent test"
@@ -48,7 +48,7 @@ export default function EditProfile({
                     </p>
                 </div>
                 <div id="welcomeBack" className="editProfileTitleDiv">
-                    <p>
+                    <p id="uploadYourProfPicture">
                         <small id="uploaderSigns">❮</small> Edit your profile
                         settings
                         <small id="uploaderSigns"> ❯</small>
@@ -91,6 +91,14 @@ export default function EditProfile({
                     type="password"
                 />
                 <div className="saveCancelContainer">
+                    {/* <Link to="/"> */}
+                    <button
+                        id="cancelChanges"
+                        className="backgroundTransparent"
+                        onClick={toggleModalSettings}
+                    >
+                        ◁◀︎ Back
+                    </button>
                     <button
                         id="saveChanges"
                         className="backgroundTransparent"
@@ -98,19 +106,11 @@ export default function EditProfile({
                     >
                         Save Changes
                     </button>
-                    {/* <Link to="/"> */}
-                    <button
-                        id="cancelChanges"
-                        className="backgroundTransparent"
-                        onClick={toggleModalSettings}
-                    >
-                        Back
-                    </button>
                     {/* </Link> */}
                 </div>
                 {/* </div> */}
                 <div className="logoutDeleteContainer">
-                    <button className="backgroundTransparent">
+                    <button className="backgroundTransparent logoutContainer">
                         <Link
                             to="/logout"
                             className="logoutLink"

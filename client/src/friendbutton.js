@@ -63,9 +63,9 @@ export default function FriendButton({ id }) {
                 recipientId: Number(recipientId),
             })
             .then(({ data }) => {
-                console.log(
-                    "FriendButton POST handleClick: button value updated!)"
-                );
+                // console.log(
+                //     "FriendButton POST handleClick: button value updated!)"
+                // );
                 setButtonText(data.buttonValue);
             })
             .catch((err) => {
@@ -86,19 +86,48 @@ export default function FriendButton({ id }) {
             </div> */}
             <div className="friendButtonContainer">
                 <button className="friendButton" onClick={handleClick}>
-                    {buttonText == "Cancel Friend Request" ||
-                    buttonText == "Unfriend" ? (
-                            <p
-                                style={{
-                                    color: "red",
-                                    fontSize: "1.1em"
-                                }}
-                            >
-                                {buttonText}
-                            </p>
-                        ) : (
-                            buttonText
-                        )}
+                    {buttonText == "Cancel Friend Request" /* || */ ? (
+                        /* buttonText == "Unfriend"  */ <p
+                            style={{
+                                color: "red",
+                                fontSize: "1em",
+                            }}
+                        >
+                            {buttonText}
+                        </p>
+                    ) : buttonText == "Unfriend" ? (
+                        <p
+                            style={{
+                                color: "red",
+                                height: "40px",
+                                paddingTop: "10px",
+                                fontSize: "0.95em",
+                            }}
+                        >
+                            {buttonText}
+                        </p>
+                    ) : buttonText == "Accept Friend Request" ? (
+                        <p
+                            style={{
+                                color: "lime",
+                                height: "50px",
+                                fontSize: "1em",
+                            }}
+                        >
+                            {buttonText}
+                        </p>
+                    ) : (
+                        // buttonText
+                        <p
+                            style={{
+                                height: "40px",
+                                padding: "10px 10px 0 10px",
+                                fontSize: "0.95em",
+                            }}
+                        >
+                            {buttonText}
+                        </p>
+                    )}
                 </button>
             </div>
             <div className="registrationError">

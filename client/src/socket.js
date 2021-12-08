@@ -36,7 +36,7 @@ export const init = (store) => {
         //console.log("Socket new message and user profile!");
         // mostRecenteMessage = {message,id,profile_pic,name,timestamp,}
         // hand over to redux => dispatch an action(->reducer):
-        console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
+        // console.log("socket.js mostRecenteMessage: ", mostRecenteMessage);
         store.dispatch(postNewMessage(mostRecenteMessage)); // "mostRecenteMessage": name of my action creator
     });
 
@@ -72,10 +72,10 @@ export const init = (store) => {
     socket.on(
         "notification delete chat message",
         (notificationDeleteChatMessage) => {
-            console.log(
-                'socket.io "notification delete chat message :',
-                notificationDeleteChatMessage.chatMessageDateTime
-            );
+            // console.log(
+            //     'socket.io "notification delete chat message :',
+            //     notificationDeleteChatMessage.chatMessageDateTime
+            // );
             const pushNotificationText1 = `✅ You have just successfully deleted the Chat Message written`;
             const pushNotificationText2 = ` ${notificationDeleteChatMessage.chatMessageDateTime}, `;
             const senderName = `${notificationDeleteChatMessage.senderName}.`;

@@ -6,14 +6,21 @@ import { Link } from "react-router-dom";
 import OnlineUsers from "./onlineusers";
 //import { deleteMessage } from "./actions";
 import { RiDeleteBinLine } from "react-icons/ri";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-export default function Chat() {
+export default function Chat({ sendDataToParent }) {
     // retrieve chat messages from Redux and render them
     const chatMessages = useSelector((state) => state && state.messages);
     //const dispatch = useDispatch();
+    const mediaQuery1024px = useMediaQuery("(max-device-width:1024px)");
+    const mediaQuery375px = useMediaQuery("(max-device-width:430px)");
+    const matrixCodeAnimation = document.getElementsByClassName("matrixCode");
+    const appParentWrapper =
+        document.getElementsByClassName("appParentWrapper");
     const elemRef = useRef(); // for function
     //this.elemRef = React.createRef(); // for Class
     let message;
+
     // post new message
     const handlekeyDown = (e) => {
         if (e.key === "Enter") {
@@ -40,8 +47,26 @@ export default function Chat() {
 
     useEffect(() => {
         let abort;
+        // let reload = false;
         (async () => {
             if (!abort && elemRef.current) {
+                if (!window.location.hash) {
+                    window.location = window.location + "#reloaded";
+                    window.location.reload();
+                } else {
+                    if (!mediaQuery1024px) {
+                        for (let a = 0; a < matrixCodeAnimation.length; a++) {
+                            matrixCodeAnimation[a].classList.add(
+                                "matrixCodeVisible"
+                            );
+                        }
+                        for (let b = 0; b < appParentWrapper.length; b++) {
+                            appParentWrapper[b].classList.add(
+                                "appParentWrapperVisible"
+                            );
+                        }
+                    }
+                }
                 // "scrollIntoView" shouldn't happen until "elemRef" exists
                 elemRef.current.scrollIntoView({
                     block: "end",
@@ -50,7 +75,8 @@ export default function Chat() {
                 });
 
                 setTimeout(function () {
-                    console.log("window.scrollY--: ", window.scrollY);
+                    sendDataToParent(false); // App's state profilePage: false
+                    // console.log("window.scrollY--: ", window.scrollY);
                     if (window.scrollY > 0) {
                         window.scroll({
                             top: 0,
@@ -58,6 +84,7 @@ export default function Chat() {
                             behavior: "smooth",
                         });
                     }
+                    // console.log("window.location.hash :", window.location.hash);
                 }, 1500);
             }
         })();
@@ -80,9 +107,13 @@ export default function Chat() {
                 </p>
             </div> */}
             {/* <h1>Chat Room</h1> */}
-            <div className="sectionWrapper">
-                <div className="cardContainer" /* ref={elemRef} */>
-                    <div className="cardChat cardFriends375">
+            <div className="sectionWrapper sectionChatWrapper">
+                <div
+                    className="cardContainer cardContainer375" /* ref={elemRef} */
+                >
+                    <div className="cardChat  cardChat375">
+                        {" "}
+                        {/* cardFriends375 */}
                         <OnlineUsers></OnlineUsers>
                         <div className="chatHistoryContainer">
                             <div id="generalChatPaddingTop"></div>
@@ -169,9 +200,10 @@ export default function Chat() {
                                                         socket.emit(
                                                             "delete chat message",
                                                             {
-                                                                chatMessageId: Number(
-                                                                    message.chatMessageId
-                                                                ),
+                                                                chatMessageId:
+                                                                    Number(
+                                                                        message.chatMessageId
+                                                                    ),
                                                                 chatMessageDateTime:
                                                                     message.chatMessageDateTime,
                                                             }
@@ -233,7 +265,13 @@ export default function Chat() {
                             <textarea
                                 id="chatTextarea"
                                 rows="3"
-                                cols="93"
+                                cols={
+                                    !mediaQuery375px
+                                        ? !mediaQuery1024px
+                                            ? "93"
+                                            : "110"
+                                        : "60"
+                                }
                                 placeholder="Enter your message here.."
                                 onKeyDown={handlekeyDown}
                             />
