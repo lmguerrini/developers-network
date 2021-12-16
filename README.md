@@ -115,16 +115,20 @@ Now you should be ready to dive into DN at http://localhost:3000
 
 ![](/client/public/git/desktop/welcome/registrationSpecificErrors.gif) &emsp;
 ![](/client/public/git/desktop/welcome/loginSpecificErrors.gif) &emsp;
+
+### Reset password w/ AWS SES
+
 ![](/client/public/git/desktop/welcome/resetPswGeneralError.gif)
 
 ### App dark mode slide animation
 
 ![](/client/public/git/desktop/app/profile/darkModeSlideAnimation.gif)
 
-### Reactive background animation (w/ mouse move and clicking) and logo animation detail
+### Reactive background animation (w/ mouse move and clicking) detail
 
-![](/client/public/git/desktop/app/profile/backgroundAnimationReactionMouseMoveAndClicking.gif) &emsp;&emsp;&emsp;
-![](/client/public/git/desktop/app/profile/logoAnimation.gif)
+![](/client/public/git/desktop/app/profile/backgroundAnimationReactionMouseMoveAndClicking.gif)
+
+<!-- ![](/client/public/git/desktop/app/profile/logoAnimation.gif) -->
 
 ### Profile card edit intro and extra infos w/ animation
 
@@ -180,22 +184,26 @@ Now you should be ready to dive into DN at http://localhost:3000
 
 ![](/client/public/git/tablet/welcome/tabletWelcome.gif)
 
-### Tablet app preview
+### Tablet profile page
 
 ![](/client/public/git/tablet/app/tabletProfile.gif)
+
+### Tablet app preview
+
 ![](/client/public/git/tablet/app/tabletAppPreview.gif)
 
 ### Mobile welcome optimization
 
-![](/client/public/git/mobile/welcome/mobileWelcome.gif)
-![](/client/public/git/mobile/welcome/mobileWelcomeA.gif)
+![](/client/public/git/mobile/welcome/mobileWelcome.gif) <br />
+![](/client/public/git/mobile/welcome/mobileWelcomeA.gif) &emsp;
 ![](/client/public/git/mobile/welcome/mobileWelcomeL.gif)
 
-### Mobile profile page
+### Mobile menu bar and dark mode
 
 ![](/client/public/git/mobile/app/mobileReverse.gif)
-![](/client/public/git/mobile/app/mobileMenu.gif)
 ![](/client/public/git/mobile/app/mobileB.gif)
+
+<!-- ![](/client/public/git/mobile/app/mobileMenu.gif) -->
 
 ### Mobile app preview
 
@@ -203,4 +211,4 @@ Now you should be ready to dive into DN at http://localhost:3000
 ![](/client/public/git/mobile/app/mobileAppPreview.gif)
 <br /> <br />
 
-## [Go back](#dn---the-developers-network) or demo it yourself at https://the-developers-network.herokuapp.com
+#### [Go back](#dn---the-developers-network) or demo it yourself at https://the-developers-network.herokuapp.com
