@@ -206,7 +206,7 @@ export default function Notification(props) {
                                 ) : (
                                     <p
                                         className="messageDateTimeDeleteBtnWrap youHaveFRWrap"
-                                        id="notificationsFlex"
+                                        id="noNotificationsTextWrap"
                                     >
                                         <span>
                                             You have &nbsp;
