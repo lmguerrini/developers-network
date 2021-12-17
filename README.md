@@ -5,8 +5,8 @@
 # The Developers Network
 
 A social network made for developers as a final project during the Full-Stack Web Developer Bootcamp at [Spiced Academy](https://www.spiced-academy.com/en/program/full-stack-web-development/berlin) in Berlin. <br />
-In a world increasingly populated by social media, I noticed the lack of one made specifically for developers. From this observation the idea was born to develop one that summarizes on the one hand the typical needs of a developer (such as having the ability to share formatted code in the chat) and on the other the more common ones of other social networks (such as add photos on your wall and be able to comment on them), which can thus complete a developer's profile, going beyond the mere professional sphere. <br />
-Thus **DN**™️ was born: the developers network made by devolpers for developers.
+In a world increasingly populated by social media, I noticed the lack of one made specifically for developers. From this observation the idea was born to develop one that summarizes on the one hand the typical needs of a developer (such as having the ability to share formatted code in the chat) and on the other the more common ones of other social networks (such as add photos on your wall and be able to comment on them), which can hence complete a developer's profile, going beyond the mere professional sphere. <br />
+Thus **DN** was born: the developers network made by devolpers for developers.
 
 ## Overview
 
