@@ -4,7 +4,7 @@
 
 # The Developers Network
 
-A social network made for developers as a final project during the Full-Stack Web Developer Bootcamp at [Spiced Academy](https://github.com/spicedacademy) in Berlin. <br />
+A social network made for developers as a final project during the Full-Stack Web Developer Bootcamp at [Spiced Academy](https://www.spiced-academy.com/en/program/full-stack-web-development/berlin) in Berlin. <br />
 In a world increasingly populated by social media, I noticed the lack of one made specifically for developers. From this observation the idea was born to develop one that summarizes on the one hand the typical needs of a developer (such as having the ability to share formatted code in the chat) and on the other the more common ones of other social networks (such as add photos on your wall and be able to comment on them), which can thus complete a developer's profile, going beyond the mere professional sphere. <br />
 Thus **DN**™️ was born: the developers network made by devolpers for developers.
 
@@ -14,6 +14,7 @@ Thus **DN**™️ was born: the developers network made by devolpers for develop
 -   [Setup](#setup)
 -   [Structure & features](#structure--features)
 -   [Preview](#preview)
+-   [Demo](#demo)
 
 ## Technologies
 
@@ -198,9 +199,10 @@ Now you should be ready to dive into DN at http://localhost:3000
 
 ### Mobile welcome optimization
 
-![](/client/public/git/mobile/welcome/mobileWelcome.gif) <br />
-![](/client/public/git/mobile/welcome/mobileWelcomeA.gif) &emsp;
-![](/client/public/git/mobile/welcome/mobileWelcomeL.gif)
+![](/client/public/git/mobile/welcome/mobileWelcome.gif) &emsp;
+![](/client/public/git/mobile/welcome/mobileWelcomeA.gif)
+
+<!-- ![](/client/public/git/mobile/welcome/mobileWelcomeL.gif) -->
 
 ### Mobile menu bar and dark mode
 
@@ -215,4 +217,10 @@ Now you should be ready to dive into DN at http://localhost:3000
 ![](/client/public/git/mobile/app/mobileAppPreview.gif)
 <br /> <br />
 
-#### [Go back](#dn---the-developers-network) or demo it yourself at https://the-developers-network.herokuapp.com
+## Demo
+
+Experience it yourself at https://the-developers-network.herokuapp.com
+
+---
+
+▷▶︎ [**DN™**](#the-developers-network) ◀︎◁
