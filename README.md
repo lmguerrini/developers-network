@@ -223,4 +223,4 @@ Experience it yourself at https://the-developers-network.herokuapp.com
 
 ---
 
-▷▶︎ [**DN™**](#the-developers-network) ◀︎◁
+[**DN™**](#the-developers-network)
